@@ -9,17 +9,18 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var dutInfo: DUTInfo!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        dutInfo = DUTInfo()
+        dutInfo.studentNumber = "学号"
+        dutInfo.teachPassword = "教务处密码"
+        dutInfo.portalPassword = "校园门户密码"
+        dutInfo.scheduleInfo()
+        dutInfo.gradeInfo()
+        dutInfo.ecardInfo()
+        dutInfo.netInfo()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
