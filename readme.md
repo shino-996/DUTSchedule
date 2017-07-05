@@ -25,3 +25,7 @@
 - 校园门户密码
 
     默认也是身份证号后6位
+
+# 使用方法
+
+都在ViewController里的viewDidLoad方法里写了，输出只是print输出，这坑得慢慢填……
