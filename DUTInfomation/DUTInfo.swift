@@ -17,6 +17,10 @@ class DUTInfo: NSObject {
     var teachPassword: String!
     //校园门户密码，默认为身份证号后6位
     var portalPassword: String!
+    
+    var netCost: String!
+    var netFlow: String!
+    var ecardCost: String!
 }
 
 //干TM的GBK编码
@@ -195,14 +199,16 @@ extension DUTInfo {
                     .children[0].stringValue
         print("玉兰卡余额：" + ecardMoney! + "元")
         print("电子支付账户余额：" + eMoney! + "元")
+        ecardCost = ecardMoney! + "元"
     }
     
-    func ecardInfo() {
+    func ecardInfo(handle: @escaping (Void) -> Void) {
         firstly(execute: getLoginPortalURL)
             .then(execute: gotoPortal)
             .then(execute: getEcardURL)
             .then(execute: gotoEcardPage)
             .then(execute: getEcardInfo)
+            .then(execute: handle)
             .catch { error in
                 print(error)
         }
@@ -385,6 +391,7 @@ extension DUTInfo {
         //已使用
         let expenditure = subDictionary["expenditure"] as! Double
         print("余额为：\(balance)元")
+        netCost = "\(balance)元"
         print("已使用： \(expenditure)元")
         //再取得ID用于下一步的其他查询
         let idDictionary = parseArray[0] as! [String: Any]
@@ -436,9 +443,10 @@ extension DUTInfo {
         let subDictionary = array[0] as! [String: Any]
         let remainFreeFlow = subDictionary["remainFreeFlow"] as! Double
         print("剩余流量：\(remainFreeFlow)MB")
+        netFlow = "\(Int(remainFreeFlow))MB"
     }
     
-    func netInfo() {
+    func netInfo(handle: @escaping (Void) -> Void) {
         firstly(execute: gotoNetPage)
             .then(execute: getNetID)
             .then(execute: requestNetMoney)
@@ -447,6 +455,7 @@ extension DUTInfo {
             .then(execute: getNetIp)
             .then(execute: requestNetFlow)
             .then(execute: getNetFlow)
+            .then(execute: handle)
             .catch { error in
                 print(error)
             }
