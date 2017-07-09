@@ -80,11 +80,17 @@
                                     <action selector="freshInfo" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="TII-fq-P0d"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cOr-hr-XxE">
+                                <rect key="frame" x="141.5" y="32" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="ed4-Po-66I" firstAttribute="leading" secondItem="PRH-ED-GdK" secondAttribute="leading" id="Bb1-fi-0l9"/>
                             <constraint firstItem="Qyv-TG-bZk" firstAttribute="leading" secondItem="PRH-ED-GdK" secondAttribute="leading" id="Fla-vE-4kX"/>
                             <constraint firstItem="ed4-Po-66I" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" multiplier="1.5" id="GC5-wH-Yx9"/>
+                            <constraint firstItem="cOr-hr-XxE" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="RTc-uJ-GhW"/>
+                            <constraint firstItem="cOr-hr-XxE" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="S0q-6J-siq"/>
                             <constraint firstItem="PRH-ED-GdK" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="ZFi-Ff-2gZ"/>
                             <constraint firstItem="Qyv-TG-bZk" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" multiplier="0.5" id="e0g-Dy-lbe"/>
                             <constraint firstItem="djz-eq-TVc" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="iv8-em-tgy"/>
@@ -101,6 +107,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="100"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="cOr-hr-XxE" id="5kf-QR-EsG"/>
                         <outlet property="ecardCostLabel" destination="pSx-z4-fVq" id="c6i-CX-HQ0"/>
                         <outlet property="netCostLabel" destination="mX5-T5-V8s" id="3mi-Tt-bVR"/>
                         <outlet property="netFlowLabel" destination="DcX-ru-HYn" id="8ca-pj-frI"/>
