@@ -7,12 +7,44 @@
 		<key>DUTInfomation.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>DUTInformationToday.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>DutInfoKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>B4ADA1201F1215DC00776D2C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B4B70E7A1F0A211800174471</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B4CB3FD81F1209FE0059591C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B4CB3FF01F120E860059591C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B4CB40031F1211B90059591C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

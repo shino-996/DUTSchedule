@@ -7,3 +7,11 @@ target 'DUTInfomation' do
   pod "PromiseKit"
   pod "Fuzi"
 end
+
+target 'DUTInformationToday' do
+  use_frameworks!
+  swift_version = "3.0"
+
+  pod "PromiseKit"
+  pod "Fuzi"
+end
