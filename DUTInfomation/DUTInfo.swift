@@ -248,14 +248,13 @@ extension DUTInfo {
     
     func ecardInfo(handle: @escaping (Void) -> Void) {
         firstly(execute: getLoginPortalURL)
-            .then(execute: gotoPortal)
-            .then(execute: getEcardURL)
-            .then(execute: gotoEcardPage)
-            .then(execute: getEcardInfo)
-            .then(execute: handle)
-            .catch { error in
-                print(error)
-        }
+        .then(execute: gotoPortalPage)
+        .then(execute: portalLoginVerify)
+        .then(execute: getEcardURL)
+        .then(execute: gotoEcardPage)
+        .then(execute: getEcardInfo)
+        .then(execute: handle)
+        .catch(execute: portalErrorHandle)
     }
 
     //课程表信息
@@ -465,18 +464,25 @@ extension DUTInfo {
         netFlow = "\(Int(remainFreeFlow))MB"
     }
     
+    private func netErrorHandle(_ error: Error) {
+        if let error = error as? DUTError {
+            if error == .authError {
+                print("校园网用户名或密码错误！")
+            }
+        } else {
+            print(error)
+        }
+    }
+    
     func netInfo(handle: @escaping (Void) -> Void) {
         firstly(execute: gotoNetPage)
-            .then(execute: getNetID)
-            .then(execute: requestNetMoney)
-            .then(execute: getNetMoney)
-            .then(execute: requestNetIP)
-            .then(execute: getNetIp)
-            .then(execute: requestNetFlow)
-            .then(execute: getNetFlow)
-            .then(execute: handle)
-            .catch { error in
-                print(error)
-            }
+        .then(execute: netLoginVerify)
+        .then(execute: getNetID)
+        .then(execute: requestNetMoney)
+        .then(execute: getNetMoney)
+        .then(execute: requestNetFlow)
+        .then(execute: getNetFlow)
+        .then(execute: handle)
+        .catch(execute: netErrorHandle)
     }
 }
