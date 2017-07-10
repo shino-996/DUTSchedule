@@ -339,6 +339,7 @@ extension DUTInfo {
 //校园网信息，只能在校园网环境下访问
 //http://tulip.dlut.edu.cn
 extension DUTInfo {
+    //发送登录表求
     fileprivate func gotoNetPage() -> URLDataPromise {
         //需要在URL中加入时间戳参数
         let timeInterval = Date().timeIntervalSince1970
@@ -352,10 +353,14 @@ extension DUTInfo {
         return URLSession.shared.dataTask(with: request)
     }
     
-    fileprivate func getNetID(_ data: Data) -> Promise<String> {
+    //解析出账号ID
+    fileprivate func getNetID(_ data: Data) throws -> Promise<String> {
         //返回数据为json格式，解析后是一个字典
         let parseDic = try! JSONSerialization.jsonObject(with: data, options: .mutableContainers)
                         as! [String: Any]
+        if parseDic["error"] != nil {
+            throw URLError(.userCancelledAuthentication)
+        }
         let array = parseDic["result"] as! [Any]
         let dictionary = array[0] as! [String: Any]
         //从一层一层的字典里取到用户的ID，用于之后的查询
@@ -363,6 +368,7 @@ extension DUTInfo {
         return Promise(value: "\(id)")
     }
     
+    //发出查询余额请求
     fileprivate func requestNetMoney(_ id: String) -> URLDataPromise {
         let timeInterval = Date().timeIntervalSince1970
         let urlStr = "http://tulip.dlut.edu.cn/rpc?tm=\(Int(timeInterval))"
@@ -370,53 +376,26 @@ extension DUTInfo {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "[{\"jsonrpc\":\"2.0\",\"method\":\"/asset/asset/getById\",\"id\":\"1\",\"params\":[\"User\",\(id)]},{\"jsonrpc\":\"2.0\",\"method\":\"/user/charge/getChargeInfo\",\"id\":\"2\",\"params\":[\(id)]}]".data(using: .utf8)
+        request.httpBody = "{\"jsonrpc\": \"2.0\", \"method\": \"/user/charge/getChargeInfo\", \"id\": 2, \"params\": [\(id)]}".data(using: .utf8)
         return URLSession.shared.dataTask(with: request)
     }
     
-    fileprivate func getNetMoney(_ data: Data) -> Promise<String> {
-        let parseArray = try! JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                          as! [Any]
+    //解析出余额
+    fileprivate func getNetMoney(_ data: Data) {
+        let parseDictionary = try! JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+                              as! [String: Any]
         //先取得余额和已使用金额用于输出
-        let dictionary = parseArray[1] as! [String: Any]
-        let subDictionary = dictionary["result"] as! [String: Any]
+        let dictionary = parseDictionary["result"] as! [String: Any]
         //余额
-        let balance = subDictionary["balance"] as! Double
+        let balance = dictionary["balance"] as! Double
         //已使用
-        let expenditure = subDictionary["expenditure"] as! Double
+        let expenditure = dictionary["expenditure"] as! Double
         print("余额为：\(balance)元")
         print("已使用： \(expenditure)元")
-        //再取得ID用于下一步的其他查询
-        let idDictionary = parseArray[0] as! [String: Any]
-        let idSubDictionary = idDictionary["result"] as! [String: Any]
-        let id = idSubDictionary["ID"] as! Int
-        return Promise(value: "\(id)")
     }
     
-    fileprivate func requestNetIP(_ id: String) -> URLDataPromise {
-        let timeInterval = Date().timeIntervalSince1970
-        let urlStr = "http://tulip.dlut.edu.cn/rpc?tm=\(Int(timeInterval))"
-        let url = URL(string: urlStr)!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"jsonrpc\":\"2.0\",\"method\":\"/user/service/list\",\"id\":\"1\",\"params\":[\"StaticNetwork\",\"\(id)\",{}]}".data(using: .utf8)
-        return URLSession.shared.dataTask(with: request)
-    }
-    
-    fileprivate func getNetIp(_ data: Data) -> Promise<String> {
-        let pharseDic = try! JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-            as! [String: Any]
-        let array = pharseDic["result"] as! [Any]
-        let dictionary = array[0] as! [String: Any]
-        let mac = dictionary["MAC"] as! String
-        let ip = dictionary["IP"] as! String
-        print("IP为：" + ip)
-        print("MAC为：" + mac)
-        return Promise(value: ip)
-    }
-    
-    fileprivate func requestNetFlow(_ ip: String) -> URLDataPromise {
+    //发送取得剩余流量请求
+    fileprivate func requestNetFlow() -> URLDataPromise {
         let timeInterval = Date().timeIntervalSince1970
         let urlStr = "http://tulip.dlut.edu.cn/rpc?tm=\(Int(timeInterval))"
         let url = URL(string: urlStr)!
@@ -424,7 +403,7 @@ extension DUTInfo {
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         //"\\u670d\\u52a1"为"余额"两字，已转为HTTP格式的转义字符
-        request.httpBody = "{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/network/dayFlowRecords\",\"params\":[{\"pageIndex\":\"1\",\"pageSize\":\"10\",\"filter\":{\"fromDate\":\"2017-07-01 00:00:00\",\"toDate\":\"2017-07-31 23:59:59\",\"accountId\":\"\(studentNumber!)\",\"businessInstanceName\":\"\(ip)\",\"businessTypeName\":\"IP\\u670d\\u52a1\"}}],\"id\":\"1\"}".data(using: .utf8)
+        request.httpBody = "{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/network/dayFlowRecords\",\"params\":[{\"pageIndex\":1,\"pageSize\":10,\"filter\":{\"fromDate\":\"2017-07-01 00:00:00\",\"toDate\":\"2017-07-31 23:59:59\",\"accountId\":\"\(studentNumber!)\",\"businessInstanceName\":\"\(studentNumber!)\",\"businessTypeName\":\"\\u4e0a\\u7f51\\u670d\\u52a1\"}}],\"id\":1}".data(using: .utf8)
         return URLSession.shared.dataTask(with: request)
     }
     
@@ -438,17 +417,23 @@ extension DUTInfo {
         print("剩余流量：\(remainFreeFlow)MB")
     }
     
+    fileprivate func errorHandle(_ error: Error) {
+        if let urlError = error as? URLError {
+            if urlError.code == URLError.userCancelledAuthentication {
+                print("账户或密码错误！")
+            }
+        } else {
+            print(error)
+        }
+    }
+    
     func netInfo() {
         firstly(execute: gotoNetPage)
             .then(execute: getNetID)
             .then(execute: requestNetMoney)
             .then(execute: getNetMoney)
-            .then(execute: requestNetIP)
-            .then(execute: getNetIp)
             .then(execute: requestNetFlow)
             .then(execute: getNetFlow)
-            .catch { error in
-                print(error)
-            }
+            .catch(execute: errorHandle)
     }
 }
