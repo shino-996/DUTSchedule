@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B444693E1F160AA000B7C9F5 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = B444693C1F160AA000B7C9F5 /* SimplePing.m */; };
 		B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E7E1F0A211800174471 /* AppDelegate.swift */; };
 		B4B70E811F0A211800174471 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E801F0A211800174471 /* ViewController.swift */; };
 		B4B70E841F0A211800174471 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E821F0A211800174471 /* Main.storyboard */; };
@@ -19,6 +20,9 @@
 /* Begin PBXFileReference section */
 		89DEC4F407A4E6B10D2EDF87 /* Pods-DUTInfomation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfomation.release.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation.release.xcconfig"; sourceTree = "<group>"; };
 		A2C577CF4047CFE0F0EA4929 /* Pods-DUTInfomation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfomation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation.debug.xcconfig"; sourceTree = "<group>"; };
+		B444693B1F160AA000B7C9F5 /* DUTInfomation-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DUTInfomation-Bridging-Header.h"; sourceTree = "<group>"; };
+		B444693C1F160AA000B7C9F5 /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimplePing.m; path = ../../../Downloads/SimplePing/Common/SimplePing.m; sourceTree = "<group>"; };
+		B444693D1F160AA000B7C9F5 /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimplePing.h; path = ../../../Downloads/SimplePing/Common/SimplePing.h; sourceTree = "<group>"; };
 		B4B70E7B1F0A211800174471 /* DUTInfomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DUTInfomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4B70E7E1F0A211800174471 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4B70E801F0A211800174471 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +63,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		B444693F1F160AAE00B7C9F5 /* Ping */ = {
+			isa = PBXGroup;
+			children = (
+				B444693C1F160AA000B7C9F5 /* SimplePing.m */,
+				B444693D1F160AA000B7C9F5 /* SimplePing.h */,
+				B444693B1F160AA000B7C9F5 /* DUTInfomation-Bridging-Header.h */,
+			);
+			name = Ping;
+			sourceTree = "<group>";
+		};
 		B4B70E721F0A211800174471 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +94,7 @@
 		B4B70E7D1F0A211800174471 /* DUTInfomation */ = {
 			isa = PBXGroup;
 			children = (
+				B444693F1F160AAE00B7C9F5 /* Ping */,
 				B4B70E7E1F0A211800174471 /* AppDelegate.swift */,
 				B4B70E801F0A211800174471 /* ViewController.swift */,
 				B4B70E901F0A25A500174471 /* DUTInfo.swift */,
@@ -127,6 +142,7 @@
 					B4B70E7A1F0A211800174471 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = R374EG3MSW;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -218,6 +234,7 @@
 				B4B70E811F0A211800174471 /* ViewController.swift in Sources */,
 				B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */,
 				B4B70E911F0A25A500174471 /* DUTInfo.swift in Sources */,
+				B444693E1F160AA000B7C9F5 /* SimplePing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,12 +358,15 @@
 			baseConfigurationReference = A2C577CF4047CFE0F0EA4929 /* Pods-DUTInfomation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = R374EG3MSW;
 				INFOPLIST_FILE = DUTInfomation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DUTInfomation/DUTInfomation-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -357,12 +377,14 @@
 			baseConfigurationReference = 89DEC4F407A4E6B10D2EDF87 /* Pods-DUTInfomation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = R374EG3MSW;
 				INFOPLIST_FILE = DUTInfomation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DUTInfomation/DUTInfomation-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

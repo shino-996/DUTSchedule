@@ -21,10 +21,24 @@ class DUTInfo: NSObject {
 
 //可能会遇到的错误类型
 enum DUTError: Error {
+    //登录失败
     case authError
+    //不是校园网环境
+    case notDutNet
 }
 
 //干TM的GBK编码
+extension Data {
+    var string: String {
+        if let string = String(data: self, encoding: .utf8) {
+            return string
+        }
+        let cfEncoding = CFStringEncodings.GB_18030_2000
+        let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEncoding.rawValue))
+        return NSString(data: self, encoding: encoding)! as String
+    }
+}
+
 extension DUTInfo {
     fileprivate func utf8String(fromGBKData data: Data) -> String {
         let cfEncoding = CFStringEncodings.GB_18030_2000
@@ -48,7 +62,8 @@ extension DUTInfo {
     
     //验证是否登录成功
     private func teachLoginVerify(_ data: Data) throws {
-        let requestStr = utf8String(fromGBKData: data)
+//        let requestStr = utf8String(fromGBKData: data)
+        let requestStr = data.string
         let parseStr = try! HTMLDocument(string: requestStr)
         let verifyStr = parseStr.title
         if verifyStr! != "学分制综合教务" {
@@ -82,8 +97,8 @@ extension DUTInfo {
     
     //解析出各科成绩
     private func getGrade(_ data: Data) {
-        let requestString = utf8String(fromGBKData: data)
-        let pharseString = try! HTMLDocument(string: requestString)
+        let requestStr = data.string
+        let pharseString = try! HTMLDocument(string: requestStr)
         //找到分数所在的标签
         let grades = pharseString.body?
                     .children[0].children[3].children[0].children[0]
@@ -120,16 +135,10 @@ extension DUTInfo {
         return URLSession.shared.dataTask(with: request)
     }
     
-    private func testPrint(_ data: Data) {
-        let str = utf8String(fromGBKData: data)
-        print(str)
-    }
-    
     func testInfo() {
         firstly(execute: gotoTeachPage)
         .then(execute: teachLoginVerify)
         .then(execute: gotoTestPage)
-        .then(execute: testPrint)
         .catch(execute: teachErrorHandle)
     }
 }
@@ -148,7 +157,7 @@ extension DUTInfo {
     
     //获取登录用的"lt"字符串，之后登录
     private func gotoPortalPage(_ data: Data) -> URLDataPromise {
-        let requestStr = utf8String(fromGBKData: data)
+        let requestStr = data.string
         let pharseStr = try! HTMLDocument(string: requestStr)
         let ltID = pharseStr.body?
                 .children[0].children[5].children[0].children[0]
@@ -164,7 +173,7 @@ extension DUTInfo {
     
     //验证是否登录成功，重载函数是因为后面有的功能不需要主页的HTMl
     private func portalLoginVerify(_ data: Data) throws {
-        let requestStr = utf8String(fromGBKData: data)
+        let requestStr = data.string
         let parseStr = try! HTMLDocument(string: requestStr)
         let verifyElem = parseStr.body?
             .children[0].tag
@@ -174,7 +183,7 @@ extension DUTInfo {
     }
     
     private func portalLoginVerify(_ data: Data) throws -> Promise<HTMLDocument> {
-        let requestStr = utf8String(fromGBKData: data)
+        let requestStr = data.string
         let parseStr = try! HTMLDocument(string: requestStr)
         let verifyElem = parseStr.body?
             .children[0].tag
@@ -220,7 +229,7 @@ extension DUTInfo {
     
     //这个页面要跳转一下……
     private func gotoEcardPage(_ data: Data) -> URLDataPromise {
-        let requestStr = utf8String(fromGBKData: data)
+        let requestStr = data.string
         let parseStr = try! HTMLDocument(string: requestStr)
         let urlStr = parseStr.body?
                     .children[0].children[0].children[0].attr("href")
@@ -230,7 +239,8 @@ extension DUTInfo {
     }
     
     private func getEcardInfo(_ data: Data) {
-        let parseStr = try! HTMLDocument(data: data)
+        let requestStr = data.string
+        let parseStr = try! HTMLDocument(string: requestStr)
         let ecardMoney = parseStr.body?
                         .children[0].children[0].children[2].children[0]
                         .children[0].stringValue
@@ -255,7 +265,8 @@ extension DUTInfo {
     //之所以要一个个界面跳转是因为URL中TM中有上一个界面中的标识ID
     //前往“个人信息"界面
     private func gotoMyInfoPage(_ data: Data) -> URLDataPromise {
-        let parseStr = try! HTMLDocument(data: data)
+        let requestStr = data.string
+        let parseStr = try! HTMLDocument(string: requestStr)
         let urlStr = parseStr.body?
                     .children[0].children[23].children[0].children[0]
                     .children[0].children[0].children[0].children[0]
@@ -267,7 +278,8 @@ extension DUTInfo {
     
     //准备前往"我的教务信息界面"，相当于点了一下"我的教务信息"按钮
     private func clickMyTeachButton(_ data: Data) -> URLDataPromise {
-        let parseStr = try! HTMLDocument(data: data)
+        let requestStr = data.string
+        let parseStr = try! HTMLDocument(string: requestStr)
         let urlStr = parseStr.body?
                     .children[0].children[23].children[1].children[0]
                     .children[0].children[0].children[0].children[2]
@@ -280,7 +292,8 @@ extension DUTInfo {
     
     //"我的教务信息界面要进行一次跳转……"
     private func getMyTeachURL(_ data: Data) -> URLDataPromise {
-        let parseStr = try! HTMLDocument(data: data)
+        let requestStr = data.string
+        let parseStr = try! HTMLDocument(string: requestStr)
         let str = parseStr.body?
                   .children[0].children[23].children[1].children[0]
                   .children[2].children[0].children[0].children[0]
@@ -293,7 +306,7 @@ extension DUTInfo {
     
     //总算进来了
     private func gotoMyTeachPage(_ data: Data) -> URLDataPromise {
-        let requestStr = utf8String(fromGBKData: data)
+        let requestStr = data.string
         let parseStr = try! HTMLDocument(string: requestStr)
         let urlStr = parseStr.body?
                     .children[0].children[0].children[0].attr("href")
@@ -304,7 +317,8 @@ extension DUTInfo {
     
     //前往课程表界面
     private func gotoMySchedulePage(_ data: Data) -> URLDataPromise {
-        let parseStr = try! HTMLDocument(data: data)
+        let requestStr = data.string
+        let parseStr = try! HTMLDocument(string: requestStr)
         //POST取得课程表需要用到的reportid参数
         /*在这个HTML中以
         <a href="javascript:viewFile('1','47d68ba0-3d68-4832-a93c-2c9861396a75','本科生个人课程信息查询')">本科生个人课程信息查询</a>
@@ -327,7 +341,8 @@ extension DUTInfo {
     }
     
     private func getSchedule(_ data: Data) {
-        let parseStr = try! HTMLDocument(data: data)
+        let requestStr = data.string
+        let parseStr = try! HTMLDocument(string: requestStr)
         let courses = parseStr.body?
                 .children[1].children[1].children[0].children[0]
                 .children[0].children[0].children[0].children[0]
