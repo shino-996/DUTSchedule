@@ -4,9 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -74,12 +72,6 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djz-eq-TVc">
-                                <rect key="frame" x="282" y="8" width="22" height="22"/>
-                                <connections>
-                                    <action selector="freshInfo" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="TII-fq-P0d"/>
-                                </connections>
-                            </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cOr-hr-XxE">
                                 <rect key="frame" x="141.5" y="32" width="37" height="37"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -93,11 +85,9 @@
                             <constraint firstItem="cOr-hr-XxE" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="S0q-6J-siq"/>
                             <constraint firstItem="PRH-ED-GdK" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="ZFi-Ff-2gZ"/>
                             <constraint firstItem="Qyv-TG-bZk" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" multiplier="0.5" id="e0g-Dy-lbe"/>
-                            <constraint firstItem="djz-eq-TVc" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="iv8-em-tgy"/>
                             <constraint firstItem="PRH-ED-GdK" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="jpd-zc-TAU"/>
                             <constraint firstItem="ed4-Po-66I" firstAttribute="width" secondItem="PRH-ED-GdK" secondAttribute="width" id="pPZ-Xn-8Cx"/>
                             <constraint firstItem="Qyv-TG-bZk" firstAttribute="width" secondItem="PRH-ED-GdK" secondAttribute="width" id="rdK-jN-64D"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="djz-eq-TVc" secondAttribute="trailing" id="tnI-Tb-Van"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

@@ -21,24 +21,38 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         didSet {
             if freshingNum == 0 {
                 activityIndicator.stopAnimating()
+                let now = Date().timeIntervalSince1970
+                UserDefaults.standard.set(now, forKey: "LastUpdateDate")
+                print("\(now), set up")
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let lastUpdateDate = UserDefaults.standard.double(forKey: "LastUpdateDate")
+        let now = Date().timeIntervalSince1970
+        if now - lastUpdateDate < 1800 {
+            ecardCostLabel.text = UserDefaults.standard.string(forKey: "EcardCost")!
+            netCostLabel.text = UserDefaults.standard.string(forKey: "NetCost")!
+            netFlowLabel.text = UserDefaults.standard.string(forKey: "NetFlow")!
+            print(now)
+            return
+        }
         dutInfo = DUTInfo()
         dutInfo.studentNumber = "201487033"
         dutInfo.teachPassword = "220317"
         dutInfo.portalPassword = "shino$sshLoca1"
+        freshInfo()
     }
     
-    @IBAction func freshInfo() {
+    func freshInfo() {
         activityIndicator.startAnimating()
         freshingNum = 2
         dutInfo.ecardInfo() {
             DispatchQueue.main.async {
                 self.ecardCostLabel.text = self.dutInfo.ecardCost
+                UserDefaults.standard.set(self.dutInfo.ecardCost, forKey: "EcardCost")
                 self.freshingNum = self.freshingNum - 1
             }
         }
@@ -46,6 +60,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             DispatchQueue.main.async {
                 self.netCostLabel.text = self.dutInfo.netCost
                 self.netFlowLabel.text = self.dutInfo.netFlow
+                UserDefaults.standard.set(self.dutInfo.netCost, forKey: "NetCost")
+                UserDefaults.standard.set(self.dutInfo.netFlow, forKey: "NetFlow")
                 self.freshingNum = self.freshingNum - 1
             }
         }
