@@ -10,6 +10,16 @@ import PromiseKit
 import Fuzi
 import Foundation
 
+protocol DUTInfoDelegate {
+    //当DUTInfo属性更改时会调用的委托方法
+    func setNetCost()
+    func setNetFlow()
+    func setEcardCost()
+    
+    //当网络异常时会调用的委托方法
+    func netErrorHandle()
+}
+
 class DUTInfo: NSObject {
     //学号
     var studentNumber: String!
@@ -18,9 +28,25 @@ class DUTInfo: NSObject {
     //校园门户密码，默认为身份证号后6位
     var portalPassword: String!
     
-    var netCost: String!
-    var netFlow: String!
-    var ecardCost: String!
+    fileprivate var session: URLSession!
+    
+    var delegate: DUTInfoDelegate!
+    
+    var netCost: String! {
+        didSet {
+            delegate.setNetCost()
+        }
+    }
+    var netFlow: String! {
+        didSet {
+            delegate.setNetFlow()
+        }
+    }
+    var ecardCost: String! {
+        didSet {
+            delegate.setEcardCost()
+        }
+    }
 }
 
 //可能会遇到的错误类型
@@ -147,7 +173,8 @@ extension DUTInfo {
     private func getLoginPortalURL() -> URLDataPromise {
         let url = URL(string: "http://portal.dlut.edu.cn/cas/login?service=http%3A%2F%2Fportal.dlut.edu.cn%2Fcas.jsp")
         let request = URLRequest(url: url!)
-        return URLSession.shared.dataTask(with: request)
+        session = URLSession(configuration: .ephemeral)
+        return session.dataTask(with: request)
     }
     
     //获取登录用的"lt"字符串，之后登录
@@ -163,7 +190,7 @@ extension DUTInfo {
         request.httpMethod = "POST"
         request.httpBody = ("encodedService=http%253a%252f%252fportal.dlut.edu.cn%252fcas.jsp&service=http%3A%2F%2Fportal.dlut.edu.cn%2Fcas.jsp&serviceName=null&action=DCPLogin&inputname=\(studentNumber!)&selmail=1&username=\(studentNumber!)&password=\(portalPassword!)&lt=\(ltID!)&userNameType=cardID&Submit=%B5%C7%C2%BC")
             .data(using: .utf8)
-        return URLSession.shared.dataTask(with: request)
+        return session.dataTask(with: request)
     }
     
     //验证是否登录成功，重载函数是因为后面有的功能不需要主页的HTMl
@@ -204,7 +231,7 @@ extension DUTInfo {
                     .children[0].children[0].children[0].attr("href")
         let url = URL(string: urlStr!)!
         let request = URLRequest(url: url)
-        return URLSession.shared.dataTask(with: request)
+        return session.dataTask(with: request)
     }
     
     func portalTest() {
@@ -219,7 +246,7 @@ extension DUTInfo {
     private func getEcardURL() -> URLDataPromise {
         let url = URL(string: "http://portal.dlut.edu.cn/eapdomain/neudcp/sso/ecard_query_new.jsp")!
         let request = URLRequest(url: url)
-        return URLSession.shared.dataTask(with: request)
+        return session.dataTask(with: request)
     }
     
     //这个页面要跳转一下……
@@ -230,7 +257,7 @@ extension DUTInfo {
                     .children[0].children[0].children[0].attr("href")
         let url = URL(string: urlStr!)!
         let request = URLRequest(url: url)
-        return URLSession.shared.dataTask(with: request)
+        return session.dataTask(with: request)
     }
     
     private func getEcardInfo(_ data: Data) {
@@ -246,14 +273,13 @@ extension DUTInfo {
         ecardCost = ecardMoney! + "元"
     }
     
-    func ecardInfo(handle: @escaping (Void) -> Void) {
+    func ecardInfo() {
         firstly(execute: getLoginPortalURL)
         .then(execute: gotoPortalPage)
         .then(execute: portalLoginVerify)
         .then(execute: getEcardURL)
         .then(execute: gotoEcardPage)
         .then(execute: getEcardInfo)
-        .then(execute: handle)
         .catch(execute: portalErrorHandle)
     }
 
@@ -268,7 +294,7 @@ extension DUTInfo {
                     .children[11].children[0].attr("href")
         let url = URL(string: urlStr!)!
         let request = URLRequest(url: url)
-        return URLSession.shared.dataTask(with: request)
+        return session.dataTask(with: request)
     }
     
     //准备前往"我的教务信息界面"，相当于点了一下"我的教务信息"按钮
@@ -281,7 +307,7 @@ extension DUTInfo {
                     .children[0].attr("href")
         let url = URL(string: urlStr!)!
         let request = URLRequest(url: url)
-        return URLSession.shared.dataTask(with: request)
+        return session.dataTask(with: request)
     }
     
     //"我的教务信息界面要进行一次跳转……"
@@ -294,7 +320,7 @@ extension DUTInfo {
                   .children[1].children[0].attr("src")
         let url = URL(string: "http://portal.dlut.edu.cn" + str!)!
         let request = URLRequest(url: url)
-        return URLSession.shared.dataTask(with: request)
+        return session.dataTask(with: request)
     }
     
     //总算进来了
@@ -305,7 +331,7 @@ extension DUTInfo {
                     .children[0].children[0].children[0].attr("href")
         let url = URL(string: urlStr!)!
         let request = URLRequest(url: url)
-        return URLSession.shared.dataTask(with: request)
+        return session.dataTask(with: request)
     }
     
     //前往课程表界面
@@ -329,7 +355,7 @@ extension DUTInfo {
                             + "&reportId="
                             + reportID
                             + "&newReport=true&xn=2016-2017&xq=2").data(using: .utf8)
-        return URLSession.shared.dataTask(with: request)
+        return session.dataTask(with: request)
     }
     
     private func getSchedule(_ data: Data) {
@@ -391,7 +417,8 @@ extension DUTInfo {
         //将POST内容类型设置为json
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = "{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/login/prepareLogin\",\"id\":\"1\",\"params\":[\"\(studentNumber!)\",\"\(portalPassword!)\",false]}".data(using: .utf8)
-        return URLSession.shared.dataTask(with: request)
+        session = URLSession(configuration: .ephemeral)
+        return session.dataTask(with: request)
     }
     
     private func netLoginVerify(_ data: Data) throws -> Promise<[String: Any]> {
@@ -422,7 +449,7 @@ extension DUTInfo {
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = "{\"jsonrpc\": \"2.0\", \"method\": \"/user/charge/getChargeInfo\", \"id\": 2, \"params\": [\(id)]}".data(using: .utf8)
-        return URLSession.shared.dataTask(with: request)
+        return session.dataTask(with: request)
     }
     
     //解析出余额
@@ -450,7 +477,7 @@ extension DUTInfo {
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         //"\\u4e0a\\u7f51\\u670d\\u52a1\"为"上网服务"两字，已转为unicode的转义字符
         request.httpBody = "{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/network/dayFlowRecords\",\"params\":[{\"pageIndex\":1,\"pageSize\":10,\"filter\":{\"fromDate\":\"2017-07-01 00:00:00\",\"toDate\":\"2017-07-31 23:59:59\",\"accountId\":\"\(studentNumber!)\",\"businessInstanceName\":\"\(studentNumber!)\",\"businessTypeName\":\"\\u4e0a\\u7f51\\u670d\\u52a1\"}}],\"id\":1}".data(using: .utf8)
-        return URLSession.shared.dataTask(with: request)
+        return session.dataTask(with: request)
     }
     
     private func getNetFlow(_ data: Data) {
@@ -461,7 +488,11 @@ extension DUTInfo {
         let subDictionary = array[0] as! [String: Any]
         let remainFreeFlow = subDictionary["remainFreeFlow"] as! Double
         print("剩余流量：\(remainFreeFlow)MB")
-        netFlow = "\(Int(remainFreeFlow))MB"
+        if remainFreeFlow < 1024 {
+            netFlow = "\(Int(remainFreeFlow))MB"
+        } else {
+            netFlow = String(format: "%.1lfGB", remainFreeFlow / 1024)
+        }
     }
     
     private func netErrorHandle(_ error: Error) {
@@ -470,11 +501,17 @@ extension DUTInfo {
                 print("校园网用户名或密码错误！")
             }
         } else {
-            print(error)
+            let error = error as NSError
+            if error.code == -1005 {
+                print("不是校园网环境")
+                delegate.netErrorHandle()
+            } else {
+                fatalError()
+            }
         }
     }
     
-    func netInfo(handle: @escaping (Void) -> Void) {
+    func netInfo() {
         firstly(execute: gotoNetPage)
         .then(execute: netLoginVerify)
         .then(execute: getNetID)
@@ -482,7 +519,6 @@ extension DUTInfo {
         .then(execute: getNetMoney)
         .then(execute: requestNetFlow)
         .then(execute: getNetFlow)
-        .then(execute: handle)
         .catch(execute: netErrorHandle)
     }
 }

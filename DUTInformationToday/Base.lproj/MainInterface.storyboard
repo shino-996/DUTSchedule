@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -25,13 +25,13 @@
                                 <rect key="frame" x="126.5" y="15" width="67.5" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="流量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHR-YS-dQK">
-                                        <rect key="frame" x="0.0" y="0.0" width="39.5" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="57" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcX-ru-HYn">
-                                        <rect key="frame" x="39.5" y="0.0" width="28" height="20.5"/>
+                                        <rect key="frame" x="57" y="0.0" width="10.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -39,16 +39,16 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PRH-ED-GdK">
-                                <rect key="frame" x="126.5" y="40" width="67.5" height="20.5"/>
+                                <rect key="frame" x="126.5" y="40.5" width="67.5" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网费:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nw4-ht-8k0">
-                                        <rect key="frame" x="0.0" y="0.0" width="39.5" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="57" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mX5-T5-V8s">
-                                        <rect key="frame" x="39.5" y="0.0" width="28" height="20.5"/>
+                                        <rect key="frame" x="57" y="0.0" width="10.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -76,18 +76,29 @@
                                 <rect key="frame" x="141.5" y="32" width="37" height="37"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1rJ-Ja-1TF">
+                                <rect key="frame" x="278" y="8" width="22" height="22"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="forceFreshData" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="izl-mB-7qd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="ed4-Po-66I" firstAttribute="leading" secondItem="PRH-ED-GdK" secondAttribute="leading" id="Bb1-fi-0l9"/>
+                            <constraint firstItem="1rJ-Ja-1TF" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="FDQ-Hh-AjC"/>
                             <constraint firstItem="Qyv-TG-bZk" firstAttribute="leading" secondItem="PRH-ED-GdK" secondAttribute="leading" id="Fla-vE-4kX"/>
                             <constraint firstItem="ed4-Po-66I" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" multiplier="1.5" id="GC5-wH-Yx9"/>
                             <constraint firstItem="cOr-hr-XxE" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="RTc-uJ-GhW"/>
                             <constraint firstItem="cOr-hr-XxE" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="S0q-6J-siq"/>
+                            <constraint firstItem="mX5-T5-V8s" firstAttribute="leading" secondItem="pSx-z4-fVq" secondAttribute="leading" id="Wy4-am-Al1"/>
                             <constraint firstItem="PRH-ED-GdK" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="ZFi-Ff-2gZ"/>
                             <constraint firstItem="Qyv-TG-bZk" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" multiplier="0.5" id="e0g-Dy-lbe"/>
                             <constraint firstItem="PRH-ED-GdK" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="jpd-zc-TAU"/>
+                            <constraint firstAttribute="trailing" secondItem="1rJ-Ja-1TF" secondAttribute="trailing" constant="20" symbolic="YES" id="o7c-GT-Kmx"/>
                             <constraint firstItem="ed4-Po-66I" firstAttribute="width" secondItem="PRH-ED-GdK" secondAttribute="width" id="pPZ-Xn-8Cx"/>
                             <constraint firstItem="Qyv-TG-bZk" firstAttribute="width" secondItem="PRH-ED-GdK" secondAttribute="width" id="rdK-jN-64D"/>
+                            <constraint firstItem="DcX-ru-HYn" firstAttribute="leading" secondItem="pSx-z4-fVq" secondAttribute="leading" id="yQH-NL-5yt"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -99,6 +110,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="cOr-hr-XxE" id="5kf-QR-EsG"/>
                         <outlet property="ecardCostLabel" destination="pSx-z4-fVq" id="c6i-CX-HQ0"/>
+                        <outlet property="errorButton" destination="1rJ-Ja-1TF" id="WiC-J8-wGv"/>
                         <outlet property="netCostLabel" destination="mX5-T5-V8s" id="3mi-Tt-bVR"/>
                         <outlet property="netFlowLabel" destination="DcX-ru-HYn" id="8ca-pj-frI"/>
                     </connections>
