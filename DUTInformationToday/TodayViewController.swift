@@ -23,7 +23,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             if freshingNum == 0 {
                 activityIndicator.stopAnimating()
                 let now = Date().timeIntervalSince1970
-                UserDefaults.standard.set(now, forKey: "LastUpdateDate")
+                let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+                userDefaults.set(now, forKey: "LastUpdateDate")
             }
         }
     }
@@ -32,12 +33,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewDidLoad()
     }
     
-    func useLastData() {
-        DispatchQueue.main.async {
-            self.ecardCostLabel.text = UserDefaults.standard.string(forKey: "EcardCost")!
-            self.netCostLabel.text = UserDefaults.standard.string(forKey: "NetCost")!
-            self.netFlowLabel.text = UserDefaults.standard.string(forKey: "NetFlow")!
-        }
+    func loadData() {
+        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+        errorButton.isHidden = !userDefaults.bool(forKey: "IsNetError")
+        ecardCostLabel.text = userDefaults.string(forKey: "EcardCost")!
+        netCostLabel.text = userDefaults.string(forKey: "NetCost")!
+        netFlowLabel.text = userDefaults.string(forKey: "NetFlow")!
     }
     
     func freshData() {
@@ -55,8 +56,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         var result = NCUpdateResult.failed
-        useLastData()
-        let lastUpdateDate = UserDefaults.standard.double(forKey: "LastUpdateDate")
+        loadData()
+        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+        let lastUpdateDate = userDefaults.double(forKey: "LastUpdateDate")
         let now = Date().timeIntervalSince1970
         if now - lastUpdateDate < 1800 {
             result = .noData
@@ -75,7 +77,8 @@ extension TodayViewController: DUTInfoDelegate {
     func setEcardCost() {
         DispatchQueue.main.async {
             self.ecardCostLabel.text = self.dutInfo.ecardCost
-            UserDefaults.standard.set(self.dutInfo.ecardCost, forKey: "EcardCost")
+            let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+            userDefaults.set(self.dutInfo.ecardCost, forKey: "EcardCost")
         }
         freshingNum = freshingNum - 1
     }
@@ -83,8 +86,9 @@ extension TodayViewController: DUTInfoDelegate {
     func setNetCost() {
         DispatchQueue.main.async {
             self.netCostLabel.text = self.dutInfo.netCost
-            UserDefaults.standard.set(self.dutInfo.netCost, forKey: "NetCost")
-            self.errorButton.isHidden = true
+            let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+            userDefaults.set(self.dutInfo.netCost, forKey: "NetCost")
+            userDefaults.set(false, forKey: "IsNetError")
         }
         freshingNum = freshingNum - 1
     }
@@ -92,14 +96,15 @@ extension TodayViewController: DUTInfoDelegate {
     func setNetFlow() {
         DispatchQueue.main.async {
             self.netFlowLabel.text = self.dutInfo.netFlow
-            UserDefaults.standard.set(self.dutInfo.netFlow, forKey: "NetFlow")
-            self.errorButton.isHidden = true
+            let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+            userDefaults.set(self.dutInfo.netFlow, forKey: "NetFlow")
+            userDefaults.set(false, forKey: "IsNetError")
         }
         freshingNum = freshingNum - 1
     }
     
     func netErrorHandle() {
-        errorButton.isHidden = false
+        UserDefaults(suiteName: "group.dutinfo.shino.space")?.set(true, forKey: "IsNetError")
         freshingNum = freshingNum - 2
     }
 }
