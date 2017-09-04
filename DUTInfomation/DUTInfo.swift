@@ -47,6 +47,12 @@ class DUTInfo: NSObject {
             delegate.setEcardCost()
         }
     }
+    
+    override init() {
+        studentNumber = "201487033"
+        teachPassword = "220317"
+        portalPassword = "shino$sshLoca1"
+    }
 }
 
 //可能会遇到的错误类型
@@ -265,11 +271,12 @@ extension DUTInfo {
         let ecardMoney = parseStr.body?
                         .children[0].children[0].children[2].children[0]
                         .children[0].stringValue
-        let eMoney = parseStr.body?
-                    .children[0].children[1].children[1].children[0]
-                    .children[0].stringValue
-        print("玉兰卡余额：" + ecardMoney! + "元")
-        print("电子支付账户余额：" + eMoney! + "元")
+        //电子账户余额
+//        let eMoney = parseStr.body?
+//                    .children[0].children[1].children[1].children[0]
+//                    .children[0].stringValue
+        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+        userDefaults.set(ecardMoney! + "元", forKey: "EcardCost")
         ecardCost = ecardMoney! + "元"
     }
     
@@ -417,7 +424,9 @@ extension DUTInfo {
         //将POST内容类型设置为json
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = "{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/login/prepareLogin\",\"id\":\"1\",\"params\":[\"\(studentNumber!)\",\"\(portalPassword!)\",false]}".data(using: .utf8)
-        session = URLSession(configuration: .ephemeral)
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.timeoutIntervalForRequest = 5
+        session = URLSession(configuration: configuration)
         return session.dataTask(with: request)
     }
     
@@ -461,10 +470,10 @@ extension DUTInfo {
         //余额
         let balance = dictionary["balance"] as! Double
         //已使用
-        let expenditure = dictionary["expenditure"] as! Double
-        print("余额为：\(balance)元")
+//        let expenditure = dictionary["expenditure"] as! Double
+        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+        userDefaults.set(balance, forKey: "NetCost")
         netCost = "\(balance)元"
-        print("已使用： \(expenditure)元")
     }
     
     //发送取得剩余流量请求
@@ -475,8 +484,16 @@ extension DUTInfo {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        //设置查询时间
+        let date = Date()
+        let firstDateFormatter = DateFormatter()
+        firstDateFormatter.dateFormat = "YYYY-MM"
+        let firstDateString = firstDateFormatter.string(from: date) + "-01 00:00:00"
+        let nowDateFormatter = DateFormatter()
+        nowDateFormatter.dateFormat = "YYYY-MM-dd"
+        let nowDateString = nowDateFormatter.string(from: date) + " 00:00:00"
         //"\\u4e0a\\u7f51\\u670d\\u52a1\"为"上网服务"两字，已转为unicode的转义字符
-        request.httpBody = "{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/network/dayFlowRecords\",\"params\":[{\"pageIndex\":1,\"pageSize\":10,\"filter\":{\"fromDate\":\"2017-07-01 00:00:00\",\"toDate\":\"2017-07-31 23:59:59\",\"accountId\":\"\(studentNumber!)\",\"businessInstanceName\":\"\(studentNumber!)\",\"businessTypeName\":\"\\u4e0a\\u7f51\\u670d\\u52a1\"}}],\"id\":1}".data(using: .utf8)
+        request.httpBody = ("{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/network/dayFlowRecords\",\"params\":[{\"pageIndex\":1,\"pageSize\":10,\"filter\":{\"fromDate\":\"" + firstDateString + "\",\"toDate\":\"" + nowDateString + "\",\"accountId\":\"\(studentNumber!)\",\"businessInstanceName\":\"\(studentNumber!)\",\"businessTypeName\":\"\\u4e0a\\u7f51\\u670d\\u52a1\"}}],\"id\":1}").data(using: .utf8)
         return session.dataTask(with: request)
     }
     
@@ -487,10 +504,13 @@ extension DUTInfo {
         let array = dictionary["data"] as! [Any]
         let subDictionary = array[0] as! [String: Any]
         let remainFreeFlow = subDictionary["remainFreeFlow"] as! Double
-        print("剩余流量：\(remainFreeFlow)MB")
+        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+        userDefaults.set(false, forKey: "IsNetError")
         if remainFreeFlow < 1024 {
+            userDefaults.set("\(Int(remainFreeFlow))MB", forKey: "NetFlow")
             netFlow = "\(Int(remainFreeFlow))MB"
         } else {
+            userDefaults.set(String(format: "%.1lfGB", remainFreeFlow / 1024), forKey: "NetFlow")
             netFlow = String(format: "%.1lfGB", remainFreeFlow / 1024)
         }
     }
@@ -504,6 +524,13 @@ extension DUTInfo {
             let error = error as NSError
             if error.code == -1005 {
                 print("不是校园网环境")
+                let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+                userDefaults.set(true, forKey: "IsNetError")
+                delegate.netErrorHandle()
+            } else if error.code == -1001 {
+                print("连接超时")
+                let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+                userDefaults.set(true, forKey: "IsNetError")
                 delegate.netErrorHandle()
             } else {
                 fatalError()
@@ -520,5 +547,15 @@ extension DUTInfo {
         .then(execute: requestNetFlow)
         .then(execute: getNetFlow)
         .catch(execute: netErrorHandle)
+    }
+}
+
+extension DUTInfo {
+    
+    static let share = DUTInfo()
+    
+    func fetchData() {
+        ecardInfo()
+        netInfo()
     }
 }

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xzg-cL-KBU">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--费用-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="CostViewController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -85,6 +85,7 @@
                             <constraint firstItem="baR-W4-5ur" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tuc-76-lV2"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="费用" id="giq-bS-sBR"/>
                     <connections>
                         <outlet property="ecardCostLabel" destination="TYR-YD-B36" id="9jm-EI-nPR"/>
                         <outlet property="netCostLabel" destination="aPp-B7-lfW" id="5tV-LH-enN"/>
@@ -92,6 +93,43 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1113.75" y="123.59154929577466"/>
+        </scene>
+        <!--课程表-->
+        <scene sceneID="2Hx-3o-5BQ">
+            <objects>
+                <viewController id="mnc-R3-98U" customClass="ClassViewController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XaV-MD-woD"/>
+                        <viewControllerLayoutGuide type="bottom" id="aG6-O4-oU6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="s52-TT-kAR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="课程表" id="ieS-Oh-c6R"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hYA-Rq-AEo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="116" y="894"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="I7b-Xv-kgr">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Xzg-cL-KBU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="RYl-4W-TVO">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="a2y-b0-hD6"/>
+                        <segue destination="mnc-R3-98U" kind="relationship" relationship="viewControllers" id="mGB-d9-3A9"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EHQ-RU-wMm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="116.25" y="123.59154929577466"/>
         </scene>

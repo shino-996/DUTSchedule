@@ -8,29 +8,23 @@
 
 import UIKit
 
-class ViewController: UIViewController, DUTInfoDelegate {
-    var dutInfo: DUTInfo!
-    
+class CostViewController: UIViewController, DUTInfoDelegate {
     @IBOutlet weak var netCostLabel: UILabel!
     @IBOutlet weak var netFlowLabel: UILabel!
     @IBOutlet weak var ecardCostLabel: UILabel!
+    
+    lazy var dutInfo = DUTInfo.share
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        dutInfo = DUTInfo()
         dutInfo.delegate = self
-        dutInfo.studentNumber = "201487033"
-        dutInfo.teachPassword = "220317"
-        dutInfo.portalPassword = "shino$sshLoca1"
-        dutInfo.ecardInfo()
-        dutInfo.netInfo()
+//        dutInfo.fetchData()
+        dutInfo.scheduleInfo()
     }
     
     func setEcardCost() {
         DispatchQueue.main.async {
             self.ecardCostLabel.text = self.dutInfo.ecardCost
-            let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-            userDefaults.set(self.dutInfo.ecardCost, forKey: "EcardCost")
         }
     }
     
@@ -38,7 +32,6 @@ class ViewController: UIViewController, DUTInfoDelegate {
         DispatchQueue.main.async {
             self.netCostLabel.text = self.dutInfo.netCost
             let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-            userDefaults.set(self.dutInfo.netCost, forKey: "NetCost")
             userDefaults.set(false, forKey: "IsNetError")
         }
     }
@@ -47,7 +40,6 @@ class ViewController: UIViewController, DUTInfoDelegate {
         DispatchQueue.main.async {
             self.netFlowLabel.text = self.dutInfo.netFlow
             let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-            userDefaults.set(self.dutInfo.netFlow, forKey: "NetFlow")
             userDefaults.set(false, forKey: "IsNetError")
         }
     }

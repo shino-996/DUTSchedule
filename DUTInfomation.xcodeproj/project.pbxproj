@@ -10,7 +10,7 @@
 		1BF50BBD1362FA85383CE68F /* Pods_DUTInformationToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E56B0E628D8B1E3594C810D2 /* Pods_DUTInformationToday.framework */; };
 		B4288CE71F121A7F005D629B /* DUTInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E901F0A25A500174471 /* DUTInfo.swift */; };
 		B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E7E1F0A211800174471 /* AppDelegate.swift */; };
-		B4B70E811F0A211800174471 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E801F0A211800174471 /* ViewController.swift */; };
+		B4B70E811F0A211800174471 /* CostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E801F0A211800174471 /* CostViewController.swift */; };
 		B4B70E841F0A211800174471 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E821F0A211800174471 /* Main.storyboard */; };
 		B4B70E861F0A211800174471 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E851F0A211800174471 /* Assets.xcassets */; };
 		B4B70E891F0A211800174471 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E871F0A211800174471 /* LaunchScreen.storyboard */; };
@@ -19,6 +19,7 @@
 		B4CB3FDE1F1209FE0059591C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CB3FDD1F1209FE0059591C /* TodayViewController.swift */; };
 		B4CB3FE11F1209FE0059591C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4CB3FDF1F1209FE0059591C /* MainInterface.storyboard */; };
 		B4CB3FE51F1209FE0059591C /* DUTInformationToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B4CB3FD91F1209FE0059591C /* DUTInformationToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B4FDC4851F35F8F700268E35 /* ClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FDC4841F35F8F700268E35 /* ClassViewController.swift */; };
 		D15B9B88571B6EF5583F1D87 /* Pods_DUTInfomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA733EC1FDC5F35321DDDEEB /* Pods_DUTInfomation.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +67,7 @@
 		AFEEDEA074D99C2A95B6AF6E /* Pods_DutInfoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DutInfoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4B70E7B1F0A211800174471 /* DUTInfomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DUTInfomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4B70E7E1F0A211800174471 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B4B70E801F0A211800174471 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B4B70E801F0A211800174471 /* CostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostViewController.swift; sourceTree = "<group>"; };
 		B4B70E831F0A211800174471 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B4B70E851F0A211800174471 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4B70E881F0A211800174471 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -79,6 +80,7 @@
 		B4CB3FE21F1209FE0059591C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4CB3FEA1F120AD70059591C /* DUTInfomation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DUTInfomation.entitlements; sourceTree = "<group>"; };
 		B4CB3FEB1F120B0F0059591C /* DUTInformationToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DUTInformationToday.entitlements; sourceTree = "<group>"; };
+		B4FDC4841F35F8F700268E35 /* ClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassViewController.swift; sourceTree = "<group>"; };
 		B4FE35203A1536D7B2548853 /* Pods-DUTInformationToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInformationToday.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInformationToday/Pods-DUTInformationToday.debug.xcconfig"; sourceTree = "<group>"; };
 		E56B0E628D8B1E3594C810D2 /* Pods_DUTInformationToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DUTInformationToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1354D8DE125033570EFF905 /* Pods-DutInfoKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DutInfoKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-DutInfoKit/Pods-DutInfoKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -159,7 +161,8 @@
 			children = (
 				B4CB3FEA1F120AD70059591C /* DUTInfomation.entitlements */,
 				B4B70E7E1F0A211800174471 /* AppDelegate.swift */,
-				B4B70E801F0A211800174471 /* ViewController.swift */,
+				B4B70E801F0A211800174471 /* CostViewController.swift */,
+				B4FDC4841F35F8F700268E35 /* ClassViewController.swift */,
 				B4B70E901F0A25A500174471 /* DUTInfo.swift */,
 				B4B70E821F0A211800174471 /* Main.storyboard */,
 				B4B70E851F0A211800174471 /* Assets.xcassets */,
@@ -380,7 +383,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4B70E811F0A211800174471 /* ViewController.swift in Sources */,
+				B4B70E811F0A211800174471 /* CostViewController.swift in Sources */,
+				B4FDC4851F35F8F700268E35 /* ClassViewController.swift in Sources */,
 				B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */,
 				B4B70E911F0A25A500174471 /* DUTInfo.swift in Sources */,
 			);
