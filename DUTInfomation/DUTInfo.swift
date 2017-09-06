@@ -356,12 +356,12 @@ extension DUTInfo {
         let url = URL(string: "http://portal.dlut.edu.cn/report/Report-ResultAction.do?newReport=true")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        let xq_dummy = "春季学期".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        request.httpBody = ("xn_dummy=2016-2017&xq_dummy="
+        let xq_dummy = "秋季学期".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        request.httpBody = ("xn_dummy=2017-2018&xq_dummy="
                             + xq_dummy
                             + "&reportId="
                             + reportID
-                            + "&newReport=true&xn=2016-2017&xq=2").data(using: .utf8)
+                            + "&newReport=true&xn=2017-2018&xq=1").data(using: .utf8)
         return session.dataTask(with: request)
     }
     
@@ -371,6 +371,7 @@ extension DUTInfo {
                 .children[1].children[1].children[0].children[0]
                 .children[0].children[0].children[0].children[0]
                 .children[0].children[0].children[0].children
+        var courseData = [[String: String]]()
         for course in courses! {
             //这里只能判断<tr>标签里的"style"属性是不是"height:18pt"来分辨课程所在的表格
             guard let isCourseStr = course.attr("style") else {
@@ -382,17 +383,26 @@ extension DUTInfo {
             //对于一周上多节课，中有一个表格中包含所有信息（9个），其余表格中只有6个信息
             let courseInfo = course.children
             if courseInfo.count == 9 {
-                print(courseInfo[1].stringValue)
-                print(courseInfo[8].stringValue)
-                print(courseInfo[5].stringValue)
-                print(courseInfo[6].stringValue)
-                print(courseInfo[7].stringValue)
+                let courseDic = ["name": courseInfo[1].stringValue,
+                                 "teacher": courseInfo[8].stringValue,
+                                 "place": courseInfo[5].stringValue,
+                                 "weeks": courseInfo[6].stringValue,
+                                 "week": courseInfo[7].stringValue]
+                courseData.append(courseDic)
             } else {
-                print(courseInfo[2].stringValue)
-                print(courseInfo[3].stringValue)
-                print(courseInfo[4].stringValue)
+                let lastCourse = courseData.last!
+                let courseDic = ["name": lastCourse["name"]!,
+                                "teacher": lastCourse["teacher"]!,
+                                "place": courseInfo[2].stringValue,
+                                "weeks": courseInfo[3].stringValue,
+                                "week": courseInfo[4].stringValue]
+                courseData.append(courseDic)
             }
         }
+        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
+        let fileURL = groupURL!.appendingPathComponent("course.plist")
+        (courseData as NSArray).write(to: fileURL, atomically: true)
+        print("ok")
     }
     
     func scheduleInfo() {

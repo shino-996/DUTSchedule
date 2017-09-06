@@ -22,6 +22,13 @@ class CostViewController: UIViewController, DUTInfoDelegate {
         dutInfo.scheduleInfo()
     }
     
+    @IBAction func testButton() {
+        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
+        let fileURL = groupURL!.appendingPathComponent("course.plist")
+        let courseData = NSArray(contentsOf: fileURL)!
+        print(courseData)
+    }
+    
     func setEcardCost() {
         DispatchQueue.main.async {
             self.ecardCostLabel.text = self.dutInfo.ecardCost
