@@ -6,6 +6,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,10 +22,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cOr-hr-XxE">
-                                <rect key="frame" x="141.5" y="81.5" width="37" height="37"/>
-                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SaB-V7-An3">
                                 <rect key="frame" x="16" y="8" width="35" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -33,6 +30,12 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30GB/20元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIY-wg-Ra5">
                                 <rect key="frame" x="59" y="8" width="77.5" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第1周 周一" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DaZ-2p-4OX">
+                                <rect key="frame" x="124" y="26" width="72" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -50,8 +53,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mzU-as-1C2">
-                                <rect key="frame" x="16" y="34" width="288" height="158"/>
+                                <rect key="frame" x="16" y="44" width="288" height="148"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CourseCell" rowHeight="62" id="jYa-g6-M7o" customClass="CourseCellView" customModule="DUTInformationToday" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="288" height="62"/>
@@ -85,6 +89,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstItem="X7d-CI-avz" firstAttribute="leading" secondItem="sD3-9Z-M4Q" secondAttribute="leadingMargin" id="BMJ-Xk-o2d"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="V65-8j-yTK" secondAttribute="trailing" id="FfA-gW-itN"/>
@@ -110,30 +115,42 @@
                                 </connections>
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天没有课～" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WUA-8n-DxL">
-                                <rect key="frame" x="114" y="90.5" width="92" height="18"/>
+                                <rect key="frame" x="114" y="111" width="92" height="18"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cOr-hr-XxE">
+                                <rect key="frame" x="141" y="81" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="fLE-D4-xef" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="0Az-Ef-z9j"/>
                             <constraint firstItem="tIY-wg-Ra5" firstAttribute="centerY" secondItem="SaB-V7-An3" secondAttribute="centerY" id="1nn-Th-KaB"/>
                             <constraint firstItem="SaB-V7-An3" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="1oD-24-LCI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mzU-as-1C2" secondAttribute="trailing" id="2UJ-dE-cEc"/>
                             <constraint firstItem="WUA-8n-DxL" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="AuB-Nk-Pip"/>
+                            <constraint firstItem="DaZ-2p-4OX" firstAttribute="top" secondItem="tIY-wg-Ra5" secondAttribute="bottom" id="EsS-XW-9i6"/>
                             <constraint firstItem="mzU-as-1C2" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="KRK-dF-tZz"/>
                             <constraint firstAttribute="leadingMargin" secondItem="SaB-V7-An3" secondAttribute="leading" id="LGa-na-5Vd"/>
                             <constraint firstItem="cOr-hr-XxE" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="VO1-kb-zH2"/>
-                            <constraint firstItem="WUA-8n-DxL" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="hwx-J7-vDs"/>
+                            <constraint firstItem="mzU-as-1C2" firstAttribute="top" secondItem="DaZ-2p-4OX" secondAttribute="bottom" id="dpM-Uq-4k0"/>
+                            <constraint firstItem="WUA-8n-DxL" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" multiplier="1.2" id="fyu-oC-zq3"/>
                             <constraint firstItem="tIY-wg-Ra5" firstAttribute="leading" secondItem="SaB-V7-An3" secondAttribute="trailing" constant="8" symbolic="YES" id="p6E-vK-cY8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fLE-D4-xef" secondAttribute="trailing" id="pDs-BN-Whu"/>
-                            <constraint firstItem="mzU-as-1C2" firstAttribute="top" secondItem="SaB-V7-An3" secondAttribute="bottom" constant="8" symbolic="YES" id="tWH-e5-oea"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="mzU-as-1C2" secondAttribute="bottom" constant="8" symbolic="YES" id="toX-ui-6Cj"/>
+                            <constraint firstItem="DaZ-2p-4OX" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="uW3-jW-yAU"/>
                             <constraint firstItem="cOr-hr-XxE" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="uoH-E0-oQI"/>
                             <constraint firstItem="GQf-Ma-zHL" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="y3d-Qk-cvE"/>
                             <constraint firstItem="fLE-D4-xef" firstAttribute="leading" secondItem="GQf-Ma-zHL" secondAttribute="trailing" constant="8" symbolic="YES" id="yfI-Ff-CQe"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="k9S-nm-2Mc" appends="YES" id="gb6-MJ-nQD"/>
+                            <outletCollection property="gestureRecognizers" destination="bzh-zP-zMJ" appends="YES" id="Cps-iP-pHy"/>
+                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -143,12 +160,24 @@
                     <size key="freeformSize" width="320" height="200"/>
                     <connections>
                         <outlet property="activityIndicator" destination="cOr-hr-XxE" id="5kf-QR-EsG"/>
+                        <outlet property="courseTableView" destination="mzU-as-1C2" id="RKa-2Y-xpS"/>
                         <outlet property="ecardLabel" destination="fLE-D4-xef" id="tV3-kc-EFt"/>
                         <outlet property="netLabel" destination="tIY-wg-Ra5" id="AXa-dQ-gO3"/>
                         <outlet property="noCourseLabel" destination="WUA-8n-DxL" id="Ajf-HA-zMD"/>
+                        <outlet property="weekLabel" destination="DaZ-2p-4OX" id="ELi-UM-NfD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="bzh-zP-zMJ">
+                    <connections>
+                        <action selector="moveSchedule:" destination="M4Y-Lb-cyx" id="KY1-ld-KTx"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="k9S-nm-2Mc">
+                    <connections>
+                        <action selector="backTodaySchedule:" destination="M4Y-Lb-cyx" id="gLO-4c-PTn"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="22.5" y="33.802816901408448"/>
         </scene>

@@ -13,20 +13,20 @@ class CostViewController: UIViewController, DUTInfoDelegate {
     @IBOutlet weak var netFlowLabel: UILabel!
     @IBOutlet weak var ecardCostLabel: UILabel!
     
-    lazy var dutInfo = DUTInfo.share
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        dutInfo.delegate = self
-//        dutInfo.fetchData()
-        dutInfo.scheduleInfo()
-    }
+    var dutInfo: DUTInfo!
     
-    @IBAction func testButton() {
-        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-        let fileURL = groupURL!.appendingPathComponent("course.plist")
-        let courseData = NSArray(contentsOf: fileURL)!
-        print(courseData)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if dutInfo == nil {
+            dutInfo = DUTInfo(())
+        }
+        guard dutInfo != nil else {
+            performSegue(withIdentifier: "LoginTeach", sender: self)
+            return
+        }
+        dutInfo.delegate = self
+        dutInfo.ecardInfo()
+        dutInfo.netInfo()
     }
     
     func setEcardCost() {
@@ -38,20 +38,15 @@ class CostViewController: UIViewController, DUTInfoDelegate {
     func setNetCost() {
         DispatchQueue.main.async {
             self.netCostLabel.text = self.dutInfo.netCost
-            let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-            userDefaults.set(false, forKey: "IsNetError")
         }
     }
     
     func setNetFlow() {
         DispatchQueue.main.async {
             self.netFlowLabel.text = self.dutInfo.netFlow
-            let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-            userDefaults.set(false, forKey: "IsNetError")
         }
     }
     
     func netErrorHandle() {
-        UserDefaults(suiteName: "group.dutinfo.shino.space")?.set(true, forKey: "IsNetError")
     }
 }

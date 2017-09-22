@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xzg-cL-KBU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xzg-cL-KBU">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -72,14 +73,6 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kg-2z-sCM">
-                                <rect key="frame" x="137" y="384" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="testButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="nyE-rc-sbg"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -98,16 +91,174 @@
                         <outlet property="ecardCostLabel" destination="TYR-YD-B36" id="9jm-EI-nPR"/>
                         <outlet property="netCostLabel" destination="aPp-B7-lfW" id="5tV-LH-enN"/>
                         <outlet property="netFlowLabel" destination="Dvt-hH-ETZ" id="DJ3-nR-bvt"/>
+                        <segue destination="gpD-Tv-J8n" kind="presentation" identifier="LoginTeach" id="oNu-W3-QP0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1113.75" y="123.59154929577466"/>
+            <point key="canvasLocation" x="923" y="124"/>
+        </scene>
+        <!--登录教务处-->
+        <scene sceneID="jMo-5w-khF">
+            <objects>
+                <viewController id="rXU-p7-iyl" customClass="LoginTeachSiteViewController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VpL-ut-ZUk"/>
+                        <viewControllerLayoutGuide type="bottom" id="UH3-Ez-Qza"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZRe-eV-mJd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="学号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2sD-Mc-5K1">
+                                <rect key="frame" x="80.5" y="240.5" width="160" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="rXU-p7-iyl" id="oKC-EP-RJ8"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="教务处密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4eM-Sh-cfn">
+                                <rect key="frame" x="80" y="297.5" width="160" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="rXU-p7-iyl" id="woi-T0-ZiT"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RTP-Sp-qGU">
+                                <rect key="frame" x="144.5" y="354" width="31" height="30"/>
+                                <state key="normal" title="确认"/>
+                                <connections>
+                                    <action selector="LoginTeachSite" destination="rXU-p7-iyl" eventType="touchUpInside" id="B59-RM-kaz"/>
+                                </connections>
+                            </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学号或密码不正确" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qlC-7I-JSu">
+                                <rect key="frame" x="90.5" y="211.5" width="139" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="4eM-Sh-cfn" firstAttribute="centerY" secondItem="ZRe-eV-mJd" secondAttribute="centerY" multiplier="1.1" id="IrM-HF-egV"/>
+                            <constraint firstItem="2sD-Mc-5K1" firstAttribute="centerX" secondItem="ZRe-eV-mJd" secondAttribute="centerX" id="KIb-jD-x5k"/>
+                            <constraint firstItem="2sD-Mc-5K1" firstAttribute="centerY" secondItem="ZRe-eV-mJd" secondAttribute="centerY" multiplier="0.9" id="Tqe-QF-lYW"/>
+                            <constraint firstItem="4eM-Sh-cfn" firstAttribute="width" secondItem="2sD-Mc-5K1" secondAttribute="width" id="Vv8-kh-bNF"/>
+                            <constraint firstItem="2sD-Mc-5K1" firstAttribute="top" secondItem="qlC-7I-JSu" secondAttribute="bottom" constant="8" symbolic="YES" id="aZ7-MD-k6f"/>
+                            <constraint firstItem="4eM-Sh-cfn" firstAttribute="centerX" secondItem="ZRe-eV-mJd" secondAttribute="centerX" id="lLc-FQ-7GR"/>
+                            <constraint firstItem="RTP-Sp-qGU" firstAttribute="centerX" secondItem="ZRe-eV-mJd" secondAttribute="centerX" id="ofV-D3-5kB"/>
+                            <constraint firstItem="qlC-7I-JSu" firstAttribute="centerX" secondItem="ZRe-eV-mJd" secondAttribute="centerX" id="vPQ-J3-oZQ"/>
+                            <constraint firstItem="RTP-Sp-qGU" firstAttribute="centerY" secondItem="ZRe-eV-mJd" secondAttribute="centerY" multiplier="1.3" id="x9c-gT-sr7"/>
+                            <constraint firstItem="2sD-Mc-5K1" firstAttribute="width" secondItem="ZRe-eV-mJd" secondAttribute="width" multiplier="0.5" id="xjP-Xd-E8g"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Q6H-yP-zSm" appends="YES" id="BpM-9r-DAp"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" title="登录教务处" id="GL7-OW-Rwo"/>
+                    <connections>
+                        <outlet property="loginFailedLabel" destination="qlC-7I-JSu" id="b7e-7W-Ywn"/>
+                        <outlet property="password" destination="4eM-Sh-cfn" id="8VG-Gq-zTk"/>
+                        <outlet property="studentNumber" destination="2sD-Mc-5K1" id="MZp-rD-V1V"/>
+                        <segue destination="g1t-OW-U01" kind="show" identifier="LoginPortal" id="ue0-6W-dkP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b0f-kt-VLa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Q6H-yP-zSm">
+                    <connections>
+                        <action selector="tapSpace:" destination="rXU-p7-iyl" id="cxn-xs-nyj"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="923" y="882"/>
+        </scene>
+        <!--登录校园门户-->
+        <scene sceneID="Ml6-CZ-dIa">
+            <objects>
+                <viewController id="g1t-OW-U01" customClass="LoginPortalSiteViewController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hyG-1U-QiB"/>
+                        <viewControllerLayoutGuide type="bottom" id="LXW-wC-hgk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rhV-bK-Ksw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="学号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mMQ-Zk-ZcC">
+                                <rect key="frame" x="79.5" y="240.5" width="160" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="g1t-OW-U01" id="Vgx-HU-emA"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="校园门户密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VxF-fy-yhJ">
+                                <rect key="frame" x="79.5" y="297.5" width="160" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="g1t-OW-U01" id="vWV-oR-cPd"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uim-7A-2bj">
+                                <rect key="frame" x="145" y="354" width="31" height="30"/>
+                                <state key="normal" title="确认"/>
+                                <connections>
+                                    <action selector="LoginPortalSite" destination="g1t-OW-U01" eventType="touchUpInside" id="sBx-Fp-2dR"/>
+                                </connections>
+                            </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学号或密码不正确" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJj-3G-OG6">
+                                <rect key="frame" x="90.5" y="211.5" width="139" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="mMQ-Zk-ZcC" firstAttribute="top" secondItem="iJj-3G-OG6" secondAttribute="bottom" constant="8" symbolic="YES" id="3UK-kJ-oyP"/>
+                            <constraint firstItem="Uim-7A-2bj" firstAttribute="centerX" secondItem="rhV-bK-Ksw" secondAttribute="centerX" id="5vc-Lc-lfT"/>
+                            <constraint firstItem="VxF-fy-yhJ" firstAttribute="centerY" secondItem="rhV-bK-Ksw" secondAttribute="centerY" multiplier="1.1" id="6xz-to-nLc"/>
+                            <constraint firstItem="mMQ-Zk-ZcC" firstAttribute="centerX" secondItem="rhV-bK-Ksw" secondAttribute="centerX" id="Cnt-WD-47H"/>
+                            <constraint firstItem="iJj-3G-OG6" firstAttribute="centerX" secondItem="rhV-bK-Ksw" secondAttribute="centerX" id="Nyh-Lc-H2M"/>
+                            <constraint firstItem="mMQ-Zk-ZcC" firstAttribute="width" secondItem="rhV-bK-Ksw" secondAttribute="width" multiplier="0.5" id="SuR-ot-TTr"/>
+                            <constraint firstItem="Uim-7A-2bj" firstAttribute="centerY" secondItem="rhV-bK-Ksw" secondAttribute="centerY" multiplier="1.3" id="Tvi-p3-Y1T"/>
+                            <constraint firstItem="VxF-fy-yhJ" firstAttribute="centerX" secondItem="rhV-bK-Ksw" secondAttribute="centerX" id="cuf-9i-6qu"/>
+                            <constraint firstItem="mMQ-Zk-ZcC" firstAttribute="centerY" secondItem="rhV-bK-Ksw" secondAttribute="centerY" multiplier="0.9" id="lAe-N4-FCo"/>
+                            <constraint firstItem="VxF-fy-yhJ" firstAttribute="width" secondItem="mMQ-Zk-ZcC" secondAttribute="width" id="yN2-tX-oAX"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Bot-b7-U43" appends="YES" id="s20-RA-b67"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" title="登录校园门户" id="4kt-qC-v09"/>
+                    <connections>
+                        <outlet property="loginFailedLabel" destination="iJj-3G-OG6" id="XiS-IU-mpe"/>
+                        <outlet property="password" destination="VxF-fy-yhJ" id="CDR-Zc-qDE"/>
+                        <outlet property="studentNumber" destination="mMQ-Zk-ZcC" id="dEf-1G-oOK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wEv-ka-JzW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Bot-b7-U43">
+                    <connections>
+                        <action selector="tapSpace:" destination="g1t-OW-U01" id="bbr-I8-9Up"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1665" y="882"/>
         </scene>
         <!--课程表-->
         <scene sceneID="2Hx-3o-5BQ">
             <objects>
-                <viewController id="mnc-R3-98U" customClass="ClassViewController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mnc-R3-98U" customClass="ScheduleViewController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XaV-MD-woD"/>
                         <viewControllerLayoutGuide type="bottom" id="aG6-O4-oU6"/>
@@ -115,13 +266,35 @@
                     <view key="view" contentMode="scaleToFill" id="s52-TT-kAR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K45-ur-Yyf">
+                                <rect key="frame" x="122" y="269" width="77" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="导入课程表"/>
+                                <connections>
+                                    <action selector="loadSchedule" destination="mnc-R3-98U" eventType="touchUpInside" id="vBI-Ve-QKQ"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="MjB-aP-3KP">
+                                <rect key="frame" x="142" y="265.5" width="37" height="37"/>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="MjB-aP-3KP" firstAttribute="centerX" secondItem="s52-TT-kAR" secondAttribute="centerX" id="Zqk-Zv-xWz"/>
+                            <constraint firstItem="MjB-aP-3KP" firstAttribute="centerY" secondItem="s52-TT-kAR" secondAttribute="centerY" id="xW2-8s-St6"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="课程表" id="ieS-Oh-c6R"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="MjB-aP-3KP" id="Nhe-A6-Mtw"/>
+                        <segue destination="gpD-Tv-J8n" kind="presentation" identifier="LoginTeach" id="Snx-XQ-mSf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYA-Rq-AEo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116" y="894"/>
+            <point key="canvasLocation" x="1686" y="124"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="I7b-Xv-kgr">
@@ -140,7 +313,28 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EHQ-RU-wMm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116.25" y="123.59154929577466"/>
+            <point key="canvasLocation" x="1318" y="-721"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JKH-iH-n6y">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gpD-Tv-J8n" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8ci-XG-m7U">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="rXU-p7-iyl" kind="relationship" relationship="rootViewController" id="gt1-XE-wrq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zAk-Sv-OI6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="180" y="882.04225352112678"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="oNu-W3-QP0"/>
+    </inferredMetricsTieBreakers>
 </document>

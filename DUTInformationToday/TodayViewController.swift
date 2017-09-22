@@ -15,10 +15,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var ecardLabel: UILabel!
     @IBOutlet weak var noCourseLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var courseTableView: UITableView!
+    @IBOutlet weak var weekLabel: UILabel!
     
+    fileprivate lazy var dutInfo: DUTInfo! = DUTInfo(())
+    var scheduleDate = Date()
     var courseInfo: [[String: String]]!
-    
-    var dutInfo: DUTInfo!
     var freshingNum: Int! {
         didSet {
             if freshingNum <= 0 {
@@ -30,6 +32,123 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadScheduleData()
+        if #available(iOSApplicationExtension 10.0, *) {
+            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        }
+        freshWeekLabel()
+    }
+    
+    @available(iOSApplicationExtension 10.0, *)
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        if activeDisplayMode == .compact {
+            self.preferredContentSize = maxSize
+        } else {
+            self.preferredContentSize = CGSize(width: 0, height: 110 + 61.5 * Double(courseInfo.count - 1))
+        }
+        guard courseInfo != nil else {
+            return
+        }
+        if courseInfo.count != 0 {
+            let index = IndexPath(item: 0, section: 0)
+            courseTableView.reloadRows(at: [index], with: .automatic)
+        }
+    }
+    
+    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
+        var result = NCUpdateResult.failed
+        if dutInfo == nil {
+            print("need to login")
+        } else {
+            dutInfo.delegate = self
+            if isTimeToFresh() {
+                result = .newData
+                freshData()
+            } else {
+                result = .noData
+                loadCacheData()
+            }
+        }
+        completionHandler(result)
+    }
+    
+    func freshWeekLabel() {
+        let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "e"
+        let week = chineseWeek[Int(dateFormatter.string(from: scheduleDate))! - 1]
+        dateFormatter.dateFormat = "w"
+        let weeknumber = Int(dateFormatter.string(from: scheduleDate))! - 35
+        weekLabel.text = "第\(weeknumber)周 周\(week)"
+    }
+
+    @IBAction func moveSchedule(_ sender: Any) {
+        let gestureRecognizer = sender as! UITapGestureRecognizer
+        let point = gestureRecognizer.location(in: view)
+        if point.x < 70 {
+            scheduleDate = scheduleDate.addingTimeInterval(-60 * 60 * 24)
+            loadSchedule(ofDate: scheduleDate)
+            courseTableView.reloadData()
+        } else if point.x > view.frame.width - 70 {
+            scheduleDate = scheduleDate.addingTimeInterval(60 * 60 * 24)
+            loadSchedule(ofDate: scheduleDate)
+            courseTableView.reloadData()
+        }
+        freshWeekLabel()
+    }
+    
+    @IBAction func backTodaySchedule(_ sender: Any) {
+        let gestureRecognizer = sender as! UITapGestureRecognizer
+        let point = gestureRecognizer.location(in: view)
+        if point.x >= 70 && point.x <= view.frame.width - 70 {
+            scheduleDate = Date()
+            loadScheduleData()
+            courseTableView.reloadData()
+            freshWeekLabel()
+        }
+    }
+}
+
+extension TodayViewController {
+    func loadScheduleData() {
+        loadSchedule(ofDate: scheduleDate)
+    }
+    
+    func loadSchedule(ofDate date: Date) {
+        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
+        let fileURL = groupURL!.appendingPathComponent("course.plist")
+        let array = NSArray(contentsOf: fileURL)
+        guard array != nil else {
+            courseInfo = []
+            return
+        }
+        let courseData = array as! [[String: String]]
+        let weekDateFormatter = DateFormatter()
+        weekDateFormatter.dateFormat = "e"
+        let week = String(Int(weekDateFormatter.string(from: date))! - 1)
+        let weeknumberDateFormatter = DateFormatter()
+        weeknumberDateFormatter.dateFormat = "w"
+        let weeknumber = Int(weeknumberDateFormatter.string(from: date))! - 35
+        courseInfo = courseData.filter { (course: [String: String]) -> Bool in
+            let weekStr = course["week"]!
+            if String(weekStr) != week {
+                return false
+            }
+            let weeknumberStr = course["weeknumber"]!.components(separatedBy: "-")
+            let startWeek = Int(weeknumberStr[0])!
+            let endWeek = Int(weeknumberStr[1])!
+            if weeknumber >= startWeek && weeknumber <= endWeek {
+                return true
+            } else {
+                return false
+            }
+        }.sorted {
+            $0["coursenumber"]! <= $1["coursenumber"]!
+        }
+    }
+    
     func loadCacheData() {
         let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
         ecardLabel.text = userDefaults.string(forKey: "EcardCost")
@@ -38,11 +157,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             netLabel.text = netCost + "/" + netFlow
         } else {
             netLabel.text = ""
-        }
-        if courseInfo.count == 0 {
-            noCourseLabel.isHidden = false
-        } else {
-            noCourseLabel.isHidden = true
         }
     }
     
@@ -61,78 +175,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func freshData() {
-        dutInfo = DUTInfo()
-        dutInfo.studentNumber = "201487033"
-        dutInfo.teachPassword = "220317"
-        dutInfo.portalPassword = "shino$sshLoca1"
-        dutInfo.delegate = self
         activityIndicator.startAnimating()
         freshingNum = 3
         dutInfo.ecardInfo()
         dutInfo.netInfo()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if #available(iOSApplicationExtension 10.0, *) {
-            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        }
-    }
-    
-    @available(iOSApplicationExtension 10.0, *)
-    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        if activeDisplayMode == .compact {
-            self.preferredContentSize = maxSize
-        } else {
-            self.preferredContentSize = CGSize(width: 0, height: 110 + 61.5 * Double(courseInfo.count - 1))
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-        let fileURL = groupURL!.appendingPathComponent("course.plist")
-        let courseData = NSArray(contentsOf: fileURL) as! [[String: String]]
-        let date = Date()
-        let weekDateFormatter = DateFormatter()
-        weekDateFormatter.dateFormat = "e"
-        let week = String(Int(weekDateFormatter.string(from: date))! - 1)
-        let weeksDateFormatter = DateFormatter()
-        weeksDateFormatter.dateFormat = "w"
-        let weeks = Int(weeksDateFormatter.string(from: date))! - 35
-        courseInfo = courseData.filter { (course: [String: String]) -> Bool in
-            let weekStr = course["week"]!
-            let index = weekStr.index(weekStr.startIndex, offsetBy: 1)
-            if String(weekStr[index]) != week {
-                return false
-            }
-            let weeksStr = course["weeks"]!.components(separatedBy: "-")
-            let startWeek = Int(weeksStr[0])!
-            let endWeekUtils = weeksStr[1]
-            let endWeekIndex = endWeekUtils.index(endWeekUtils.endIndex, offsetBy: -1)
-            let endWeek = Int(endWeekUtils.substring(to: endWeekIndex))!
-            if weeks >= startWeek && weeks <= endWeek {
-                return true
-            } else {
-                return false
-            }
-        }.sorted {
-            $0["week"]! <= $1["week"]!
-        }
-    }
-    
-    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        var result = NCUpdateResult.failed
-        loadCacheData()
-        if isTimeToFresh() {
-            result = .newData
-            freshData()
-        }
-        completionHandler(result)
-    }
-    
-    @IBAction func forceFreshData() {
-        freshData()
     }
 }
 
@@ -166,21 +212,29 @@ extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if courseInfo.count == 0 {
+            noCourseLabel.isHidden = false
+        } else {
+            noCourseLabel.isHidden = true
+        }
+        if #available(iOSApplicationExtension 10.0, *) {
+            if courseInfo.count > 1 {
+                extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+            } else {
+                extensionContext?.widgetLargestAvailableDisplayMode = .compact
+            }
+        }
         return courseInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath)
-                    as! CourseCellView
-        let index = indexPath.row
-        cell.name.text = courseInfo[index]["name"]!
-        cell.teacher.text = courseInfo[index]["teacher"]!
-        let placeStr = courseInfo[index]["place"]!
-        let placeStrIndex = placeStr.index(placeStr.startIndex, offsetBy: 2)
-        cell.place.text = placeStr.substring(from: placeStrIndex)
-        let weekStr = courseInfo[index]["week"]!
-        let weekStrIndex = weekStr.index(weekStr.startIndex, offsetBy: 4)
-        cell.week.text = weekStr.substring(from: weekStrIndex)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCellView
+        if #available(iOSApplicationExtension 10.0, *),
+            indexPath.row == 0 && extensionContext?.widgetActiveDisplayMode == .compact{
+            cell.prepareForNow(fromCourse: courseInfo, ofIndex: indexPath)
+        } else {
+            cell.prepare(fromCourse: courseInfo, ofIndex: indexPath)
+        }
         return cell
     }
 }

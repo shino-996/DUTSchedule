@@ -1,15 +1,15 @@
 PODS:
-  - Fuzi (1.0.1)
-  - PromiseKit (4.2.2):
-    - PromiseKit/Foundation (= 4.2.2)
-    - PromiseKit/QuartzCore (= 4.2.2)
-    - PromiseKit/UIKit (= 4.2.2)
-  - PromiseKit/CorePromise (4.2.2)
-  - PromiseKit/Foundation (4.2.2):
+  - Fuzi (2.0.0)
+  - PromiseKit (4.4.0):
+    - PromiseKit/Foundation (= 4.4.0)
+    - PromiseKit/QuartzCore (= 4.4.0)
+    - PromiseKit/UIKit (= 4.4.0)
+  - PromiseKit/CorePromise (4.4.0)
+  - PromiseKit/Foundation (4.4.0):
     - PromiseKit/CorePromise
-  - PromiseKit/QuartzCore (4.2.2):
+  - PromiseKit/QuartzCore (4.4.0):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (4.2.2):
+  - PromiseKit/UIKit (4.4.0):
     - PromiseKit/CorePromise
 
 DEPENDENCIES:
@@ -17,9 +17,9 @@ DEPENDENCIES:
   - PromiseKit
 
 SPEC CHECKSUMS:
-  Fuzi: 851403654bac55675aaeed815d0c8a1d3e3d3e8b
-  PromiseKit: 00e8886881f151c7e573d06b437915b0bb2970ec
+  Fuzi: 7df3118e601c33e9f9b609cb2fabde55506f964e
+  PromiseKit: ecf5fe92275d57ee77c9ede858af47a162e9b97e
 
-PODFILE CHECKSUM: bf76f131eac23ee6e27fd19d7dce57ff1adb3444
+PODFILE CHECKSUM: 508a7320274a2ef1eca7488aa88e6952110ed938
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.1
