@@ -23,7 +23,7 @@ extension DUTInfo {
         request.httpMethod = "POST"
         //将POST内容类型设置为json
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/login/prepareLogin\",\"id\":\"1\",\"params\":[\"\(studentNumber!)\",\"\(portalPassword!)\",false]}".data(using: .utf8)
+        request.httpBody = "{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/login/prepareLogin\",\"id\":\"1\",\"params\":[\"\(studentNumber)\",\"\(portalPassword)\",false]}".data(using: .utf8)
         let configuration = URLSessionConfiguration.ephemeral
         configuration.timeoutIntervalForRequest = 5
         session = URLSession(configuration: configuration)
@@ -93,7 +93,7 @@ extension DUTInfo {
         nowDateFormatter.dateFormat = "YYYY-MM-dd"
         let nowDateString = nowDateFormatter.string(from: date) + " 00:00:00"
         //"\\u4e0a\\u7f51\\u670d\\u52a1\"为"上网服务"两字，已转为unicode的转义字符
-        request.httpBody = ("{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/network/dayFlowRecords\",\"params\":[{\"pageIndex\":1,\"pageSize\":10,\"filter\":{\"fromDate\":\"" + firstDateString + "\",\"toDate\":\"" + nowDateString + "\",\"accountId\":\"\(studentNumber!)\",\"businessInstanceName\":\"\(studentNumber!)\",\"businessTypeName\":\"\\u4e0a\\u7f51\\u670d\\u52a1\"}}],\"id\":1}").data(using: .utf8)
+        request.httpBody = ("{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/network/dayFlowRecords\",\"params\":[{\"pageIndex\":1,\"pageSize\":10,\"filter\":{\"fromDate\":\"" + firstDateString + "\",\"toDate\":\"" + nowDateString + "\",\"accountId\":\"\(studentNumber)\",\"businessInstanceName\":\"\(studentNumber)\",\"businessTypeName\":\"\\u4e0a\\u7f51\\u670d\\u52a1\"}}],\"id\":1}").data(using: .utf8)
         return session.dataTask(with: request)
     }
     

@@ -13,20 +13,29 @@ class CostViewController: UIViewController, DUTInfoDelegate {
     @IBOutlet weak var netFlowLabel: UILabel!
     @IBOutlet weak var ecardCostLabel: UILabel!
     
-    var dutInfo: DUTInfo!
+    lazy var dutInfo = DUTInfo()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if dutInfo == nil {
-            dutInfo = DUTInfo(())
+        if dutInfo.delegate == nil {
+            dutInfo.delegate = self
         }
-        guard dutInfo != nil else {
-            performSegue(withIdentifier: "LoginTeach", sender: self)
-            return
+        dutInfo.login(succeed: {
+            self.dutInfo.ecardInfo()
+            self.dutInfo.netInfo()
+        }, failed: {
+            self.performSegue(withIdentifier: "LoginTeach", sender: self)
+        })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "LoginTeach" {
+            let navigation = segue.destination as! UINavigationController
+            let destination = navigation.topViewController as! LoginTeachSiteViewController
+            destination.dutInfo = dutInfo
+        } else {
+            fatalError()
         }
-        dutInfo.delegate = self
-        dutInfo.ecardInfo()
-        dutInfo.netInfo()
     }
     
     func setEcardCost() {

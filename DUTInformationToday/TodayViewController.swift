@@ -18,9 +18,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var courseTableView: UITableView!
     @IBOutlet weak var weekLabel: UILabel!
     
-    fileprivate lazy var dutInfo: DUTInfo! = DUTInfo(())
+    lazy var dutInfo = DUTInfo()
     var scheduleDate = Date()
-    var courseInfo: [[String: String]]!
+    var courseInfo: [[String: String]] = []
     var freshingNum: Int! {
         didSet {
             if freshingNum <= 0 {
@@ -34,11 +34,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadScheduleData()
         if #available(iOSApplicationExtension 10.0, *) {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
-        freshWeekLabel()
+        if dutInfo.delegate == nil {
+            dutInfo.delegate = self
+        }
+        dutInfo.login(succeed: {
+            self.loadScheduleData()
+            self.freshWeekLabel()
+        }, failed: {
+            self.noCourseLabel.isHidden = false
+            self.noCourseLabel.text = "尚未导入课表"
+        })
     }
     
     @available(iOSApplicationExtension 10.0, *)
@@ -48,9 +56,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         } else {
             self.preferredContentSize = CGSize(width: 0, height: 110 + 61.5 * Double(courseInfo.count - 1))
         }
-        guard courseInfo != nil else {
-            return
-        }
         if courseInfo.count != 0 {
             let index = IndexPath(item: 0, section: 0)
             courseTableView.reloadRows(at: [index], with: .automatic)
@@ -59,17 +64,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         var result = NCUpdateResult.failed
-        if dutInfo == nil {
-            print("need to login")
+        if isTimeToFresh() {
+            result = .newData
+            freshData()
         } else {
-            dutInfo.delegate = self
-            if isTimeToFresh() {
-                result = .newData
-                freshData()
-            } else {
-                result = .noData
-                loadCacheData()
-            }
+            result = .noData
+            loadCacheData()
         }
         completionHandler(result)
     }
@@ -214,6 +214,7 @@ extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if courseInfo.count == 0 {
             noCourseLabel.isHidden = false
+            noCourseLabel.text = "今天没有课～"
         } else {
             noCourseLabel.isHidden = true
         }

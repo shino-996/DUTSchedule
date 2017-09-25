@@ -13,6 +13,7 @@ class LoginPortalSiteViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var loginFailedLabel: UILabel!
     
+    var dutInfo: DUTInfo!
     var number: String!
     
     override func viewDidLoad() {
@@ -21,12 +22,14 @@ class LoginPortalSiteViewController: UIViewController {
     }
     
     @IBAction func LoginPortalSite() {
-        let dutInfo = DUTInfo(studentNumber.text ?? "", "", password.text ?? "")
+        dutInfo.studentNumber = studentNumber.text ?? ""
+        dutInfo.portalPassword = password.text ?? ""
         dutInfo.loginPortalSite(succeed: loginSucceed, failed: loginFailed)
     }
     
     func loginSucceed() {
         let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+        userDefaults.set(studentNumber.text!, forKey: "StudentNumber")
         userDefaults.set(password.text!, forKey: "PortalPassword")
         self.navigationController?.dismiss(animated: true)
     }

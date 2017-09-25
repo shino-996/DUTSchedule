@@ -34,7 +34,7 @@ extension DUTInfo {
         let url = URL(string: "http://portal.dlut.edu.cn/cas/login")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = ("encodedService=http%253a%252f%252fportal.dlut.edu.cn%252fcas.jsp&service=http%3A%2F%2Fportal.dlut.edu.cn%2Fcas.jsp&serviceName=null&action=DCPLogin&inputname=\(studentNumber!)&selmail=1&username=\(studentNumber!)&password=\(portalPassword!)&lt=\(ltID!)&userNameType=cardID&Submit=%B5%C7%C2%BC")
+        request.httpBody = ("encodedService=http%253a%252f%252fportal.dlut.edu.cn%252fcas.jsp&service=http%3A%2F%2Fportal.dlut.edu.cn%2Fcas.jsp&serviceName=null&action=DCPLogin&inputname=\(studentNumber)&selmail=1&username=\(studentNumber)&password=\(portalPassword)&lt=\(ltID!)&userNameType=cardID&Submit=%B5%C7%C2%BC")
             .data(using: .utf8)
         return session.dataTask(with: request)
     }
@@ -72,7 +72,7 @@ extension DUTInfo {
         }
     }
     
-    func loginPortalSite(succeed: @escaping () -> Void, failed: @escaping () -> Void) {
+    func loginPortalSite(succeed: @escaping () -> Void = {}, failed: @escaping () -> Void = {}) {
         firstly(execute: getLoginPortalURL)
         .then(execute: gotoPortalPage)
         .then(execute: portalLoginVerify)

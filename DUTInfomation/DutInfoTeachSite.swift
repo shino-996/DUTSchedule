@@ -44,7 +44,7 @@ extension DUTInfo {
         }
     }
     
-    func loginTeachSite(succeed: @escaping () -> Void, failed: @escaping () -> Void) {
+    func loginTeachSite(succeed: @escaping () -> Void = {}, failed: @escaping () -> Void = {}) {
         firstly(execute: gotoTeachPage)
         .then(execute: teachLoginVerify)
         .then { (ifLogin: Bool) -> Void in

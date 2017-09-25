@@ -10,15 +10,22 @@ import UIKit
 
 class ScheduleViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    var dutInfo: DUTInfo!
+    lazy var dutInfo = DUTInfo()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if dutInfo == nil {
-            dutInfo = DUTInfo(())
-        }
-        if dutInfo == nil {
-            performSegue(withIdentifier: "LoginTeach", sender: self)
+        dutInfo.loginPortalSite(failed: {
+            self.performSegue(withIdentifier: "LoginTeach", sender: self)
+        })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "LoginTeach" {
+            let navigation = segue.destination as! UINavigationController
+            let destination = navigation.topViewController as! LoginTeachSiteViewController
+            destination.dutInfo = dutInfo
+        } else {
+            fatalError()
         }
     }
     

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -92,12 +93,16 @@
                                             <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstItem="X7d-CI-avz" firstAttribute="leading" secondItem="sD3-9Z-M4Q" secondAttribute="leadingMargin" id="BMJ-Xk-o2d"/>
+                                                <constraint firstItem="JRF-8U-Y6B" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sD3-9Z-M4Q" secondAttribute="leadingMargin" id="Doa-wo-yeF"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="V65-8j-yTK" secondAttribute="trailing" id="FfA-gW-itN"/>
                                                 <constraint firstAttribute="topMargin" secondItem="V65-8j-yTK" secondAttribute="top" id="LiM-NH-7Kh"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="qw3-Tk-zV1" secondAttribute="bottom" id="NLl-N8-kVg"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="JRF-8U-Y6B" secondAttribute="bottom" constant="-3.5" id="OrA-w4-ihF"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="JRF-8U-Y6B" secondAttribute="trailing" id="b4l-WY-xMs"/>
                                                 <constraint firstAttribute="topMargin" secondItem="X7d-CI-avz" secondAttribute="top" id="c5o-aR-jGx"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="X7d-CI-avz" secondAttribute="trailingMargin" id="fo7-dp-fzd"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qw3-Tk-zV1" secondAttribute="trailingMargin" id="ibh-Cy-9KK"/>
+                                                <constraint firstItem="V65-8j-yTK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sD3-9Z-M4Q" secondAttribute="leadingMargin" id="sHH-18-7ap"/>
                                                 <constraint firstItem="qw3-Tk-zV1" firstAttribute="leading" secondItem="sD3-9Z-M4Q" secondAttribute="leadingMargin" id="tVF-eB-ApH"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -137,10 +142,12 @@
                             <constraint firstItem="mzU-as-1C2" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="KRK-dF-tZz"/>
                             <constraint firstAttribute="leadingMargin" secondItem="SaB-V7-An3" secondAttribute="leading" id="LGa-na-5Vd"/>
                             <constraint firstItem="cOr-hr-XxE" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="VO1-kb-zH2"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tIY-wg-Ra5" secondAttribute="trailing" constant="20" symbolic="YES" id="Xnq-U7-kmP"/>
                             <constraint firstItem="mzU-as-1C2" firstAttribute="top" secondItem="DaZ-2p-4OX" secondAttribute="bottom" id="dpM-Uq-4k0"/>
                             <constraint firstItem="WUA-8n-DxL" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" multiplier="1.2" id="fyu-oC-zq3"/>
                             <constraint firstItem="tIY-wg-Ra5" firstAttribute="leading" secondItem="SaB-V7-An3" secondAttribute="trailing" constant="8" symbolic="YES" id="p6E-vK-cY8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fLE-D4-xef" secondAttribute="trailing" id="pDs-BN-Whu"/>
+                            <constraint firstItem="GQf-Ma-zHL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="sT9-OE-Qlu"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="mzU-as-1C2" secondAttribute="bottom" constant="8" symbolic="YES" id="toX-ui-6Cj"/>
                             <constraint firstItem="DaZ-2p-4OX" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="uW3-jW-yAU"/>
                             <constraint firstItem="cOr-hr-XxE" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="uoH-E0-oQI"/>

@@ -13,19 +13,26 @@ class LoginTeachSiteViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var loginFailedLabel: UILabel!
     
+    var dutInfo: DUTInfo!
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "LoginPortal" {
         let destination = segue.destination as! LoginPortalSiteViewController
+        destination.dutInfo = dutInfo
         destination.number = studentNumber.text
+        } else {
+            fatalError()
+        }
     }
     
     @IBAction func LoginTeachSite() {
-        let dutInfo = DUTInfo(studentNumber.text ?? "", password.text ?? "")
+        dutInfo.studentNumber = studentNumber.text ?? ""
+        dutInfo.teachPassword = password.text ?? ""
         dutInfo.loginTeachSite(succeed: loginSucceed, failed: loginFailed)
     }
     
     func loginSucceed() {
         let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        userDefaults.set(studentNumber.text!, forKey: "StudentNumber")
         userDefaults.set(password.text!, forKey: "TeachPassword")
         performSegue(withIdentifier: "LoginPortal", sender: self)
     }

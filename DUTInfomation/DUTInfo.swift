@@ -27,37 +27,21 @@ enum DUTError: Error {
 
 class DUTInfo: NSObject {
     //学号
-    var studentNumber: String!
+    var studentNumber: String
     //教务处密码，默认为身份证号后6位
-    var teachPassword: String!
+    var teachPassword: String
     //校园门户密码，默认为身份证号后6位
-    var portalPassword: String!
+    var portalPassword: String
     //用于网络请求的session
     var session: URLSession!
     //委托对象
     var delegate: DUTInfoDelegate!
-    
-    private override init() {
-        super.init()
-    }
         
-    init?(_: Void) {
-        super.init()
+    override init() {
         let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        if let teachPassword = userDefaults.string(forKey: "TeachPassword") {
-            studentNumber = userDefaults.string(forKey: "StudentNumber")!
-            self.teachPassword = teachPassword
-            portalPassword = userDefaults.string(forKey: "PortalPassword")!
-        } else {
-            return nil
-        }
-    }
-    
-    init(_ studentNumber: String, _ teachPassword: String = "", _ portalPassword: String = "") {
-        super.init()
-        self.studentNumber = studentNumber
-        self.teachPassword = teachPassword
-        self.portalPassword = portalPassword
+        studentNumber = userDefaults.string(forKey: "StudentNumber") ?? ""
+        teachPassword = userDefaults.string(forKey: "TeachPassword") ?? ""
+        portalPassword = userDefaults.string(forKey: "PortalPassword") ?? ""
     }
     
     var netCost: String! {
@@ -81,5 +65,11 @@ class DUTInfo: NSObject {
                 
             }
         }
+    }
+    
+    func login(succeed: @escaping () -> Void = {}, failed: @escaping () -> Void = {}) {
+        loginTeachSite(succeed: {
+            self.loginPortalSite(succeed: succeed, failed: failed)
+        }, failed: failed)
     }
 }
