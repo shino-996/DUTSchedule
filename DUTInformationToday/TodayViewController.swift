@@ -20,7 +20,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     lazy var dutInfo = DUTInfo()
     var scheduleDate = Date()
-    var courseInfo: [[String: String]] = []
+    var courseInfo: [[String: String]] = [] {
+        didSet {
+            courseTableView.reloadData()
+            freshWeekLabel()
+        }
+    }
     var freshingNum: Int! {
         didSet {
             if freshingNum <= 0 {
@@ -90,13 +95,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if point.x < 70 {
             scheduleDate = scheduleDate.addingTimeInterval(-60 * 60 * 24)
             loadSchedule(ofDate: scheduleDate)
-            courseTableView.reloadData()
         } else if point.x > view.frame.width - 70 {
             scheduleDate = scheduleDate.addingTimeInterval(60 * 60 * 24)
             loadSchedule(ofDate: scheduleDate)
-            courseTableView.reloadData()
         }
-        freshWeekLabel()
     }
     
     @IBAction func backTodaySchedule(_ sender: Any) {
@@ -105,8 +107,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if point.x >= 70 && point.x <= view.frame.width - 70 {
             scheduleDate = Date()
             loadScheduleData()
-            courseTableView.reloadData()
-            freshWeekLabel()
         }
     }
 }
@@ -177,8 +177,7 @@ extension TodayViewController {
     func freshData() {
         activityIndicator.startAnimating()
         freshingNum = 3
-        dutInfo.ecardInfo()
-        dutInfo.netInfo()
+        dutInfo.newPortalNetInfo()
     }
 }
 
@@ -196,7 +195,7 @@ extension TodayViewController: DUTInfoDelegate {
     
     func setNetFlow() {
         DispatchQueue.main.async {
-            self.netLabel.text = self.dutInfo.netFlow + "/" + self.dutInfo.netCost
+            self.netLabel.text = self.dutInfo.netCost + "/" + self.dutInfo.netFlow
         }
         freshingNum = freshingNum - 1
     }

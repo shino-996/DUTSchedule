@@ -34,6 +34,8 @@ class DUTInfo: NSObject {
     var portalPassword: String
     //用于网络请求的session
     var session: URLSession!
+    
+    var newPortalSession: URLSession!
     //委托对象
     var delegate: DUTInfoDelegate!
         

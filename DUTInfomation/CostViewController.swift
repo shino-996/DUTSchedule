@@ -21,8 +21,7 @@ class CostViewController: UIViewController, DUTInfoDelegate {
             dutInfo.delegate = self
         }
         dutInfo.login(succeed: {
-            self.dutInfo.ecardInfo()
-            self.dutInfo.netInfo()
+            self.dutInfo.newPortalNetInfo()
         }, failed: {
             self.performSegue(withIdentifier: "LoginTeach", sender: self)
         })

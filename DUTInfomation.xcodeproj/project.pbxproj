@@ -18,6 +18,10 @@
 		B422673D1F692A9700D161CD /* DutInfoNetSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42267391F6928BD00D161CD /* DutInfoNetSite.swift */; };
 		B422673F1F692DF500D161CD /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422673E1F692DF500D161CD /* ScheduleViewController.swift */; };
 		B4288CE71F121A7F005D629B /* DUTInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E901F0A25A500174471 /* DUTInfo.swift */; };
+		B454F2321F793D6D00DA5B05 /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */; };
+		B454F2331F793D7200DA5B05 /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */; };
+		B454F2351F79521C00DA5B05 /* des.js in Resources */ = {isa = PBXBuildFile; fileRef = B454F2341F79521C00DA5B05 /* des.js */; };
+		B454F2361F79522600DA5B05 /* des.js in Resources */ = {isa = PBXBuildFile; fileRef = B454F2341F79521C00DA5B05 /* des.js */; };
 		B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A137E61F62BD9200207CFF /* TodayViewController.swift */; };
 		B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E7E1F0A211800174471 /* AppDelegate.swift */; };
 		B4B70E811F0A211800174471 /* CostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E801F0A211800174471 /* CostViewController.swift */; };
@@ -81,6 +85,8 @@
 		B42267371F6928AD00D161CD /* DutInfoPortalSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DutInfoPortalSite.swift; sourceTree = "<group>"; };
 		B42267391F6928BD00D161CD /* DutInfoNetSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DutInfoNetSite.swift; sourceTree = "<group>"; };
 		B422673E1F692DF500D161CD /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DutInfoNewPortalSite.swift; sourceTree = "<group>"; };
+		B454F2341F79521C00DA5B05 /* des.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = des.js; path = ../../../Desktop/des.js; sourceTree = "<group>"; };
 		B4A137E61F62BD9200207CFF /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		B4B70E7B1F0A211800174471 /* DUTInfomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DUTInfomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4B70E7E1F0A211800174471 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +168,8 @@
 				B42267351F69289F00D161CD /* DutInfoTeachSite.swift */,
 				B42267371F6928AD00D161CD /* DutInfoPortalSite.swift */,
 				B42267391F6928BD00D161CD /* DutInfoNetSite.swift */,
+				B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */,
+				B454F2341F79521C00DA5B05 /* des.js */,
 			);
 			name = DUTInfoCore;
 			path = DUTInfomation;
@@ -321,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4B70E891F0A211800174471 /* LaunchScreen.storyboard in Resources */,
+				B454F2351F79521C00DA5B05 /* des.js in Resources */,
 				B4B70E861F0A211800174471 /* Assets.xcassets in Resources */,
 				B4B70E841F0A211800174471 /* Main.storyboard in Resources */,
 			);
@@ -331,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4CB3FE11F1209FE0059591C /* MainInterface.storyboard in Resources */,
+				B454F2361F79522600DA5B05 /* des.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +446,7 @@
 				B42267381F6928AD00D161CD /* DutInfoPortalSite.swift in Sources */,
 				B40E06311F66A57D0005ADE1 /* DUTInfoStringUnits.swift in Sources */,
 				B422673F1F692DF500D161CD /* ScheduleViewController.swift in Sources */,
+				B454F2321F793D6D00DA5B05 /* DutInfoNewPortalSite.swift in Sources */,
 				B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */,
 				B4B70E911F0A25A500174471 /* DUTInfo.swift in Sources */,
 				B4E535D41F615468007DE392 /* LoginPortalSiteViewController.swift in Sources */,
@@ -454,6 +465,7 @@
 				B40E06321F66AA8F0005ADE1 /* DUTInfoStringUnits.swift in Sources */,
 				B422673D1F692A9700D161CD /* DutInfoNetSite.swift in Sources */,
 				B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */,
+				B454F2331F793D7200DA5B05 /* DutInfoNewPortalSite.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
