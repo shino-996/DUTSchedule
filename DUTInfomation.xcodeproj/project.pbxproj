@@ -159,7 +159,7 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		B42267341F69285800D161CD /* DUTInfoCore */ = {
+		B46DE42D1F7A46B6001B7D2E /* DUTInfoCore */ = {
 			isa = PBXGroup;
 			children = (
 				B4B70E901F0A25A500174471 /* DUTInfo.swift */,
@@ -170,14 +170,13 @@
 				B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */,
 				B4C9D92E1F7A211800717A4E /* des.js */,
 			);
-			name = DUTInfoCore;
-			path = DUTInfomation;
+			path = DUTInfoCore;
 			sourceTree = "<group>";
 		};
 		B4B70E721F0A211800174471 = {
 			isa = PBXGroup;
 			children = (
-				B42267341F69285800D161CD /* DUTInfoCore */,
+				B46DE42D1F7A46B6001B7D2E /* DUTInfoCore */,
 				B4B70E7D1F0A211800174471 /* DUTInfomation */,
 				B4CB3FDC1F1209FE0059591C /* DUTInformationToday */,
 				B4B70E7C1F0A211800174471 /* Products */,
