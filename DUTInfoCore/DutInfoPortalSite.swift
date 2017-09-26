@@ -12,6 +12,41 @@ import PromiseKit
 
 //校园门户信息，可以通过外网访问
 //http://portal.dlut.edu.cn/
+
+//接口
+extension DUTInfo {
+    //登录验证
+    func loginPortalSite(succeed: @escaping () -> Void = {}, failed: @escaping () -> Void = {}) {
+        firstly(execute: getLoginPortalURL)
+            .then(execute: gotoPortalPage)
+            .then(execute: portalLoginVerify)
+            .then { (isLogin: Bool) -> Void in
+                if isLogin {
+                    succeed()
+                }
+            }.catch { error in
+                print(error)
+                failed()
+            }
+    }
+    
+    //获取课程表，handle闭包对获取到的信息进行处理
+    func scheduleInfo() {
+        firstly(execute: getLoginPortalURL)
+            .then(execute: gotoPortalPage)
+            .then(execute: portalLoginVerify)
+            .then(execute: gotoPortalMainPage)
+            .then(execute: gotoMyInfoPage)
+            .then(execute: clickMyTeachButton)
+            .then(execute: getMyTeachURL)
+            .then(execute: gotoMyTeachPage)
+            .then(execute: gotoMySchedulePage)
+            .then(execute: getSchedule)
+            .catch(execute: portalErrorHandle)
+    }
+}
+
+//接口实现
 extension DUTInfo {
     //登录校园门户，需要跳转几次
     //打开登录链接
@@ -19,8 +54,8 @@ extension DUTInfo {
     private func getLoginPortalURL() -> URLDataPromise {
         let url = URL(string: "http://portal.dlut.edu.cn/cas/login?service=http%3A%2F%2Fportal.dlut.edu.cn%2Fcas.jsp")
         let request = URLRequest(url: url!)
-        session = URLSession(configuration: .ephemeral)
-        return session.dataTask(with: request)
+        portalSession = URLSession(configuration: .ephemeral)
+        return portalSession.dataTask(with: request)
     }
     
     //获取登录用的"lt"字符串，之后登录
@@ -36,7 +71,7 @@ extension DUTInfo {
         request.httpMethod = "POST"
         request.httpBody = ("encodedService=http%253a%252f%252fportal.dlut.edu.cn%252fcas.jsp&service=http%3A%2F%2Fportal.dlut.edu.cn%2Fcas.jsp&serviceName=null&action=DCPLogin&inputname=\(studentNumber)&selmail=1&username=\(studentNumber)&password=\(portalPassword)&lt=\(ltID!)&userNameType=cardID&Submit=%B5%C7%C2%BC")
             .data(using: .utf8)
-        return session.dataTask(with: request)
+        return portalSession.dataTask(with: request)
     }
     
     //验证是否登录成功，重载函数是因为后面有的功能不需要主页的HTMl
@@ -61,45 +96,21 @@ extension DUTInfo {
         }
         return Promise(value: parseStr)
     }
-    
-    private func portalErrorHandle(_ error: Error) {
-        if let error = error as? DUTError {
-            if error == .authError {
-                print("校园门户用户名或密码错误！")
-            }
-        } else {
-            print(error)
-        }
-    }
-    
-    func loginPortalSite(succeed: @escaping () -> Void = {}, failed: @escaping () -> Void = {}) {
-        firstly(execute: getLoginPortalURL)
-        .then(execute: gotoPortalPage)
-        .then(execute: portalLoginVerify)
-        .then { (isLogin: Bool) -> Void in
-            if isLogin {
-                succeed()
-            }
-        }.catch { _ in
-            failed()
-        }
-        .catch(execute: portalErrorHandle)
-    }
-    
+
     //得到校园门户主页的URL，后面查课程表和成绩会用到
     private func gotoPortalMainPage(_ parseStr: HTMLDocument) throws -> URLDataPromise {
         let urlStr = parseStr.body?
             .children[0].children[0].children[0].attr("href")
         let url = URL(string: urlStr!)!
         let request = URLRequest(url: url)
-        return session.dataTask(with: request)
+        return portalSession.dataTask(with: request)
     }
     
     //校园卡余额及电子支付余额信息
     private func getEcardURL(_: Bool) -> URLDataPromise {
         let url = URL(string: "http://portal.dlut.edu.cn/eapdomain/neudcp/sso/ecard_query_new.jsp")!
         let request = URLRequest(url: url)
-        return session.dataTask(with: request)
+        return portalSession.dataTask(with: request)
     }
     
     //这个页面要跳转一下……
@@ -110,7 +121,7 @@ extension DUTInfo {
             .children[0].children[0].children[0].attr("href")
         let url = URL(string: urlStr!)!
         let request = URLRequest(url: url)
-        return session.dataTask(with: request)
+        return portalSession.dataTask(with: request)
     }
     
     private func getEcardInfo(_ data: Data) {
@@ -118,12 +129,6 @@ extension DUTInfo {
         let ecardMoney = parseStr.body?
             .children[0].children[0].children[2].children[0]
             .children[0].stringValue
-        //电子账户余额
-        //        let eMoney = parseStr.body?
-        //                    .children[0].children[1].children[1].children[0]
-        //                    .children[0].stringValue
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        userDefaults.set(ecardMoney! + "元", forKey: "EcardCost")
         ecardCost = ecardMoney! + "元"
     }
     
@@ -148,7 +153,7 @@ extension DUTInfo {
             .children[11].children[0].attr("href")
         let url = URL(string: urlStr!)!
         let request = URLRequest(url: url)
-        return session.dataTask(with: request)
+        return portalSession.dataTask(with: request)
     }
     
     //准备前往"我的教务信息界面"，相当于点了一下"我的教务信息"按钮
@@ -161,7 +166,7 @@ extension DUTInfo {
             .children[0].attr("href")
         let url = URL(string: urlStr!)!
         let request = URLRequest(url: url)
-        return session.dataTask(with: request)
+        return portalSession.dataTask(with: request)
     }
     
     //"我的教务信息界面要进行一次跳转……"
@@ -174,7 +179,7 @@ extension DUTInfo {
             .children[1].children[0].attr("src")
         let url = URL(string: "http://portal.dlut.edu.cn" + str!)!
         let request = URLRequest(url: url)
-        return session.dataTask(with: request)
+        return portalSession.dataTask(with: request)
     }
     
     //总算进来了
@@ -185,7 +190,7 @@ extension DUTInfo {
             .children[0].children[0].children[0].attr("href")
         let url = URL(string: urlStr!)!
         let request = URLRequest(url: url)
-        return session.dataTask(with: request)
+        return portalSession.dataTask(with: request)
     }
     
     //前往课程表界面
@@ -209,7 +214,7 @@ extension DUTInfo {
             + "&reportId="
             + reportID
             + "&newReport=true&xn=2017-2018&xq=1").data(using: .utf8)
-        return session.dataTask(with: request)
+        return portalSession.dataTask(with: request)
     }
     
     private func getSchedule(_ data: Data) {
@@ -238,23 +243,18 @@ extension DUTInfo {
                 courseData.append(courseDic)
             }
         }
-        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-        let fileURL = groupURL!.appendingPathComponent("course.plist")
-        (courseData as NSArray).write(to: fileURL, atomically: true)
-        print("ok")
+        delegate.setSchedule(courseData)
     }
     
-    func scheduleInfo() {
-        firstly(execute: getLoginPortalURL)
-        .then(execute: gotoPortalPage)
-        .then(execute: portalLoginVerify)
-        .then(execute: gotoPortalMainPage)
-        .then(execute: gotoMyInfoPage)
-        .then(execute: clickMyTeachButton)
-        .then(execute: getMyTeachURL)
-        .then(execute: gotoMyTeachPage)
-        .then(execute: gotoMySchedulePage)
-        .then(execute: getSchedule)
-        .catch(execute: portalErrorHandle)
+    private func portalErrorHandle(_ error: Error) {
+        print(error)
+        if let error = error as? DUTError {
+            if error == .authError {
+                print("校园门户用户名或密码错误！")
+            }
+        } else {
+            print("其他错误")
+        }
+        delegate.netErrorHandle()
     }
 }

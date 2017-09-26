@@ -13,6 +13,40 @@ import PromiseKit
 //教务处网站信息，只有在校园网内网可以访问
 //http://zhjw.dlut.edu.cn
 //登录教务处网站
+
+//接口
+extension DUTInfo {
+    //登录验证
+    func loginTeachSite(succeed: @escaping () -> Void = {}, failed: @escaping () -> Void = {}) {
+        firstly(execute: gotoTeachPage)
+            .then(execute: teachLoginVerify)
+            .then { (ifLogin: Bool) -> Void in
+                if ifLogin {
+                    succeed()
+                }
+            }.catch { error in
+                print(error)
+                failed()
+            }
+    }
+    
+    func gradeInfo() {
+        firstly(execute: gotoTeachPage)
+            .then(execute: teachLoginVerify)
+            .then(execute: gotoGradePage)
+            .then(execute: getGrade)
+            .catch(execute: teachErrorHandle)
+    }
+    
+    func testInfo() {
+        firstly(execute: gotoTeachPage)
+            .then(execute: teachLoginVerify)
+            .then(execute: gotoTestPage)
+            .catch(execute: teachErrorHandle)
+    }
+}
+
+//接口实现
 extension DUTInfo {
     private func gotoTeachPage() -> URLDataPromise {
         let url = URL(string: "http://zhjw.dlut.edu.cn/loginAction.do")!
@@ -20,7 +54,8 @@ extension DUTInfo {
         request.httpMethod = "POST"
         request.httpBody = ("zjh=" + self.studentNumber + "&mm=" + self.teachPassword)
             .data(using: String.Encoding.utf8)
-        return URLSession.shared.dataTask(with: request)
+        teachSession = URLSession(configuration: .ephemeral)
+        return teachSession.dataTask(with: request)
     }
     
     //验证是否登录成功
@@ -33,36 +68,13 @@ extension DUTInfo {
         }
         return true
     }
-    
-    private func teachErrorHandle(_ error: Error) {
-        if let error = error as? DUTError {
-            if error == .authError {
-                print("教务处用户名或密码错误！")
-            }
-        } else {
-            print(error)
-        }
-    }
-    
-    func loginTeachSite(succeed: @escaping () -> Void = {}, failed: @escaping () -> Void = {}) {
-        firstly(execute: gotoTeachPage)
-        .then(execute: teachLoginVerify)
-        .then { (ifLogin: Bool) -> Void in
-            if ifLogin {
-                succeed()
-            }
-        }.catch { _ in
-            failed()
-        }
-        .catch(execute: teachErrorHandle)
-    }
-    
+
     //查询本学期成绩
     //进入本学期成绩界面
     private func gotoGradePage(_: Bool) -> URLDataPromise {
         let url = URL(string: "http://zhjw.dlut.edu.cn/bxqcjcxAction.do")!
         let request = URLRequest(url: url)
-        return URLSession.shared.dataTask(with: request)
+        return teachSession.dataTask(with: request)
     }
     
     //解析出各科成绩
@@ -88,33 +100,24 @@ extension DUTInfo {
             print(className + ", " + classCredit + ", " + classGrade)
         }
     }
-    
-    func gradeInfo() {
-        firstly(execute: gotoTeachPage)
-            .then(execute: teachLoginVerify)
-            .then(execute: gotoGradePage)
-            .then(execute: getGrade)
-            .catch(execute: teachErrorHandle)
-    }
-    
+
     //查询考试安排
     //因为我小学期没有考试……等抓到有考试的人再用他的账号抓吧【
     private func gotoTestPage(_: Bool) -> URLDataPromise {
         let url = URL(string: "http://zhjw.dlut.edu.cn/ksApCxAction.do?oper=getKsapXx")!
         let request = URLRequest(url: url)
-        return URLSession.shared.dataTask(with: request)
+        return teachSession.dataTask(with: request)
     }
-    
-    private func testPrint(_ data: Data) {
-        let str = data.unicodeString
-        print(str)
-    }
-    
-    func testInfo() {
-        firstly(execute: gotoTeachPage)
-            .then(execute: teachLoginVerify)
-            .then(execute: gotoTestPage)
-            .then(execute: testPrint)
-            .catch(execute: teachErrorHandle)
+
+    private func teachErrorHandle(_ error: Error) {
+        print(error)
+        if let error = error as? DUTError {
+            if error == .authError {
+                print("教务处用户名或密码错误！")
+            }
+        } else {
+            print("其他错误")
+        }
+        delegate.netErrorHandle()
     }
 }
