@@ -2,7 +2,7 @@ platform :ios, '9.0'
 
 target 'DUTInfomation' do
   use_frameworks!
-  swift_version = "3.0"
+  swift_version = "4.0"
 
   pod "PromiseKit"
   pod "Fuzi"
