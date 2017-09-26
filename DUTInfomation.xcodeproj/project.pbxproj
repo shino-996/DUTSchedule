@@ -20,8 +20,6 @@
 		B4288CE71F121A7F005D629B /* DUTInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E901F0A25A500174471 /* DUTInfo.swift */; };
 		B454F2321F793D6D00DA5B05 /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */; };
 		B454F2331F793D7200DA5B05 /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */; };
-		B454F2351F79521C00DA5B05 /* des.js in Resources */ = {isa = PBXBuildFile; fileRef = B454F2341F79521C00DA5B05 /* des.js */; };
-		B454F2361F79522600DA5B05 /* des.js in Resources */ = {isa = PBXBuildFile; fileRef = B454F2341F79521C00DA5B05 /* des.js */; };
 		B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A137E61F62BD9200207CFF /* TodayViewController.swift */; };
 		B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E7E1F0A211800174471 /* AppDelegate.swift */; };
 		B4B70E811F0A211800174471 /* CostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E801F0A211800174471 /* CostViewController.swift */; };
@@ -29,6 +27,7 @@
 		B4B70E861F0A211800174471 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E851F0A211800174471 /* Assets.xcassets */; };
 		B4B70E891F0A211800174471 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E871F0A211800174471 /* LaunchScreen.storyboard */; };
 		B4B70E911F0A25A500174471 /* DUTInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E901F0A25A500174471 /* DUTInfo.swift */; };
+		B4C9D92F1F7A211800717A4E /* des.js in Resources */ = {isa = PBXBuildFile; fileRef = B4C9D92E1F7A211800717A4E /* des.js */; };
 		B4CB3FDB1F1209FE0059591C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4CB3FDA1F1209FE0059591C /* NotificationCenter.framework */; };
 		B4CB3FE11F1209FE0059591C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4CB3FDF1F1209FE0059591C /* MainInterface.storyboard */; };
 		B4CB3FE51F1209FE0059591C /* DUTInformationToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B4CB3FD91F1209FE0059591C /* DUTInformationToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -86,7 +85,6 @@
 		B42267391F6928BD00D161CD /* DutInfoNetSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DutInfoNetSite.swift; sourceTree = "<group>"; };
 		B422673E1F692DF500D161CD /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DutInfoNewPortalSite.swift; sourceTree = "<group>"; };
-		B454F2341F79521C00DA5B05 /* des.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = des.js; path = ../../../Desktop/des.js; sourceTree = "<group>"; };
 		B4A137E61F62BD9200207CFF /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		B4B70E7B1F0A211800174471 /* DUTInfomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DUTInfomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4B70E7E1F0A211800174471 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +94,7 @@
 		B4B70E881F0A211800174471 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B4B70E8A1F0A211800174471 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4B70E901F0A25A500174471 /* DUTInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DUTInfo.swift; sourceTree = "<group>"; };
+		B4C9D92E1F7A211800717A4E /* des.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = des.js; sourceTree = "<group>"; };
 		B4CB3FD91F1209FE0059591C /* DUTInformationToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DUTInformationToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4CB3FDA1F1209FE0059591C /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		B4CB3FE01F1209FE0059591C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -169,7 +168,7 @@
 				B42267371F6928AD00D161CD /* DutInfoPortalSite.swift */,
 				B42267391F6928BD00D161CD /* DutInfoNetSite.swift */,
 				B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */,
-				B454F2341F79521C00DA5B05 /* des.js */,
+				B4C9D92E1F7A211800717A4E /* des.js */,
 			);
 			name = DUTInfoCore;
 			path = DUTInfomation;
@@ -329,7 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4B70E891F0A211800174471 /* LaunchScreen.storyboard in Resources */,
-				B454F2351F79521C00DA5B05 /* des.js in Resources */,
+				B4C9D92F1F7A211800717A4E /* des.js in Resources */,
 				B4B70E861F0A211800174471 /* Assets.xcassets in Resources */,
 				B4B70E841F0A211800174471 /* Main.storyboard in Resources */,
 			);
@@ -340,7 +339,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4CB3FE11F1209FE0059591C /* MainInterface.storyboard in Resources */,
-				B454F2361F79522600DA5B05 /* des.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
