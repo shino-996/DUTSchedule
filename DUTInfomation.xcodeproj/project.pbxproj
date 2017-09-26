@@ -13,6 +13,12 @@
 		B4B70E861F0A211800174471 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E851F0A211800174471 /* Assets.xcassets */; };
 		B4B70E891F0A211800174471 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E871F0A211800174471 /* LaunchScreen.storyboard */; };
 		B4B70E911F0A25A500174471 /* DUTInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E901F0A25A500174471 /* DUTInfo.swift */; };
+		B4C9D9361F7A219100717A4E /* DUTInfoUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C9D9301F7A219100717A4E /* DUTInfoUnits.swift */; };
+		B4C9D9371F7A219100717A4E /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C9D9311F7A219100717A4E /* DutInfoNewPortalSite.swift */; };
+		B4C9D9381F7A219100717A4E /* DutInfoPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C9D9321F7A219100717A4E /* DutInfoPortalSite.swift */; };
+		B4C9D9391F7A219100717A4E /* DutInfoNetSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C9D9331F7A219100717A4E /* DutInfoNetSite.swift */; };
+		B4C9D93A1F7A219100717A4E /* DutInfoTeachSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C9D9341F7A219100717A4E /* DutInfoTeachSite.swift */; };
+		B4C9D93B1F7A219100717A4E /* des.js in Resources */ = {isa = PBXBuildFile; fileRef = B4C9D9351F7A219100717A4E /* des.js */; };
 		D15B9B88571B6EF5583F1D87 /* Pods_DUTInfomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA733EC1FDC5F35321DDDEEB /* Pods_DUTInfomation.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +33,12 @@
 		B4B70E881F0A211800174471 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B4B70E8A1F0A211800174471 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4B70E901F0A25A500174471 /* DUTInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DUTInfo.swift; sourceTree = "<group>"; };
+		B4C9D9301F7A219100717A4E /* DUTInfoUnits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DUTInfoUnits.swift; sourceTree = "<group>"; };
+		B4C9D9311F7A219100717A4E /* DutInfoNewPortalSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DutInfoNewPortalSite.swift; sourceTree = "<group>"; };
+		B4C9D9321F7A219100717A4E /* DutInfoPortalSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DutInfoPortalSite.swift; sourceTree = "<group>"; };
+		B4C9D9331F7A219100717A4E /* DutInfoNetSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DutInfoNetSite.swift; sourceTree = "<group>"; };
+		B4C9D9341F7A219100717A4E /* DutInfoTeachSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DutInfoTeachSite.swift; sourceTree = "<group>"; };
+		B4C9D9351F7A219100717A4E /* des.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = des.js; sourceTree = "<group>"; };
 		FA733EC1FDC5F35321DDDEEB /* Pods_DUTInfomation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DUTInfomation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -62,6 +74,7 @@
 		B4B70E721F0A211800174471 = {
 			isa = PBXGroup;
 			children = (
+				B4C9D93C1F7A21A700717A4E /* DUTInfoCore */,
 				B4B70E7D1F0A211800174471 /* DUTInfomation */,
 				B4B70E7C1F0A211800174471 /* Products */,
 				87FE56C3B63F9CCFCFF5089C /* Pods */,
@@ -82,13 +95,26 @@
 			children = (
 				B4B70E7E1F0A211800174471 /* AppDelegate.swift */,
 				B4B70E801F0A211800174471 /* ViewController.swift */,
-				B4B70E901F0A25A500174471 /* DUTInfo.swift */,
 				B4B70E821F0A211800174471 /* Main.storyboard */,
 				B4B70E851F0A211800174471 /* Assets.xcassets */,
 				B4B70E871F0A211800174471 /* LaunchScreen.storyboard */,
 				B4B70E8A1F0A211800174471 /* Info.plist */,
 			);
 			path = DUTInfomation;
+			sourceTree = "<group>";
+		};
+		B4C9D93C1F7A21A700717A4E /* DUTInfoCore */ = {
+			isa = PBXGroup;
+			children = (
+				B4B70E901F0A25A500174471 /* DUTInfo.swift */,
+				B4C9D9301F7A219100717A4E /* DUTInfoUnits.swift */,
+				B4C9D9311F7A219100717A4E /* DutInfoNewPortalSite.swift */,
+				B4C9D9321F7A219100717A4E /* DutInfoPortalSite.swift */,
+				B4C9D9331F7A219100717A4E /* DutInfoNetSite.swift */,
+				B4C9D9341F7A219100717A4E /* DutInfoTeachSite.swift */,
+				B4C9D9351F7A219100717A4E /* des.js */,
+			);
+			path = DUTInfoCore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -121,13 +147,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = shino;
 				TargetAttributes = {
 					B4B70E7A1F0A211800174471 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = R374EG3MSW;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -156,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4B70E891F0A211800174471 /* LaunchScreen.storyboard in Resources */,
+				B4C9D93B1F7A219100717A4E /* des.js in Resources */,
 				B4B70E861F0A211800174471 /* Assets.xcassets in Resources */,
 				B4B70E841F0A211800174471 /* Main.storyboard in Resources */,
 			);
@@ -224,8 +251,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4C9D9381F7A219100717A4E /* DutInfoPortalSite.swift in Sources */,
 				B4B70E811F0A211800174471 /* ViewController.swift in Sources */,
 				B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */,
+				B4C9D9361F7A219100717A4E /* DUTInfoUnits.swift in Sources */,
+				B4C9D93A1F7A219100717A4E /* DutInfoTeachSite.swift in Sources */,
+				B4C9D9371F7A219100717A4E /* DutInfoNewPortalSite.swift in Sources */,
+				B4C9D9391F7A219100717A4E /* DutInfoNetSite.swift in Sources */,
 				B4B70E911F0A25A500174471 /* DUTInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,7 +294,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -270,7 +304,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -312,7 +350,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -320,7 +360,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -357,9 +401,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "DUTInfomation/DUTInfomation-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -376,8 +420,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "DUTInfomation/DUTInfomation-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

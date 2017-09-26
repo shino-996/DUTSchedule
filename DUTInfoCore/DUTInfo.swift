@@ -12,9 +12,10 @@ import Foundation
 
 protocol DUTInfoDelegate {
     //当DUTInfo属性更改时会调用的委托方法
-    func setNetCost()
-    func setNetFlow()
-    func setEcardCost()
+    func setNetCost(_ netCost: String)
+    func setNetFlow(_ netFlow: String)
+    func setEcardCost(_ ecardCost: String)
+    func setSchedule(_ courseArray: [[String: String]])
     
     //当网络异常时会调用的委托方法
     func netErrorHandle()
@@ -32,40 +33,45 @@ class DUTInfo: NSObject {
     var teachPassword: String
     //校园门户密码，默认为身份证号后6位
     var portalPassword: String
-    //用于网络请求的session
-    var session: URLSession!
     
+    //用于网络请求的session
+    //旧版校园门户
+    var portalSession: URLSession!
+    //新版校园门户
     var newPortalSession: URLSession!
-    //委托对象
+    //教务处
+    var teachSession: URLSession!
+    // 校园网
+    var netSession: URLSession!
+    
+    //委托对象，用于属性更新时的回调
     var delegate: DUTInfoDelegate!
         
     override init() {
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        studentNumber = userDefaults.string(forKey: "StudentNumber") ?? ""
-        teachPassword = userDefaults.string(forKey: "TeachPassword") ?? ""
-        portalPassword = userDefaults.string(forKey: "PortalPassword") ?? ""
+        studentNumber = ""
+        teachPassword = ""
+        portalPassword = ""
+    }
+    
+    init(studentNumber: String, teachPassword: String, portalPassword: String) {
+        self.studentNumber = studentNumber
+        self.teachPassword = teachPassword
+        self.portalPassword = portalPassword
     }
     
     var netCost: String! {
         didSet {
-            delegate.setNetCost()
+            delegate.setNetCost(netCost)
         }
     }
     var netFlow: String! {
         didSet {
-            delegate.setNetFlow()
+            delegate.setNetFlow(netFlow)
         }
     }
     var ecardCost: String! {
         didSet {
-            delegate.setEcardCost()
-        }
-    }
-    var isScheduleLoaded: Bool! {
-        didSet {
-            if isScheduleLoaded == true {
-                
-            }
+            delegate.setEcardCost(ecardCost)
         }
     }
     

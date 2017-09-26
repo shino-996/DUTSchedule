@@ -12,6 +12,35 @@ import PromiseKit
 
 //校园网信息，只能在校园网环境下访问
 //http://tulip.dlut.edu.cn
+
+//接口
+extension DUTInfo {
+    //登录验证
+    func loginNetSite(succeed: @escaping () -> Void = {}, failed: @escaping () -> Void = {}) {
+        firstly(execute: gotoNetPage)
+            .then(execute: netLoginVerify)
+            .then { (isLogin: Bool) -> Void in
+                if isLogin {
+                    succeed()
+                }
+            }.catch { _ in
+                failed()
+            }
+    }
+    
+    func netInfo() {
+        firstly(execute: gotoNetPage)
+            .then(execute: netLoginVerify)
+            .then(execute: getNetID)
+            .then(execute: requestNetMoney)
+            .then(execute: getNetMoney)
+            .then(execute: requestNetFlow)
+            .then(execute: getNetFlow)
+            .catch(execute: netErrorHandle)
+    }
+}
+
+//接口实现
 extension DUTInfo {
     //发送登录表求
     private func gotoNetPage() -> URLDataPromise {
@@ -26,8 +55,17 @@ extension DUTInfo {
         request.httpBody = "{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/login/prepareLogin\",\"id\":\"1\",\"params\":[\"\(studentNumber)\",\"\(portalPassword)\",false]}".data(using: .utf8)
         let configuration = URLSessionConfiguration.ephemeral
         configuration.timeoutIntervalForRequest = 5
-        session = URLSession(configuration: configuration)
-        return session.dataTask(with: request)
+        netSession = URLSession(configuration: configuration)
+        return netSession.dataTask(with: request)
+    }
+    
+    private func netLoginVerify(_ data: Data) throws -> Bool {
+        let parseDic = try! JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+            as! [String: Any]
+        if parseDic["error"] != nil {
+            throw DUTError.authError
+        }
+        return true
     }
     
     private func netLoginVerify(_ data: Data) throws -> Promise<[String: Any]> {
@@ -58,7 +96,7 @@ extension DUTInfo {
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = "{\"jsonrpc\": \"2.0\", \"method\": \"/user/charge/getChargeInfo\", \"id\": 2, \"params\": [\(id)]}".data(using: .utf8)
-        return session.dataTask(with: request)
+        return netSession.dataTask(with: request)
     }
     
     //解析出余额
@@ -69,10 +107,6 @@ extension DUTInfo {
         let dictionary = parseDictionary["result"] as! [String: Any]
         //余额
         let balance = dictionary["balance"] as! Double
-        //已使用
-        //        let expenditure = dictionary["expenditure"] as! Double
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        userDefaults.set(balance, forKey: "NetCost")
         netCost = "\(balance)元"
     }
     
@@ -94,7 +128,7 @@ extension DUTInfo {
         let nowDateString = nowDateFormatter.string(from: date) + " 00:00:00"
         //"\\u4e0a\\u7f51\\u670d\\u52a1\"为"上网服务"两字，已转为unicode的转义字符
         request.httpBody = ("{\"jsonrpc\":\"2.0\",\"method\":\"/dllg/network/dayFlowRecords\",\"params\":[{\"pageIndex\":1,\"pageSize\":10,\"filter\":{\"fromDate\":\"" + firstDateString + "\",\"toDate\":\"" + nowDateString + "\",\"accountId\":\"\(studentNumber)\",\"businessInstanceName\":\"\(studentNumber)\",\"businessTypeName\":\"\\u4e0a\\u7f51\\u670d\\u52a1\"}}],\"id\":1}").data(using: .utf8)
-        return session.dataTask(with: request)
+        return netSession.dataTask(with: request)
     }
     
     private func getNetFlow(_ data: Data) {
@@ -104,18 +138,15 @@ extension DUTInfo {
         let array = dictionary["data"] as! [Any]
         let subDictionary = array[0] as! [String: Any]
         let remainFreeFlow = subDictionary["remainFreeFlow"] as! Double
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        userDefaults.set(false, forKey: "IsNetError")
         if remainFreeFlow < 1024 {
-            userDefaults.set("\(Int(remainFreeFlow))MB", forKey: "NetFlow")
-            netFlow = "\(Int(remainFreeFlow))MB"
+            netFlow = "\(remainFreeFlow)MB"
         } else {
-            userDefaults.set(String(format: "%.1lfGB", remainFreeFlow / 1024), forKey: "NetFlow")
             netFlow = String(format: "%.1lfGB", remainFreeFlow / 1024)
         }
     }
     
     private func netErrorHandle(_ error: Error) {
+        print(error)
         if let error = error as? DUTError {
             if error == .authError {
                 print("校园网用户名或密码错误！")
@@ -124,28 +155,12 @@ extension DUTInfo {
             let error = error as NSError
             if error.code == -1005 {
                 print("不是校园网环境")
-                let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-                userDefaults.set(true, forKey: "IsNetError")
-                delegate.netErrorHandle()
             } else if error.code == -1001 {
                 print("连接超时")
-                let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-                userDefaults.set(true, forKey: "IsNetError")
-                delegate.netErrorHandle()
             } else {
-                fatalError()
+                print("其他错误")
             }
         }
-    }
-    
-    func netInfo() {
-        firstly(execute: gotoNetPage)
-        .then(execute: netLoginVerify)
-        .then(execute: getNetID)
-        .then(execute: requestNetMoney)
-        .then(execute: getNetMoney)
-        .then(execute: requestNetFlow)
-        .then(execute: getNetFlow)
-        .catch(execute: netErrorHandle)
+        delegate.netErrorHandle()
     }
 }

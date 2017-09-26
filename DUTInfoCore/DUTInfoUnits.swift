@@ -1,5 +1,5 @@
 //
-//  DUTInfoStringUnits.swift
+//  DUTInfoUnits.swift
 //  DUTInfomation
 //
 //  Created by shino on 2017/9/11.
