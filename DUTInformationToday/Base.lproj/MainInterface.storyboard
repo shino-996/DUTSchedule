@@ -138,7 +138,6 @@
                             <constraint firstItem="SaB-V7-An3" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="1oD-24-LCI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mzU-as-1C2" secondAttribute="trailing" id="2UJ-dE-cEc"/>
                             <constraint firstItem="WUA-8n-DxL" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="AuB-Nk-Pip"/>
-                            <constraint firstItem="DaZ-2p-4OX" firstAttribute="top" secondItem="tIY-wg-Ra5" secondAttribute="bottom" id="EsS-XW-9i6"/>
                             <constraint firstItem="mzU-as-1C2" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="KRK-dF-tZz"/>
                             <constraint firstAttribute="leadingMargin" secondItem="SaB-V7-An3" secondAttribute="leading" id="LGa-na-5Vd"/>
                             <constraint firstItem="cOr-hr-XxE" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="VO1-kb-zH2"/>
@@ -153,6 +152,7 @@
                             <constraint firstItem="cOr-hr-XxE" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="uoH-E0-oQI"/>
                             <constraint firstItem="GQf-Ma-zHL" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="y3d-Qk-cvE"/>
                             <constraint firstItem="fLE-D4-xef" firstAttribute="leading" secondItem="GQf-Ma-zHL" secondAttribute="trailing" constant="8" symbolic="YES" id="yfI-Ff-CQe"/>
+                            <constraint firstItem="DaZ-2p-4OX" firstAttribute="top" secondItem="SaB-V7-An3" secondAttribute="bottom" id="zQ2-xh-eIF"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="k9S-nm-2Mc" appends="YES" id="gb6-MJ-nQD"/>

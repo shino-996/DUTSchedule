@@ -50,7 +50,7 @@ extension TodayViewController: NCWidgetProviding {
         dutInfo.login(succeed: {
             self.courseInfo = CourseInfo(dutInfo: self.dutInfo)
             self.courseInfo.delegate = self
-            self.courseInfo.getCourseData()
+            self.courseInfo.getTodayCourseData()
         }, failed: {
             self.noCourseLabel.isHidden = false
             self.noCourseLabel.text = "尚未登录账户"
@@ -80,19 +80,21 @@ extension TodayViewController: NCWidgetProviding {
         activityIndicator.startAnimating()
         freshingNum = 3
         dutInfo.newPortalNetInfo()
-        completionHandler(.noData)
+        completionHandler(.newData)
     }
     
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
-            self.preferredContentSize = maxSize
-        } else {
-            self.preferredContentSize = CGSize(width: 0,
-                                               height: 110 + 61.5 * Double(courseInfo.courseData.count - 1))
+            preferredContentSize = maxSize
         }
         guard courseInfo?.courseData != nil else {
+            preferredContentSize = CGSize(width: 0, height: 110)
             return
+        }
+        if activeDisplayMode == .expanded {
+            preferredContentSize = CGSize(width: 0,
+                                          height: 110 + 61.5 * Double(courseInfo.courseData.count - 1))
         }
         if courseInfo.courseData.count > 0 {
             let index = IndexPath(item: 0, section: 0)
@@ -145,12 +147,11 @@ extension TodayViewController: DUTInfoDelegate {
     
     func setSchedule(_ courseArray: [[String : String]]) {
         courseInfo.allCourseData = courseArray
+        courseInfo.getTodayCourseData()
     }
 }
 
 extension TodayViewController: CourseInfoDelegate {
-    func courseDidSet(courses: [[String : String]], week: String) {}
-    
     func courseDidChange(courses: [[String : String]], week: String) {
         courseTableView.reloadData()
         DispatchQueue.main.async {

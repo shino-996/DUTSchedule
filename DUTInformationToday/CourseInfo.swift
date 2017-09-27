@@ -9,24 +9,17 @@
 import Foundation
 
 protocol CourseInfoDelegate {
-    func courseDidSet(courses: [[String: String]], week: String)
     func courseDidChange(courses: [[String: String]], week: String)
 }
 
 class CourseInfo: NSObject {
-    var dutInfo: DUTInfo!
     var delegate: CourseInfoDelegate!
-    lazy var date = Date()
-    var weekStr: String!
+    var date = Date()
+    var weekString: String!
     var courseData: [[String: String]]!
-    var allCourseData: [[String: String]]! {
-        didSet {
-            getCourseData()
-        }
-    }
+    var allCourseData: [[String: String]]!
     
     init(dutInfo: DUTInfo) {
-        super.init()
         let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
         let fileURL = groupURL!.appendingPathComponent("course.plist")
         let array = NSArray(contentsOf: fileURL)
@@ -37,7 +30,7 @@ class CourseInfo: NSObject {
         allCourseData = array as! [[String: String]]
     }
     
-    func getCourseData() {
+    private func getCourseData() {
         let weekDateFormatter = DateFormatter()
         weekDateFormatter.dateFormat = "e"
         let week = String(Int(weekDateFormatter.string(from: date))! - 1)
@@ -45,14 +38,14 @@ class CourseInfo: NSObject {
         weeknumberDateFormatter.dateFormat = "w"
         let weeknumber = Int(weeknumberDateFormatter.string(from: date))! - 35
         courseData = allCourseData.filter { (course: [String: String]) -> Bool in
-            let weekStr = course["week"]!
-            if String(weekStr) != week {
+            let courseWeek = course["week"]!
+            if courseWeek != week {
                 return false
             }
-            let weeknumberStr = course["weeknumber"]!.components(separatedBy: "-")
-            let startWeek = Int(weeknumberStr[0])!
-            let endWeek = Int(weeknumberStr[1])!
-            if weeknumber >= startWeek && weeknumber <= endWeek {
+            let courseWeeknumber = course["weeknumber"]!.components(separatedBy: "-")
+            let courseStartWeeknumber = Int(courseWeeknumber[0])!
+            let courseEndWeeknumber = Int(courseWeeknumber[1])!
+            if weeknumber >= courseStartWeeknumber && weeknumber <= courseEndWeeknumber {
                 return true
             } else {
                 return false
@@ -67,8 +60,8 @@ class CourseInfo: NSObject {
                            "4": "四",
                            "5": "五",
                            "6": "六"]
-        weekStr = "第\(weeknumber)周 周\(chineseWeek[week]!)"
-        delegate.courseDidChange(courses: courseData, week: weekStr)
+        weekString = "第\(weeknumber)周 周\(chineseWeek[week]!)"
+        delegate.courseDidChange(courses: courseData, week: weekString)
     }
     
     func getTodayCourseData() {
