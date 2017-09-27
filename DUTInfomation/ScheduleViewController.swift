@@ -10,7 +10,21 @@ import UIKit
 
 class ScheduleViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    lazy var dutInfo = DUTInfo()
+    var dutInfo: DUTInfo!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if dutInfo == nil {
+            let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+            let studentNumber = userDefaults.string(forKey: "StudentNumber")
+            let TeachPassword = userDefaults.string(forKey: "TeachPassword")
+            let portalPassword = userDefaults.string(forKey: "PortalPassword")
+            dutInfo = DUTInfo(studentNumber: studentNumber ?? "",
+                              teachPassword: TeachPassword ?? "",
+                              portalPassword: portalPassword ?? "")
+            dutInfo.delegate = self
+        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -33,4 +47,21 @@ class ScheduleViewController: UIViewController {
         self.dutInfo.scheduleInfo()
         activityIndicator.startAnimating()
     }
+}
+
+extension ScheduleViewController: DUTInfoDelegate {
+    func setNetCost(_ netCost: String) {}
+    
+    func setNetFlow(_ netFlow: String) {}
+    
+    func setEcardCost(_ ecardCost: String) {}
+    
+    func setSchedule(_ courseArray: [[String : String]]) {
+        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
+        let fileURL = groupURL!.appendingPathComponent("course.plist")
+        (courseArray as NSArray).write(to: fileURL, atomically: true)
+        activityIndicator.stopAnimating()
+    }
+    
+    func netErrorHandle() {}
 }

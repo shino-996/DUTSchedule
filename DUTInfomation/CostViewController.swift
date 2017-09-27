@@ -13,13 +13,24 @@ class CostViewController: UIViewController, DUTInfoDelegate {
     @IBOutlet weak var netFlowLabel: UILabel!
     @IBOutlet weak var ecardCostLabel: UILabel!
     
-    lazy var dutInfo = DUTInfo()
+    var dutInfo: DUTInfo!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if dutInfo == nil {
+            let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+            let studentNumber = userDefaults.string(forKey: "StudentNumber")
+            let TeachPassword = userDefaults.string(forKey: "TeachPassword")
+            let portalPassword = userDefaults.string(forKey: "PortalPassword")
+            dutInfo = DUTInfo(studentNumber: studentNumber ?? "",
+                              teachPassword: TeachPassword ?? "",
+                              portalPassword: portalPassword ?? "")
+            dutInfo.delegate = self
+        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if dutInfo.delegate == nil {
-            dutInfo.delegate = self
-        }
         dutInfo.login(succeed: {
             self.dutInfo.newPortalNetInfo()
         }, failed: {
@@ -37,24 +48,25 @@ class CostViewController: UIViewController, DUTInfoDelegate {
         }
     }
     
-    func setEcardCost() {
+    func setEcardCost(_ ecardCost: String) {
         DispatchQueue.main.async {
-            self.ecardCostLabel.text = self.dutInfo.ecardCost
+            self.ecardCostLabel.text = ecardCost
         }
     }
     
-    func setNetCost() {
+    func setNetCost(_ netCost: String) {
         DispatchQueue.main.async {
-            self.netCostLabel.text = self.dutInfo.netCost
+            self.netCostLabel.text = netCost
         }
     }
     
-    func setNetFlow() {
+    func setNetFlow(_ netFlow: String) {
         DispatchQueue.main.async {
-            self.netFlowLabel.text = self.dutInfo.netFlow
+            self.netFlowLabel.text = netFlow
         }
     }
     
-    func netErrorHandle() {
-    }
+    func netErrorHandle() {}
+    
+    func setSchedule(_ courseArray: [[String : String]]) {}
 }

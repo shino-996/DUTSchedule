@@ -9,8 +9,8 @@
 import UIKit
 import NotificationCenter
 
-class TodayViewController: UIViewController, NCWidgetProviding {
-    
+//变量
+class TodayViewController: UIViewController {
     @IBOutlet weak var netLabel: UILabel!
     @IBOutlet weak var ecardLabel: UILabel!
     @IBOutlet weak var noCourseLabel: UILabel!
@@ -18,86 +18,52 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var courseTableView: UITableView!
     @IBOutlet weak var weekLabel: UILabel!
     
-    lazy var dutInfo = DUTInfo()
+    var dutInfo: DUTInfo!
+    var courseInfo: CourseInfo!
     var scheduleDate = Date()
-    var courseInfo: [[String: String]] = [] {
-        didSet {
-            courseTableView.reloadData()
-            freshWeekLabel()
-        }
-    }
     var freshingNum: Int! {
         didSet {
             if freshingNum <= 0 {
                 activityIndicator.stopAnimating()
-                let now = Date().timeIntervalSince1970
-                let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-                userDefaults.set(now, forKey: "LastUpdateDate")
             }
         }
     }
-    
+}
+
+extension TodayViewController: NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOSApplicationExtension 10.0, *) {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
-        if dutInfo.delegate == nil {
-            dutInfo.delegate = self
+        if dutInfo != nil {
+            return
         }
+        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+        let studentNumber = userDefaults.string(forKey: "StudentNumber")
+        let TeachPassword = userDefaults.string(forKey: "TeachPassword")
+        let portalPassword = userDefaults.string(forKey: "PortalPassword")
+        dutInfo = DUTInfo(studentNumber: studentNumber ?? "",
+                          teachPassword: TeachPassword ?? "",
+                          portalPassword: portalPassword ?? "")
+        dutInfo.delegate = self
         dutInfo.login(succeed: {
-            self.loadScheduleData()
-            self.freshWeekLabel()
+            self.courseInfo = CourseInfo(dutInfo: self.dutInfo)
+            self.courseInfo.delegate = self
+            self.courseInfo.getCourseData()
         }, failed: {
             self.noCourseLabel.isHidden = false
-            self.noCourseLabel.text = "尚未导入课表"
+            self.noCourseLabel.text = "尚未登录账户"
         })
     }
     
-    @available(iOSApplicationExtension 10.0, *)
-    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        if activeDisplayMode == .compact {
-            self.preferredContentSize = maxSize
-        } else {
-            self.preferredContentSize = CGSize(width: 0, height: 110 + 61.5 * Double(courseInfo.count - 1))
-        }
-        if courseInfo.count != 0 {
-            let index = IndexPath(item: 0, section: 0)
-            courseTableView.reloadRows(at: [index], with: .automatic)
-        }
-    }
-    
-    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        var result = NCUpdateResult.failed
-        if isTimeToFresh() {
-            result = .newData
-            freshData()
-        } else {
-            result = .noData
-            loadCacheData()
-        }
-        completionHandler(result)
-    }
-    
-    func freshWeekLabel() {
-        let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "e"
-        let week = chineseWeek[Int(dateFormatter.string(from: scheduleDate))! - 1]
-        dateFormatter.dateFormat = "w"
-        let weeknumber = Int(dateFormatter.string(from: scheduleDate))! - 35
-        weekLabel.text = "第\(weeknumber)周 周\(week)"
-    }
-
     @IBAction func moveSchedule(_ sender: Any) {
         let gestureRecognizer = sender as! UITapGestureRecognizer
         let point = gestureRecognizer.location(in: view)
         if point.x < 70 {
-            scheduleDate = scheduleDate.addingTimeInterval(-60 * 60 * 24)
-            loadSchedule(ofDate: scheduleDate)
+            courseInfo.getPreviousDayCourseData()
         } else if point.x > view.frame.width - 70 {
-            scheduleDate = scheduleDate.addingTimeInterval(60 * 60 * 24)
-            loadSchedule(ofDate: scheduleDate)
+            courseInfo.getNextDayCourseData()
         }
     }
     
@@ -105,135 +71,127 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let gestureRecognizer = sender as! UITapGestureRecognizer
         let point = gestureRecognizer.location(in: view)
         if point.x >= 70 && point.x <= view.frame.width - 70 {
-            scheduleDate = Date()
-            loadScheduleData()
+            courseInfo.getTodayCourseData()
+        }
+    }
+    
+    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
+        loadCacheData()
+        activityIndicator.startAnimating()
+        freshingNum = 3
+        dutInfo.newPortalNetInfo()
+        completionHandler(.noData)
+    }
+    
+    @available(iOSApplicationExtension 10.0, *)
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        if activeDisplayMode == .compact {
+            self.preferredContentSize = maxSize
+        } else {
+            self.preferredContentSize = CGSize(width: 0,
+                                               height: 110 + 61.5 * Double(courseInfo.courseData.count - 1))
+        }
+        guard courseInfo?.courseData != nil else {
+            return
+        }
+        if courseInfo.courseData.count > 0 {
+            let index = IndexPath(item: 0, section: 0)
+            courseTableView.reloadRows(at: [index], with: .automatic)
         }
     }
 }
 
+//刷新相关函数
 extension TodayViewController {
-    func loadScheduleData() {
-        loadSchedule(ofDate: scheduleDate)
-    }
-    
-    func loadSchedule(ofDate date: Date) {
-        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-        let fileURL = groupURL!.appendingPathComponent("course.plist")
-        let array = NSArray(contentsOf: fileURL)
-        guard array != nil else {
-            courseInfo = []
-            return
-        }
-        let courseData = array as! [[String: String]]
-        let weekDateFormatter = DateFormatter()
-        weekDateFormatter.dateFormat = "e"
-        let week = String(Int(weekDateFormatter.string(from: date))! - 1)
-        let weeknumberDateFormatter = DateFormatter()
-        weeknumberDateFormatter.dateFormat = "w"
-        let weeknumber = Int(weeknumberDateFormatter.string(from: date))! - 35
-        courseInfo = courseData.filter { (course: [String: String]) -> Bool in
-            let weekStr = course["week"]!
-            if String(weekStr) != week {
-                return false
-            }
-            let weeknumberStr = course["weeknumber"]!.components(separatedBy: "-")
-            let startWeek = Int(weeknumberStr[0])!
-            let endWeek = Int(weeknumberStr[1])!
-            if weeknumber >= startWeek && weeknumber <= endWeek {
-                return true
-            } else {
-                return false
-            }
-        }.sorted {
-            $0["coursenumber"]! <= $1["coursenumber"]!
-        }
-    }
-    
     func loadCacheData() {
         let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
         ecardLabel.text = userDefaults.string(forKey: "EcardCost")
         if let netCost = userDefaults.string(forKey: "NetCost"),
             let netFlow = userDefaults.string(forKey: "NetFlow") {
-            netLabel.text = netCost + "/" + netFlow
+            netLabel.text = netFlow + "/" + netCost
         } else {
             netLabel.text = ""
         }
     }
-    
-    func isTimeToFresh() -> Bool {
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        let lastUpdateDate = userDefaults.double(forKey: "LastUpdateDate")
-        guard lastUpdateDate != 0 else {
-            return true
-        }
-        let now = Date().timeIntervalSince1970
-        if now - lastUpdateDate < 1800 {
-            return false
-        } else {
-            return true
-        }
-    }
-    
-    func freshData() {
-        activityIndicator.startAnimating()
-        freshingNum = 3
-        dutInfo.newPortalNetInfo()
-    }
 }
 
 extension TodayViewController: DUTInfoDelegate {
-    func setEcardCost() {
+    func setEcardCost(_ ecardCost: String) {
         DispatchQueue.main.async {
-            self.ecardLabel.text = self.dutInfo.ecardCost
+            self.ecardLabel.text = ecardCost
         }
+        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+        userDefaults.set(ecardCost, forKey: "EcardCost")
         freshingNum = freshingNum - 1
     }
     
-    func setNetCost() {
+    func setNetCost(_ netCost: String) {
         freshingNum = freshingNum - 1
     }
     
-    func setNetFlow() {
+    func setNetFlow(_ netFlow: String) {
         DispatchQueue.main.async {
-            self.netLabel.text = self.dutInfo.netCost + "/" + self.dutInfo.netFlow
+            self.netLabel.text = netFlow + "/" + self.dutInfo.netCost
         }
+        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+        userDefaults.set(dutInfo.netCost, forKey: "NetCost")
+        userDefaults.set(netFlow, forKey: "NetFlow")
         freshingNum = freshingNum - 1
     }
     
     func netErrorHandle() {
         freshingNum = freshingNum - 2
     }
+    
+    func setSchedule(_ courseArray: [[String : String]]) {
+        courseInfo.allCourseData = courseArray
+    }
 }
 
-extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+extension TodayViewController: CourseInfoDelegate {
+    func courseDidSet(courses: [[String : String]], week: String) {}
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if courseInfo.count == 0 {
+    func courseDidChange(courses: [[String : String]], week: String) {
+        courseTableView.reloadData()
+        DispatchQueue.main.async {
+            self.weekLabel.text = week
+        }
+        if courses.count == 0 {
             noCourseLabel.isHidden = false
             noCourseLabel.text = "今天没有课～"
         } else {
             noCourseLabel.isHidden = true
         }
         if #available(iOSApplicationExtension 10.0, *) {
-            if courseInfo.count > 1 {
+            if courses.count > 1 {
                 extensionContext?.widgetLargestAvailableDisplayMode = .expanded
             } else {
                 extensionContext?.widgetLargestAvailableDisplayMode = .compact
             }
         }
-        return courseInfo.count
+    }
+}
+
+//UITableViewController协议方法
+extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard courseInfo?.courseData != nil else {
+            return 0
+        }
+        return courseInfo.courseData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCellView
         if #available(iOSApplicationExtension 10.0, *),
             indexPath.row == 0 && extensionContext?.widgetActiveDisplayMode == .compact{
-            cell.prepareForNow(fromCourse: courseInfo, ofIndex: indexPath)
+            cell.prepareForNow(fromCourse: courseInfo.courseData, ofIndex: indexPath)
         } else {
-            cell.prepare(fromCourse: courseInfo, ofIndex: indexPath)
+            cell.prepare(fromCourse: courseInfo.courseData, ofIndex: indexPath)
         }
         return cell
     }

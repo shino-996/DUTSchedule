@@ -20,6 +20,8 @@
 		B4288CE71F121A7F005D629B /* DUTInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E901F0A25A500174471 /* DUTInfo.swift */; };
 		B454F2321F793D6D00DA5B05 /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */; };
 		B454F2331F793D7200DA5B05 /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */; };
+		B491D3BC1F7A5AB60037628A /* des.js in Resources */ = {isa = PBXBuildFile; fileRef = B4C9D92E1F7A211800717A4E /* des.js */; };
+		B49936301F7B8561005AB88F /* CourseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B499362F1F7B8561005AB88F /* CourseInfo.swift */; };
 		B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A137E61F62BD9200207CFF /* TodayViewController.swift */; };
 		B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E7E1F0A211800174471 /* AppDelegate.swift */; };
 		B4B70E811F0A211800174471 /* CostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E801F0A211800174471 /* CostViewController.swift */; };
@@ -85,6 +87,7 @@
 		B42267391F6928BD00D161CD /* DutInfoNetSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DutInfoNetSite.swift; sourceTree = "<group>"; };
 		B422673E1F692DF500D161CD /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B454F2311F793D6D00DA5B05 /* DutInfoNewPortalSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DutInfoNewPortalSite.swift; sourceTree = "<group>"; };
+		B499362F1F7B8561005AB88F /* CourseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfo.swift; sourceTree = "<group>"; };
 		B4A137E61F62BD9200207CFF /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		B4B70E7B1F0A211800174471 /* DUTInfomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DUTInfomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4B70E7E1F0A211800174471 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -215,8 +218,9 @@
 			isa = PBXGroup;
 			children = (
 				B4CB3FEB1F120B0F0059591C /* DUTInformationToday.entitlements */,
-				B4E535CE1F5FDEAC007DE392 /* CourseCellViewl.swift */,
 				B4A137E61F62BD9200207CFF /* TodayViewController.swift */,
+				B4E535CE1F5FDEAC007DE392 /* CourseCellViewl.swift */,
+				B499362F1F7B8561005AB88F /* CourseInfo.swift */,
 				B4CB3FDF1F1209FE0059591C /* MainInterface.storyboard */,
 				B4CB3FE21F1209FE0059591C /* Info.plist */,
 			);
@@ -338,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4CB3FE11F1209FE0059591C /* MainInterface.storyboard in Resources */,
+				B491D3BC1F7A5AB60037628A /* des.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,10 +450,6 @@
 				B422673F1F692DF500D161CD /* ScheduleViewController.swift in Sources */,
 				B454F2321F793D6D00DA5B05 /* DutInfoNewPortalSite.swift in Sources */,
 				B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */,
-				B4C9D9361F7A219100717A4E /* DUTInfoUnits.swift in Sources */,
-				B4C9D93A1F7A219100717A4E /* DutInfoTeachSite.swift in Sources */,
-				B4C9D9371F7A219100717A4E /* DutInfoNewPortalSite.swift in Sources */,
-				B4C9D9391F7A219100717A4E /* DutInfoNetSite.swift in Sources */,
 				B4B70E911F0A25A500174471 /* DUTInfo.swift in Sources */,
 				B4E535D41F615468007DE392 /* LoginPortalSiteViewController.swift in Sources */,
 				B4E535D21F61544B007DE392 /* LoginTeachSiteViewController.swift in Sources */,
@@ -466,6 +467,7 @@
 				B40E06321F66AA8F0005ADE1 /* DUTInfoStringUnits.swift in Sources */,
 				B422673D1F692A9700D161CD /* DutInfoNetSite.swift in Sources */,
 				B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */,
+				B49936301F7B8561005AB88F /* CourseInfo.swift in Sources */,
 				B454F2331F793D7200DA5B05 /* DutInfoNewPortalSite.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
