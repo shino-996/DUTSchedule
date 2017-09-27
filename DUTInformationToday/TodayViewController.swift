@@ -47,7 +47,7 @@ extension TodayViewController: NCWidgetProviding {
                           teachPassword: TeachPassword ?? "",
                           portalPassword: portalPassword ?? "")
         dutInfo.delegate = self
-        dutInfo.login(succeed: {
+        dutInfo.loginPortalSite(succeed: {
             self.courseInfo = CourseInfo(dutInfo: self.dutInfo)
             self.courseInfo.delegate = self
             self.courseInfo.getTodayCourseData()
