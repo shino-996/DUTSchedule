@@ -1,0 +1,4 @@
+[submodule "DUTInfoCore"]
+	path = DUTInfoCore
+	url = git@github.com:shino-996/DUTInfo.git
+	branch = library
