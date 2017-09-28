@@ -43,3 +43,5 @@
 # 安装
 
 没钱，续不起688的账号，开不了 Test Flight，更不能上架。想试试的自己编译吧，或者，看看就好→_→
+
+[github]: https://github.com/shino-996/DUTInfo
