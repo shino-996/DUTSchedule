@@ -1,5 +1,7 @@
 使用了[之前抓的校园网站信息][github]做了个Today Extension，主要是查看一些信息，选课交费什么的不打算做
 
+![](./demo.gif)
+
 # 功能
 
 ## Today Extension
