@@ -35,6 +35,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qgb-Pp-6OJ">
+                                <rect key="frame" x="88" y="7" width="20" height="20"/>
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第1周 周一" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DaZ-2p-4OX">
                                 <rect key="frame" x="124" y="26" width="72" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -53,6 +57,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YYt-iv-HqU">
+                                <rect key="frame" x="280" y="7" width="20" height="20"/>
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mzU-as-1C2">
                                 <rect key="frame" x="16" y="44" width="288" height="148"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -127,10 +135,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cOr-hr-XxE">
-                                <rect key="frame" x="141" y="81" width="37" height="37"/>
-                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </activityIndicatorView>
                         </subviews>
                         <gestureRecognizers/>
                         <constraints>
@@ -138,11 +142,14 @@
                             <constraint firstItem="tIY-wg-Ra5" firstAttribute="centerY" secondItem="SaB-V7-An3" secondAttribute="centerY" id="1nn-Th-KaB"/>
                             <constraint firstItem="SaB-V7-An3" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="1oD-24-LCI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mzU-as-1C2" secondAttribute="trailing" id="2UJ-dE-cEc"/>
+                            <constraint firstItem="YYt-iv-HqU" firstAttribute="centerY" secondItem="fLE-D4-xef" secondAttribute="centerY" id="2tT-zX-eaI"/>
                             <constraint firstItem="WUA-8n-DxL" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="AuB-Nk-Pip"/>
+                            <constraint firstItem="qgb-Pp-6OJ" firstAttribute="centerX" secondItem="tIY-wg-Ra5" secondAttribute="centerX" id="D4u-oG-zhU"/>
                             <constraint firstItem="mzU-as-1C2" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="KRK-dF-tZz"/>
                             <constraint firstAttribute="leadingMargin" secondItem="SaB-V7-An3" secondAttribute="leading" id="LGa-na-5Vd"/>
-                            <constraint firstItem="cOr-hr-XxE" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="VO1-kb-zH2"/>
+                            <constraint firstItem="qgb-Pp-6OJ" firstAttribute="centerY" secondItem="tIY-wg-Ra5" secondAttribute="centerY" id="NCW-6X-TAM"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tIY-wg-Ra5" secondAttribute="trailing" constant="20" symbolic="YES" id="Xnq-U7-kmP"/>
+                            <constraint firstAttribute="trailing" secondItem="YYt-iv-HqU" secondAttribute="trailing" constant="20" symbolic="YES" id="cYW-zm-EQy"/>
                             <constraint firstItem="mzU-as-1C2" firstAttribute="top" secondItem="DaZ-2p-4OX" secondAttribute="bottom" id="dpM-Uq-4k0"/>
                             <constraint firstItem="WUA-8n-DxL" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" multiplier="1.2" id="fyu-oC-zq3"/>
                             <constraint firstItem="tIY-wg-Ra5" firstAttribute="leading" secondItem="SaB-V7-An3" secondAttribute="trailing" constant="8" symbolic="YES" id="p6E-vK-cY8"/>
@@ -150,7 +157,6 @@
                             <constraint firstItem="GQf-Ma-zHL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="sT9-OE-Qlu"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="mzU-as-1C2" secondAttribute="bottom" constant="8" symbolic="YES" id="toX-ui-6Cj"/>
                             <constraint firstItem="DaZ-2p-4OX" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="uW3-jW-yAU"/>
-                            <constraint firstItem="cOr-hr-XxE" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="uoH-E0-oQI"/>
                             <constraint firstItem="GQf-Ma-zHL" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="y3d-Qk-cvE"/>
                             <constraint firstItem="fLE-D4-xef" firstAttribute="leading" secondItem="GQf-Ma-zHL" secondAttribute="trailing" constant="8" symbolic="YES" id="yfI-Ff-CQe"/>
                             <constraint firstItem="DaZ-2p-4OX" firstAttribute="top" secondItem="SaB-V7-An3" secondAttribute="bottom" id="zQ2-xh-eIF"/>
@@ -167,9 +173,10 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="200"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="cOr-hr-XxE" id="5kf-QR-EsG"/>
                         <outlet property="courseTableView" destination="mzU-as-1C2" id="RKa-2Y-xpS"/>
+                        <outlet property="ecardActivity" destination="YYt-iv-HqU" id="lPf-kQ-CTZ"/>
                         <outlet property="ecardLabel" destination="fLE-D4-xef" id="tV3-kc-EFt"/>
+                        <outlet property="netActivity" destination="qgb-Pp-6OJ" id="MrE-Bu-DEF"/>
                         <outlet property="netLabel" destination="tIY-wg-Ra5" id="AXa-dQ-gO3"/>
                         <outlet property="noCourseLabel" destination="WUA-8n-DxL" id="Ajf-HA-zMD"/>
                         <outlet property="weekLabel" destination="DaZ-2p-4OX" id="ELi-UM-NfD"/>
