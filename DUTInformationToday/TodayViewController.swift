@@ -45,25 +45,18 @@ extension TodayViewController: NCWidgetProviding {
         courseInfo.getTodayCourseData()
     }
     
-    @IBAction func moveSchedule(_ sender: Any) {
-        let gestureRecognizer = sender as! UITapGestureRecognizer
-        let point = gestureRecognizer.location(in: view)
-        if point.x < 70 {
-            courseInfo.getPreviousDayCourseData()
-            loadScheduleData()
-        } else if point.x > view.frame.width - 70 {
-            courseInfo.getNextDayCourseData()
-            loadScheduleData()
-        }
-    }
-    
-    @IBAction func backTodaySchedule(_ sender: Any) {
-        let gestureRecognizer = sender as! UITapGestureRecognizer
-        let point = gestureRecognizer.location(in: view)
-        if point.x >= 70 && point.x <= view.frame.width - 70 {
+    @IBAction func changeSchedule(_ sender: Any) {
+        if sender is UITapGestureRecognizer {
             courseInfo.getTodayCourseData()
-            loadScheduleData()
+        } else {
+            let button = sender as! UIButton
+            if button.title(for: .normal) == "->" {
+                courseInfo.getNextDayCourseData()
+            } else {
+                courseInfo.getPreviousDayCourseData()
+            }
         }
+        loadScheduleData()
     }
     
     func loadScheduleData() {

@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -115,6 +115,7 @@
                                                 <constraint firstItem="qw3-Tk-zV1" firstAttribute="leading" secondItem="sD3-9Z-M4Q" secondAttribute="leadingMargin" id="tVF-eB-ApH"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                         <connections>
                                             <outlet property="name" destination="X7d-CI-avz" id="euJ-fq-9ny"/>
                                             <outlet property="place" destination="qw3-Tk-zV1" id="OMG-FR-dE7"/>
@@ -126,6 +127,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="M4Y-Lb-cyx" id="Whz-b6-cbe"/>
                                     <outlet property="delegate" destination="M4Y-Lb-cyx" id="XQ4-SP-3GN"/>
+                                    <outletCollection property="gestureRecognizers" destination="k9S-nm-2Mc" appends="YES" id="vSb-xe-9jM"/>
                                 </connections>
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天没有课～" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WUA-8n-DxL">
@@ -135,6 +137,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWB-N4-U5I">
+                                <rect key="frame" x="270" y="20" width="30" height="30"/>
+                                <state key="normal" title="-&gt;"/>
+                                <connections>
+                                    <action selector="changeSchedule:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="TOX-5l-TXy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPy-Gz-FVk">
+                                <rect key="frame" x="20" y="20" width="30" height="30"/>
+                                <state key="normal" title="&lt;-"/>
+                                <connections>
+                                    <action selector="changeSchedule:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="KWS-E2-GEJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <gestureRecognizers/>
                         <constraints>
@@ -143,14 +159,19 @@
                             <constraint firstItem="SaB-V7-An3" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="1oD-24-LCI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mzU-as-1C2" secondAttribute="trailing" id="2UJ-dE-cEc"/>
                             <constraint firstItem="YYt-iv-HqU" firstAttribute="centerY" secondItem="fLE-D4-xef" secondAttribute="centerY" id="2tT-zX-eaI"/>
+                            <constraint firstItem="nPy-Gz-FVk" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="338-HI-4Th"/>
+                            <constraint firstItem="DaZ-2p-4OX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nPy-Gz-FVk" secondAttribute="trailing" constant="8" symbolic="YES" id="533-3o-bCH"/>
+                            <constraint firstAttribute="trailing" secondItem="VWB-N4-U5I" secondAttribute="trailing" constant="20" symbolic="YES" id="AAE-iM-szu"/>
                             <constraint firstItem="WUA-8n-DxL" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="AuB-Nk-Pip"/>
                             <constraint firstItem="qgb-Pp-6OJ" firstAttribute="centerX" secondItem="tIY-wg-Ra5" secondAttribute="centerX" id="D4u-oG-zhU"/>
                             <constraint firstItem="mzU-as-1C2" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="KRK-dF-tZz"/>
                             <constraint firstAttribute="leadingMargin" secondItem="SaB-V7-An3" secondAttribute="leading" id="LGa-na-5Vd"/>
                             <constraint firstItem="qgb-Pp-6OJ" firstAttribute="centerY" secondItem="tIY-wg-Ra5" secondAttribute="centerY" id="NCW-6X-TAM"/>
+                            <constraint firstItem="VWB-N4-U5I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DaZ-2p-4OX" secondAttribute="trailing" constant="8" symbolic="YES" id="NYe-UM-WQA"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tIY-wg-Ra5" secondAttribute="trailing" constant="20" symbolic="YES" id="Xnq-U7-kmP"/>
                             <constraint firstAttribute="trailing" secondItem="YYt-iv-HqU" secondAttribute="trailing" constant="20" symbolic="YES" id="cYW-zm-EQy"/>
                             <constraint firstItem="mzU-as-1C2" firstAttribute="top" secondItem="DaZ-2p-4OX" secondAttribute="bottom" id="dpM-Uq-4k0"/>
+                            <constraint firstItem="nPy-Gz-FVk" firstAttribute="centerY" secondItem="DaZ-2p-4OX" secondAttribute="centerY" id="fpQ-VT-P41"/>
                             <constraint firstItem="WUA-8n-DxL" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" multiplier="1.2" id="fyu-oC-zq3"/>
                             <constraint firstItem="tIY-wg-Ra5" firstAttribute="leading" secondItem="SaB-V7-An3" secondAttribute="trailing" constant="8" symbolic="YES" id="p6E-vK-cY8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fLE-D4-xef" secondAttribute="trailing" id="pDs-BN-Whu"/>
@@ -159,12 +180,9 @@
                             <constraint firstItem="DaZ-2p-4OX" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="uW3-jW-yAU"/>
                             <constraint firstItem="GQf-Ma-zHL" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="y3d-Qk-cvE"/>
                             <constraint firstItem="fLE-D4-xef" firstAttribute="leading" secondItem="GQf-Ma-zHL" secondAttribute="trailing" constant="8" symbolic="YES" id="yfI-Ff-CQe"/>
+                            <constraint firstItem="VWB-N4-U5I" firstAttribute="centerY" secondItem="DaZ-2p-4OX" secondAttribute="centerY" id="z4z-8w-rVn"/>
                             <constraint firstItem="DaZ-2p-4OX" firstAttribute="top" secondItem="SaB-V7-An3" secondAttribute="bottom" id="zQ2-xh-eIF"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="k9S-nm-2Mc" appends="YES" id="gb6-MJ-nQD"/>
-                            <outletCollection property="gestureRecognizers" destination="bzh-zP-zMJ" appends="YES" id="Cps-iP-pHy"/>
-                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -183,14 +201,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="bzh-zP-zMJ">
-                    <connections>
-                        <action selector="moveSchedule:" destination="M4Y-Lb-cyx" id="KY1-ld-KTx"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="k9S-nm-2Mc">
                     <connections>
-                        <action selector="backTodaySchedule:" destination="M4Y-Lb-cyx" id="gLO-4c-PTn"/>
+                        <action selector="changeSchedule:" destination="M4Y-Lb-cyx" id="2GR-gh-YLe"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
