@@ -31,7 +31,7 @@ class CostViewController: UIViewController, DUTInfoDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        dutInfo.loginPortalSite(succeed: {
+        dutInfo.loginNewPortalSite(succeed: {
             self.dutInfo.newPortalNetInfo()
         }, failed: {
             self.performSegue(withIdentifier: "LoginTeach", sender: self)

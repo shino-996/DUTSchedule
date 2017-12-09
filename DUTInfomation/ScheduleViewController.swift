@@ -28,7 +28,7 @@ class ScheduleViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        dutInfo.loginPortalSite(failed: {
+        dutInfo.loginNewPortalSite(failed: {
             self.performSegue(withIdentifier: "LoginTeach", sender: self)
         })
     }
