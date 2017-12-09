@@ -162,7 +162,7 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		B429A9ED1FDBBE4A008C83FB /* New Group */ = {
+		B429A9ED1FDBBE4A008C83FB /* DUTInfo */ = {
 			isa = PBXGroup;
 			children = (
 				B429A9F11FDBBE68008C83FB /* des.js */,
@@ -173,13 +173,13 @@
 				B429A9F31FDBBE68008C83FB /* DutInfoTeachSite.swift */,
 				B429A9F21FDBBE68008C83FB /* DUTInfoUnits.swift */,
 			);
-			name = "New Group";
+			name = DUTInfo;
 			sourceTree = "<group>";
 		};
 		B4B70E721F0A211800174471 = {
 			isa = PBXGroup;
 			children = (
-				B429A9ED1FDBBE4A008C83FB /* New Group */,
+				B429A9ED1FDBBE4A008C83FB /* DUTInfo */,
 				B4B70E7D1F0A211800174471 /* DUTInfomation */,
 				B4CB3FDC1F1209FE0059591C /* DUTInformationToday */,
 				B4B70E7C1F0A211800174471 /* Products */,
