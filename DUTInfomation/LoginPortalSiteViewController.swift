@@ -24,7 +24,7 @@ class LoginPortalSiteViewController: UIViewController {
     @IBAction func LoginPortalSite() {
         dutInfo.studentNumber = studentNumber.text ?? ""
         dutInfo.portalPassword = password.text ?? ""
-        dutInfo.loginPortalSite(succeed: loginSucceed, failed: loginFailed)
+        dutInfo.loginNewPortalSite(succeed: loginSucceed, failed: loginFailed)
     }
     
     func loginSucceed() {

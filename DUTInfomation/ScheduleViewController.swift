@@ -44,7 +44,7 @@ class ScheduleViewController: UIViewController {
     }
     
     @IBAction func loadSchedule() {
-        self.dutInfo.scheduleInfo()
+        self.dutInfo.courseInfo()
         activityIndicator.startAnimating()
     }
 }

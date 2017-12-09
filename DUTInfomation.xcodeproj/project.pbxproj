@@ -13,7 +13,6 @@
 		B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A137E61F62BD9200207CFF /* TodayViewController.swift */; };
 		B4A58AA91F7CB304002D2DBC /* DutInfoNetSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA21F7CB303002D2DBC /* DutInfoNetSite.swift */; };
 		B4A58AAA1F7CB304002D2DBC /* DutInfoTeachSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA31F7CB303002D2DBC /* DutInfoTeachSite.swift */; };
-		B4A58AAB1F7CB304002D2DBC /* DutInfoPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA41F7CB303002D2DBC /* DutInfoPortalSite.swift */; };
 		B4A58AAC1F7CB304002D2DBC /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA51F7CB303002D2DBC /* DutInfoNewPortalSite.swift */; };
 		B4A58AAD1F7CB304002D2DBC /* DUTInfoUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA61F7CB304002D2DBC /* DUTInfoUnits.swift */; };
 		B4A58AAE1F7CB304002D2DBC /* DUTInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA71F7CB304002D2DBC /* DUTInfo.swift */; };
@@ -22,7 +21,6 @@
 		B4A58AB11F7CB358002D2DBC /* DUTInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA71F7CB304002D2DBC /* DUTInfo.swift */; };
 		B4A58AB21F7CB358002D2DBC /* DutInfoNetSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA21F7CB303002D2DBC /* DutInfoNetSite.swift */; };
 		B4A58AB31F7CB358002D2DBC /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA51F7CB303002D2DBC /* DutInfoNewPortalSite.swift */; };
-		B4A58AB41F7CB358002D2DBC /* DutInfoPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA41F7CB303002D2DBC /* DutInfoPortalSite.swift */; };
 		B4A58AB51F7CB358002D2DBC /* DutInfoTeachSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA31F7CB303002D2DBC /* DutInfoTeachSite.swift */; };
 		B4A58AB61F7CB358002D2DBC /* DUTInfoUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A58AA61F7CB304002D2DBC /* DUTInfoUnits.swift */; };
 		B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E7E1F0A211800174471 /* AppDelegate.swift */; };
@@ -86,7 +84,6 @@
 		B4A137E61F62BD9200207CFF /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		B4A58AA21F7CB303002D2DBC /* DutInfoNetSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DutInfoNetSite.swift; path = DUTInfoCore/DutInfoNetSite.swift; sourceTree = "<group>"; };
 		B4A58AA31F7CB303002D2DBC /* DutInfoTeachSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DutInfoTeachSite.swift; path = DUTInfoCore/DutInfoTeachSite.swift; sourceTree = "<group>"; };
-		B4A58AA41F7CB303002D2DBC /* DutInfoPortalSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DutInfoPortalSite.swift; path = DUTInfoCore/DutInfoPortalSite.swift; sourceTree = "<group>"; };
 		B4A58AA51F7CB303002D2DBC /* DutInfoNewPortalSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DutInfoNewPortalSite.swift; path = DUTInfoCore/DutInfoNewPortalSite.swift; sourceTree = "<group>"; };
 		B4A58AA61F7CB304002D2DBC /* DUTInfoUnits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DUTInfoUnits.swift; path = DUTInfoCore/DUTInfoUnits.swift; sourceTree = "<group>"; };
 		B4A58AA71F7CB304002D2DBC /* DUTInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DUTInfo.swift; path = DUTInfoCore/DUTInfo.swift; sourceTree = "<group>"; };
@@ -169,7 +166,6 @@
 				B4A58AA71F7CB304002D2DBC /* DUTInfo.swift */,
 				B4A58AA21F7CB303002D2DBC /* DutInfoNetSite.swift */,
 				B4A58AA51F7CB303002D2DBC /* DutInfoNewPortalSite.swift */,
-				B4A58AA41F7CB303002D2DBC /* DutInfoPortalSite.swift */,
 				B4A58AA31F7CB303002D2DBC /* DutInfoTeachSite.swift */,
 				B4A58AA61F7CB304002D2DBC /* DUTInfoUnits.swift */,
 			);
@@ -445,7 +441,6 @@
 				B4A58AAC1F7CB304002D2DBC /* DutInfoNewPortalSite.swift in Sources */,
 				B4A58AAA1F7CB304002D2DBC /* DutInfoTeachSite.swift in Sources */,
 				B4B70E811F0A211800174471 /* CostViewController.swift in Sources */,
-				B4A58AAB1F7CB304002D2DBC /* DutInfoPortalSite.swift in Sources */,
 				B422673F1F692DF500D161CD /* ScheduleViewController.swift in Sources */,
 				B4A58AAD1F7CB304002D2DBC /* DUTInfoUnits.swift in Sources */,
 				B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */,
@@ -466,7 +461,6 @@
 				B4A58AB11F7CB358002D2DBC /* DUTInfo.swift in Sources */,
 				B4A58AB31F7CB358002D2DBC /* DutInfoNewPortalSite.swift in Sources */,
 				B4A58AB51F7CB358002D2DBC /* DutInfoTeachSite.swift in Sources */,
-				B4A58AB41F7CB358002D2DBC /* DutInfoPortalSite.swift in Sources */,
 				B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */,
 				B49936301F7B8561005AB88F /* CourseInfo.swift in Sources */,
 			);
