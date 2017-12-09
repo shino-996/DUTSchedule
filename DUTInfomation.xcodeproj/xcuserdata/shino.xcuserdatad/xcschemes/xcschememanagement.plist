@@ -16,7 +16,7 @@
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>5</integer>
 		</dict>
 		<key>DutInfoKit.xcscheme</key>
 		<dict>
