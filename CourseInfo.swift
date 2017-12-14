@@ -36,7 +36,7 @@ struct CourseInfo {
             courseData = nil
             return
         }
-        courseData = allCourseData!.filter { (course: [String: String]) -> Bool in
+        courseData = allCourseData!.filter { course in
             let courseWeek = course["week"]!
             if courseWeek != week {
                 return false
