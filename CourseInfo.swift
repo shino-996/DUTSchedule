@@ -10,32 +10,44 @@ import Foundation
 
 struct CourseInfo {
     var date = Date()
-    var teachWeek: String!
+    var teachWeek: String?
     var courseData: [[String: String]]?
     var allCourseData: [[String: String]]?
     
-    init() {
+    private mutating func getAllCourseData() -> Bool {
+        if allCourseData != nil {
+            return true
+        }
         let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
         let fileURL = groupURL!.appendingPathComponent("course.plist")
         let array = NSArray(contentsOf: fileURL)
         guard array != nil else {
             allCourseData = nil
-            return
+            return false
         }
         allCourseData = (array as! [[String: String]])
+        return true
+    }
+    
+    mutating func saveCourse(_ courses: [[String: String]]) {
+        allCourseData = courses
+        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
+        let fileURL = groupURL!.appendingPathComponent("course.plist")
+        (courses as NSArray).write(to: fileURL, atomically: true)
     }
     
     private mutating func courseDataAWeek() {
-        guard let allCourseData = allCourseData else {
-            courseData = nil
-            return
-        }
         let weeknumberDataFormatter = DateFormatter()
         weeknumberDataFormatter.dateFormat = "w"
         let weeknumber = Int(weeknumberDataFormatter.string(from: date))! - 35
         teachWeek = String(weeknumber)
-        courseData = allCourseData.filter { course in
-            guard course["coursenumber"] != "第节" else {
+        if getAllCourseData() == false {
+            courseData = nil
+            teachWeek = nil
+            return
+        }
+        courseData = allCourseData!.filter { course in
+            guard course["coursenumber"] != "" else {
                 return false
             }
             let courseWeeknumber = course["weeknumber"]!.components(separatedBy: "-")
@@ -61,9 +73,10 @@ struct CourseInfo {
     }
     
     mutating private func courseDataADay() {
-        courseDataADay()
+        courseDataAWeek()
         guard let courseThisWeek = courseData else {
             courseData = nil
+            teachWeek = nil
             return
         }
         let weekDateFormatter = DateFormatter()

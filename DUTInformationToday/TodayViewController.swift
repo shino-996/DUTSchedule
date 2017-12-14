@@ -15,13 +15,35 @@ class TodayViewController: UIViewController {
     @IBOutlet weak var ecardLabel: UILabel!
     @IBOutlet weak var netActivity: UIActivityIndicatorView!
     @IBOutlet weak var ecardActivity: UIActivityIndicatorView!
-    @IBOutlet weak var noCourseLabel: UILabel!
+    @IBOutlet weak var noCourseButton: UIButton!
     @IBOutlet weak var courseTableView: UITableView!
     @IBOutlet weak var weekLabel: UILabel!
     
     var dutInfo: DUTInfo!
     var courseInfo: CourseInfo!
     var scheduleDate = Date()
+    
+    @IBAction func changeSchedule(_ sender: Any) {
+        if sender is UITapGestureRecognizer {
+            courseInfo.courseDataToday()
+        } else {
+            let button = sender as! UIButton
+            if button.title(for: .normal) == "->" {
+                courseInfo.courseDataNextDay()
+            } else {
+                courseInfo.courseDayLastDay()
+            }
+        }
+        loadScheduleData()
+    }
+    
+    @IBAction func awakeHost(_ sender: UIButton) {
+        if sender.title(for: .normal) == "未导入课程表" {
+            extensionContext?.open(URL(string: "dutinformation://")!, completionHandler: nil)
+        } else if sender.title(for: .normal) == "未登录账号" {
+            extensionContext?.open(URL(string: "dutinformation://")!, completionHandler: nil)
+        }
+    }
 }
 
 extension TodayViewController: NCWidgetProviding {
@@ -45,27 +67,13 @@ extension TodayViewController: NCWidgetProviding {
         courseInfo.courseDataToday()
     }
     
-    @IBAction func changeSchedule(_ sender: Any) {
-        if sender is UITapGestureRecognizer {
-            courseInfo.courseDataToday()
-        } else {
-            let button = sender as! UIButton
-            if button.title(for: .normal) == "->" {
-                courseInfo.courseDataNextDay()
-            } else {
-                courseInfo.courseDayLastDay()
-            }
-        }
-        loadScheduleData()
-    }
-    
     func loadScheduleData() {
         if let courses = courseInfo.courseData {
             if courses.count == 0 {
-                self.noCourseLabel.isHidden = false
-                self.noCourseLabel.text = "今天没有课～"
+                self.noCourseButton.isHidden = false
+                self.noCourseButton.setTitle("今天没有课～", for: .normal)
             } else {
-                self.noCourseLabel.isHidden = true
+                self.noCourseButton.isHidden = true
             }
             if #available(iOSApplicationExtension 10.0, *) {
                 if courses.count > 1 {
@@ -78,17 +86,17 @@ extension TodayViewController: NCWidgetProviding {
             weekDateFormatter.dateFormat = "e"
             let week = Int(weekDateFormatter.string(from: courseInfo.date))!
             let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
-            weekLabel.text = "第\(courseInfo.teachWeek)周 周\(chineseWeek[week])"
+            weekLabel.text = "第\(courseInfo.teachWeek!)周 周\(chineseWeek[week])"
             courseTableView.reloadData()
         } else {
-            noCourseLabel.isHidden = false
-            noCourseLabel.text = "未导入课程表"
+            noCourseButton.isHidden = false
+            noCourseButton.setTitle("未导入课程表", for: .normal)
         }
     }
     
     func loadCacheData() {
         let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        ecardLabel.text = userDefaults.string(forKey: "EcardCost")
+        ecardLabel.text = userDefaults.string(forKey: "EcardCost") ?? ""
         if let netCost = userDefaults.string(forKey: "NetCost"),
             let netFlow = userDefaults.string(forKey: "NetFlow") {
             netLabel.text = netFlow + "/" + netCost
@@ -100,9 +108,17 @@ extension TodayViewController: NCWidgetProviding {
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         loadCacheData()
         loadScheduleData()
-        dutInfo.newPortalNetInfo()
-        ecardActivity.startAnimating()
-        netActivity.startAnimating()
+        dutInfo.loginNewPortalSite(succeed: {
+            self.dutInfo.newPortalNetInfo()
+            DispatchQueue.main.async {
+                self.ecardActivity.startAnimating()
+                self.netActivity.startAnimating()
+            }
+        }, failed: {
+            DispatchQueue.main.async {
+                self.noCourseButton.setTitle("未登录账号", for: .normal)
+            }
+        })
         completionHandler(.newData)
     }
     
@@ -149,7 +165,7 @@ extension TodayViewController: DUTInfoDelegate {
         userDefaults.set(netFlow, forKey: "NetFlow")
     }
     
-    func netErrorHandle() {
+    func netErrorHandle(_ error: Error) {
     }
     
     func setSchedule(_ courseArray: [[String : String]]) {

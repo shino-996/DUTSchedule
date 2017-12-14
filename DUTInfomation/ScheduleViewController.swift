@@ -8,80 +8,68 @@
 
 import UIKit
 
-class ScheduleViewController: UIViewController {
+class ScheduleViewController: TabViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var teachWeekLabel: UIButton!
-    var dutInfo: DUTInfo!
+    @IBOutlet weak var loadScheduleButton: UIButton!
     var courseInfo: CourseInfo!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if dutInfo == nil {
-            let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-            let studentNumber = userDefaults.string(forKey: "StudentNumber")
-            let TeachPassword = userDefaults.string(forKey: "TeachPassword")
-            let portalPassword = userDefaults.string(forKey: "PortalPassword")
-            dutInfo = DUTInfo(studentNumber: studentNumber ?? "",
-                              teachPassword: TeachPassword ?? "",
-                              portalPassword: portalPassword ?? "")
-            dutInfo.delegate = self
-        }
         courseInfo = CourseInfo()
         courseInfo.courseDataThisWeek()
-        teachWeekLabel.setTitle("第" + courseInfo.teachWeek + "周", for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        dutInfo.loginNewPortalSite(failed: {
+        if courseInfo.courseData != nil {
+            teachWeekLabel.setTitle("第" + courseInfo.teachWeek! + "周", for: .normal)
+        } else {
+            let alertController = UIAlertController(title: "未导入课表", message: nil, preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
+                self.loadScheduleButton.isHidden = false
+            }
+            let loadAction = UIAlertAction(title: "导入", style: .default) { _ in
+                self.loadSchedule()
+            }
+            alertController.addAction(cancelAction)
+            alertController.addAction(loadAction)
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    override func setSchedule(_ courseArray: [[String : String]]) {
+        courseInfo.saveCourse(courseArray)
+        activityIndicator.stopAnimating()
+        loadScheduleButton.isHidden = true
+        self.changSchedule(nil)
+    }
+    
+    @IBAction func loadSchedule() {
+        dutInfo.loginTeachSite(succeed: {
+            self.dutInfo.courseInfo()
+            DispatchQueue.main.async {
+                self.activityIndicator.startAnimating()
+            }
+        }, failed: {
             self.performSegue(withIdentifier: "LoginTeach", sender: self)
         })
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "LoginTeach" {
-            let navigation = segue.destination as! UINavigationController
-            let destination = navigation.topViewController as! LoginTeachSiteViewController
-            destination.dutInfo = dutInfo
-        } else {
-            fatalError()
-        }
-    }
-    
-    @IBAction func loadSchedule() {
-        self.dutInfo.courseInfo()
-        activityIndicator.startAnimating()
-    }
-    
-    @IBAction func changSchedule(_ sender: UIButton) {
-        if sender.title(for: .normal)! == "->" {
-            courseInfo.courseDataNextWeek()
-        } else if sender.title(for: .normal)! == "<-" {
-            courseInfo.courseDataLastWeek()
+    @IBAction func changSchedule(_ sender: UIButton?) {
+        if let button = sender {
+            if button.title(for: .normal)! == "->" {
+                courseInfo.courseDataNextWeek()
+            } else if button.title(for: .normal) == "<-" {
+                courseInfo.courseDataLastWeek()
+            }
         } else {
             courseInfo.courseDataThisWeek()
         }
-        teachWeekLabel.setTitle("第" + courseInfo.teachWeek + "周", for: .normal)
+        teachWeekLabel.setTitle("第" + courseInfo.teachWeek! + "周", for: .normal)
         collectionView.reloadData()
     }
-}
-
-extension ScheduleViewController: DUTInfoDelegate {
-    func setNetCost(_ netCost: String) {}
-    
-    func setNetFlow(_ netFlow: String) {}
-    
-    func setEcardCost(_ ecardCost: String) {}
-    
-    func setSchedule(_ courseArray: [[String : String]]) {
-        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-        let fileURL = groupURL!.appendingPathComponent("course.plist")
-        (courseArray as NSArray).write(to: fileURL, atomically: true)
-        activityIndicator.stopAnimating()
-    }
-    
-    func netErrorHandle() {}
 }
 
 extension ScheduleViewController: UICollectionViewDataSource {
@@ -111,7 +99,7 @@ extension ScheduleViewController: UICollectionViewDataSource {
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseCell", for: indexPath) as! CourseCell
-                cell.prepare(courseData: courseInfo.courseData!, indexPath: indexPath)
+                cell.prepare(courseData: courseInfo.courseData, indexPath: indexPath)
                 return cell
             }
         }

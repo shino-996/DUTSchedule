@@ -8,25 +8,13 @@
 
 import UIKit
 
-class CostViewController: UIViewController, DUTInfoDelegate {
+class CostViewController: TabViewController {
     @IBOutlet weak var netCostLabel: UILabel!
     @IBOutlet weak var netFlowLabel: UILabel!
     @IBOutlet weak var ecardCostLabel: UILabel!
     
-    var dutInfo: DUTInfo!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        if dutInfo == nil {
-            let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-            let studentNumber = userDefaults.string(forKey: "StudentNumber")
-            let TeachPassword = userDefaults.string(forKey: "TeachPassword")
-            let portalPassword = userDefaults.string(forKey: "PortalPassword")
-            dutInfo = DUTInfo(studentNumber: studentNumber ?? "",
-                              teachPassword: TeachPassword ?? "",
-                              portalPassword: portalPassword ?? "")
-            dutInfo.delegate = self
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,35 +26,21 @@ class CostViewController: UIViewController, DUTInfoDelegate {
         })
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "LoginTeach" {
-            let navigation = segue.destination as! UINavigationController
-            let destination = navigation.topViewController as! LoginTeachSiteViewController
-            destination.dutInfo = dutInfo
-        } else {
-            fatalError()
-        }
-    }
-    
-    func setEcardCost(_ ecardCost: String) {
+    override func setEcardCost(_ ecardCost: String) {
         DispatchQueue.main.async {
             self.ecardCostLabel.text = ecardCost
         }
     }
     
-    func setNetCost(_ netCost: String) {
+    override func setNetCost(_ netCost: String) {
         DispatchQueue.main.async {
             self.netCostLabel.text = netCost
         }
     }
     
-    func setNetFlow(_ netFlow: String) {
+    override func setNetFlow(_ netFlow: String) {
         DispatchQueue.main.async {
             self.netFlowLabel.text = netFlow
         }
     }
-    
-    func netErrorHandle() {}
-    
-    func setSchedule(_ courseArray: [[String : String]]) {}
 }

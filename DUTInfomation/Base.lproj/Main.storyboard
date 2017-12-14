@@ -86,7 +86,7 @@
                             <constraint firstItem="baR-W4-5ur" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tuc-76-lV2"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="费用" id="giq-bS-sBR"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="费用" id="giq-bS-sBR"/>
                     <connections>
                         <outlet property="ecardCostLabel" destination="TYR-YD-B36" id="9jm-EI-nPR"/>
                         <outlet property="netCostLabel" destination="aPp-B7-lfW" id="5tV-LH-enN"/>
@@ -383,21 +383,21 @@
                                 <rect key="frame" x="140" y="28" width="40" height="30"/>
                                 <state key="normal" title="第5周"/>
                                 <connections>
-                                    <action selector="changSchedule:" destination="mnc-R3-98U" eventType="touchUpInside" id="pnE-fl-YwI"/>
+                                    <action selector="changSchedule:" destination="mnc-R3-98U" eventType="touchUpInside" id="7u9-dt-UZ6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q2M-V2-8my">
                                 <rect key="frame" x="270" y="28" width="30" height="30"/>
                                 <state key="normal" title="-&gt;"/>
                                 <connections>
-                                    <action selector="changSchedule:" destination="mnc-R3-98U" eventType="touchUpInside" id="s5S-Yc-6d9"/>
+                                    <action selector="changSchedule:" destination="mnc-R3-98U" eventType="touchUpInside" id="lKL-2G-iVn"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKX-jZ-zeM">
                                 <rect key="frame" x="20" y="28" width="30" height="30"/>
                                 <state key="normal" title="&lt;-"/>
                                 <connections>
-                                    <action selector="changSchedule:" destination="mnc-R3-98U" eventType="touchUpInside" id="4r6-F9-SKc"/>
+                                    <action selector="changSchedule:" destination="mnc-R3-98U" eventType="touchUpInside" id="5hw-tY-e8b"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -425,6 +425,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="MjB-aP-3KP" id="Nhe-A6-Mtw"/>
                         <outlet property="collectionView" destination="xUv-uf-GDF" id="mkn-IE-yYE"/>
+                        <outlet property="loadScheduleButton" destination="K45-ur-Yyf" id="lRF-a3-sba"/>
                         <outlet property="teachWeekLabel" destination="8jS-0F-q2b" id="kn9-bv-avg"/>
                         <segue destination="gpD-Tv-J8n" kind="presentation" identifier="LoginTeach" id="Snx-XQ-mSf"/>
                     </connections>
@@ -436,7 +437,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="I7b-Xv-kgr">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Xzg-cL-KBU" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Xzg-cL-KBU" customClass="TabBarController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="RYl-4W-TVO">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -444,8 +445,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="a2y-b0-hD6"/>
                         <segue destination="mnc-R3-98U" kind="relationship" relationship="viewControllers" id="mGB-d9-3A9"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="a2y-b0-hD6"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EHQ-RU-wMm" userLabel="First Responder" sceneMemberID="firstResponder"/>

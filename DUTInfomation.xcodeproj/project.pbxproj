@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1BF50BBD1362FA85383CE68F /* Pods_DUTInformationToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E56B0E628D8B1E3594C810D2 /* Pods_DUTInformationToday.framework */; };
+		B4173D721FE2642000B6E527 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4173D711FE2642000B6E527 /* TabBarController.swift */; };
 		B422673F1F692DF500D161CD /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422673E1F692DF500D161CD /* ScheduleViewController.swift */; };
 		B429A9F51FDBBE68008C83FB /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B429A9EE1FDBBE68008C83FB /* DutInfoNewPortalSite.swift */; };
 		B429A9F61FDBBE68008C83FB /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B429A9EE1FDBBE68008C83FB /* DutInfoNewPortalSite.swift */; };
@@ -33,6 +34,7 @@
 		B4CB3FDB1F1209FE0059591C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4CB3FDA1F1209FE0059591C /* NotificationCenter.framework */; };
 		B4CB3FE11F1209FE0059591C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4CB3FDF1F1209FE0059591C /* MainInterface.storyboard */; };
 		B4CB3FE51F1209FE0059591C /* DUTInformationToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B4CB3FD91F1209FE0059591C /* DUTInformationToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B4CCCA651FE2A98300EE6470 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CCCA641FE2A98300EE6470 /* TabViewController.swift */; };
 		B4E535CF1F5FDEAC007DE392 /* CourseCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E535CE1F5FDEAC007DE392 /* CourseCellView.swift */; };
 		B4E535D21F61544B007DE392 /* LoginTeachSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */; };
 		B4E535D41F615468007DE392 /* LoginPortalSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E535D31F615468007DE392 /* LoginPortalSiteViewController.swift */; };
@@ -81,6 +83,7 @@
 		9CDF36D39840F6461FF0D3E1 /* Pods-DUTInfoKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfoKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfoKit/Pods-DUTInfoKit.debug.xcconfig"; sourceTree = "<group>"; };
 		A2C577CF4047CFE0F0EA4929 /* Pods-DUTInfomation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfomation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation.debug.xcconfig"; sourceTree = "<group>"; };
 		AFEEDEA074D99C2A95B6AF6E /* Pods_DutInfoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DutInfoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4173D711FE2642000B6E527 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B422673E1F692DF500D161CD /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B429A9EE1FDBBE68008C83FB /* DutInfoNewPortalSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DutInfoNewPortalSite.swift; path = DUTInfo/DUTInfoCore/DutInfoNewPortalSite.swift; sourceTree = "<group>"; };
 		B429A9EF1FDBBE68008C83FB /* DutInfoNetSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DutInfoNetSite.swift; path = DUTInfo/DUTInfoCore/DutInfoNetSite.swift; sourceTree = "<group>"; };
@@ -105,6 +108,7 @@
 		B4CB3FE21F1209FE0059591C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4CB3FEA1F120AD70059591C /* DUTInfomation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DUTInfomation.entitlements; sourceTree = "<group>"; };
 		B4CB3FEB1F120B0F0059591C /* DUTInformationToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DUTInformationToday.entitlements; sourceTree = "<group>"; };
+		B4CCCA641FE2A98300EE6470 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		B4E535CE1F5FDEAC007DE392 /* CourseCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCellView.swift; sourceTree = "<group>"; };
 		B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTeachSiteViewController.swift; sourceTree = "<group>"; };
 		B4E535D31F615468007DE392 /* LoginPortalSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPortalSiteViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 			children = (
 				B4CB3FEA1F120AD70059591C /* DUTInfomation.entitlements */,
 				B4B70E7E1F0A211800174471 /* AppDelegate.swift */,
+				B4173D711FE2642000B6E527 /* TabBarController.swift */,
+				B4CCCA641FE2A98300EE6470 /* TabViewController.swift */,
 				B4B70E801F0A211800174471 /* CostViewController.swift */,
 				B422673E1F692DF500D161CD /* ScheduleViewController.swift */,
 				B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */,
@@ -455,6 +461,7 @@
 				B4A2114F1FDFAD580055B611 /* CourseCell.swift in Sources */,
 				B4B70E811F0A211800174471 /* CostViewController.swift in Sources */,
 				B429A9FF1FDBBE68008C83FB /* DutInfoTeachSite.swift in Sources */,
+				B4CCCA651FE2A98300EE6470 /* TabViewController.swift in Sources */,
 				B429A9F91FDBBE68008C83FB /* DUTInfo.swift in Sources */,
 				B4A211561FDFC29A0055B611 /* CourseInfo.swift in Sources */,
 				B4A211511FDFAD640055B611 /* CourseNumberCell.swift in Sources */,
@@ -463,6 +470,7 @@
 				B4A2114D1FDFAD2C0055B611 /* WeekCell.swift in Sources */,
 				B429A9F51FDBBE68008C83FB /* DutInfoNewPortalSite.swift in Sources */,
 				B4E535D41F615468007DE392 /* LoginPortalSiteViewController.swift in Sources */,
+				B4173D721FE2642000B6E527 /* TabBarController.swift in Sources */,
 				B429A9F71FDBBE68008C83FB /* DutInfoNetSite.swift in Sources */,
 				B4E535D21F61544B007DE392 /* LoginTeachSiteViewController.swift in Sources */,
 			);

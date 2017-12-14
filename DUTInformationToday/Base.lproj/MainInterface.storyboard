@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,20 +22,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SaB-V7-An3">
-                                <rect key="frame" x="16" y="8" width="35" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30GB/20元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIY-wg-Ra5">
-                                <rect key="frame" x="59" y="8" width="77.5" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wZm-IB-hQ4">
+                                <rect key="frame" x="20" y="8" width="112.5" height="18"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="网络:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SaB-V7-An3">
+                                        <rect key="frame" x="0.0" y="0.0" width="35" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="30GB/20元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIY-wg-Ra5">
+                                        <rect key="frame" x="35" y="0.0" width="77.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qgb-Pp-6OJ">
-                                <rect key="frame" x="88" y="7" width="20" height="20"/>
+                                <rect key="frame" x="66.5" y="7" width="20" height="20"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第1周 周一" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DaZ-2p-4OX">
@@ -45,20 +49,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="校园卡:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQf-Ma-zHL">
-                                <rect key="frame" x="211.5" y="8" width="50.5" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLE-D4-xef">
-                                <rect key="frame" x="270" y="8" width="34" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YYt-iv-HqU">
-                                <rect key="frame" x="280" y="7" width="20" height="20"/>
+                                <rect key="frame" x="248" y="7" width="20" height="20"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mzU-as-1C2">
@@ -74,25 +66,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="计算机组成原理" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X7d-CI-avz">
-                                                    <rect key="frame" x="8" y="8" width="107.5" height="18"/>
+                                                    <rect key="frame" x="15" y="11" width="107.5" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="丁男" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V65-8j-yTK">
-                                                    <rect key="frame" x="249" y="8" width="31" height="18"/>
+                                                    <rect key="frame" x="242" y="11" width="31" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="综合教学1号楼 综362" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qw3-Tk-zV1">
-                                                    <rect key="frame" x="8" y="35.5" width="145.5" height="18"/>
+                                                    <rect key="frame" x="15" y="33" width="145.5" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3-4节" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JRF-8U-Y6B">
-                                                    <rect key="frame" x="239" y="39" width="41" height="18"/>
+                                                    <rect key="frame" x="232" y="36.5" width="41" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -130,13 +122,13 @@
                                     <outletCollection property="gestureRecognizers" destination="k9S-nm-2Mc" appends="YES" id="vSb-xe-9jM"/>
                                 </connections>
                             </tableView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天没有课～" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WUA-8n-DxL">
-                                <rect key="frame" x="114" y="111" width="92" height="18"/>
-                                <gestureRecognizers/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TQs-ly-apZ">
+                                <rect key="frame" x="117" y="85" width="86" height="30"/>
+                                <state key="normal" title="今天没有课~"/>
+                                <connections>
+                                    <action selector="awakeHost:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="cuP-Nw-G3T"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWB-N4-U5I">
                                 <rect key="frame" x="270" y="20" width="30" height="30"/>
                                 <state key="normal" title="-&gt;"/>
@@ -151,37 +143,49 @@
                                     <action selector="changeSchedule:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="KWS-E2-GEJ"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kqc-F1-RVt">
+                                <rect key="frame" x="219" y="7" width="84.5" height="18"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="校园卡:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQf-Ma-zHL">
+                                        <rect key="frame" x="0.0" y="0.0" width="50.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="50元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLE-D4-xef">
+                                        <rect key="frame" x="50.5" y="0.0" width="34" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="fLE-D4-xef" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="0Az-Ef-z9j"/>
-                            <constraint firstItem="tIY-wg-Ra5" firstAttribute="centerY" secondItem="SaB-V7-An3" secondAttribute="centerY" id="1nn-Th-KaB"/>
-                            <constraint firstItem="SaB-V7-An3" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="1oD-24-LCI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mzU-as-1C2" secondAttribute="trailing" id="2UJ-dE-cEc"/>
-                            <constraint firstItem="YYt-iv-HqU" firstAttribute="centerY" secondItem="fLE-D4-xef" secondAttribute="centerY" id="2tT-zX-eaI"/>
+                            <constraint firstItem="kqc-F1-RVt" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="7" id="2v8-nR-idU"/>
                             <constraint firstItem="nPy-Gz-FVk" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="338-HI-4Th"/>
-                            <constraint firstItem="DaZ-2p-4OX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nPy-Gz-FVk" secondAttribute="trailing" constant="8" symbolic="YES" id="533-3o-bCH"/>
+                            <constraint firstItem="VWB-N4-U5I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="3cl-uK-dt1"/>
+                            <constraint firstItem="qgb-Pp-6OJ" firstAttribute="centerY" secondItem="wZm-IB-hQ4" secondAttribute="centerY" id="5u3-B8-EXZ"/>
                             <constraint firstAttribute="trailing" secondItem="VWB-N4-U5I" secondAttribute="trailing" constant="20" symbolic="YES" id="AAE-iM-szu"/>
-                            <constraint firstItem="WUA-8n-DxL" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="AuB-Nk-Pip"/>
-                            <constraint firstItem="qgb-Pp-6OJ" firstAttribute="centerX" secondItem="tIY-wg-Ra5" secondAttribute="centerX" id="D4u-oG-zhU"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wZm-IB-hQ4" secondAttribute="trailing" constant="20" symbolic="YES" id="Ae0-5V-Pnk"/>
+                            <constraint firstAttribute="trailing" secondItem="kqc-F1-RVt" secondAttribute="trailing" constant="16.5" id="Cdi-jF-dnb"/>
                             <constraint firstItem="mzU-as-1C2" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="KRK-dF-tZz"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="SaB-V7-An3" secondAttribute="leading" id="LGa-na-5Vd"/>
-                            <constraint firstItem="qgb-Pp-6OJ" firstAttribute="centerY" secondItem="tIY-wg-Ra5" secondAttribute="centerY" id="NCW-6X-TAM"/>
-                            <constraint firstItem="VWB-N4-U5I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DaZ-2p-4OX" secondAttribute="trailing" constant="8" symbolic="YES" id="NYe-UM-WQA"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tIY-wg-Ra5" secondAttribute="trailing" constant="20" symbolic="YES" id="Xnq-U7-kmP"/>
-                            <constraint firstAttribute="trailing" secondItem="YYt-iv-HqU" secondAttribute="trailing" constant="20" symbolic="YES" id="cYW-zm-EQy"/>
+                            <constraint firstItem="YYt-iv-HqU" firstAttribute="centerY" secondItem="kqc-F1-RVt" secondAttribute="centerY" constant="1" id="LlD-9W-Y8R"/>
+                            <constraint firstItem="TQs-ly-apZ" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="W2s-l4-XoY"/>
+                            <constraint firstItem="wZm-IB-hQ4" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="XzI-ou-j4t"/>
+                            <constraint firstItem="TQs-ly-apZ" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="Z8z-WU-YDX"/>
                             <constraint firstItem="mzU-as-1C2" firstAttribute="top" secondItem="DaZ-2p-4OX" secondAttribute="bottom" id="dpM-Uq-4k0"/>
+                            <constraint firstItem="YYt-iv-HqU" firstAttribute="centerX" secondItem="kqc-F1-RVt" secondAttribute="centerX" constant="-3.25" id="e2v-pe-QfN"/>
                             <constraint firstItem="nPy-Gz-FVk" firstAttribute="centerY" secondItem="DaZ-2p-4OX" secondAttribute="centerY" id="fpQ-VT-P41"/>
-                            <constraint firstItem="WUA-8n-DxL" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" multiplier="1.2" id="fyu-oC-zq3"/>
-                            <constraint firstItem="tIY-wg-Ra5" firstAttribute="leading" secondItem="SaB-V7-An3" secondAttribute="trailing" constant="8" symbolic="YES" id="p6E-vK-cY8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="fLE-D4-xef" secondAttribute="trailing" id="pDs-BN-Whu"/>
-                            <constraint firstItem="GQf-Ma-zHL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="sT9-OE-Qlu"/>
+                            <constraint firstItem="qgb-Pp-6OJ" firstAttribute="centerX" secondItem="wZm-IB-hQ4" secondAttribute="centerX" id="gTJ-Bt-e8O"/>
+                            <constraint firstItem="DaZ-2p-4OX" firstAttribute="top" secondItem="wZm-IB-hQ4" secondAttribute="bottom" id="odN-dV-UY5"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="mzU-as-1C2" secondAttribute="bottom" constant="8" symbolic="YES" id="toX-ui-6Cj"/>
+                            <constraint firstItem="wZm-IB-hQ4" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="u7E-uW-S3U"/>
                             <constraint firstItem="DaZ-2p-4OX" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="uW3-jW-yAU"/>
-                            <constraint firstItem="GQf-Ma-zHL" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="y3d-Qk-cvE"/>
-                            <constraint firstItem="fLE-D4-xef" firstAttribute="leading" secondItem="GQf-Ma-zHL" secondAttribute="trailing" constant="8" symbolic="YES" id="yfI-Ff-CQe"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nPy-Gz-FVk" secondAttribute="trailing" constant="20" symbolic="YES" id="ujv-1n-A00"/>
                             <constraint firstItem="VWB-N4-U5I" firstAttribute="centerY" secondItem="DaZ-2p-4OX" secondAttribute="centerY" id="z4z-8w-rVn"/>
-                            <constraint firstItem="DaZ-2p-4OX" firstAttribute="top" secondItem="SaB-V7-An3" secondAttribute="bottom" id="zQ2-xh-eIF"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -196,7 +200,7 @@
                         <outlet property="ecardLabel" destination="fLE-D4-xef" id="tV3-kc-EFt"/>
                         <outlet property="netActivity" destination="qgb-Pp-6OJ" id="MrE-Bu-DEF"/>
                         <outlet property="netLabel" destination="tIY-wg-Ra5" id="AXa-dQ-gO3"/>
-                        <outlet property="noCourseLabel" destination="WUA-8n-DxL" id="Ajf-HA-zMD"/>
+                        <outlet property="noCourseButton" destination="TQs-ly-apZ" id="T0r-r4-fxy"/>
                         <outlet property="weekLabel" destination="DaZ-2p-4OX" id="ELi-UM-NfD"/>
                     </connections>
                 </viewController>
