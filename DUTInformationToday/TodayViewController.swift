@@ -42,18 +42,18 @@ extension TodayViewController: NCWidgetProviding {
                           portalPassword: portalPassword ?? "")
         dutInfo.delegate = self
         courseInfo = CourseInfo()
-        courseInfo.getTodayCourseData()
+        courseInfo.courseDataToday()
     }
     
     @IBAction func changeSchedule(_ sender: Any) {
         if sender is UITapGestureRecognizer {
-            courseInfo.getTodayCourseData()
+            courseInfo.courseDataToday()
         } else {
             let button = sender as! UIButton
             if button.title(for: .normal) == "->" {
-                courseInfo.getNextDayCourseData()
+                courseInfo.courseDataNextDay()
             } else {
-                courseInfo.getPreviousDayCourseData()
+                courseInfo.courseDayLastDay()
             }
         }
         loadScheduleData()
@@ -74,13 +74,15 @@ extension TodayViewController: NCWidgetProviding {
                     extensionContext?.widgetLargestAvailableDisplayMode = .compact
                 }
             }
-            self.weekLabel.text = self.courseInfo.weekString
+            let weekDateFormatter = DateFormatter()
+            weekDateFormatter.dateFormat = "e"
+            let week = Int(weekDateFormatter.string(from: courseInfo.date))!
+            let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
+            weekLabel.text = "第\(courseInfo.teachWeek)周 周\(chineseWeek[week])"
             courseTableView.reloadData()
         } else {
-            DispatchQueue.main.async {
-                self.noCourseLabel.isHidden = false
-                self.noCourseLabel.text = "未导入课程表"
-            }
+            noCourseLabel.isHidden = false
+            noCourseLabel.text = "未导入课程表"
         }
     }
     
@@ -152,7 +154,7 @@ extension TodayViewController: DUTInfoDelegate {
     
     func setSchedule(_ courseArray: [[String : String]]) {
         courseInfo.allCourseData = courseArray
-        courseInfo.getTodayCourseData()
+        courseInfo.courseDataToday()
     }
 }
 

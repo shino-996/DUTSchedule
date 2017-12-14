@@ -10,7 +10,7 @@ import Foundation
 
 struct CourseInfo {
     var date = Date()
-    var weekString: String!
+    var teachWeek: String!
     var courseData: [[String: String]]?
     var allCourseData: [[String: String]]?
     
@@ -25,55 +25,69 @@ struct CourseInfo {
         allCourseData = (array as! [[String: String]])
     }
     
-    mutating private func getCourseData() {
-        let weekDateFormatter = DateFormatter()
-        weekDateFormatter.dateFormat = "e"
-        let week = String(Int(weekDateFormatter.string(from: date))! - 1)
-        let weeknumberDateFormatter = DateFormatter()
-        weeknumberDateFormatter.dateFormat = "w"
-        let weeknumber = Int(weeknumberDateFormatter.string(from: date))! - 35
-        guard allCourseData != nil else {
+    private mutating func courseDataAWeek() {
+        guard let allCourseData = allCourseData else {
             courseData = nil
             return
         }
-        courseData = allCourseData!.filter { course in
-            let courseWeek = course["week"]!
-            if courseWeek != week {
+        let weeknumberDataFormatter = DateFormatter()
+        weeknumberDataFormatter.dateFormat = "w"
+        let weeknumber = Int(weeknumberDataFormatter.string(from: date))! - 35
+        teachWeek = String(weeknumber)
+        courseData = allCourseData.filter { course in
+            guard course["coursenumber"] != "第节" else {
                 return false
             }
             let courseWeeknumber = course["weeknumber"]!.components(separatedBy: "-")
             let courseStartWeeknumber = Int(courseWeeknumber[0])!
             let courseEndWeeknumber = Int(courseWeeknumber[1])!
-            if weeknumber >= courseStartWeeknumber && weeknumber <= courseEndWeeknumber {
-                return true
-            } else {
-                return false
-            }
+            return  weeknumber >= courseStartWeeknumber && weeknumber <= courseEndWeeknumber
+        }
+    }
+    
+    mutating func courseDataThisWeek() {
+        date = Date()
+        courseDataAWeek()
+    }
+    
+    mutating func courseDataNextWeek() {
+        date = date.addingTimeInterval(7 * 60 * 60 * 24)
+        courseDataAWeek()
+    }
+    
+    mutating func courseDataLastWeek(){
+        date = date.addingTimeInterval(-7 * 60 * 60 * 24)
+        courseDataAWeek()
+    }
+    
+    mutating private func courseDataADay() {
+        courseDataADay()
+        guard let courseThisWeek = courseData else {
+            courseData = nil
+            return
+        }
+        let weekDateFormatter = DateFormatter()
+        weekDateFormatter.dateFormat = "e"
+        let week = String(Int(weekDateFormatter.string(from: date))! - 1)
+        courseData = courseThisWeek.filter {
+            $0["week"]! == week
         }.sorted {
             $0["coursenumber"]! <= $1["coursenumber"]!
         }
-        let chineseWeek = ["0": "日",
-                           "1": "一",
-                           "2": "二",
-                           "3": "三",
-                           "4": "四",
-                           "5": "五",
-                           "6": "六"]
-        weekString = "第\(weeknumber)周 周\(chineseWeek[week]!)"
     }
     
-    mutating func getTodayCourseData() {
+    mutating func courseDataToday() {
         date = Date()
-        getCourseData()
+        courseDataADay()
     }
     
-    mutating func getNextDayCourseData() {
+    mutating func courseDataNextDay() {
         date = date.addingTimeInterval(60 * 60 * 24)
-        getCourseData()
+        courseDataADay()
     }
     
-    mutating func getPreviousDayCourseData() {
+    mutating func courseDayLastDay() {
         date = date.addingTimeInterval(-60 * 60 * 24)
-        getCourseData()
+        courseDataADay()
     }
 }
