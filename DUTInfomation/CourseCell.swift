@@ -21,7 +21,6 @@ class CourseCell: UICollectionViewCell {
         let course = courseData.filter {
             $0["week"] ?? "" == "\(week)" && $0["coursenumber"] == "\(coursenumber)"
         }
-//        print(course.first ?? "no course")
         courseLabel.text = course.first?["name"] ?? ""
     }
 }

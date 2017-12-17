@@ -21,17 +21,28 @@ class TodayViewController: UIViewController {
     
     var dutInfo: DUTInfo!
     var courseInfo: CourseInfo!
-    var scheduleDate = Date()
+    var courses: [[String: String]]? {
+        didSet {
+            courseTableView.reloadData()
+        }
+    }
+    var teachWeek = 1
+    var week = 1 {
+        didSet {
+            let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
+            weekLabel.text = "第\(teachWeek)周 周\(chineseWeek[week])"
+        }
+    }
     
     @IBAction func changeSchedule(_ sender: Any) {
         if sender is UITapGestureRecognizer {
-            courseInfo.courseDataToday()
+            (courses, teachWeek, week) = courseInfo.courseDataToday()
         } else {
             let button = sender as! UIButton
             if button.title(for: .normal) == "->" {
-                courseInfo.courseDataNextDay()
+                (courses, teachWeek, week) = courseInfo.courseDataNextDay()
             } else {
-                courseInfo.courseDayLastDay()
+                (courses, teachWeek, week) = courseInfo.courseDayLastDay()
             }
         }
         loadScheduleData()
@@ -64,30 +75,24 @@ extension TodayViewController: NCWidgetProviding {
                           portalPassword: portalPassword ?? "")
         dutInfo.delegate = self
         courseInfo = CourseInfo()
-        courseInfo.courseDataToday()
+        (courses, teachWeek, week) = courseInfo.courseDataToday()
     }
     
     func loadScheduleData() {
-        if let courses = courseInfo.courseData {
-            if courses.count == 0 {
+        if courses != nil {
+            if courses!.count == 0 {
                 self.noCourseButton.isHidden = false
                 self.noCourseButton.setTitle("今天没有课～", for: .normal)
             } else {
                 self.noCourseButton.isHidden = true
             }
             if #available(iOSApplicationExtension 10.0, *) {
-                if courses.count > 1 {
+                if courses!.count > 1 {
                     extensionContext?.widgetLargestAvailableDisplayMode = .expanded
                 } else {
                     extensionContext?.widgetLargestAvailableDisplayMode = .compact
                 }
             }
-            let weekDateFormatter = DateFormatter()
-            weekDateFormatter.dateFormat = "e"
-            let week = Int(weekDateFormatter.string(from: courseInfo.date))!
-            let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
-            weekLabel.text = "第\(courseInfo.teachWeek!)周 周\(chineseWeek[week])"
-            courseTableView.reloadData()
         } else {
             noCourseButton.isHidden = false
             noCourseButton.setTitle("未导入课程表", for: .normal)
@@ -127,15 +132,15 @@ extension TodayViewController: NCWidgetProviding {
         if activeDisplayMode == .compact {
             preferredContentSize = maxSize
         }
-        guard courseInfo?.courseData != nil else {
+        guard courses != nil else {
             preferredContentSize = CGSize(width: 0, height: 110)
             return
         }
         if activeDisplayMode == .expanded {
             preferredContentSize = CGSize(width: 0,
-                                          height: 110 + 61.5 * Double(courseInfo.courseData!.count - 1))
+                                          height: 110 + 61.5 * Double(courses!.count - 1))
         }
-        if courseInfo.courseData!.count > 0 {
+        if courses!.count > 0 {
             let index = IndexPath(item: 0, section: 0)
             courseTableView.reloadRows(at: [index], with: .automatic)
         }
@@ -168,10 +173,7 @@ extension TodayViewController: DUTInfoDelegate {
     func netErrorHandle(_ error: Error) {
     }
     
-    func setSchedule(_ courseArray: [[String : String]]) {
-        courseInfo.allCourseData = courseArray
-        courseInfo.courseDataToday()
-    }
+    func setSchedule(_ courseArray: [[String : String]]) {}
 }
 
 //UITableViewController协议方法
@@ -181,19 +183,19 @@ extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard courseInfo?.courseData != nil else {
+        guard courses != nil else {
             return 0
         }
-        return courseInfo.courseData!.count
+        return courses!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCellView
         if #available(iOSApplicationExtension 10.0, *),
             indexPath.row == 0 && extensionContext?.widgetActiveDisplayMode == .compact{
-            cell.prepareForNow(fromCourse: courseInfo.courseData!, ofIndex: indexPath)
+            cell.prepareForNow(fromCourse: courses!, ofIndex: indexPath)
         } else {
-            cell.prepare(fromCourse: courseInfo.courseData!, ofIndex: indexPath)
+            cell.prepare(fromCourse: courses!, ofIndex: indexPath)
         }
         return cell
     }

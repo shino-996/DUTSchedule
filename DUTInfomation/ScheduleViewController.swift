@@ -14,18 +14,26 @@ class ScheduleViewController: TabViewController {
     @IBOutlet weak var teachWeekLabel: UIButton!
     @IBOutlet weak var loadScheduleButton: UIButton!
     var courseInfo: CourseInfo!
+    var courses: [[String: String]]? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    var teachWeek = 0 {
+        didSet {
+            teachWeekLabel.setTitle("第\(teachWeek)周", for: .normal)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         courseInfo = CourseInfo()
-        courseInfo.courseDataThisWeek()
+        (courses, teachWeek) = courseInfo.courseDataThisWeek()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if courseInfo.courseData != nil {
-            teachWeekLabel.setTitle("第" + courseInfo.teachWeek! + "周", for: .normal)
-        } else {
+        if courses == nil {
             let alertController = UIAlertController(title: "未导入课表", message: nil, preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
                 self.loadScheduleButton.isHidden = false
@@ -40,7 +48,7 @@ class ScheduleViewController: TabViewController {
     }
     
     override func setSchedule(_ courseArray: [[String : String]]) {
-        courseInfo.saveCourse(courseArray)
+        courseInfo.allCourseData = courseArray
         activityIndicator.stopAnimating()
         loadScheduleButton.isHidden = true
         self.changSchedule(nil)
@@ -60,15 +68,15 @@ class ScheduleViewController: TabViewController {
     @IBAction func changSchedule(_ sender: UIButton?) {
         if let button = sender {
             if button.title(for: .normal)! == "->" {
-                courseInfo.courseDataNextWeek()
+                (courses, teachWeek) = courseInfo.courseDataNextWeek()
             } else if button.title(for: .normal) == "<-" {
-                courseInfo.courseDataLastWeek()
+                (courses, teachWeek) = courseInfo.courseDataLastWeek()
+            } else {
+                (courses, teachWeek) = courseInfo.courseDataThisWeek()
             }
         } else {
-            courseInfo.courseDataThisWeek()
+            (courses, teachWeek) = courseInfo.courseDataThisWeek()
         }
-        teachWeekLabel.setTitle("第" + courseInfo.teachWeek! + "周", for: .normal)
-        collectionView.reloadData()
     }
 }
 
@@ -99,13 +107,14 @@ extension ScheduleViewController: UICollectionViewDataSource {
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseCell", for: indexPath) as! CourseCell
-                cell.prepare(courseData: courseInfo.courseData, indexPath: indexPath)
+                cell.prepare(courseData: courses, indexPath: indexPath)
                 return cell
             }
         }
     }
 }
 
+// 课程表的布局
 extension ScheduleViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewWidthPX = collectionView.bounds.width * UIScreen.main.scale
