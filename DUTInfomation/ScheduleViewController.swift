@@ -8,27 +8,28 @@
 
 import UIKit
 
-class ScheduleViewController: TabViewController {
+class ScheduleViewController: TabViewController, TeachWeekDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var loadScheduleButton: UIButton!
     var courseInfo: CourseInfo!
-    var courses: [[String: String]]? {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
-    var teachWeek = 0
+    var dataSource: ScheduleViewDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         courseInfo = CourseInfo()
-        (courses, teachWeek) = courseInfo.courseDataThisWeek()
+        dataSource = ScheduleViewDataSource()
+        collectionView.dataSource = dataSource
+        dataSource.controller = self
+        dataSource.freshUIHandler = { [unowned self] in
+            self.collectionView.reloadData()
+        }
+        dataSource.data = courseInfo.coursesThisWeek(dataSource.data.date)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if courses == nil {
+        if dataSource.data.courses == nil {
             let alertController = UIAlertController(title: "未导入课表", message: nil, preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
                 self.loadScheduleButton.isHidden = false
@@ -59,62 +60,17 @@ class ScheduleViewController: TabViewController {
             self.performSegue(withIdentifier: "LoginTeach", sender: self)
         })
     }
-}
-
-extension ScheduleViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (7 + 1) * (8 + 1)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let line = indexPath.item % 8
-        let row = Int(indexPath.item / 8)
-        if row == 0 {
-            if line == 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseNumberCell", for: indexPath) as! CourseNumberCell
-                cell.prepare(date: courseInfo.date)
-                return cell
-            } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeekCell", for: indexPath) as! WeekCell
-                cell.prepare(date: courseInfo.date, indexPath: indexPath)
-                return cell
-            }
-        } else {
-            if line == 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseNumberCell", for: indexPath) as! CourseNumberCell
-                cell.prepare(indexPath: indexPath)
-                return cell
-            } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseCell", for: indexPath) as! CourseCell
-                cell.prepare(courseData: courses, indexPath: indexPath)
-                return cell
-            }
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TeachWeekView", for: indexPath) as! TeachWeekView
-        view.teachWeekButton.setTitle("第\(teachWeek)周", for: .normal)
-        view.delegate = self
-        return view
-    }
-}
-
-extension ScheduleViewController: TeachWeekDelegate {
     func getScheduleThisWeek() {
-        (courses, teachWeek) = courseInfo.courseDataThisWeek()
+        dataSource.data  = courseInfo.coursesThisWeek(Date())
     }
     
     func getScheduleNextWeek() {
-        (courses, teachWeek) = courseInfo.courseDataNextWeek()
+        dataSource.data = courseInfo.coursesNextWeek(dataSource.data.date)
     }
     
     func getScheduleLastWeek() {
-        (courses, teachWeek) = courseInfo.courseDataLastWeek()
+        dataSource.data = courseInfo.coursesLastWeek(dataSource.data.date)
     }
 }
 

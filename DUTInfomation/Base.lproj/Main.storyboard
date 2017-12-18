@@ -405,7 +405,6 @@
                                     </connections>
                                 </collectionReusableView>
                                 <connections>
-                                    <outlet property="dataSource" destination="mnc-R3-98U" id="w3p-cO-Fxh"/>
                                     <outlet property="delegate" destination="mnc-R3-98U" id="gJt-sG-15I"/>
                                 </connections>
                             </collectionView>

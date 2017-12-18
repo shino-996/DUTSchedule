@@ -9,7 +9,7 @@
 import Foundation
 
 struct CourseInfo {
-    var date = Date()
+//    var date = Date()
     var allCourseData: [[String: String]]? {
         didSet {
             guard let courses = allCourseData else {
@@ -31,7 +31,7 @@ struct CourseInfo {
         allCourseData = (array as! [[String: String]])
     }
     
-    private mutating func courseDataAWeek() -> (courses: [[String: String]]?, weeknumber: Int) {
+    private func coursesAWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int) {
         let weeknumberDataFormatter = DateFormatter()
         weeknumberDataFormatter.dateFormat = "w"
         let weeknumber = Int(weeknumberDataFormatter.string(from: date))! - 35
@@ -50,49 +50,53 @@ struct CourseInfo {
         return (courses, weeknumber)
     }
     
-    mutating func courseDataThisWeek() -> (courses: [[String: String]]?, weeknumber: Int) {
-        date = Date()
-        return courseDataAWeek()
+    func coursesThisWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, date: Date) {
+        let tuple = coursesAWeek(date)
+        return (tuple.courses, tuple.weeknumber, date)
     }
     
-    mutating func courseDataNextWeek() -> (courses: [[String: String]]?, weeknumber: Int) {
-        date = date.addingTimeInterval(7 * 60 * 60 * 24)
-        return courseDataAWeek()
+    func coursesNextWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, date: Date) {
+        let nextDate = date.addingTimeInterval(7 * 60 * 60 * 24)
+        let tuple = coursesAWeek(nextDate)
+        return (tuple.courses, tuple.weeknumber, nextDate)
     }
     
-    mutating func courseDataLastWeek() -> (courses: [[String: String]]?, weeknumber: Int) {
-        date = date.addingTimeInterval(-7 * 60 * 60 * 24)
-        return courseDataAWeek()
+    func coursesLastWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, date: Date) {
+        let lastDate = date.addingTimeInterval(-7 * 60 * 60 * 24)
+        let tuple = coursesAWeek(lastDate)
+        return (tuple.courses, tuple.weeknumber, lastDate)
     }
     
-    mutating private func courseDataADay() -> (courses: [[String: String]]?, weeknumber: Int, week: Int) {
-        let (coursesAWeek, weeknumber) = courseDataAWeek()
+    private func coursesADay(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, week: Int) {
+        let (courses, weeknumber) = coursesAWeek(date)
         let weekDateFormatter = DateFormatter()
         weekDateFormatter.dateFormat = "e"
         let week = Int(weekDateFormatter.string(from: date))! - 1
-        guard coursesAWeek != nil else {
+        guard courses != nil else {
             return (nil, weeknumber, week)
         }
-        let courses = coursesAWeek!.filter {
+        let coursesaday = courses!.filter {
             $0["week"]! == String(week)
         }.sorted {
             $0["coursenumber"]! <= $1["coursenumber"]!
         }
-        return (courses, weeknumber, week)
+        return (coursesaday, weeknumber, week)
     }
     
-    mutating func courseDataToday() -> (courses: [[String: String]]?, weeknumber: Int, week: Int) {
-        date = Date()
-        return courseDataADay()
+    func coursesToday(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date) {
+        let tuple = coursesADay(date)
+        return (tuple.courses, tuple.weeknumber, tuple.week, date)
     }
     
-    mutating func courseDataNextDay() -> (courses: [[String: String]]?, weeknumber: Int, week: Int) {
-        date = date.addingTimeInterval(60 * 60 * 24)
-        return courseDataADay()
+    func coursesNextDay(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date) {
+        let nextDate = date.addingTimeInterval(60 * 60 * 24)
+        let tuple = coursesADay(nextDate)
+        return (tuple.courses, tuple.weeknumber, tuple.week, nextDate)
     }
     
-    mutating func courseDayLastDay() -> (courses: [[String: String]]?, weeknumber: Int, week: Int) {
-        date = date.addingTimeInterval(-60 * 60 * 24)
-        return courseDataADay()
+    func coursesLastDay(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date) {
+        let lastDate = date.addingTimeInterval(-60 * 60 * 24)
+        let tuple = coursesADay(lastDate)
+        return (tuple.courses, tuple.weeknumber, tuple.week, lastDate)
     }
 }

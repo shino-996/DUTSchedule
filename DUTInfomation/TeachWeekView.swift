@@ -9,6 +9,7 @@
 import UIKit
 
 protocol TeachWeekDelegate: AnyObject {
+    weak var collectionView: UICollectionView! { get }
     func getScheduleThisWeek()
     func getScheduleNextWeek()
     func getScheduleLastWeek()

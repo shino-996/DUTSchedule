@@ -10,7 +10,7 @@ import UIKit
 import NotificationCenter
 
 //变量
-class TodayViewController: UIViewController {
+class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var netLabel: UILabel!
     @IBOutlet weak var ecardLabel: UILabel!
     @IBOutlet weak var netActivity: UIActivityIndicatorView!
@@ -21,98 +21,31 @@ class TodayViewController: UIViewController {
     
     var dutInfo: DUTInfo!
     var courseInfo: CourseInfo!
-    var courses: [[String: String]]? {
-        didSet {
-            courseTableView.reloadData()
-        }
-    }
-    var teachWeek = 1
-    var week = 1 {
-        didSet {
-            let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
-            weekLabel.text = "第\(teachWeek)周 周\(chineseWeek[week])"
-        }
-    }
+    var dataSource: TodayViewDataSource!
     
-    @IBAction func changeSchedule(_ sender: Any) {
-        if sender is UITapGestureRecognizer {
-            (courses, teachWeek, week) = courseInfo.courseDataToday()
-        } else {
-            let button = sender as! UIButton
-            if button.title(for: .normal) == "->" {
-                (courses, teachWeek, week) = courseInfo.courseDataNextDay()
-            } else {
-                (courses, teachWeek, week) = courseInfo.courseDayLastDay()
-            }
-        }
-        loadScheduleData()
-    }
-    
-    @IBAction func awakeHost(_ sender: UIButton) {
-        if sender.title(for: .normal) == "未导入课程表" {
-            extensionContext?.open(URL(string: "dutinformation://")!, completionHandler: nil)
-        } else if sender.title(for: .normal) == "未登录账号" {
-            extensionContext?.open(URL(string: "dutinformation://")!, completionHandler: nil)
-        }
-    }
-}
-
-extension TodayViewController: NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOSApplicationExtension 10.0, *) {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
-        if dutInfo != nil {
-            return
-        }
         let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        let studentNumber = userDefaults.string(forKey: "StudentNumber")
-        let TeachPassword = userDefaults.string(forKey: "TeachPassword")
-        let portalPassword = userDefaults.string(forKey: "PortalPassword")
-        dutInfo = DUTInfo(studentNumber: studentNumber ?? "",
-                          teachPassword: TeachPassword ?? "",
-                          portalPassword: portalPassword ?? "")
+        let studentNumber = userDefaults.string(forKey: "StudentNumber") ?? ""
+        let teachPassword = userDefaults.string(forKey: "TeachPassword") ?? ""
+        let portalPassword = userDefaults.string(forKey: "PortalPassword") ?? ""
+        dutInfo = DUTInfo(studentNumber: studentNumber,
+                          teachPassword: teachPassword,
+                          portalPassword: portalPassword)
         dutInfo.delegate = self
         courseInfo = CourseInfo()
-        (courses, teachWeek, week) = courseInfo.courseDataToday()
-    }
-    
-    func loadScheduleData() {
-        if courses != nil {
-            if courses!.count == 0 {
-                self.noCourseButton.isHidden = false
-                self.noCourseButton.setTitle("今天没有课～", for: .normal)
-            } else {
-                self.noCourseButton.isHidden = true
-            }
-            if #available(iOSApplicationExtension 10.0, *) {
-                if courses!.count > 1 {
-                    extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-                } else {
-                    extensionContext?.widgetLargestAvailableDisplayMode = .compact
-                }
-            }
-        } else {
-            noCourseButton.isHidden = false
-            noCourseButton.setTitle("未导入课程表", for: .normal)
-        }
-    }
-    
-    func loadCacheData() {
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        ecardLabel.text = userDefaults.string(forKey: "EcardCost") ?? ""
-        if let netCost = userDefaults.string(forKey: "NetCost"),
-            let netFlow = userDefaults.string(forKey: "NetFlow") {
-            netLabel.text = netFlow + "/" + netCost
-        } else {
-            netLabel.text = ""
-        }
+        dataSource = TodayViewDataSource()
+        courseTableView.dataSource = dataSource
+        dataSource.controller = self
+        dataSource.freshUIHandler = freshUI
+        dataSource.data = courseInfo.coursesToday(dataSource.data.date)
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         loadCacheData()
-        loadScheduleData()
         dutInfo.loginNewPortalSite(succeed: {
             self.dutInfo.newPortalNetInfo()
             DispatchQueue.main.async {
@@ -127,20 +60,79 @@ extension TodayViewController: NCWidgetProviding {
         completionHandler(.newData)
     }
     
+    @IBAction func changeSchedule(_ sender: Any) {
+        if sender is UITapGestureRecognizer {
+            dataSource.data = courseInfo.coursesToday(dataSource.data.date)
+        } else {
+            let button = sender as! UIButton
+            if button.title(for: .normal) == "->" {
+                dataSource.data = courseInfo.coursesNextDay(dataSource.data.date)
+            } else {
+                dataSource.data = courseInfo.coursesLastDay(dataSource.data.date)
+            }
+        }
+    }
+    
+    @IBAction func awakeHost(_ sender: UIButton) {
+        if sender.title(for: .normal) == "未导入课程表" {
+            extensionContext?.open(URL(string: "dutinformation://")!, completionHandler: nil)
+        } else if sender.title(for: .normal) == "未登录账号" {
+            extensionContext?.open(URL(string: "dutinformation://")!, completionHandler: nil)
+        }
+    }
+}
+
+// 更新UI相关
+extension TodayViewController {
+    func loadCacheData() {
+        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+        ecardLabel.text = userDefaults.string(forKey: "EcardCost") ?? ""
+        if let netCost = userDefaults.string(forKey: "NetCost"),
+            let netFlow = userDefaults.string(forKey: "NetFlow") {
+            netLabel.text = netFlow + "/" + netCost
+        } else {
+            netLabel.text = ""
+        }
+    }
+    
+    func freshUI() {
+        courseTableView.reloadData()
+        let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
+        weekLabel.text = "第\(self.dataSource.data.weeknumber)周 周\(chineseWeek[self.dataSource.data.week])"
+        if dataSource.data.courses != nil {
+            if dataSource.data.courses!.count == 0 {
+                noCourseButton.isHidden = false
+                noCourseButton.setTitle("今天没有课～", for: .normal)
+            } else {
+                noCourseButton.isHidden = true
+            }
+            if #available(iOSApplicationExtension 10.0, *) {
+                if dataSource.data.courses!.count > 1 {
+                    extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+                } else {
+                    extensionContext?.widgetLargestAvailableDisplayMode = .compact
+                }
+            }
+        } else {
+            noCourseButton.isHidden = false
+            noCourseButton.setTitle("未导入课程表", for: .normal)
+        }
+    }
+    
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
             preferredContentSize = maxSize
         }
-        guard courses != nil else {
+        guard dataSource.data.courses != nil else {
             preferredContentSize = CGSize(width: 0, height: 110)
             return
         }
         if activeDisplayMode == .expanded {
             preferredContentSize = CGSize(width: 0,
-                                          height: 110 + 61.5 * Double(courses!.count - 1))
+                                          height: 110 + 61.5 * Double(dataSource.data.courses!.count - 1))
         }
-        if courses!.count > 0 {
+        if dataSource.data.courses!.count > 0 {
             let index = IndexPath(item: 0, section: 0)
             courseTableView.reloadRows(at: [index], with: .automatic)
         }
@@ -157,9 +149,6 @@ extension TodayViewController: DUTInfoDelegate {
         userDefaults.set(ecardCost, forKey: "EcardCost")
     }
     
-    func setNetCost(_ netCost: String) {
-    }
-    
     func setNetFlow(_ netFlow: String) {
         DispatchQueue.main.async {
             self.netLabel.text = netFlow + "/" + self.dutInfo.netCost
@@ -170,33 +159,7 @@ extension TodayViewController: DUTInfoDelegate {
         userDefaults.set(netFlow, forKey: "NetFlow")
     }
     
-    func netErrorHandle(_ error: Error) {
-    }
-    
+    func setNetCost(_ netCost: String) {}
+    func netErrorHandle(_ error: Error) {}
     func setSchedule(_ courseArray: [[String : String]]) {}
-}
-
-//UITableViewController协议方法
-extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard courses != nil else {
-            return 0
-        }
-        return courses!.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCellView
-        if #available(iOSApplicationExtension 10.0, *),
-            indexPath.row == 0 && extensionContext?.widgetActiveDisplayMode == .compact{
-            cell.prepareForNow(fromCourse: courses!, ofIndex: indexPath)
-        } else {
-            cell.prepare(fromCourse: courses!, ofIndex: indexPath)
-        }
-        return cell
-    }
 }
