@@ -39,27 +39,75 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kqc-F1-RVt">
+                                <rect key="frame" x="219" y="7" width="84.5" height="18"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="校园卡:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQf-Ma-zHL">
+                                        <rect key="frame" x="0.0" y="0.0" width="50.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="50元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLE-D4-xef">
+                                        <rect key="frame" x="50.5" y="0.0" width="34" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qgb-Pp-6OJ">
                                 <rect key="frame" x="66.5" y="7" width="20" height="20"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第1周 周一" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DaZ-2p-4OX">
-                                <rect key="frame" x="124" y="26" width="72" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YYt-iv-HqU">
                                 <rect key="frame" x="248" y="7" width="20" height="20"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mzU-as-1C2">
-                                <rect key="frame" x="16" y="44" width="288" height="148"/>
+                                <rect key="frame" x="16" y="26" width="288" height="166"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="wbh-Mp-gsf">
+                                    <rect key="frame" x="0.0" y="0.0" width="288" height="15"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第1周 周一" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DaZ-2p-4OX">
+                                            <rect key="frame" x="108" y="-1.5" width="72" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPy-Gz-FVk">
+                                            <rect key="frame" x="0.0" y="-7.5" width="30" height="30"/>
+                                            <state key="normal" title="&lt;-"/>
+                                            <connections>
+                                                <action selector="changeSchedule:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="KWS-E2-GEJ"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWB-N4-U5I">
+                                            <rect key="frame" x="258" y="-7.5" width="30" height="30"/>
+                                            <state key="normal" title="-&gt;"/>
+                                            <connections>
+                                                <action selector="changeSchedule:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="TOX-5l-TXy"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="DaZ-2p-4OX" firstAttribute="centerY" secondItem="wbh-Mp-gsf" secondAttribute="centerY" id="3cW-gP-uBV"/>
+                                        <constraint firstItem="VWB-N4-U5I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wbh-Mp-gsf" secondAttribute="leading" constant="20" symbolic="YES" id="DiI-FS-bmL"/>
+                                        <constraint firstAttribute="trailing" secondItem="VWB-N4-U5I" secondAttribute="trailing" id="Kfh-OH-Q3f"/>
+                                        <constraint firstItem="nPy-Gz-FVk" firstAttribute="centerY" secondItem="DaZ-2p-4OX" secondAttribute="centerY" id="Psq-c5-PCt"/>
+                                        <constraint firstItem="VWB-N4-U5I" firstAttribute="centerY" secondItem="DaZ-2p-4OX" secondAttribute="centerY" id="RZk-R4-3Cj"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nPy-Gz-FVk" secondAttribute="trailing" constant="20" symbolic="YES" id="Tpd-5L-o7i"/>
+                                        <constraint firstItem="DaZ-2p-4OX" firstAttribute="centerX" secondItem="wbh-Mp-gsf" secondAttribute="centerX" id="YF9-iH-UFw"/>
+                                        <constraint firstItem="nPy-Gz-FVk" firstAttribute="leading" secondItem="wbh-Mp-gsf" secondAttribute="leading" id="mBc-K9-4Rf"/>
+                                        <constraint firstItem="DaZ-2p-4OX" firstAttribute="centerX" secondItem="wbh-Mp-gsf" secondAttribute="centerX" id="ufN-MK-3SW"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CourseCell" rowHeight="62" id="jYa-g6-M7o" customClass="CourseCellView" customModule="DUTInformationToday" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="288" height="62"/>
+                                        <rect key="frame" x="0.0" y="43" width="288" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jYa-g6-M7o" id="sD3-9Z-M4Q">
                                             <rect key="frame" x="0.0" y="0.0" width="288" height="61.5"/>
@@ -122,69 +170,30 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TQs-ly-apZ">
-                                <rect key="frame" x="117" y="103" width="86" height="30"/>
+                                <rect key="frame" x="117" y="94" width="86" height="30"/>
                                 <state key="normal" title="今天没有课~"/>
                                 <connections>
                                     <action selector="awakeHost:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="cuP-Nw-G3T"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWB-N4-U5I">
-                                <rect key="frame" x="270" y="20" width="30" height="30"/>
-                                <state key="normal" title="-&gt;"/>
-                                <connections>
-                                    <action selector="changeSchedule:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="TOX-5l-TXy"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPy-Gz-FVk">
-                                <rect key="frame" x="20" y="20" width="30" height="30"/>
-                                <state key="normal" title="&lt;-"/>
-                                <connections>
-                                    <action selector="changeSchedule:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="KWS-E2-GEJ"/>
-                                </connections>
-                            </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kqc-F1-RVt">
-                                <rect key="frame" x="219" y="7" width="84.5" height="18"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="校园卡:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQf-Ma-zHL">
-                                        <rect key="frame" x="0.0" y="0.0" width="50.5" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="50元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLE-D4-xef">
-                                        <rect key="frame" x="50.5" y="0.0" width="34" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="mzU-as-1C2" secondAttribute="trailing" id="2UJ-dE-cEc"/>
                             <constraint firstItem="kqc-F1-RVt" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="7" id="2v8-nR-idU"/>
-                            <constraint firstItem="nPy-Gz-FVk" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="338-HI-4Th"/>
-                            <constraint firstItem="VWB-N4-U5I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="3cl-uK-dt1"/>
                             <constraint firstItem="qgb-Pp-6OJ" firstAttribute="centerY" secondItem="wZm-IB-hQ4" secondAttribute="centerY" id="5u3-B8-EXZ"/>
-                            <constraint firstAttribute="trailing" secondItem="VWB-N4-U5I" secondAttribute="trailing" constant="20" symbolic="YES" id="AAE-iM-szu"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wZm-IB-hQ4" secondAttribute="trailing" constant="20" symbolic="YES" id="Ae0-5V-Pnk"/>
                             <constraint firstAttribute="trailing" secondItem="kqc-F1-RVt" secondAttribute="trailing" constant="16.5" id="Cdi-jF-dnb"/>
                             <constraint firstItem="mzU-as-1C2" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="KRK-dF-tZz"/>
                             <constraint firstItem="YYt-iv-HqU" firstAttribute="centerY" secondItem="kqc-F1-RVt" secondAttribute="centerY" constant="1" id="LlD-9W-Y8R"/>
                             <constraint firstItem="TQs-ly-apZ" firstAttribute="centerY" secondItem="mzU-as-1C2" secondAttribute="centerY" id="QEY-gG-4s8"/>
+                            <constraint firstItem="mzU-as-1C2" firstAttribute="top" secondItem="wZm-IB-hQ4" secondAttribute="bottom" id="S1z-6M-5sO"/>
                             <constraint firstItem="wZm-IB-hQ4" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="XzI-ou-j4t"/>
                             <constraint firstItem="TQs-ly-apZ" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="Z8z-WU-YDX"/>
-                            <constraint firstItem="mzU-as-1C2" firstAttribute="top" secondItem="DaZ-2p-4OX" secondAttribute="bottom" id="dpM-Uq-4k0"/>
                             <constraint firstItem="YYt-iv-HqU" firstAttribute="centerX" secondItem="kqc-F1-RVt" secondAttribute="centerX" constant="-3.25" id="e2v-pe-QfN"/>
-                            <constraint firstItem="nPy-Gz-FVk" firstAttribute="centerY" secondItem="DaZ-2p-4OX" secondAttribute="centerY" id="fpQ-VT-P41"/>
                             <constraint firstItem="qgb-Pp-6OJ" firstAttribute="centerX" secondItem="wZm-IB-hQ4" secondAttribute="centerX" id="gTJ-Bt-e8O"/>
-                            <constraint firstItem="DaZ-2p-4OX" firstAttribute="top" secondItem="wZm-IB-hQ4" secondAttribute="bottom" id="odN-dV-UY5"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="mzU-as-1C2" secondAttribute="bottom" constant="8" symbolic="YES" id="toX-ui-6Cj"/>
                             <constraint firstItem="wZm-IB-hQ4" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="u7E-uW-S3U"/>
-                            <constraint firstItem="DaZ-2p-4OX" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="uW3-jW-yAU"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nPy-Gz-FVk" secondAttribute="trailing" constant="20" symbolic="YES" id="ujv-1n-A00"/>
-                            <constraint firstItem="VWB-N4-U5I" firstAttribute="centerY" secondItem="DaZ-2p-4OX" secondAttribute="centerY" id="z4z-8w-rVn"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

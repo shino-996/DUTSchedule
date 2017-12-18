@@ -62,7 +62,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBAction func changeSchedule(_ sender: Any) {
         if sender is UITapGestureRecognizer {
-            dataSource.data = courseInfo.coursesToday(dataSource.data.date)
+            dataSource.data = courseInfo.coursesToday(Date())
         } else {
             let button = sender as! UIButton
             if button.title(for: .normal) == "->" {
