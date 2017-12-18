@@ -268,17 +268,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xUv-uf-GDF">
-                                <rect key="frame" x="20" y="66" width="280" height="445"/>
+                                <rect key="frame" x="20" y="28" width="280" height="483"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="q4m-PU-ZN4">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="n88-8K-KgT" customClass="ScheduleLayout" customModule="DUTInfomation" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WeekCell" id="6og-ZK-X4N" customClass="WeekCell" customModule="DUTInfomation" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="50" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -311,7 +311,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CourseCell" id="X1K-W8-x5y" customClass="CourseCell" customModule="DUTInfomation" customModuleProvider="target">
-                                        <rect key="frame" x="57.5" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="76.5" y="50" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -337,7 +337,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CourseNumberCell" id="hrP-4t-fCE" customClass="CourseNumberCell" customModule="DUTInfomation" customModuleProvider="target">
-                                        <rect key="frame" x="115" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="153.5" y="50" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -363,6 +363,47 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="TeachWeekView" id="TWJ-Vf-jWi" customClass="TeachWeekView" customModule="DUTInfomation" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Sm-fS-eXw">
+                                            <rect key="frame" x="117" y="10" width="47" height="30"/>
+                                            <state key="normal" title="第15周"/>
+                                            <connections>
+                                                <action selector="changeSchedule:" destination="TWJ-Vf-jWi" eventType="touchUpInside" id="DJD-BT-bCv"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZcQ-mI-q1n">
+                                            <rect key="frame" x="250" y="10" width="30" height="30"/>
+                                            <state key="normal" title="-&gt;"/>
+                                            <connections>
+                                                <action selector="changeSchedule:" destination="TWJ-Vf-jWi" eventType="touchUpInside" id="2Go-Cy-IuQ"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fmq-hE-6hO">
+                                            <rect key="frame" x="0.0" y="10" width="30" height="30"/>
+                                            <state key="normal" title="&lt;-"/>
+                                            <connections>
+                                                <action selector="changeSchedule:" destination="TWJ-Vf-jWi" eventType="touchUpInside" id="rUc-cQ-iTf"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="ZcQ-mI-q1n" secondAttribute="trailing" id="73t-wQ-ate"/>
+                                        <constraint firstItem="ZcQ-mI-q1n" firstAttribute="centerY" secondItem="4Sm-fS-eXw" secondAttribute="centerY" id="LuY-GV-fss"/>
+                                        <constraint firstItem="4Sm-fS-eXw" firstAttribute="centerX" secondItem="TWJ-Vf-jWi" secondAttribute="centerX" id="PAy-dJ-yRr"/>
+                                        <constraint firstItem="4Sm-fS-eXw" firstAttribute="centerY" secondItem="TWJ-Vf-jWi" secondAttribute="centerY" id="VSa-Ly-LZg"/>
+                                        <constraint firstItem="Fmq-hE-6hO" firstAttribute="leading" secondItem="TWJ-Vf-jWi" secondAttribute="leading" id="fNn-60-aZ0"/>
+                                        <constraint firstItem="ZcQ-mI-q1n" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TWJ-Vf-jWi" secondAttribute="leading" constant="20" symbolic="YES" id="o64-tc-icZ"/>
+                                        <constraint firstItem="Fmq-hE-6hO" firstAttribute="centerY" secondItem="4Sm-fS-eXw" secondAttribute="centerY" id="rSH-tj-Izd"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Fmq-hE-6hO" secondAttribute="trailing" constant="20" symbolic="YES" id="rSx-or-any"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="teachWeekButton" destination="4Sm-fS-eXw" id="T0I-uz-UaA"/>
+                                    </connections>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="mnc-R3-98U" id="w3p-cO-Fxh"/>
                                     <outlet property="delegate" destination="mnc-R3-98U" id="gJt-sG-15I"/>
@@ -379,45 +420,16 @@
                                 <rect key="frame" x="142" y="265.5" width="37" height="37"/>
                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8jS-0F-q2b">
-                                <rect key="frame" x="140" y="28" width="40" height="30"/>
-                                <state key="normal" title="第5周"/>
-                                <connections>
-                                    <action selector="changSchedule:" destination="mnc-R3-98U" eventType="touchUpInside" id="7u9-dt-UZ6"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q2M-V2-8my">
-                                <rect key="frame" x="270" y="28" width="30" height="30"/>
-                                <state key="normal" title="-&gt;"/>
-                                <connections>
-                                    <action selector="changSchedule:" destination="mnc-R3-98U" eventType="touchUpInside" id="lKL-2G-iVn"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKX-jZ-zeM">
-                                <rect key="frame" x="20" y="28" width="30" height="30"/>
-                                <state key="normal" title="&lt;-"/>
-                                <connections>
-                                    <action selector="changSchedule:" destination="mnc-R3-98U" eventType="touchUpInside" id="5hw-tY-e8b"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="aG6-O4-oU6" firstAttribute="top" secondItem="xUv-uf-GDF" secondAttribute="bottom" constant="8" symbolic="YES" id="5iX-OE-mNs"/>
-                            <constraint firstItem="eKX-jZ-zeM" firstAttribute="leading" secondItem="s52-TT-kAR" secondAttribute="leading" constant="20" symbolic="YES" id="7tP-bD-uzg"/>
                             <constraint firstAttribute="trailing" secondItem="xUv-uf-GDF" secondAttribute="trailing" constant="20" symbolic="YES" id="K4O-VY-plq"/>
-                            <constraint firstItem="eKX-jZ-zeM" firstAttribute="centerY" secondItem="8jS-0F-q2b" secondAttribute="centerY" id="KOD-S4-dj1"/>
-                            <constraint firstAttribute="trailing" secondItem="Q2M-V2-8my" secondAttribute="trailing" constant="20" symbolic="YES" id="N0N-Ck-0Lf"/>
                             <constraint firstItem="xUv-uf-GDF" firstAttribute="leading" secondItem="s52-TT-kAR" secondAttribute="leading" constant="20" symbolic="YES" id="Tvv-hr-cYO"/>
-                            <constraint firstItem="xUv-uf-GDF" firstAttribute="top" secondItem="8jS-0F-q2b" secondAttribute="bottom" constant="8" symbolic="YES" id="VVB-CU-PqE"/>
+                            <constraint firstItem="xUv-uf-GDF" firstAttribute="top" secondItem="XaV-MD-woD" secondAttribute="bottom" constant="8" symbolic="YES" id="Vk9-C9-mBE"/>
                             <constraint firstItem="MjB-aP-3KP" firstAttribute="centerX" secondItem="s52-TT-kAR" secondAttribute="centerX" id="Zqk-Zv-xWz"/>
                             <constraint firstItem="K45-ur-Yyf" firstAttribute="centerX" secondItem="s52-TT-kAR" secondAttribute="centerX" id="cRl-IG-wb9"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eKX-jZ-zeM" secondAttribute="trailing" constant="20" symbolic="YES" id="eIr-zY-GA2"/>
-                            <constraint firstItem="Q2M-V2-8my" firstAttribute="centerY" secondItem="8jS-0F-q2b" secondAttribute="centerY" id="eNh-px-J2x"/>
-                            <constraint firstItem="Q2M-V2-8my" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="s52-TT-kAR" secondAttribute="leading" constant="20" symbolic="YES" id="fQ6-1M-ysx"/>
-                            <constraint firstItem="8jS-0F-q2b" firstAttribute="top" secondItem="XaV-MD-woD" secondAttribute="bottom" constant="8" symbolic="YES" id="gGO-jv-yzR"/>
                             <constraint firstItem="K45-ur-Yyf" firstAttribute="centerY" secondItem="s52-TT-kAR" secondAttribute="centerY" id="jPL-cI-dbO"/>
-                            <constraint firstItem="8jS-0F-q2b" firstAttribute="centerX" secondItem="s52-TT-kAR" secondAttribute="centerX" id="oJE-4z-BGV"/>
                             <constraint firstItem="MjB-aP-3KP" firstAttribute="centerY" secondItem="s52-TT-kAR" secondAttribute="centerY" id="xW2-8s-St6"/>
                         </constraints>
                     </view>
@@ -426,7 +438,6 @@
                         <outlet property="activityIndicator" destination="MjB-aP-3KP" id="Nhe-A6-Mtw"/>
                         <outlet property="collectionView" destination="xUv-uf-GDF" id="mkn-IE-yYE"/>
                         <outlet property="loadScheduleButton" destination="K45-ur-Yyf" id="lRF-a3-sba"/>
-                        <outlet property="teachWeekLabel" destination="8jS-0F-q2b" id="kn9-bv-avg"/>
                         <segue destination="gpD-Tv-J8n" kind="presentation" identifier="LoginTeach" id="Snx-XQ-mSf"/>
                     </connections>
                 </viewController>

@@ -12,7 +12,8 @@ class CourseNumberCell: UICollectionViewCell {
     @IBOutlet weak var courseNumberLabel: UILabel!
     
     func prepare(indexPath: IndexPath) {
-        courseNumberLabel.text = "\(indexPath.section)"
+        let row = Int(indexPath.item / 8)
+        courseNumberLabel.text = "\(row)"
     }
     
     func prepare(date: Date) {

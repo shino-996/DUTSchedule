@@ -16,8 +16,10 @@ class CourseCell: UICollectionViewCell {
             courseLabel.text = ""
             return
         }
-        let coursenumber = ((indexPath.section + 1) / 2) * 2 - 1
-        let week = indexPath.item - 1
+        let line = indexPath.item % 8
+        let row = Int(indexPath.item / 8)
+        let coursenumber = ((row + 1) / 2) * 2 - 1
+        let week = line - 1
         let course = courseData.filter {
             $0["week"] ?? "" == "\(week)" && $0["coursenumber"] == "\(coursenumber)"
         }

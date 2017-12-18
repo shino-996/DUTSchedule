@@ -11,7 +11,6 @@ import UIKit
 class ScheduleViewController: TabViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var teachWeekLabel: UIButton!
     @IBOutlet weak var loadScheduleButton: UIButton!
     var courseInfo: CourseInfo!
     var courses: [[String: String]]? {
@@ -19,11 +18,7 @@ class ScheduleViewController: TabViewController {
             collectionView.reloadData()
         }
     }
-    var teachWeek = 0 {
-        didSet {
-            teachWeekLabel.setTitle("第\(teachWeek)周", for: .normal)
-        }
-    }
+    var teachWeek = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +46,7 @@ class ScheduleViewController: TabViewController {
         courseInfo.allCourseData = courseArray
         activityIndicator.stopAnimating()
         loadScheduleButton.isHidden = true
-        self.changSchedule(nil)
+        self.getScheduleThisWeek()
     }
     
     @IBAction func loadSchedule() {
@@ -64,34 +59,22 @@ class ScheduleViewController: TabViewController {
             self.performSegue(withIdentifier: "LoginTeach", sender: self)
         })
     }
-    
-    @IBAction func changSchedule(_ sender: UIButton?) {
-        if let button = sender {
-            if button.title(for: .normal)! == "->" {
-                (courses, teachWeek) = courseInfo.courseDataNextWeek()
-            } else if button.title(for: .normal) == "<-" {
-                (courses, teachWeek) = courseInfo.courseDataLastWeek()
-            } else {
-                (courses, teachWeek) = courseInfo.courseDataThisWeek()
-            }
-        } else {
-            (courses, teachWeek) = courseInfo.courseDataThisWeek()
-        }
-    }
 }
 
 extension ScheduleViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 9
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return (7 + 1) * (8 + 1)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 0 {
-            if indexPath.item == 0 {
+        let line = indexPath.item % 8
+        let row = Int(indexPath.item / 8)
+        if row == 0 {
+            if line == 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseNumberCell", for: indexPath) as! CourseNumberCell
                 cell.prepare(date: courseInfo.date)
                 return cell
@@ -101,7 +84,7 @@ extension ScheduleViewController: UICollectionViewDataSource {
                 return cell
             }
         } else {
-            if indexPath.item == 0 {
+            if line == 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseNumberCell", for: indexPath) as! CourseNumberCell
                 cell.prepare(indexPath: indexPath)
                 return cell
@@ -112,6 +95,27 @@ extension ScheduleViewController: UICollectionViewDataSource {
             }
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TeachWeekView", for: indexPath) as! TeachWeekView
+        view.teachWeekButton.setTitle("第\(teachWeek)周", for: .normal)
+        view.delegate = self
+        return view
+    }
+}
+
+extension ScheduleViewController: TeachWeekDelegate {
+    func getScheduleThisWeek() {
+        (courses, teachWeek) = courseInfo.courseDataThisWeek()
+    }
+    
+    func getScheduleNextWeek() {
+        (courses, teachWeek) = courseInfo.courseDataNextWeek()
+    }
+    
+    func getScheduleLastWeek() {
+        (courses, teachWeek) = courseInfo.courseDataLastWeek()
+    }
 }
 
 // 课程表的布局
@@ -121,22 +125,28 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout {
         var cellWidth: CGFloat = 0
         var cellHeight: CGFloat = 0
         let widthPX = collectionViewWidthPX - 7
-        if indexPath.section == 0 {
+        let line = indexPath.item % 8
+        let row = Int(indexPath.item / 8)
+        if row == 0 {
             cellHeight = 40
-            if indexPath.item == 0 {
+            if line == 0 {
                 cellWidth = CGFloat(Int(widthPX / 15)) / UIScreen.main.scale
             } else {
                 cellWidth = CGFloat(Int(widthPX / 15)) * 2 / UIScreen.main.scale
             }
         } else {
             cellHeight = 80
-            if indexPath.item == 0 {
+            if line == 0 {
                 cellWidth = CGFloat(Int(widthPX / 15)) / UIScreen.main.scale
             } else {
                 cellWidth = CGFloat(Int(widthPX / 15)) * 2 / UIScreen.main.scale
             }
         }
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

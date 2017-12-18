@@ -21,6 +21,7 @@
 		B429A9FF1FDBBE68008C83FB /* DutInfoTeachSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B429A9F31FDBBE68008C83FB /* DutInfoTeachSite.swift */; };
 		B429AA001FDBBE68008C83FB /* DutInfoTeachSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B429A9F31FDBBE68008C83FB /* DutInfoTeachSite.swift */; };
 		B49936301F7B8561005AB88F /* CourseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B499362F1F7B8561005AB88F /* CourseInfo.swift */; };
+		B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */; };
 		B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A137E61F62BD9200207CFF /* TodayViewController.swift */; };
 		B4A2114D1FDFAD2C0055B611 /* WeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */; };
 		B4A2114F1FDFAD580055B611 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A2114E1FDFAD580055B611 /* CourseCell.swift */; };
@@ -35,6 +36,7 @@
 		B4CB3FE11F1209FE0059591C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4CB3FDF1F1209FE0059591C /* MainInterface.storyboard */; };
 		B4CB3FE51F1209FE0059591C /* DUTInformationToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B4CB3FD91F1209FE0059591C /* DUTInformationToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B4CCCA651FE2A98300EE6470 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CCCA641FE2A98300EE6470 /* TabViewController.swift */; };
+		B4E38DEC1FE65CA00013715C /* ScheduleLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E38DEB1FE65CA00013715C /* ScheduleLayout.swift */; };
 		B4E535CF1F5FDEAC007DE392 /* CourseCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E535CE1F5FDEAC007DE392 /* CourseCellView.swift */; };
 		B4E535D21F61544B007DE392 /* LoginTeachSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */; };
 		B4E535D41F615468007DE392 /* LoginPortalSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E535D31F615468007DE392 /* LoginPortalSiteViewController.swift */; };
@@ -91,6 +93,7 @@
 		B429A9F11FDBBE68008C83FB /* des.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = des.js; path = DUTInfo/DUTInfoCore/des.js; sourceTree = "<group>"; };
 		B429A9F31FDBBE68008C83FB /* DutInfoTeachSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DutInfoTeachSite.swift; path = DUTInfo/DUTInfoCore/DutInfoTeachSite.swift; sourceTree = "<group>"; };
 		B499362F1F7B8561005AB88F /* CourseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfo.swift; sourceTree = "<group>"; };
+		B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachWeekView.swift; sourceTree = "<group>"; };
 		B4A137E61F62BD9200207CFF /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
 		B4A2114E1FDFAD580055B611 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
@@ -109,6 +112,7 @@
 		B4CB3FEA1F120AD70059591C /* DUTInfomation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DUTInfomation.entitlements; sourceTree = "<group>"; };
 		B4CB3FEB1F120B0F0059591C /* DUTInformationToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DUTInformationToday.entitlements; sourceTree = "<group>"; };
 		B4CCCA641FE2A98300EE6470 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		B4E38DEB1FE65CA00013715C /* ScheduleLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleLayout.swift; sourceTree = "<group>"; };
 		B4E535CE1F5FDEAC007DE392 /* CourseCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCellView.swift; sourceTree = "<group>"; };
 		B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTeachSiteViewController.swift; sourceTree = "<group>"; };
 		B4E535D31F615468007DE392 /* LoginPortalSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPortalSiteViewController.swift; sourceTree = "<group>"; };
@@ -218,9 +222,11 @@
 				B4CCCA641FE2A98300EE6470 /* TabViewController.swift */,
 				B4B70E801F0A211800174471 /* CostViewController.swift */,
 				B422673E1F692DF500D161CD /* ScheduleViewController.swift */,
+				B4E38DEB1FE65CA00013715C /* ScheduleLayout.swift */,
 				B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */,
 				B4A2114E1FDFAD580055B611 /* CourseCell.swift */,
 				B4A211501FDFAD640055B611 /* CourseNumberCell.swift */,
+				B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */,
 				B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */,
 				B4E535D31F615468007DE392 /* LoginPortalSiteViewController.swift */,
 				B4B70E821F0A211800174471 /* Main.storyboard */,
@@ -466,8 +472,10 @@
 				B4A211561FDFC29A0055B611 /* CourseInfo.swift in Sources */,
 				B4A211511FDFAD640055B611 /* CourseNumberCell.swift in Sources */,
 				B422673F1F692DF500D161CD /* ScheduleViewController.swift in Sources */,
+				B4E38DEC1FE65CA00013715C /* ScheduleLayout.swift in Sources */,
 				B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */,
 				B4A2114D1FDFAD2C0055B611 /* WeekCell.swift in Sources */,
+				B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */,
 				B429A9F51FDBBE68008C83FB /* DutInfoNewPortalSite.swift in Sources */,
 				B4E535D41F615468007DE392 /* LoginPortalSiteViewController.swift in Sources */,
 				B4173D721FE2642000B6E527 /* TabBarController.swift in Sources */,
