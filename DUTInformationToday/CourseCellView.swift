@@ -34,8 +34,7 @@ class CourseCellView: UITableViewCell {
         var cellCourse: [String: String] = courseInfo[index]
         for course in courseInfo {
             let coursenumberStr = course["coursenumber"]!
-            let timeStr = coursenumberStr.components(separatedBy: "-")[0]
-            switch timeStr {
+            switch coursenumberStr {
             case "1":
                 if time <= 0935 {
                     cellCourse = course
@@ -61,6 +60,6 @@ class CourseCellView: UITableViewCell {
         let placeStr = cellCourse["place"]!
         place.text = placeStr
         let coursenumberStr = cellCourse["coursenumber"]!
-        week.text = coursenumberStr
+        week.text = "第" + coursenumberStr + "节"
     }
 }

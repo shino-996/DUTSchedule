@@ -61,6 +61,14 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
         })
     }
     
+    @IBAction func changeSchedule(_ sender: UISwipeGestureRecognizer) {
+        if sender.direction == .left {
+            getScheduleNextWeek()
+        } else if sender.direction == .right {
+            getScheduleLastWeek()
+        }
+    }
+    
     func getScheduleThisWeek() {
         dataSource.data  = courseInfo.coursesThisWeek(Date())
     }
@@ -71,6 +79,21 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     
     func getScheduleLastWeek() {
         dataSource.data = courseInfo.coursesLastWeek(dataSource.data.date)
+    }
+}
+
+extension ScheduleViewController {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CourseCell  else {
+            return
+        }
+        guard let courseInfo = cell.courseInfo(courses: dataSource.data.courses, indexPath: indexPath) else {
+            return
+        }
+        let alertController = UIAlertController(title: "课程详情", message: courseInfo, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 

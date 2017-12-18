@@ -421,6 +421,7 @@
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="aG6-O4-oU6" firstAttribute="top" secondItem="xUv-uf-GDF" secondAttribute="bottom" constant="8" symbolic="YES" id="5iX-OE-mNs"/>
                             <constraint firstAttribute="trailing" secondItem="xUv-uf-GDF" secondAttribute="trailing" constant="20" symbolic="YES" id="K4O-VY-plq"/>
@@ -431,6 +432,10 @@
                             <constraint firstItem="K45-ur-Yyf" firstAttribute="centerY" secondItem="s52-TT-kAR" secondAttribute="centerY" id="jPL-cI-dbO"/>
                             <constraint firstItem="MjB-aP-3KP" firstAttribute="centerY" secondItem="s52-TT-kAR" secondAttribute="centerY" id="xW2-8s-St6"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="DdF-i6-xWw" appends="YES" id="Qhe-0Z-hWS"/>
+                            <outletCollection property="gestureRecognizers" destination="4FE-Q7-Nwg" appends="YES" id="4gl-km-X24"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="课程表" id="ieS-Oh-c6R"/>
                     <connections>
@@ -441,6 +446,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYA-Rq-AEo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="DdF-i6-xWw">
+                    <connections>
+                        <action selector="changeSchedule:" destination="mnc-R3-98U" id="b39-w8-9Cq"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="4FE-Q7-Nwg">
+                    <connections>
+                        <action selector="changeSchedule:" destination="mnc-R3-98U" id="BhO-rO-bSw"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1685.625" y="123.59154929577466"/>
         </scene>

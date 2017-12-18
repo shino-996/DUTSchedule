@@ -49,7 +49,7 @@ class ScheduleViewDataSource: NSObject, UICollectionViewDataSource {
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseCell", for: indexPath) as! CourseCell
-                cell.prepare(courseData: data.courses, indexPath: indexPath)
+                cell.prepare(courses: data.courses, indexPath: indexPath)
                 return cell
             }
         }

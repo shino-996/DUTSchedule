@@ -132,7 +132,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3-4节" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JRF-8U-Y6B">
-                                                    <rect key="frame" x="232" y="36.5" width="41" height="18"/>
+                                                    <rect key="frame" x="232" y="33" width="41" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -146,7 +146,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="V65-8j-yTK" secondAttribute="trailing" id="FfA-gW-itN"/>
                                                 <constraint firstAttribute="topMargin" secondItem="V65-8j-yTK" secondAttribute="top" id="LiM-NH-7Kh"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="qw3-Tk-zV1" secondAttribute="bottom" id="NLl-N8-kVg"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="JRF-8U-Y6B" secondAttribute="bottom" constant="-3.5" id="OrA-w4-ihF"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="JRF-8U-Y6B" secondAttribute="bottom" id="OrA-w4-ihF"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="JRF-8U-Y6B" secondAttribute="trailing" id="b4l-WY-xMs"/>
                                                 <constraint firstAttribute="topMargin" secondItem="X7d-CI-avz" secondAttribute="top" id="c5o-aR-jGx"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="X7d-CI-avz" secondAttribute="trailingMargin" id="fo7-dp-fzd"/>
