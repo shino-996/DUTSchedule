@@ -9,7 +9,6 @@
 import Foundation
 
 struct CourseInfo {
-//    var date = Date()
     var allCourseData: [[String: String]]? {
         didSet {
             guard let courses = allCourseData else {

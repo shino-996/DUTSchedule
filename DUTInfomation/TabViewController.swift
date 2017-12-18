@@ -29,5 +29,7 @@ class TabViewController: UIViewController, DUTInfoDelegate {
     
     func setSchedule(_ courseArray: [[String : String]]) {}
     
+    func setTest(_ testArray: [[String : String]]) {}
+    
     func netErrorHandle(_ error: Error) {}
 }

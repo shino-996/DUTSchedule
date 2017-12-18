@@ -11,11 +11,11 @@ import UIKit
 class ScheduleViewDataSource: NSObject, UICollectionViewDataSource {
     var data: (courses: [[String: String]]?, weeknumber: Int, date: Date) {
         didSet {
-            freshUIHandler()
+            freshUIHandler?()
         }
     }
     weak var controller: TeachWeekDelegate?
-    var freshUIHandler: (() -> Void)!
+    var freshUIHandler: (() -> Void)?
     
     override init() {
         data = (nil, 0, Date())

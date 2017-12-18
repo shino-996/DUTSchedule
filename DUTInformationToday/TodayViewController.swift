@@ -162,4 +162,5 @@ extension TodayViewController: DUTInfoDelegate {
     func setNetCost(_ netCost: String) {}
     func netErrorHandle(_ error: Error) {}
     func setSchedule(_ courseArray: [[String : String]]) {}
+    func setTest(_ testArray: [[String : String]]) {}
 }

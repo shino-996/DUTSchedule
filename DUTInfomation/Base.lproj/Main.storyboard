@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--费用-->
+        <!--其他-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CostViewController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
@@ -22,8 +22,81 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MpG-i4-RzI">
+                                <rect key="frame" x="20" y="114" width="280" height="397"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TestCell" rowHeight="97" id="Bjt-lu-vz7" customClass="TestCell" customModule="DUTInfomation" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="280" height="97"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bjt-lu-vz7" id="rfr-hZ-plt">
+                                            <rect key="frame" x="0.0" y="0.0" width="280" height="96.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="计算机组成原理-02" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gT-Jm-5C7">
+                                                    <rect key="frame" x="74" y="20" width="132" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19周周五" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oW9-66-es9">
+                                                    <rect key="frame" x="0.0" y="46" width="62" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="综合教学1号楼 综351" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="07g-za-P70">
+                                                    <rect key="frame" x="0.0" y="78.5" width="143" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018-01-12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AqO-Dx-DXE">
+                                                    <rect key="frame" x="200" y="46.5" width="80" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15:30-17:10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiY-Vq-iVn">
+                                                    <rect key="frame" x="199" y="78" width="81" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="oW9-66-es9" firstAttribute="leading" secondItem="rfr-hZ-plt" secondAttribute="leading" id="196-o1-TzP"/>
+                                                <constraint firstItem="07g-za-P70" firstAttribute="leading" secondItem="rfr-hZ-plt" secondAttribute="leading" id="54z-AD-i5H"/>
+                                                <constraint firstAttribute="trailing" secondItem="AqO-Dx-DXE" secondAttribute="trailing" id="5Ft-u7-lmk"/>
+                                                <constraint firstItem="AqO-Dx-DXE" firstAttribute="centerY" secondItem="oW9-66-es9" secondAttribute="centerY" id="5pM-pK-n8J"/>
+                                                <constraint firstItem="1gT-Jm-5C7" firstAttribute="top" secondItem="rfr-hZ-plt" secondAttribute="top" constant="20" symbolic="YES" id="80I-wy-aqs"/>
+                                                <constraint firstItem="EiY-Vq-iVn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rfr-hZ-plt" secondAttribute="leading" constant="20" symbolic="YES" id="BQ5-ec-3xX"/>
+                                                <constraint firstAttribute="trailing" secondItem="EiY-Vq-iVn" secondAttribute="trailing" id="JeM-u4-Yxx"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oW9-66-es9" secondAttribute="trailing" constant="20" symbolic="YES" id="LNK-1o-ZSD"/>
+                                                <constraint firstItem="07g-za-P70" firstAttribute="top" relation="greaterThanOrEqual" secondItem="oW9-66-es9" secondAttribute="bottom" constant="8" symbolic="YES" id="PQY-oE-yNi"/>
+                                                <constraint firstItem="oW9-66-es9" firstAttribute="top" secondItem="1gT-Jm-5C7" secondAttribute="bottom" constant="8" symbolic="YES" id="YW3-Wp-EtP"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="07g-za-P70" secondAttribute="trailing" constant="20" symbolic="YES" id="n3Q-nL-9j1"/>
+                                                <constraint firstItem="EiY-Vq-iVn" firstAttribute="centerY" secondItem="07g-za-P70" secondAttribute="centerY" id="u18-40-75V"/>
+                                                <constraint firstAttribute="bottom" secondItem="07g-za-P70" secondAttribute="bottom" id="vDH-bi-6mj"/>
+                                                <constraint firstItem="AqO-Dx-DXE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rfr-hZ-plt" secondAttribute="leading" constant="20" symbolic="YES" id="yaJ-rt-Xyj"/>
+                                                <constraint firstItem="1gT-Jm-5C7" firstAttribute="centerX" secondItem="rfr-hZ-plt" secondAttribute="centerX" id="zLe-kh-nDX"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="AqO-Dx-DXE" id="IrJ-uc-ERc"/>
+                                            <outlet property="nameLabel" destination="1gT-Jm-5C7" id="t4L-xO-fiy"/>
+                                            <outlet property="placeLabel" destination="07g-za-P70" id="ynJ-nf-HTY"/>
+                                            <outlet property="teachweekLabel" destination="oW9-66-es9" id="SN1-9j-sWe"/>
+                                            <outlet property="timeLabel" destination="EiY-Vq-iVn" id="FOu-lb-pzK"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="2YU-QS-zMQ"/>
+                                </connections>
+                            </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="baR-W4-5ur">
-                                <rect key="frame" x="126.5" y="245.5" width="67.5" height="20.5"/>
+                                <rect key="frame" x="232.5" y="28" width="67.5" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网费:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cO7-ST-Nm4">
                                         <rect key="frame" x="0.0" y="0.0" width="39.5" height="20.5"/>
@@ -40,7 +113,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="t9F-xc-ysf">
-                                <rect key="frame" x="126" y="273" width="67.5" height="20.5"/>
+                                <rect key="frame" x="232.5" y="56.5" width="67.5" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="流量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oTx-lW-5Tl">
                                         <rect key="frame" x="0.0" y="0.0" width="39.5" height="20.5"/>
@@ -57,7 +130,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="ykG-d9-O1I">
-                                <rect key="frame" x="126" y="302" width="67.5" height="20.5"/>
+                                <rect key="frame" x="232.5" y="85.5" width="67.5" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="玉兰卡:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMb-fy-DWk">
                                         <rect key="frame" x="0.0" y="0.0" width="57" height="20.5"/>
@@ -76,27 +149,33 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="baR-W4-5ur" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.9" id="9uv-Sh-0ps"/>
-                            <constraint firstItem="ykG-d9-O1I" firstAttribute="width" secondItem="baR-W4-5ur" secondAttribute="width" id="CxQ-0J-abL"/>
-                            <constraint firstItem="ykG-d9-O1I" firstAttribute="leading" secondItem="baR-W4-5ur" secondAttribute="leading" id="DL1-6R-IwC"/>
-                            <constraint firstItem="t9F-xc-ysf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Mxa-xr-6Ff"/>
-                            <constraint firstItem="t9F-xc-ysf" firstAttribute="width" secondItem="baR-W4-5ur" secondAttribute="width" id="cnt-PU-ykm"/>
-                            <constraint firstItem="t9F-xc-ysf" firstAttribute="leading" secondItem="baR-W4-5ur" secondAttribute="leading" id="dBL-h4-wy3"/>
-                            <constraint firstItem="ykG-d9-O1I" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.1" id="hMa-VJ-ynO"/>
-                            <constraint firstItem="baR-W4-5ur" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tuc-76-lV2"/>
+                            <constraint firstItem="ykG-d9-O1I" firstAttribute="centerX" secondItem="baR-W4-5ur" secondAttribute="centerX" id="2Wq-zS-TUv"/>
+                            <constraint firstItem="t9F-xc-ysf" firstAttribute="width" secondItem="baR-W4-5ur" secondAttribute="width" id="3dN-9B-2Y3"/>
+                            <constraint firstItem="MpG-i4-RzI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="6vU-GH-cUz"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="MpG-i4-RzI" secondAttribute="bottom" constant="8" symbolic="YES" id="7SC-T4-qAJ"/>
+                            <constraint firstItem="t9F-xc-ysf" firstAttribute="top" secondItem="baR-W4-5ur" secondAttribute="bottom" constant="8" symbolic="YES" id="E7o-el-Yqd"/>
+                            <constraint firstItem="ykG-d9-O1I" firstAttribute="top" secondItem="t9F-xc-ysf" secondAttribute="bottom" constant="8" symbolic="YES" id="JeF-Y5-ba8"/>
+                            <constraint firstItem="MpG-i4-RzI" firstAttribute="top" secondItem="ykG-d9-O1I" secondAttribute="bottom" constant="8" symbolic="YES" id="OH3-wl-sGd"/>
+                            <constraint firstItem="ykG-d9-O1I" firstAttribute="width" secondItem="baR-W4-5ur" secondAttribute="width" id="W2m-WM-DDY"/>
+                            <constraint firstAttribute="trailing" secondItem="MpG-i4-RzI" secondAttribute="trailing" constant="20" symbolic="YES" id="XeT-gK-CLy"/>
+                            <constraint firstAttribute="trailing" secondItem="baR-W4-5ur" secondAttribute="trailing" constant="20" symbolic="YES" id="lRr-6I-FUR"/>
+                            <constraint firstItem="t9F-xc-ysf" firstAttribute="centerX" secondItem="baR-W4-5ur" secondAttribute="centerX" id="qez-eJ-NvZ"/>
+                            <constraint firstItem="baR-W4-5ur" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ty6-Kn-Htv"/>
+                            <constraint firstItem="baR-W4-5ur" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="uRM-kJ-cEQ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="1" title="费用" id="giq-bS-sBR"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="其他" id="giq-bS-sBR"/>
                     <connections>
                         <outlet property="ecardCostLabel" destination="TYR-YD-B36" id="9jm-EI-nPR"/>
                         <outlet property="netCostLabel" destination="aPp-B7-lfW" id="5tV-LH-enN"/>
                         <outlet property="netFlowLabel" destination="Dvt-hH-ETZ" id="DJ3-nR-bvt"/>
+                        <outlet property="tableview" destination="MpG-i4-RzI" id="IX1-my-Uqv"/>
                         <segue destination="gpD-Tv-J8n" kind="presentation" identifier="LoginTeach" id="oNu-W3-QP0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="923" y="124"/>
+            <point key="canvasLocation" x="922.5" y="123.59154929577466"/>
         </scene>
         <!--登录教务处-->
         <scene sceneID="jMo-5w-khF">
@@ -498,6 +577,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Snx-XQ-mSf"/>
+        <segue reference="oNu-W3-QP0"/>
     </inferredMetricsTieBreakers>
 </document>

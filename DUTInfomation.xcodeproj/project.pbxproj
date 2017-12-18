@@ -27,6 +27,9 @@
 		B4A2114F1FDFAD580055B611 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A2114E1FDFAD580055B611 /* CourseCell.swift */; };
 		B4A211511FDFAD640055B611 /* CourseNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A211501FDFAD640055B611 /* CourseNumberCell.swift */; };
 		B4A211561FDFC29A0055B611 /* CourseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B499362F1F7B8561005AB88F /* CourseInfo.swift */; };
+		B4A772231FE7B05600B3F545 /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A772221FE7B05600B3F545 /* TestCell.swift */; };
+		B4A772271FE7B1F900B3F545 /* TestViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A772261FE7B1F900B3F545 /* TestViewDataSource.swift */; };
+		B4A772291FE7B30C00B3F545 /* TestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A772281FE7B30C00B3F545 /* TestInfo.swift */; };
 		B4B2F7AA1FE774ED00B86075 /* ScheduleViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2F7A91FE774ED00B86075 /* ScheduleViewDataSource.swift */; };
 		B4B2F7AC1FE7878000B86075 /* TodayViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2F7AB1FE7878000B86075 /* TodayViewDataSource.swift */; };
 		B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B70E7E1F0A211800174471 /* AppDelegate.swift */; };
@@ -100,6 +103,9 @@
 		B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
 		B4A2114E1FDFAD580055B611 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		B4A211501FDFAD640055B611 /* CourseNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNumberCell.swift; sourceTree = "<group>"; };
+		B4A772221FE7B05600B3F545 /* TestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
+		B4A772261FE7B1F900B3F545 /* TestViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewDataSource.swift; sourceTree = "<group>"; };
+		B4A772281FE7B30C00B3F545 /* TestInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfo.swift; sourceTree = "<group>"; };
 		B4B2F7A91FE774ED00B86075 /* ScheduleViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewDataSource.swift; sourceTree = "<group>"; };
 		B4B2F7AB1FE7878000B86075 /* TodayViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewDataSource.swift; sourceTree = "<group>"; };
 		B4B70E7B1F0A211800174471 /* DUTInfomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DUTInfomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,19 +193,44 @@
 			name = DUTInfo;
 			sourceTree = "<group>";
 		};
-		B4A211541FDFC1BD0055B611 /* CourseData */ = {
+		B4A211541FDFC1BD0055B611 /* InfoData */ = {
 			isa = PBXGroup;
 			children = (
 				B499362F1F7B8561005AB88F /* CourseInfo.swift */,
+				B4A772281FE7B30C00B3F545 /* TestInfo.swift */,
 			);
-			name = CourseData;
+			name = InfoData;
+			sourceTree = "<group>";
+		};
+		B4A772241FE7B15700B3F545 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				B422673E1F692DF500D161CD /* ScheduleViewController.swift */,
+				B4B2F7A91FE774ED00B86075 /* ScheduleViewDataSource.swift */,
+				B4E38DEB1FE65CA00013715C /* ScheduleLayout.swift */,
+				B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */,
+				B4A2114E1FDFAD580055B611 /* CourseCell.swift */,
+				B4A211501FDFAD640055B611 /* CourseNumberCell.swift */,
+				B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */,
+			);
+			name = Schedule;
+			sourceTree = "<group>";
+		};
+		B4A772251FE7B19B00B3F545 /* OtherInfo */ = {
+			isa = PBXGroup;
+			children = (
+				B4B70E801F0A211800174471 /* CostViewController.swift */,
+				B4A772261FE7B1F900B3F545 /* TestViewDataSource.swift */,
+				B4A772221FE7B05600B3F545 /* TestCell.swift */,
+			);
+			name = OtherInfo;
 			sourceTree = "<group>";
 		};
 		B4B70E721F0A211800174471 = {
 			isa = PBXGroup;
 			children = (
 				B429A9ED1FDBBE4A008C83FB /* DUTInfo */,
-				B4A211541FDFC1BD0055B611 /* CourseData */,
+				B4A211541FDFC1BD0055B611 /* InfoData */,
 				B4B70E7D1F0A211800174471 /* DUTInfomation */,
 				B4CB3FDC1F1209FE0059591C /* DUTInformationToday */,
 				B4B70E7C1F0A211800174471 /* Products */,
@@ -224,14 +255,8 @@
 				B4B70E7E1F0A211800174471 /* AppDelegate.swift */,
 				B4173D711FE2642000B6E527 /* TabBarController.swift */,
 				B4CCCA641FE2A98300EE6470 /* TabViewController.swift */,
-				B4B70E801F0A211800174471 /* CostViewController.swift */,
-				B422673E1F692DF500D161CD /* ScheduleViewController.swift */,
-				B4B2F7A91FE774ED00B86075 /* ScheduleViewDataSource.swift */,
-				B4E38DEB1FE65CA00013715C /* ScheduleLayout.swift */,
-				B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */,
-				B4A2114E1FDFAD580055B611 /* CourseCell.swift */,
-				B4A211501FDFAD640055B611 /* CourseNumberCell.swift */,
-				B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */,
+				B4A772251FE7B19B00B3F545 /* OtherInfo */,
+				B4A772241FE7B15700B3F545 /* Schedule */,
 				B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */,
 				B4E535D31F615468007DE392 /* LoginPortalSiteViewController.swift */,
 				B4B70E821F0A211800174471 /* Main.storyboard */,
@@ -471,6 +496,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4A2114F1FDFAD580055B611 /* CourseCell.swift in Sources */,
+				B4A772291FE7B30C00B3F545 /* TestInfo.swift in Sources */,
 				B4B70E811F0A211800174471 /* CostViewController.swift in Sources */,
 				B429A9FF1FDBBE68008C83FB /* DutInfoTeachSite.swift in Sources */,
 				B4CCCA651FE2A98300EE6470 /* TabViewController.swift in Sources */,
@@ -483,8 +509,10 @@
 				B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */,
 				B4A2114D1FDFAD2C0055B611 /* WeekCell.swift in Sources */,
 				B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */,
+				B4A772271FE7B1F900B3F545 /* TestViewDataSource.swift in Sources */,
 				B429A9F51FDBBE68008C83FB /* DutInfoNewPortalSite.swift in Sources */,
 				B4E535D41F615468007DE392 /* LoginPortalSiteViewController.swift in Sources */,
+				B4A772231FE7B05600B3F545 /* TestCell.swift in Sources */,
 				B4173D721FE2642000B6E527 /* TabBarController.swift in Sources */,
 				B429A9F71FDBBE68008C83FB /* DutInfoNetSite.swift in Sources */,
 				B4E535D21F61544B007DE392 /* LoginTeachSiteViewController.swift in Sources */,
