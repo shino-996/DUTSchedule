@@ -46,15 +46,15 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         loadCacheData()
-        dutInfo.loginNewPortalSite(succeed: {
-            self.dutInfo.newPortalNetInfo()
-            DispatchQueue.main.async {
-                self.ecardActivity.startAnimating()
-                self.netActivity.startAnimating()
-            }
-        }, failed: {
-            DispatchQueue.main.async {
-                self.noCourseButton.setTitle("未登录账号", for: .normal)
+        ecardActivity.startAnimating()
+        netActivity.startAnimating()
+        dutInfo.loginNewPortalSite(succeed: { [weak self] in
+            self?.dutInfo.newPortalNetInfo()
+        }, failed: { [weak self] in
+            DispatchQueue.main.async { [weak self] in
+                self?.ecardActivity.stopAnimating()
+                self?.netActivity.stopAnimating()
+                self?.noCourseButton.setTitle("未登录账号", for: .normal)
             }
         })
         completionHandler(.newData)
@@ -65,9 +65,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if title == "⇨" {
             dataSource.data = courseInfo.coursesNextDay(dataSource.data.date)
         } else if title == "⇦" {
-            dataSource.data = courseInfo.coursesToday(Date())
-        } else {
             dataSource.data = courseInfo.coursesLastDay(dataSource.data.date)
+        } else {
+            dataSource.data = courseInfo.coursesToday(Date())
         }
     }
     

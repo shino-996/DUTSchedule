@@ -193,6 +193,37 @@
 			name = DUTInfo;
 			sourceTree = "<group>";
 		};
+		B46A6C081FE906860041DBBF /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B4B70E821F0A211800174471 /* Main.storyboard */,
+				B4B70E871F0A211800174471 /* LaunchScreen.storyboard */,
+				B4B70E851F0A211800174471 /* Assets.xcassets */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		B46A6C091FE9069D0041DBBF /* Other Files */ = {
+			isa = PBXGroup;
+			children = (
+				B4CB3FEA1F120AD70059591C /* DUTInfomation.entitlements */,
+				B4B70E7E1F0A211800174471 /* AppDelegate.swift */,
+				B4B70E8A1F0A211800174471 /* Info.plist */,
+			);
+			name = "Other Files";
+			sourceTree = "<group>";
+		};
+		B46A6C0A1FE906F30041DBBF /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				B4173D711FE2642000B6E527 /* TabBarController.swift */,
+				B4CCCA641FE2A98300EE6470 /* TabViewController.swift */,
+				B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */,
+				B4E535D31F615468007DE392 /* LoginPortalSiteViewController.swift */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
 		B4A211541FDFC1BD0055B611 /* InfoData */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,18 +282,11 @@
 		B4B70E7D1F0A211800174471 /* DUTInfomation */ = {
 			isa = PBXGroup;
 			children = (
-				B4CB3FEA1F120AD70059591C /* DUTInfomation.entitlements */,
-				B4B70E7E1F0A211800174471 /* AppDelegate.swift */,
-				B4173D711FE2642000B6E527 /* TabBarController.swift */,
-				B4CCCA641FE2A98300EE6470 /* TabViewController.swift */,
+				B46A6C0A1FE906F30041DBBF /* Main */,
 				B4A772251FE7B19B00B3F545 /* OtherInfo */,
 				B4A772241FE7B15700B3F545 /* Schedule */,
-				B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */,
-				B4E535D31F615468007DE392 /* LoginPortalSiteViewController.swift */,
-				B4B70E821F0A211800174471 /* Main.storyboard */,
-				B4B70E851F0A211800174471 /* Assets.xcassets */,
-				B4B70E871F0A211800174471 /* LaunchScreen.storyboard */,
-				B4B70E8A1F0A211800174471 /* Info.plist */,
+				B46A6C081FE906860041DBBF /* UI */,
+				B46A6C091FE9069D0041DBBF /* Other Files */,
 			);
 			path = DUTInfomation;
 			sourceTree = "<group>";

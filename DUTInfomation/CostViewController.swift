@@ -26,30 +26,33 @@ class CostViewController: TabViewController {
         super.viewDidLoad()
         testInfo = TestInfo()
         dataSource = TestViewDataSource()
-        dataSource.freshUIHandler = { [unowned self] in
-            self.tableview.reloadData()
+        dataSource.freshUIHandler = { [weak self] in
+            self?.tableview.reloadData()
+            self?.loadCache()
         }
         dataSource.tests = testInfo.allTests
         tableview.dataSource = dataSource
-        loadCache()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        netCostActivity.startAnimating()
+        netFlowActivity.startAnimating()
+        ecardActivity.startAnimating()
         dutInfo.loginNewPortalSite(succeed: { [weak self] in
             self?.dutInfo.newPortalNetInfo()
             self?.dutInfo.newPortalPersonInfo()
-            self?.netCostActivity.startAnimating()
-            self?.netFlowActivity.startAnimating()
-            self?.ecardActivity.startAnimating()
         }, failed: { [weak self] in
-            self?.performSegue(withIdentifier: "LoginTeach", sender: self)
+            self?.netCostActivity.stopAnimating()
+            self?.netFlowActivity.stopAnimating()
+            self?.ecardActivity.stopAnimating()
+            self?.performLogin()
         })
         if testInfo.allTests == nil {
             dutInfo.loginTeachSite(succeed: { [weak self] in
                 self?.dutInfo.testInfo()
             }, failed: { [weak self] in
-                self?.performSegue(withIdentifier: "LoginTeach", sender: self)
+                self?.performLogin()
             })
         }
     }
@@ -97,5 +100,6 @@ class CostViewController: TabViewController {
     
     override func setTest(_ testArray: [[String : String]]) {
         testInfo.allTests = testArray
+        dataSource.tests = testInfo.allTests
     }
 }

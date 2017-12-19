@@ -629,8 +629,8 @@
                         <color key="selectedImageTintColor" red="0.25882352939999997" green="0.24313725489999999" blue="0.24313725489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="a2y-b0-hD6"/>
                         <segue destination="mnc-R3-98U" kind="relationship" relationship="viewControllers" id="mGB-d9-3A9"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="a2y-b0-hD6"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EHQ-RU-wMm" userLabel="First Responder" sceneMemberID="firstResponder"/>

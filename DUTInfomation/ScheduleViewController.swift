@@ -29,7 +29,7 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if dataSource.data.courses == nil {
+        if dataSource.data.courses == nil && activityIndicator.isAnimating == false {
             let alertController = UIAlertController(title: "未导入课表", message: nil, preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
                 self.loadScheduleButton.isHidden = false
@@ -45,19 +45,20 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     
     override func setSchedule(_ courseArray: [[String : String]]) {
         courseInfo.allCourseData = courseArray
-        activityIndicator.stopAnimating()
         loadScheduleButton.isHidden = true
         self.getScheduleThisWeek()
+        activityIndicator.stopAnimating()
     }
     
     @IBAction func loadSchedule() {
-        dutInfo.loginTeachSite(succeed: {
-            self.dutInfo.courseInfo()
-            DispatchQueue.main.async {
-                self.activityIndicator.startAnimating()
+        activityIndicator.startAnimating()
+        dutInfo.loginTeachSite(succeed: { [weak self] in
+            self?.dutInfo.courseInfo()
+        }, failed: { [weak self] in
+            self?.loginHandler = { [weak self] in
+                self?.dutInfo.courseInfo()
             }
-        }, failed: {
-            self.performSegue(withIdentifier: "LoginTeach", sender: self)
+            self?.performLogin()
         })
     }
     

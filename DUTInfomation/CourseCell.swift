@@ -26,8 +26,8 @@ class CourseCell: UICollectionViewCell {
         \(course["name"]!)
         \(course["teacher"]!)
         \(course["weeknumber"]!)周
-        周\(course["week"]!)
-        第\(chineseWeek[Int(course["coursenumber"]!)!])节
+        周\(chineseWeek[Int(course["week"]!)!])
+        第\(course["coursenumber"]!)节
         \(course["place"]!)
         """
     }

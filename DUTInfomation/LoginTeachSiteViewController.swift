@@ -14,12 +14,14 @@ class LoginTeachSiteViewController: UIViewController {
     @IBOutlet weak var loginFailedLabel: UILabel!
     
     var dutInfo: DUTInfo!
+    var loginHandler: (() -> Void)?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "LoginPortal" {
-        let destination = segue.destination as! LoginPortalSiteViewController
-        destination.dutInfo = dutInfo
-        destination.number = studentNumber.text
+            let destination = segue.destination as! LoginPortalSiteViewController
+            destination.dutInfo = dutInfo
+            destination.number = studentNumber.text
+            destination.loginHandler = loginHandler
         } else {
             fatalError()
         }
