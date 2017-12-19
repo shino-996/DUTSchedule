@@ -17,7 +17,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var ecardActivity: UIActivityIndicatorView!
     @IBOutlet weak var noCourseButton: UIButton!
     @IBOutlet weak var courseTableView: UITableView!
-    @IBOutlet weak var weekLabel: UILabel!
+    @IBOutlet weak var weekButton: UIButton!
     
     var dutInfo: DUTInfo!
     var courseInfo: CourseInfo!
@@ -60,16 +60,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         completionHandler(.newData)
     }
     
-    @IBAction func changeSchedule(_ sender: Any) {
-        if sender is UITapGestureRecognizer {
+    @IBAction func changeSchedule(_ sender: UIButton) {
+        let title = sender.title(for: .normal)
+        if title == "⇨" {
+            dataSource.data = courseInfo.coursesNextDay(dataSource.data.date)
+        } else if title == "⇦" {
             dataSource.data = courseInfo.coursesToday(Date())
         } else {
-            let button = sender as! UIButton
-            if button.title(for: .normal) == "->" {
-                dataSource.data = courseInfo.coursesNextDay(dataSource.data.date)
-            } else {
-                dataSource.data = courseInfo.coursesLastDay(dataSource.data.date)
-            }
+            dataSource.data = courseInfo.coursesLastDay(dataSource.data.date)
         }
     }
     
@@ -98,7 +96,7 @@ extension TodayViewController {
     func freshUI() {
         courseTableView.reloadData()
         let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
-        weekLabel.text = "第\(self.dataSource.data.weeknumber)周 周\(chineseWeek[self.dataSource.data.week])"
+        weekButton.setTitle("第\(self.dataSource.data.weeknumber)周 周\(chineseWeek[self.dataSource.data.week])", for: .normal)
         if dataSource.data.courses != nil {
             if dataSource.data.courses!.count == 0 {
                 noCourseButton.isHidden = false
@@ -163,4 +161,5 @@ extension TodayViewController: DUTInfoDelegate {
     func netErrorHandle(_ error: Error) {}
     func setSchedule(_ courseArray: [[String : String]]) {}
     func setTest(_ testArray: [[String : String]]) {}
+    func setPersonName(_ personName: String) {}
 }

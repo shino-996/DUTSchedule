@@ -22,7 +22,7 @@ class CourseCellView: UITableViewCell {
         let placeStr = cellCourse["place"]!
         place.text = placeStr
         let coursenumberStr = cellCourse["coursenumber"]!
-        week.text = coursenumberStr
+        week.text = "第" + coursenumberStr + "节"
     }
     
     func prepareForNow(fromCourse courseInfo: [[String: String]], ofIndex indexPath: IndexPath) {

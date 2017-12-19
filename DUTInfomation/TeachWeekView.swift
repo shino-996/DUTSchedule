@@ -21,9 +21,9 @@ class TeachWeekView: UICollectionReusableView {
     @IBOutlet weak var teachWeekButton: UIButton!
     @IBAction func changeSchedule(_ sender: UIButton) {
         let title = sender.title(for: .normal) ?? ""
-        if title == "->" {
+        if title == "⇨" {
             delegate?.getScheduleNextWeek()
-        } else if title == "<-" {
+        } else if title == "⇦" {
             delegate?.getScheduleLastWeek()
         } else {
             delegate?.getScheduleThisWeek()

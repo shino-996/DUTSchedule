@@ -15,11 +15,12 @@ class TestCell: UITableViewCell {
     @IBOutlet weak var placeLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     func prepare(tests: [[String: String]], indexPath: IndexPath) {
-        let test = tests[indexPath.row]
+        let test = tests[indexPath.section]
         nameLabel.text = test["name"]!
         teachweekLabel.text = test["teachweek"]!
         dateLabel.text = test["date"]!
         placeLabel.text = test["place"]!
         timeLabel.text = test["time"]!
+        layer.cornerRadius = 10
     }
 }

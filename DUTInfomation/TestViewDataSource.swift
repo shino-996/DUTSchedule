@@ -17,11 +17,11 @@ class TestViewDataSource: NSObject, UITableViewDataSource {
     var freshUIHandler: (() -> Void)?
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return tests?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tests?.count ?? 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

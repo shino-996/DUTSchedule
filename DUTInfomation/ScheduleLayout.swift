@@ -26,7 +26,7 @@ class ScheduleLayout: UICollectionViewFlowLayout {
             }
             if originAttribute.indexPath.item < 8 {
                 let attribute = originAttribute.copy() as! UICollectionViewLayoutAttributes
-                attribute.frame = CGRect(x: frame.minX, y: offset + 20, width: frame.width, height: frame.height)
+                attribute.frame = CGRect(x: frame.minX, y: offset + 30, width: frame.width, height: frame.height)
                 attribute.zIndex = 1024
                 attributes.append(attribute)
                 continue

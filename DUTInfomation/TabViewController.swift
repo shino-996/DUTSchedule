@@ -22,14 +22,10 @@ class TabViewController: UIViewController, DUTInfoDelegate {
     }
     
     func setNetCost(_ netCost: String) {}
-    
     func setNetFlow(_ netFlow: String) {}
-    
     func setEcardCost(_ ecardCost: String) {}
-    
     func setSchedule(_ courseArray: [[String : String]]) {}
-    
     func setTest(_ testArray: [[String : String]]) {}
-    
+    func setPersonName(_ personName: String) {}
     func netErrorHandle(_ error: Error) {}
 }
