@@ -23,11 +23,11 @@ struct CourseInfo {
     init() {
         let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
         let fileURL = groupURL!.appendingPathComponent("course.plist")
-        guard let array = NSArray(contentsOf: fileURL) else {
+        guard let array = NSArray(contentsOf: fileURL) as? [[String: String]] else {
             allCourseData = nil
             return
         }
-        allCourseData = (array as! [[String: String]])
+        allCourseData = array
     }
     
     private func coursesAWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int) {

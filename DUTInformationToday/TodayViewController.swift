@@ -9,7 +9,6 @@
 import UIKit
 import NotificationCenter
 
-//变量
 class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var netLabel: UILabel!
     @IBOutlet weak var ecardLabel: UILabel!
@@ -21,6 +20,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     var dutInfo: DUTInfo!
     var courseInfo: CourseInfo!
+    var cacheInfo: CacheInfo!
     var dataSource: TodayViewDataSource!
     
     override func viewDidLoad() {
@@ -29,35 +29,54 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
         let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        let studentNumber = userDefaults.string(forKey: "StudentNumber") ?? ""
-        let teachPassword = userDefaults.string(forKey: "TeachPassword") ?? ""
-        let portalPassword = userDefaults.string(forKey: "PortalPassword") ?? ""
-        dutInfo = DUTInfo(studentNumber: studentNumber,
-                          teachPassword: teachPassword,
-                          portalPassword: portalPassword)
+        dutInfo = DUTInfo(studentNumber: userDefaults.string(forKey: "StudentNumber") ?? "",
+                          teachPassword: userDefaults.string(forKey: "TeachPassword") ?? "",
+                          portalPassword: userDefaults.string(forKey: "PortalPassword") ?? "")
         dutInfo.delegate = self
         courseInfo = CourseInfo()
+        cacheInfo = CacheInfo()
+        cacheInfo.netCostHandle = { [weak self] in
+            DispatchQueue.main.async {
+                self?.netLabel.text = (self?.cacheInfo.netFlow ?? "") + "/" + (self?.cacheInfo.netCost ?? "")
+                self?.netActivity.stopAnimating()
+            }
+        }
+        cacheInfo.netFlowHandle = { [weak self] in
+            DispatchQueue.main.async {
+                self?.netLabel.text = (self?.cacheInfo.netFlow ?? "") + "/" + (self?.cacheInfo.netCost ?? "")
+                self?.netActivity.stopAnimating()
+            }
+        }
+        cacheInfo.ecardCostHandle = { [weak self] in
+            DispatchQueue.main.async {
+                self?.ecardLabel.text = self?.cacheInfo.ecardCost
+                self?.ecardActivity.stopAnimating()
+            }
+        }
         dataSource = TodayViewDataSource()
         courseTableView.dataSource = dataSource
         dataSource.controller = self
         dataSource.freshUIHandler = freshUI
-        dataSource.data = courseInfo.coursesToday(dataSource.data.date)
+        dataSource.data = courseInfo.coursesToday(Date())
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        loadCacheData()
-        ecardActivity.startAnimating()
-        netActivity.startAnimating()
-        dutInfo.loginNewPortalSite(succeed: { [weak self] in
-            self?.dutInfo.newPortalNetInfo()
-        }, failed: { [weak self] in
-            DispatchQueue.main.async { [weak self] in
-                self?.ecardActivity.stopAnimating()
-                self?.netActivity.stopAnimating()
-                self?.noCourseButton.setTitle("未登录账号", for: .normal)
-            }
-        })
-        completionHandler(.newData)
+        if cacheInfo.shouldRefresh() {
+            ecardActivity.startAnimating()
+            netActivity.startAnimating()
+            dutInfo.loginNewPortalSite(succeed: { [weak self] in
+                self?.dutInfo.newPortalNetInfo()
+            }, failed: { [weak self] in
+                DispatchQueue.main.async { [weak self] in
+                    self?.ecardActivity.stopAnimating()
+                    self?.netActivity.stopAnimating()
+                    self?.noCourseButton.setTitle("未登录账号", for: .normal)
+                }
+            })
+            completionHandler(.newData)
+        } else {
+            completionHandler(.noData)
+        }
     }
     
     @IBAction func changeSchedule(_ sender: UIButton) {
@@ -82,17 +101,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
 // 更新UI相关
 extension TodayViewController {
-    func loadCacheData() {
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        ecardLabel.text = userDefaults.string(forKey: "EcardCost") ?? ""
-        if let netCost = userDefaults.string(forKey: "NetCost"),
-            let netFlow = userDefaults.string(forKey: "NetFlow") {
-            netLabel.text = netFlow + "/" + netCost
-        } else {
-            netLabel.text = ""
-        }
-    }
-    
     func freshUI() {
         courseTableView.reloadData()
         let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
@@ -139,25 +147,17 @@ extension TodayViewController {
 
 extension TodayViewController: DUTInfoDelegate {
     func setEcardCost(_ ecardCost: String) {
-        DispatchQueue.main.async {
-            self.ecardLabel.text = ecardCost
-            self.ecardActivity.stopAnimating()
-        }
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        userDefaults.set(ecardCost, forKey: "EcardCost")
+        cacheInfo.ecardCost = ecardCost
+    }
+    
+    func setNetCost(_ netCost: String) {
+        cacheInfo.netCost = netCost
     }
     
     func setNetFlow(_ netFlow: String) {
-        DispatchQueue.main.async {
-            self.netLabel.text = netFlow + "/" + self.dutInfo.netCost
-            self.netActivity.stopAnimating()
-        }
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        userDefaults.set(dutInfo.netCost, forKey: "NetCost")
-        userDefaults.set(netFlow, forKey: "NetFlow")
+        cacheInfo.netFlow = netFlow
     }
     
-    func setNetCost(_ netCost: String) {}
     func netErrorHandle(_ error: Error) {}
     func setSchedule(_ courseArray: [[String : String]]) {}
     func setTest(_ testArray: [[String : String]]) {}

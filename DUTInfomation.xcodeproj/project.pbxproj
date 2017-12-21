@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1BF50BBD1362FA85383CE68F /* Pods_DUTInformationToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E56B0E628D8B1E3594C810D2 /* Pods_DUTInformationToday.framework */; };
+		B40159081FEA9FC900462295 /* CacheInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40159071FEA9FC900462295 /* CacheInfo.swift */; };
 		B4173D721FE2642000B6E527 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4173D711FE2642000B6E527 /* TabBarController.swift */; };
 		B422673F1F692DF500D161CD /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422673E1F692DF500D161CD /* ScheduleViewController.swift */; };
 		B429A9F51FDBBE68008C83FB /* DutInfoNewPortalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B429A9EE1FDBBE68008C83FB /* DutInfoNewPortalSite.swift */; };
@@ -20,6 +21,7 @@
 		B429A9FC1FDBBE68008C83FB /* des.js in Resources */ = {isa = PBXBuildFile; fileRef = B429A9F11FDBBE68008C83FB /* des.js */; };
 		B429A9FF1FDBBE68008C83FB /* DutInfoTeachSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B429A9F31FDBBE68008C83FB /* DutInfoTeachSite.swift */; };
 		B429AA001FDBBE68008C83FB /* DutInfoTeachSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B429A9F31FDBBE68008C83FB /* DutInfoTeachSite.swift */; };
+		B4405F571FEB8E91002409A4 /* CacheInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40159071FEA9FC900462295 /* CacheInfo.swift */; };
 		B49936301F7B8561005AB88F /* CourseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B499362F1F7B8561005AB88F /* CourseInfo.swift */; };
 		B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */; };
 		B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A137E61F62BD9200207CFF /* TodayViewController.swift */; };
@@ -90,6 +92,7 @@
 		9CDF36D39840F6461FF0D3E1 /* Pods-DUTInfoKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfoKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfoKit/Pods-DUTInfoKit.debug.xcconfig"; sourceTree = "<group>"; };
 		A2C577CF4047CFE0F0EA4929 /* Pods-DUTInfomation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfomation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation.debug.xcconfig"; sourceTree = "<group>"; };
 		AFEEDEA074D99C2A95B6AF6E /* Pods_DutInfoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DutInfoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B40159071FEA9FC900462295 /* CacheInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheInfo.swift; sourceTree = "<group>"; };
 		B4173D711FE2642000B6E527 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B422673E1F692DF500D161CD /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B429A9EE1FDBBE68008C83FB /* DutInfoNewPortalSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DutInfoNewPortalSite.swift; path = DUTInfo/DUTInfoCore/DutInfoNewPortalSite.swift; sourceTree = "<group>"; };
@@ -229,6 +232,7 @@
 			children = (
 				B499362F1F7B8561005AB88F /* CourseInfo.swift */,
 				B4A772281FE7B30C00B3F545 /* TestInfo.swift */,
+				B40159071FEA9FC900462295 /* CacheInfo.swift */,
 			);
 			name = InfoData;
 			sourceTree = "<group>";
@@ -523,6 +527,7 @@
 				B4A772291FE7B30C00B3F545 /* TestInfo.swift in Sources */,
 				B4B70E811F0A211800174471 /* CostViewController.swift in Sources */,
 				B429A9FF1FDBBE68008C83FB /* DutInfoTeachSite.swift in Sources */,
+				B40159081FEA9FC900462295 /* CacheInfo.swift in Sources */,
 				B4CCCA651FE2A98300EE6470 /* TabViewController.swift in Sources */,
 				B4B2F7AA1FE774ED00B86075 /* ScheduleViewDataSource.swift in Sources */,
 				B429A9F91FDBBE68008C83FB /* DUTInfo.swift in Sources */,
@@ -551,6 +556,7 @@
 				B4E535CF1F5FDEAC007DE392 /* CourseCellView.swift in Sources */,
 				B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */,
 				B4B2F7AC1FE7878000B86075 /* TodayViewDataSource.swift in Sources */,
+				B4405F571FEB8E91002409A4 /* CacheInfo.swift in Sources */,
 				B429A9FA1FDBBE68008C83FB /* DUTInfo.swift in Sources */,
 				B429AA001FDBBE68008C83FB /* DutInfoTeachSite.swift in Sources */,
 				B49936301F7B8561005AB88F /* CourseInfo.swift in Sources */,

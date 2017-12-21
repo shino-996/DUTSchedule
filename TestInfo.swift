@@ -24,11 +24,11 @@ struct TestInfo {
     init() {
         let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
         let fileURL = groupURL!.appendingPathComponent("test.plist")
-        guard let array = NSArray(contentsOf: fileURL) else {
+        guard let array = NSArray(contentsOf: fileURL) as? [[String: String]] else {
             allTests = nil
             return
         }
-        allTests = (array as! [[String: String]])
+        allTests = array
     }
     
     private func sortTests(_ tests: [[String: String]]) -> [[String: String]] {

@@ -13,12 +13,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         self.delegate = self
         let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        let studentNumber = userDefaults.string(forKey: "StudentNumber")
-        let TeachPassword = userDefaults.string(forKey: "TeachPassword")
-        let portalPassword = userDefaults.string(forKey: "PortalPassword")
-        let dutInfo = DUTInfo(studentNumber: studentNumber ?? "",
-                              teachPassword: TeachPassword ?? "",
-                              portalPassword: portalPassword ?? "")
+        let dutInfo = DUTInfo(studentNumber: userDefaults.string(forKey: "StudentNumber") ?? "",
+                              teachPassword: userDefaults.string(forKey: "TeachPassword") ?? "",
+                              portalPassword: userDefaults.string(forKey: "PortalPassword") ?? "")
         let controller = viewControllers?.first as! TabViewController
         controller.dutInfo = dutInfo
         controller.dutInfo.delegate = controller
