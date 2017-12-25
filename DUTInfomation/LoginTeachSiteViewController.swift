@@ -21,6 +21,7 @@ class LoginTeachSiteViewController: UIViewController {
             let destination = segue.destination as! LoginPortalSiteViewController
             destination.dutInfo = dutInfo
             destination.number = studentNumber.text
+            destination.teachPassword = password.text
             destination.loginHandler = loginHandler
         } else {
             fatalError()
@@ -34,8 +35,6 @@ class LoginTeachSiteViewController: UIViewController {
     }
     
     func loginSucceed() {
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        userDefaults.set(password.text!, forKey: "TeachPassword")
         performSegue(withIdentifier: "LoginPortal", sender: self)
     }
     

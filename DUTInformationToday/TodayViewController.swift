@@ -28,10 +28,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if #available(iOSApplicationExtension 10.0, *) {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        dutInfo = DUTInfo(studentNumber: userDefaults.string(forKey: "StudentNumber") ?? "",
-                          teachPassword: userDefaults.string(forKey: "TeachPassword") ?? "",
-                          portalPassword: userDefaults.string(forKey: "PortalPassword") ?? "")
+        dutInfo = DUTInfo()
+        if let keyInfo = KeyInfo() {
+            let (teachPassword, portalPassword) = keyInfo.loadPassword()
+            dutInfo.studentNumber = keyInfo.account
+            dutInfo.teachPassword = teachPassword
+            dutInfo.portalPassword = portalPassword
+        }
         dutInfo.delegate = self
         courseInfo = CourseInfo()
         cacheInfo = CacheInfo()

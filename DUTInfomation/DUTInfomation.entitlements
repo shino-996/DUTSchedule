@@ -6,5 +6,9 @@
 	<array>
 		<string>group.dutinfo.shino.space</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)space.shino.DUTInfomation</string>
+	</array>
 </dict>
 </plist>

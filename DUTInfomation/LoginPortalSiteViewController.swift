@@ -15,6 +15,7 @@ class LoginPortalSiteViewController: UIViewController {
     
     var dutInfo: DUTInfo!
     var number: String!
+    var teachPassword: String!
     var loginHandler: (() -> Void)?
     
     override func viewDidLoad() {
@@ -30,8 +31,9 @@ class LoginPortalSiteViewController: UIViewController {
     
     func loginSucceed() {
         let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        userDefaults.set(studentNumber.text!, forKey: "StudentNumber")
-        userDefaults.set(password.text!, forKey: "PortalPassword")
+        userDefaults.set(studentNumber.text!, forKey: "account")
+        let keyinfo = KeyInfo(account: studentNumber.text!)
+        keyinfo.savePassword(teachPassword: teachPassword, portalPassword: password.text!)
         self.navigationController?.dismiss(animated: true, completion: loginHandler)
     }
     

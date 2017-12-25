@@ -12,10 +12,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        let dutInfo = DUTInfo(studentNumber: userDefaults.string(forKey: "StudentNumber") ?? "",
-                              teachPassword: userDefaults.string(forKey: "TeachPassword") ?? "",
-                              portalPassword: userDefaults.string(forKey: "PortalPassword") ?? "")
+        let dutInfo = DUTInfo()
+        if let keyInfo = KeyInfo() {
+            let (teachPassword, portalPassword) = keyInfo.loadPassword()
+            dutInfo.studentNumber = keyInfo.account
+            dutInfo.teachPassword = teachPassword
+            dutInfo.portalPassword = portalPassword
+        }
         let controller = viewControllers?.first as! TabViewController
         controller.dutInfo = dutInfo
         controller.dutInfo.delegate = controller
