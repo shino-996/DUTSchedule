@@ -13,9 +13,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         self.delegate = self
         let dutInfo = DUTInfo()
-        if let keyInfo = KeyInfo() {
-            let (teachPassword, portalPassword) = keyInfo.loadPassword()
-            dutInfo.studentNumber = keyInfo.account
+        if let studentNumber = KeyInfo.getCurrentAccount() {
+            let (teachPassword, portalPassword) = KeyInfo.loadPassword(studentNumber: studentNumber)
+            dutInfo.studentNumber = studentNumber
             dutInfo.teachPassword = teachPassword
             dutInfo.portalPassword = portalPassword
         }

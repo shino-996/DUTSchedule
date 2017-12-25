@@ -30,10 +30,13 @@ class LoginPortalSiteViewController: UIViewController {
     }
     
     func loginSucceed() {
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        userDefaults.set(studentNumber.text!, forKey: "account")
-        let keyinfo = KeyInfo(account: studentNumber.text!)
-        keyinfo.savePassword(teachPassword: teachPassword, portalPassword: password.text!)
+        let studentNumber = number!
+        KeyInfo.savePassword(studentNumber: studentNumber,
+                             teachPassword: teachPassword,
+                             portalPassword: password.text!)
+        var accounts = KeyInfo.getAccounts() ?? [String]()
+        accounts.append(studentNumber)
+        KeyInfo.updateAccounts(accounts: accounts)
         self.navigationController?.dismiss(animated: true, completion: loginHandler)
     }
     

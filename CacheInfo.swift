@@ -96,4 +96,10 @@ struct CacheInfo {
             return false
         }
     }
+    
+    static func deleteCache() {
+        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
+        let fileURL = groupURL!.appendingPathComponent("cache.plist")
+        try! FileManager.default.removeItem(at: fileURL)
+    }
 }

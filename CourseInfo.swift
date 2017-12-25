@@ -9,6 +9,8 @@
 import Foundation
 
 struct CourseInfo {
+    var fileURL: URL
+    
     var allCourseData: [[String: String]]? {
         didSet {
             guard let courses = allCourseData else {
@@ -22,7 +24,7 @@ struct CourseInfo {
     
     init() {
         let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-        let fileURL = groupURL!.appendingPathComponent("course.plist")
+        fileURL = groupURL!.appendingPathComponent("course.plist")
         guard let array = NSArray(contentsOf: fileURL) as? [[String: String]] else {
             allCourseData = nil
             return
@@ -97,5 +99,11 @@ struct CourseInfo {
         let lastDate = date.addingTimeInterval(-60 * 60 * 24)
         let tuple = coursesADay(lastDate)
         return (tuple.courses, tuple.weeknumber, tuple.week, lastDate)
+    }
+    
+    static func deleteCourse() {
+        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
+        let fileURL = groupURL!.appendingPathComponent("course.plist")
+        try! FileManager.default.removeItem(at: fileURL)
     }
 }

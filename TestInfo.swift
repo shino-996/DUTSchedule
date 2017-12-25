@@ -9,6 +9,8 @@
 import Foundation
 
 struct TestInfo {
+    var fileURL: URL
+    
     var allTests: [[String: String]]? {
         didSet {
             guard let tests = allTests else {
@@ -23,7 +25,7 @@ struct TestInfo {
     
     init() {
         let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-        let fileURL = groupURL!.appendingPathComponent("test.plist")
+        fileURL = groupURL!.appendingPathComponent("test.plist")
         guard let array = NSArray(contentsOf: fileURL) as? [[String: String]] else {
             allTests = nil
             return
@@ -61,5 +63,11 @@ struct TestInfo {
             let date_2 = dateFormatter.date(from: dateString_2)!
             return date_1.compare(date_2) == .orderedAscending
         }
+    }
+    
+    static func deleteTest() {
+        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
+        let fileURL = groupURL!.appendingPathComponent("test.plist")
+        try! FileManager.default.removeItem(at: fileURL)
     }
 }

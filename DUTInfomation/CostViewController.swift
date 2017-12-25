@@ -16,7 +16,7 @@ class CostViewController: TabViewController {
     @IBOutlet weak var ecardCostLabel: UILabel!
     @IBOutlet weak var ecardActivity: UIActivityIndicatorView!
     @IBOutlet weak var tableview: UITableView!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameButton: UIButton!
     @IBOutlet weak var studentLabel: UILabel!
     
     var testInfo: TestInfo!
@@ -47,7 +47,7 @@ class CostViewController: TabViewController {
         }
         cacheInfo.personNameHandle = { [weak self] in
             DispatchQueue.main.async {
-                self?.nameLabel.text = self?.cacheInfo.personName
+                self?.nameButton.setTitle(self?.cacheInfo.personName, for: .normal)
                 self?.studentLabel.text = self?.dutInfo.studentNumber
             }
         }
@@ -82,6 +82,31 @@ class CostViewController: TabViewController {
                 self?.performLogin()
             })
         }
+    }
+    
+    @IBAction func changeAccount() {
+        let alertController = UIAlertController(title: "登录账号", message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let logoutAction = UIAlertAction(title: "注销", style: .default) { [weak self] _ in
+            let account = KeyInfo.getCurrentAccount()!
+            KeyInfo.removePasword(ofStudentnumber: account)
+            var accounts = KeyInfo.getAccounts()!
+            accounts.removeLast()
+            KeyInfo.updateAccounts(accounts: accounts)
+            self?.dutInfo.studentNumber = ""
+            self?.dutInfo.teachPassword = ""
+            self?.dutInfo.portalPassword = ""
+            self?.performLogin()
+            CourseInfo.deleteCourse()
+            TestInfo.deleteTest()
+            CacheInfo.deleteCache()
+        }
+        let changeAccountAction = UIAlertAction(title: "切换账号", style: .default) { _ in
+        }
+        alertController.addAction(logoutAction)
+        alertController.addAction(changeAccountAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     override func setEcardCost(_ ecardCost: String) {

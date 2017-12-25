@@ -9,95 +9,84 @@
 import Foundation
 import Security
 
-let kSecClassValue = NSString(format: kSecClass)
-let kSecAttrAccountValue = NSString(format: kSecAttrAccount)
-let kSecValueDataValue = NSString(format: kSecValueData)
-let kSecClassGenericPasswordValue = NSString(format: kSecClassGenericPassword)
-let kSecAttrServiceValue = NSString(format: kSecAttrService)
-let kSecMatchLimitValue = NSString(format: kSecMatchLimit)
-let kSecReturnDataValue = NSString(format: kSecReturnData)
-let kSecMatchLimitOneValue = NSString(format: kSecMatchLimitOne)
-let kSecAttrAccessGroupValue = NSString(format: kSecAttrAccessGroup)
-
 struct KeyInfo {
-    private let service = "DUTInfomation"
-    var account: String
+    static let service = "DUTInfomation"
     
-    init?() {
+    static func getAccounts() -> [String]? {
         let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
-        guard let account = userDefaults.string(forKey: "account") else {
+        guard let accounts = userDefaults.array(forKey: "accounts") as? [String] else {
             return nil
         }
-        self.account = account
+        return accounts
     }
     
-    init(account: String) {
-        self.account = account
+    static func getCurrentAccount() -> String? {
+        guard let accounts = getAccounts() else {
+            return nil
+        }
+        return accounts.last
     }
     
-    func savePassword(teachPassword: String, portalPassword: String) {
+    static func updateAccounts(accounts: [String]) {
+        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+        userDefaults.set(accounts, forKey: "accounts")
+    }
+    
+    static func savePassword(studentNumber: String, teachPassword: String, portalPassword: String) {
         let password = teachPassword + ", " + portalPassword
         let data = password.data(using: .utf8)!
-        let keychainQuery = [kSecClassValue: kSecClassGenericPasswordValue,
-                             kSecAttrServiceValue: service,
-                             kSecAttrAccountValue: account,
-                             kSecValueDataValue: data] as CFDictionary
+        let keychainQuery = [kSecClass: kSecClassGenericPassword,
+                             kSecAttrService: service,
+                             kSecAttrAccount: studentNumber,
+                             kSecValueData: data] as CFDictionary
         let status = SecItemAdd(keychainQuery, nil)
         if status != errSecSuccess {
             print(status)
+            fatalError()
         }
     }
     
-    func loadPassword() -> (teachPassword: String, portalPassword: String) {
-        let keychainQuery = [kSecClassValue: kSecClassGenericPasswordValue,
-                             kSecAttrServiceValue: service,
-                             kSecAttrAccountValue: account,
-                             kSecReturnDataValue: kCFBooleanTrue,
-                             kSecMatchLimitValue: kSecMatchLimitOneValue] as CFDictionary
+    static func loadPassword(studentNumber: String) -> (teachPassword: String, portalPassword: String) {
+        let keychainQuery = [kSecClass: kSecClassGenericPassword,
+                             kSecAttrService: service,
+                             kSecAttrAccount: studentNumber,
+                             kSecReturnData: kCFBooleanTrue,
+                             kSecMatchLimit: kSecMatchLimitOne] as CFDictionary
         var dataTyperef: AnyObject?
         let status = SecItemCopyMatching(keychainQuery, &dataTyperef)
         if status != errSecSuccess {
             print(status)
+            fatalError()
         }
-//        var contentOfKeychain: (String, String)
-//        if status == errSecSuccess {
-//            if let receiveData = dataTyperef as? Data {
-//                let passwordString = String(data: receiveData, encoding: .utf8)!
-//                                    .components(separatedBy: ", ")
-//                contentOfKeychain = (passwordString[0], passwordString[1])
-//            }
-//        } else {
-//            print(status)
-//        }
-//        return contentOfKeychain
         let receiveData = dataTyperef as! Data
         let passwordString = String(data: receiveData, encoding: .utf8)!.components(separatedBy: ", ")
         return (passwordString[0], passwordString[1])
         
     }
     
-    func removePasword() {
-        let keychainQuery = [kSecClassValue: kSecClassGenericPasswordValue,
-                             kSecAttrServiceValue: service,
-                             kSecAttrAccountValue: account,
-                             kSecReturnDataValue: kCFBooleanTrue,
-                             kSecMatchLimitValue: kSecMatchLimitOneValue] as CFDictionary
+    static func removePasword(ofStudentnumber studentNumber: String) {
+        let keychainQuery = [kSecClass: kSecClassGenericPassword,
+                             kSecAttrService: service,
+                             kSecAttrAccount: studentNumber] as CFDictionary
         let status = SecItemDelete(keychainQuery)
         if status != errSecSuccess {
             print(status)
+            fatalError()
         }
     }
     
-    func updatePassword(password: String) {
-        let data = password.data(using: .utf8, allowLossyConversion: false)!
-        let keychainQuery = [kSecClassValue: kSecClassGenericPasswordValue,
-                             kSecAttrServiceValue: service,
-                             kSecAttrAccountValue: account,
-                             kSecReturnDataValue: kCFBooleanTrue,
-                             kSecMatchLimitValue: kSecMatchLimitOneValue] as CFDictionary
-        let status = SecItemUpdate(keychainQuery, [kSecValueDataValue: data] as CFDictionary)
+    static func updatePassword(studentNumber: String, teachPassword: String, portalPassword: String) {
+        let password = teachPassword + ", " + portalPassword
+        let data = password.data(using: .utf8)!
+        let keychainQuery = [kSecClass: kSecClassGenericPassword,
+                             kSecAttrService: service,
+                             kSecAttrAccount: studentNumber,
+                             kSecReturnData: kCFBooleanTrue,
+                             kSecMatchLimit: kSecMatchLimitOne] as CFDictionary
+        let status = SecItemUpdate(keychainQuery, [kSecValueData: data] as CFDictionary)
         if status != errSecSuccess {
             print(status)
+            fatalError()
         }
     }
 }
