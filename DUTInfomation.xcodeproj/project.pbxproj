@@ -23,6 +23,8 @@
 		B429AA001FDBBE68008C83FB /* DutInfoTeachSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B429A9F31FDBBE68008C83FB /* DutInfoTeachSite.swift */; };
 		B4405F571FEB8E91002409A4 /* CacheInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40159071FEA9FC900462295 /* CacheInfo.swift */; };
 		B49936301F7B8561005AB88F /* CourseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B499362F1F7B8561005AB88F /* CourseInfo.swift */; };
+		B499EDF11FF11B9300A84965 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B499EDF01FF11B9300A84965 /* AccountViewController.swift */; };
+		B499EDF41FF122D900A84965 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B499EDF31FF122D900A84965 /* AccountCell.swift */; };
 		B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */; };
 		B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A137E61F62BD9200207CFF /* TodayViewController.swift */; };
 		B4A2114D1FDFAD2C0055B611 /* WeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */; };
@@ -94,7 +96,7 @@
 		9CDF36D39840F6461FF0D3E1 /* Pods-DUTInfoKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfoKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfoKit/Pods-DUTInfoKit.debug.xcconfig"; sourceTree = "<group>"; };
 		A2C577CF4047CFE0F0EA4929 /* Pods-DUTInfomation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfomation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation.debug.xcconfig"; sourceTree = "<group>"; };
 		AFEEDEA074D99C2A95B6AF6E /* Pods_DutInfoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DutInfoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B40159071FEA9FC900462295 /* CacheInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheInfo.swift; sourceTree = "<group>"; };
+		B40159071FEA9FC900462295 /* CacheInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CacheInfo.swift; path = DUTInfomation/CacheInfo.swift; sourceTree = "<group>"; };
 		B4173D711FE2642000B6E527 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B422673E1F692DF500D161CD /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B429A9EE1FDBBE68008C83FB /* DutInfoNewPortalSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DutInfoNewPortalSite.swift; path = DUTInfo/DUTInfoCore/DutInfoNewPortalSite.swift; sourceTree = "<group>"; };
@@ -102,16 +104,18 @@
 		B429A9F01FDBBE68008C83FB /* DUTInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DUTInfo.swift; path = DUTInfo/DUTInfoCore/DUTInfo.swift; sourceTree = "<group>"; };
 		B429A9F11FDBBE68008C83FB /* des.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = des.js; path = DUTInfo/DUTInfoCore/des.js; sourceTree = "<group>"; };
 		B429A9F31FDBBE68008C83FB /* DutInfoTeachSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DutInfoTeachSite.swift; path = DUTInfo/DUTInfoCore/DutInfoTeachSite.swift; sourceTree = "<group>"; };
-		B499362F1F7B8561005AB88F /* CourseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfo.swift; sourceTree = "<group>"; };
+		B499362F1F7B8561005AB88F /* CourseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CourseInfo.swift; path = DUTInfomation/CourseInfo.swift; sourceTree = "<group>"; };
+		B499EDF01FF11B9300A84965 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		B499EDF31FF122D900A84965 /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachWeekView.swift; sourceTree = "<group>"; };
 		B4A137E61F62BD9200207CFF /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
 		B4A2114E1FDFAD580055B611 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		B4A211501FDFAD640055B611 /* CourseNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNumberCell.swift; sourceTree = "<group>"; };
-		B4A4BF5F1FEE482F0006E2A4 /* KeyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInfo.swift; sourceTree = "<group>"; };
+		B4A4BF5F1FEE482F0006E2A4 /* KeyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyInfo.swift; path = DUTInfomation/KeyInfo.swift; sourceTree = "<group>"; };
 		B4A772221FE7B05600B3F545 /* TestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
 		B4A772261FE7B1F900B3F545 /* TestViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewDataSource.swift; sourceTree = "<group>"; };
-		B4A772281FE7B30C00B3F545 /* TestInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfo.swift; sourceTree = "<group>"; };
+		B4A772281FE7B30C00B3F545 /* TestInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestInfo.swift; path = DUTInfomation/TestInfo.swift; sourceTree = "<group>"; };
 		B4B2F7A91FE774ED00B86075 /* ScheduleViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewDataSource.swift; sourceTree = "<group>"; };
 		B4B2F7AB1FE7878000B86075 /* TodayViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewDataSource.swift; sourceTree = "<group>"; };
 		B4B70E7B1F0A211800174471 /* DUTInfomation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DUTInfomation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,10 +228,19 @@
 			children = (
 				B4173D711FE2642000B6E527 /* TabBarController.swift */,
 				B4CCCA641FE2A98300EE6470 /* TabViewController.swift */,
-				B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */,
-				B4E535D31F615468007DE392 /* LoginPortalSiteViewController.swift */,
 			);
 			name = Main;
+			sourceTree = "<group>";
+		};
+		B499EDF21FF1224600A84965 /* AccountLogin */ = {
+			isa = PBXGroup;
+			children = (
+				B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */,
+				B4E535D31F615468007DE392 /* LoginPortalSiteViewController.swift */,
+				B499EDF01FF11B9300A84965 /* AccountViewController.swift */,
+				B499EDF31FF122D900A84965 /* AccountCell.swift */,
+			);
+			name = AccountLogin;
 			sourceTree = "<group>";
 		};
 		B4A211541FDFC1BD0055B611 /* InfoData */ = {
@@ -291,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				B46A6C0A1FE906F30041DBBF /* Main */,
+				B499EDF21FF1224600A84965 /* AccountLogin */,
 				B4A772251FE7B19B00B3F545 /* OtherInfo */,
 				B4A772241FE7B15700B3F545 /* Schedule */,
 				B46A6C081FE906860041DBBF /* UI */,
@@ -535,9 +549,11 @@
 			files = (
 				B4A2114F1FDFAD580055B611 /* CourseCell.swift in Sources */,
 				B4A772291FE7B30C00B3F545 /* TestInfo.swift in Sources */,
+				B499EDF11FF11B9300A84965 /* AccountViewController.swift in Sources */,
 				B4B70E811F0A211800174471 /* CostViewController.swift in Sources */,
 				B429A9FF1FDBBE68008C83FB /* DutInfoTeachSite.swift in Sources */,
 				B40159081FEA9FC900462295 /* CacheInfo.swift in Sources */,
+				B499EDF41FF122D900A84965 /* AccountCell.swift in Sources */,
 				B4CCCA651FE2A98300EE6470 /* TabViewController.swift in Sources */,
 				B4B2F7AA1FE774ED00B86075 /* ScheduleViewDataSource.swift in Sources */,
 				B429A9F91FDBBE68008C83FB /* DUTInfo.swift in Sources */,

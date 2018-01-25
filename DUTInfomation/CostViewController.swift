@@ -17,7 +17,7 @@ class CostViewController: TabViewController {
     @IBOutlet weak var ecardActivity: UIActivityIndicatorView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var nameButton: UIButton!
-    @IBOutlet weak var studentLabel: UILabel!
+    @IBOutlet weak var studentButton: UIButton!
     
     var testInfo: TestInfo!
     var cacheInfo: CacheInfo!
@@ -48,7 +48,7 @@ class CostViewController: TabViewController {
         cacheInfo.personNameHandle = { [weak self] in
             DispatchQueue.main.async {
                 self?.nameButton.setTitle(self?.cacheInfo.personName, for: .normal)
-                self?.studentLabel.text = self?.dutInfo.studentNumber
+                self?.studentButton.setTitle(self?.dutInfo.studentNumber, for: .normal)
             }
         }
         dataSource = TestViewDataSource()
@@ -88,20 +88,21 @@ class CostViewController: TabViewController {
         let alertController = UIAlertController(title: "登录账号", message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let logoutAction = UIAlertAction(title: "注销", style: .default) { [weak self] _ in
-            let account = KeyInfo.getCurrentAccount()!
+            let account = KeyInfo.getCurrentAccount()!["number"]!
             KeyInfo.removePasword(ofStudentnumber: account)
             var accounts = KeyInfo.getAccounts()!
             accounts.removeLast()
             KeyInfo.updateAccounts(accounts: accounts)
-            self?.dutInfo.studentNumber = ""
-            self?.dutInfo.teachPassword = ""
-            self?.dutInfo.portalPassword = ""
+            self?.dutInfo = DUTInfo()
             self?.performLogin()
             CourseInfo.deleteCourse()
             TestInfo.deleteTest()
+            self?.testInfo = TestInfo()
             CacheInfo.deleteCache()
+            self?.cacheInfo = CacheInfo()
         }
-        let changeAccountAction = UIAlertAction(title: "切换账号", style: .default) { _ in
+        let changeAccountAction = UIAlertAction(title: "切换账号", style: .default) { [weak self] _ in
+            self?.performSegue(withIdentifier: "ChangeAccount", sender: self)
         }
         alertController.addAction(logoutAction)
         alertController.addAction(changeAccountAction)

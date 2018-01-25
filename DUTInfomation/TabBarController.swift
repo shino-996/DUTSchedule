@@ -13,7 +13,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         self.delegate = self
         let dutInfo = DUTInfo()
-        if let studentNumber = KeyInfo.getCurrentAccount() {
+        if let studentNumber = KeyInfo.getCurrentAccount()?["number"] {
             let (teachPassword, portalPassword) = KeyInfo.loadPassword(studentNumber: studentNumber)
             dutInfo.studentNumber = studentNumber
             dutInfo.teachPassword = teachPassword
@@ -22,10 +22,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let controller = viewControllers?.first as! TabViewController
         controller.dutInfo = dutInfo
         controller.dutInfo.delegate = controller
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {

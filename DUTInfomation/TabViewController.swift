@@ -8,6 +8,7 @@
 
 import UIKit
 
+//所有tab页面的基类, 便于进行账号信息的依赖注入
 class TabViewController: UIViewController, DUTInfoDelegate {
     var dutInfo: DUTInfo!
     var loginHandler: (() -> Void)?
@@ -22,8 +23,6 @@ class TabViewController: UIViewController, DUTInfoDelegate {
             let destination = navigation.topViewController as! LoginTeachSiteViewController
             destination.dutInfo = dutInfo
             destination.loginHandler = loginHandler
-        } else {
-            fatalError()
         }
     }
     

@@ -34,8 +34,8 @@ class LoginPortalSiteViewController: UIViewController {
         KeyInfo.savePassword(studentNumber: studentNumber,
                              teachPassword: teachPassword,
                              portalPassword: password.text!)
-        var accounts = KeyInfo.getAccounts() ?? [String]()
-        accounts.append(studentNumber)
+        var accounts = KeyInfo.getAccounts() ?? [[String: String]]()
+        accounts.append(["name": "XXX", "number": studentNumber])
         KeyInfo.updateAccounts(accounts: accounts)
         self.navigationController?.dismiss(animated: true, completion: loginHandler)
     }

@@ -29,7 +29,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
         dutInfo = DUTInfo()
-        if let studentNumber = KeyInfo.getCurrentAccount() {
+        if let studentNumber = KeyInfo.getCurrentAccount()?["number"] {
             let (teachPassword, portalPassword) = KeyInfo.loadPassword(studentNumber: studentNumber)
             dutInfo.studentNumber = studentNumber
             dutInfo.teachPassword = teachPassword

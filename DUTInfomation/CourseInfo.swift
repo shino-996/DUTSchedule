@@ -35,7 +35,7 @@ struct CourseInfo {
     private func coursesAWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int) {
         let weeknumberDataFormatter = DateFormatter()
         weeknumberDataFormatter.dateFormat = "w"
-        let weeknumber = Int(weeknumberDataFormatter.string(from: date))! - 35
+        let weeknumber = Int(weeknumberDataFormatter.string(from: date))! + 17
         guard allCourseData != nil else {
             return (nil, weeknumber)
         }
