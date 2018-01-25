@@ -104,6 +104,6 @@ struct CourseInfo {
     static func deleteCourse() {
         let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
         let fileURL = groupURL!.appendingPathComponent("course.plist")
-        try! FileManager.default.removeItem(at: fileURL)
+        try? FileManager.default.removeItem(at: fileURL)
     }
 }

@@ -25,6 +25,16 @@ class CostViewController: TabViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        infoInit()
+        dataSource = TestViewDataSource()
+        dataSource.freshUIHandler = { [weak self] in
+            self?.tableview.reloadData()
+        }
+        dataSource.tests = testInfo.allTests
+        tableview.dataSource = dataSource
+    }
+    
+    func infoInit() {
         testInfo = TestInfo()
         cacheInfo = CacheInfo()
         cacheInfo.netCostHandle = { [weak self] in
@@ -51,12 +61,6 @@ class CostViewController: TabViewController {
                 self?.studentButton.setTitle(self?.dutInfo.studentNumber, for: .normal)
             }
         }
-        dataSource = TestViewDataSource()
-        dataSource.freshUIHandler = { [weak self] in
-            self?.tableview.reloadData()
-        }
-        dataSource.tests = testInfo.allTests
-        tableview.dataSource = dataSource
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,18 +98,14 @@ class CostViewController: TabViewController {
             accounts.removeLast()
             KeyInfo.updateAccounts(accounts: accounts)
             self?.dutInfo = DUTInfo()
+            self?.dutInfo.delegate = self
             self?.performLogin()
             CourseInfo.deleteCourse()
             TestInfo.deleteTest()
-            self?.testInfo = TestInfo()
             CacheInfo.deleteCache()
-            self?.cacheInfo = CacheInfo()
-        }
-        let changeAccountAction = UIAlertAction(title: "切换账号", style: .default) { [weak self] _ in
-            self?.performSegue(withIdentifier: "ChangeAccount", sender: self)
+            self?.infoInit()
         }
         alertController.addAction(logoutAction)
-        alertController.addAction(changeAccountAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
     }
