@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DUTInfo
 
 class ScheduleViewController: TabViewController, TeachWeekDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -21,7 +22,7 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
         dataSource = ScheduleViewDataSource()
         collectionView.dataSource = dataSource
         dataSource.controller = self
-        dataSource.freshUIHandler = { [unowned self] in
+        dataSource.freshUIHandler = {
             self.collectionView.reloadData()
         }
         dataSource.data = courseInfo.coursesThisWeek(dataSource.data.date)
@@ -43,23 +44,20 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
         }
     }
     
-    override func setSchedule(_ courseArray: [[String : String]]) {
-        courseInfo.allCourseData = courseArray
-        loadScheduleButton.isHidden = true
-        self.getScheduleThisWeek()
-        activityIndicator.stopAnimating()
-    }
-    
     @IBAction func loadSchedule() {
         activityIndicator.startAnimating()
-        dutInfo.loginTeachSite(succeed: { [weak self] in
-            self?.dutInfo.courseInfo()
-        }, failed: { [weak self] in
-            self?.loginHandler = { [weak self] in
-                self?.dutInfo.courseInfo()
+        DispatchQueue.global().async { [weak self] in
+            if self?.dutInfo.loginTeachSite() ?? false {
+                self?.courseInfo.allCourseData = self?.dutInfo.courseInfo()
+                self?.getScheduleThisWeek()
+                DispatchQueue.main.async { [weak self] in
+                    self?.loadScheduleButton.isHidden = true
+                    self?.activityIndicator.stopAnimating()
+                }
+            } else {
+                self?.performLogin()
             }
-            self?.performLogin()
-        })
+        }
     }
     
     @IBAction func changeSchedule(_ sender: UISwipeGestureRecognizer) {

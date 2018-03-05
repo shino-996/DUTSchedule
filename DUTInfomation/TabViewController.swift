@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import DUTInfo
 
 //所有tab页面的基类, 便于进行账号信息的依赖注入
-class TabViewController: UIViewController, DUTInfoDelegate {
+class TabViewController: UIViewController {
     var dutInfo: DUTInfo!
     var loginHandler: (() -> Void)?
     
@@ -25,12 +26,4 @@ class TabViewController: UIViewController, DUTInfoDelegate {
             destination.loginHandler = loginHandler
         }
     }
-    
-    func setNetCost(_ netCost: String) {}
-    func setNetFlow(_ netFlow: String) {}
-    func setEcardCost(_ ecardCost: String) {}
-    func setSchedule(_ courseArray: [[String : String]]) {}
-    func setTest(_ testArray: [[String : String]]) {}
-    func setPersonName(_ personName: String) {}
-    func netErrorHandle(_ error: Error) {}
 }

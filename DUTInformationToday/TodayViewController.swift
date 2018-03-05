@@ -8,6 +8,7 @@
 
 import UIKit
 import NotificationCenter
+import DUTInfo
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var netLabel: UILabel!
@@ -28,31 +29,30 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if #available(iOSApplicationExtension 10.0, *) {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
-        dutInfo = DUTInfo()
+        dutInfo = DUTInfo(studentNumber: "", teachPassword: "", portalPassword: "")
         if let studentNumber = KeyInfo.getCurrentAccount()?["number"] {
             let (teachPassword, portalPassword) = KeyInfo.loadPassword(studentNumber: studentNumber)
             dutInfo.studentNumber = studentNumber
             dutInfo.teachPassword = teachPassword
             dutInfo.portalPassword = portalPassword
         }
-        dutInfo.delegate = self
         courseInfo = CourseInfo()
         cacheInfo = CacheInfo()
         cacheInfo.netCostHandle = { [weak self] in
             DispatchQueue.main.async {
-                self?.netLabel.text = (self?.cacheInfo.netFlow ?? "") + "/" + (self?.cacheInfo.netCost ?? "")
+                self?.netLabel.text = (self?.cacheInfo.netFlowText ?? "") + "/" + (self?.cacheInfo.netCostText ?? "")
                 self?.netActivity.stopAnimating()
             }
         }
         cacheInfo.netFlowHandle = { [weak self] in
             DispatchQueue.main.async {
-                self?.netLabel.text = (self?.cacheInfo.netFlow ?? "") + "/" + (self?.cacheInfo.netCost ?? "")
+                self?.netLabel.text = (self?.cacheInfo.netFlowText ?? "") + "/" + (self?.cacheInfo.netCostText ?? "")
                 self?.netActivity.stopAnimating()
             }
         }
         cacheInfo.ecardCostHandle = { [weak self] in
             DispatchQueue.main.async {
-                self?.ecardLabel.text = self?.cacheInfo.ecardCost
+                self?.ecardLabel.text = self?.cacheInfo.ecardText
                 self?.ecardActivity.stopAnimating()
             }
         }
@@ -67,15 +67,21 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if cacheInfo.shouldRefresh() {
             ecardActivity.startAnimating()
             netActivity.startAnimating()
-            dutInfo.loginNewPortalSite(succeed: { [weak self] in
-                self?.dutInfo.newPortalNetInfo()
-            }, failed: { [weak self] in
-                DispatchQueue.main.async { [weak self] in
-                    self?.ecardActivity.stopAnimating()
-                    self?.netActivity.stopAnimating()
-                    self?.noCourseButton.setTitle("未登录账号", for: .normal)
+            DispatchQueue.global().async { [weak self] in
+                if self?.dutInfo.loginPortal() ?? false {
+                    let (cost, flow) = self!.dutInfo.netInfo()
+                    self?.cacheInfo.netCost = cost
+                    self?.cacheInfo.netFlow = flow
+                    let ecard = self!.dutInfo.moneyInfo()
+                    self?.cacheInfo.ecardCost = ecard
+                } else {
+                    DispatchQueue.main.async { [weak self] in
+                        self?.ecardActivity.stopAnimating()
+                        self?.netActivity.stopAnimating()
+                        self?.noCourseButton.setTitle("未登录账号", for: .normal)
+                    }
                 }
-            })
+            }
             completionHandler(.newData)
         } else {
             completionHandler(.noData)
@@ -146,23 +152,4 @@ extension TodayViewController {
             courseTableView.reloadRows(at: [index], with: .automatic)
         }
     }
-}
-
-extension TodayViewController: DUTInfoDelegate {
-    func setEcardCost(_ ecardCost: String) {
-        cacheInfo.ecardCost = ecardCost
-    }
-    
-    func setNetCost(_ netCost: String) {
-        cacheInfo.netCost = netCost
-    }
-    
-    func setNetFlow(_ netFlow: String) {
-        cacheInfo.netFlow = netFlow
-    }
-    
-    func netErrorHandle(_ error: Error) {}
-    func setSchedule(_ courseArray: [[String : String]]) {}
-    func setTest(_ testArray: [[String : String]]) {}
-    func setPersonName(_ personName: String) {}
 }

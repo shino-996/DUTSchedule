@@ -11,7 +11,9 @@ import UIKit
 class ScheduleViewDataSource: NSObject, UICollectionViewDataSource {
     var data: (courses: [[String: String]]?, weeknumber: Int, date: Date) {
         didSet {
-            freshUIHandler?()
+            DispatchQueue.main.async { [weak self] in
+                self?.freshUIHandler?()
+            }
         }
     }
     weak var controller: TeachWeekDelegate?

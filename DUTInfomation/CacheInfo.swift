@@ -33,27 +33,49 @@ struct CacheInfo {
         }
     }
     
-    var netCost: String {
+    var netCost: Double {
         didSet {
-            fileDictionary?["netcost"] = netCost
+            fileDictionary?["netcost"] = netCostText
             fileDictionary?.write(to: fileURL, atomically: true)
             netCostHandle?()
         }
     }
     
-    var netFlow: String {
+    var netCostText: String {
+        get {
+            return "\(netCost)元"
+        }
+    }
+    
+    var netFlow: Double {
         didSet {
-            fileDictionary?["netflow"] = netFlow
+            fileDictionary?["netflow"] = netFlowText
             fileDictionary?.write(to: fileURL, atomically: true)
             self.netFlowHandle?()
         }
     }
     
-    var ecardCost: String {
+    var netFlowText: String {
+        get {
+            if netFlow > 1024 {
+                return String(format: "%.1lfGB", netFlow / 1024)
+            } else {
+                return "\(netFlow)MB"
+            }
+        }
+    }
+    
+    var ecardCost: Double {
         didSet {
-            fileDictionary?["ecardcost"] = ecardCost
+            fileDictionary?["ecardcost"] = ecardText
             fileDictionary?.write(to: fileURL, atomically: true)
             ecardCostHandle?()
+        }
+    }
+    
+    var ecardText: String {
+        get {
+            return "\(ecardCost)元"
         }
     }
     
@@ -76,11 +98,11 @@ struct CacheInfo {
         if fileDictionary == nil {
             fileDictionary = NSMutableDictionary()
         }
-        let dictionary = fileDictionary as? [String: String]
-        netCost = dictionary?["netcost"] ?? ""
-        netFlow = dictionary?["netflow"] ?? ""
-        ecardCost = dictionary?["ecardcost"] ?? ""
-        personName = dictionary?["personname"] ?? ""
+        let dictionary = fileDictionary as? [String: Any]
+        netCost = (dictionary?["netcost"] as? Double) ?? 0
+        netFlow = (dictionary?["netflow"] as? Double) ?? 0
+        ecardCost = (dictionary?["ecardcost"] as? Double) ?? 0
+        personName = (dictionary?["personname"] as? String) ?? ""
     }
     
     func shouldRefresh() -> Bool {

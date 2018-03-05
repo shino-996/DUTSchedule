@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DUTInfo
 
 class LoginTeachSiteViewController: UIViewController {
     @IBOutlet weak var studentNumber: UITextField!
@@ -31,16 +32,12 @@ class LoginTeachSiteViewController: UIViewController {
     @IBAction func LoginTeachSite() {
         dutInfo.studentNumber = studentNumber.text ?? ""
         dutInfo.teachPassword = password.text ?? ""
-        dutInfo.loginTeachSite(succeed: loginSucceed, failed: loginFailed)
-    }
-    
-    func loginSucceed() {
-        performSegue(withIdentifier: "LoginPortal", sender: self)
-    }
-    
-    func loginFailed() {
-        DispatchQueue.main.async {
-            self.loginFailedLabel.isHidden = false
+        if dutInfo.loginTeachSite() {
+            performSegue(withIdentifier: "LoginPortal", sender: self)
+        } else {
+            DispatchQueue.main.async {
+                self.loginFailedLabel.isHidden = false
+            }
         }
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DUTInfo
 
 class LoginPortalSiteViewController: UIViewController {
     @IBOutlet weak var studentNumber: UITextField!
@@ -26,23 +27,19 @@ class LoginPortalSiteViewController: UIViewController {
     @IBAction func LoginPortalSite() {
         dutInfo.studentNumber = studentNumber.text ?? ""
         dutInfo.portalPassword = password.text ?? ""
-        dutInfo.loginNewPortalSite(succeed: loginSucceed, failed: loginFailed)
-    }
-    
-    func loginSucceed() {
-        let studentNumber = number!
-        KeyInfo.savePassword(studentNumber: studentNumber,
-                             teachPassword: teachPassword,
-                             portalPassword: password.text!)
-        var accounts = KeyInfo.getAccounts() ?? [[String: String]]()
-        accounts.append(["name": "XXX", "number": studentNumber])
-        KeyInfo.updateAccounts(accounts: accounts)
-        self.navigationController?.dismiss(animated: true, completion: loginHandler)
-    }
-    
-    func loginFailed() {
-        DispatchQueue.main.async {
-            self.loginFailedLabel.isHidden = false
+        if dutInfo.loginPortal() {
+            let studentNumber = number!
+            KeyInfo.savePassword(studentNumber: studentNumber,
+                                 teachPassword: teachPassword,
+                                 portalPassword: password.text!)
+            var accounts = KeyInfo.getAccounts() ?? [[String: String]]()
+            accounts.append(["name": "XXX", "number": studentNumber])
+            KeyInfo.updateAccounts(accounts: accounts)
+            self.navigationController?.dismiss(animated: true, completion: loginHandler)
+        } else {
+            DispatchQueue.main.async {
+                self.loginFailedLabel.isHidden = false
+            }
         }
     }
     

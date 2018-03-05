@@ -1,25 +1,37 @@
 PODS:
+  - DUTInfo (0.0.3):
+    - Fuzi
+    - PromiseKit (~> 4)
   - Fuzi (2.0.1)
-  - PromiseKit (4.5.1):
-    - PromiseKit/Foundation (= 4.5.1)
-    - PromiseKit/QuartzCore (= 4.5.1)
-    - PromiseKit/UIKit (= 4.5.1)
-  - PromiseKit/CorePromise (4.5.1)
-  - PromiseKit/Foundation (4.5.1):
+  - PromiseKit (4.5.2):
+    - PromiseKit/Foundation (= 4.5.2)
+    - PromiseKit/QuartzCore (= 4.5.2)
+    - PromiseKit/UIKit (= 4.5.2)
+  - PromiseKit/CorePromise (4.5.2)
+  - PromiseKit/Foundation (4.5.2):
     - PromiseKit/CorePromise
-  - PromiseKit/QuartzCore (4.5.1):
+  - PromiseKit/QuartzCore (4.5.2):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (4.5.1):
+  - PromiseKit/UIKit (4.5.2):
     - PromiseKit/CorePromise
 
 DEPENDENCIES:
-  - Fuzi
-  - PromiseKit
+  - DUTInfo (from `https://github.com/shino-996/DUTInfo.git`)
+
+EXTERNAL SOURCES:
+  DUTInfo:
+    :git: https://github.com/shino-996/DUTInfo.git
+
+CHECKOUT OPTIONS:
+  DUTInfo:
+    :commit: d8a96f53c713533825bad5b9776a9e55ad46cb91
+    :git: https://github.com/shino-996/DUTInfo.git
 
 SPEC CHECKSUMS:
+  DUTInfo: 8d94b1cd11b6483db574c5cd869cff60ca95f74d
   Fuzi: f64983dea705491d3aedd32351247a09523e7efd
-  PromiseKit: 445dac9b2c3c3b4b31b5f842bc325700b848a8bd
+  PromiseKit: 743e497a5f505a470d3bbbf4ce0663c1268af0a4
 
-PODFILE CHECKSUM: 508a7320274a2ef1eca7488aa88e6952110ed938
+PODFILE CHECKSUM: dcd8d9512f4d5688cef48fd377470743093e1382
 
 COCOAPODS: 1.4.0

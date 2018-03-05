@@ -1,0 +1,32 @@
+{
+  "name": "DUTInfo",
+  "version": "0.0.3",
+  "summary": "大连理工大学学生相关信息的查询",
+  "description": "大连理工大学学生相关信息的查询，当然是用自己的账号查自己的信息→_→",
+  "homepage": "http://github.com/shino-996/DUTInfo",
+  "license": "MIT",
+  "authors": {
+    "shino-996": "shino@shino.space"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source": {
+    "git": "https://github.com/shino-996/DUTInfo.git",
+    "tag": "0.0.3"
+  },
+  "source_files": "DUTInfoCore",
+  "resources": "DUTInfoCore/des.js",
+  "requires_arc": true,
+  "xcconfig": {
+    "HEADER_SEARCH_PATHS": "$(SDKROOT)/usr/include/libxml2"
+  },
+  "dependencies": {
+    "Fuzi": [
+
+    ],
+    "PromiseKit": [
+      "~> 4"
+    ]
+  }
+}

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DUTInfo
 
 class CostViewController: TabViewController {
     @IBOutlet weak var netCostLabel: UILabel!
@@ -39,19 +40,19 @@ class CostViewController: TabViewController {
         cacheInfo = CacheInfo()
         cacheInfo.netCostHandle = { [weak self] in
             DispatchQueue.main.async {
-                self?.netCostLabel.text = self?.cacheInfo.netCost
+                self?.netCostLabel.text = self?.cacheInfo.netCostText
                 self?.netCostActivity.stopAnimating()
             }
         }
         cacheInfo.netFlowHandle = { [weak self] in
             DispatchQueue.main.async {
-                self?.netFlowLabel.text = self?.cacheInfo.netFlow
+                self?.netFlowLabel.text = self?.cacheInfo.netFlowText
                 self?.netFlowActivity.stopAnimating()
             }
         }
         cacheInfo.ecardCostHandle = { [weak self] in
             DispatchQueue.main.async {
-                self?.ecardCostLabel.text = self?.cacheInfo.ecardCost
+                self?.ecardCostLabel.text = self?.cacheInfo.ecardText
                 self?.ecardActivity.stopAnimating()
             }
         }
@@ -69,22 +70,34 @@ class CostViewController: TabViewController {
             netCostActivity.startAnimating()
             netFlowActivity.startAnimating()
             ecardActivity.startAnimating()
-            dutInfo.loginNewPortalSite(succeed: { [weak self] in
-                self?.dutInfo.newPortalNetInfo()
-                self?.dutInfo.newPortalPersonInfo()
-            }, failed: { [weak self] in
-                self?.netCostActivity.stopAnimating()
-                self?.netFlowActivity.stopAnimating()
-                self?.ecardActivity.stopAnimating()
-                self?.performLogin()
-            })
+            DispatchQueue.global().async { [weak self] in
+                if self?.dutInfo.loginPortal() ?? false {
+                    let (cost, flow) = self!.dutInfo.netInfo()
+                    self?.cacheInfo.netCost = cost
+                    self?.cacheInfo.netFlow = flow
+                    let ecard = self!.dutInfo.moneyInfo()
+                    self?.cacheInfo.ecardCost = ecard
+                    let name = self!.dutInfo.personInfo()
+                    self?.cacheInfo.personName = name
+                } else {
+                    DispatchQueue.main.async {
+                        self?.netCostActivity.stopAnimating()
+                        self?.netFlowActivity.stopAnimating()
+                        self?.ecardActivity.stopAnimating()
+                    }
+                    self?.performLogin()
+                }
+            }
         }
         if testInfo.allTests == nil {
-            dutInfo.loginTeachSite(succeed: { [weak self] in
-                self?.dutInfo.testInfo()
-            }, failed: { [weak self] in
-                self?.performLogin()
-            })
+            DispatchQueue.global().async { [weak self] in
+                if self?.dutInfo.loginTeachSite() ?? false {
+                    self?.testInfo.allTests = self?.dutInfo.testInfo()
+                    self?.dataSource.tests = self?.testInfo.allTests
+                } else {
+                    self?.performLogin()
+                }
+            }
         }
     }
     
@@ -97,8 +110,7 @@ class CostViewController: TabViewController {
             var accounts = KeyInfo.getAccounts()!
             accounts.removeLast()
             KeyInfo.updateAccounts(accounts: accounts)
-            self?.dutInfo = DUTInfo()
-            self?.dutInfo.delegate = self
+            self?.dutInfo = DUTInfo(studentNumber: "", teachPassword: "", portalPassword: "")
             self?.performLogin()
             CourseInfo.deleteCourse()
             TestInfo.deleteTest()
@@ -108,26 +120,5 @@ class CostViewController: TabViewController {
         alertController.addAction(logoutAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
-    }
-    
-    override func setEcardCost(_ ecardCost: String) {
-        cacheInfo.ecardCost = ecardCost
-    }
-    
-    override func setNetCost(_ netCost: String) {
-        cacheInfo.netCost = netCost
-    }
-    
-    override func setNetFlow(_ netFlow: String) {
-        cacheInfo.netFlow = netFlow
-    }
-    
-    override func setPersonName(_ personName: String) {
-        cacheInfo.personName = personName
-    }
-    
-    override func setTest(_ testArray: [[String : String]]) {
-        testInfo.allTests = testArray
-        dataSource.tests = testInfo.allTests
     }
 }

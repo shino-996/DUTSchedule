@@ -11,7 +11,9 @@ import UIKit
 class TestViewDataSource: NSObject, UITableViewDataSource {
     var tests: [[String: String]]? {
         didSet {
-            freshUIHandler?()
+            DispatchQueue.main.async { [weak self] in
+                self?.freshUIHandler?()
+            }
         }
     }
     var freshUIHandler: (() -> Void)?

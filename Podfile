@@ -4,14 +4,12 @@ target 'DUTInfomation' do
   use_frameworks!
   swift_version = "4.0"
 
-  pod "PromiseKit"
-  pod "Fuzi"
+  pod "DUTInfo", :git => "https://github.com/shino-996/DUTInfo.git"
 end
 
 target 'DUTInformationToday' do
   use_frameworks!
   swift_version = "4.0"
 
-  pod "PromiseKit"
-  pod "Fuzi"
+  pod "DUTInfo", :git => "https://github.com/shino-996/DUTInfo.git"
 end
