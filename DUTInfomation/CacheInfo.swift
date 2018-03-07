@@ -12,35 +12,18 @@ struct CacheInfo {
     private var fileURL: URL
     private var fileDictionary: NSMutableDictionary?
     
-    var netCostHandle: (() -> Void)? {
-        didSet {
-            netCostHandle?()
-        }
-    }
-    var netFlowHandle: (() -> Void)? {
-        didSet {
-            netFlowHandle?()
-        }
-    }
-    var ecardCostHandle: (() -> Void)? {
-        didSet {
-            ecardCostHandle?()
-        }
-    }
-    var personNameHandle: (() -> Void)? {
-        didSet {
-            personNameHandle?()
-        }
-    }
+    var netCostHandle: ((String) -> Void)?
+    var netFlowHandle: ((String) -> Void)?
+    var ecardCostHandle: ((String) -> Void)?
+    var personNameHandle: ((String) -> Void)?
     
     var netCost: Double {
         didSet {
-            fileDictionary?["netcost"] = netCostText
+            fileDictionary?["netcost"] = netCost
             fileDictionary?.write(to: fileURL, atomically: true)
-            netCostHandle?()
+            netCostHandle?(netCostText)
         }
     }
-    
     var netCostText: String {
         get {
             return "\(netCost)元"
@@ -49,12 +32,11 @@ struct CacheInfo {
     
     var netFlow: Double {
         didSet {
-            fileDictionary?["netflow"] = netFlowText
+            fileDictionary?["netflow"] = netFlow
             fileDictionary?.write(to: fileURL, atomically: true)
-            self.netFlowHandle?()
+            self.netFlowHandle?(netFlowText)
         }
     }
-    
     var netFlowText: String {
         get {
             if netFlow > 1024 {
@@ -67,12 +49,11 @@ struct CacheInfo {
     
     var ecardCost: Double {
         didSet {
-            fileDictionary?["ecardcost"] = ecardText
+            fileDictionary?["ecardcost"] = ecardCost
             fileDictionary?.write(to: fileURL, atomically: true)
-            ecardCostHandle?()
+            ecardCostHandle?(ecardText)
         }
     }
-    
     var ecardText: String {
         get {
             return "\(ecardCost)元"
@@ -83,7 +64,7 @@ struct CacheInfo {
         didSet {
             fileDictionary?["personname"] = personName
             fileDictionary?.write(to: fileURL, atomically: true)
-            personNameHandle?()
+            personNameHandle?(personName)
         }
     }
     
@@ -106,6 +87,10 @@ struct CacheInfo {
     }
     
     func shouldRefresh() -> Bool {
+        netCostHandle?(netCostText)
+        netFlowHandle?(netFlowText)
+        ecardCostHandle?(ecardText)
+        personNameHandle?(personName)
         let date = Date()
         let nowDate = date.timeIntervalSince1970
         let dictionary = fileDictionary as? [String: String]

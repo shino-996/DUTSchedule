@@ -51,6 +51,7 @@ struct KeyInfo {
         let keychainQuery = [kSecClass: kSecClassGenericPassword,
                              kSecAttrService: service,
                              kSecAttrAccount: studentNumber,
+                             kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
                              kSecValueData: data] as CFDictionary
         let status = SecItemAdd(keychainQuery, nil)
         if status != errSecSuccess {

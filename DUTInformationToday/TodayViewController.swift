@@ -38,21 +38,21 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
         courseInfo = CourseInfo()
         cacheInfo = CacheInfo()
-        cacheInfo.netCostHandle = { [weak self] in
+        cacheInfo.netCostHandle = { [weak self] cost in
             DispatchQueue.main.async {
-                self?.netLabel.text = (self?.cacheInfo.netFlowText ?? "") + "/" + (self?.cacheInfo.netCostText ?? "")
+                self?.netLabel.text = (self?.cacheInfo.netFlowText ?? "") + "/" + cost
                 self?.netActivity.stopAnimating()
             }
         }
-        cacheInfo.netFlowHandle = { [weak self] in
+        cacheInfo.netFlowHandle = { [weak self] flow in
             DispatchQueue.main.async {
-                self?.netLabel.text = (self?.cacheInfo.netFlowText ?? "") + "/" + (self?.cacheInfo.netCostText ?? "")
+                self?.netLabel.text = flow + "/" + (self?.cacheInfo.netCostText ?? "")
                 self?.netActivity.stopAnimating()
             }
         }
-        cacheInfo.ecardCostHandle = { [weak self] in
+        cacheInfo.ecardCostHandle = { [weak self] ecard in
             DispatchQueue.main.async {
-                self?.ecardLabel.text = self?.cacheInfo.ecardText
+                self?.ecardLabel.text = ecard
                 self?.ecardActivity.stopAnimating()
             }
         }

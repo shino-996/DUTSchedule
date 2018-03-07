@@ -38,27 +38,27 @@ class CostViewController: TabViewController {
     func infoInit() {
         testInfo = TestInfo()
         cacheInfo = CacheInfo()
-        cacheInfo.netCostHandle = { [weak self] in
+        cacheInfo.netCostHandle = { [weak self] cost in
             DispatchQueue.main.async {
-                self?.netCostLabel.text = self?.cacheInfo.netCostText
+                self?.netCostLabel.text = cost
                 self?.netCostActivity.stopAnimating()
             }
         }
-        cacheInfo.netFlowHandle = { [weak self] in
+        cacheInfo.netFlowHandle = { [weak self] flow in
             DispatchQueue.main.async {
-                self?.netFlowLabel.text = self?.cacheInfo.netFlowText
+                self?.netFlowLabel.text = flow
                 self?.netFlowActivity.stopAnimating()
             }
         }
-        cacheInfo.ecardCostHandle = { [weak self] in
+        cacheInfo.ecardCostHandle = { [weak self] ecard in
             DispatchQueue.main.async {
-                self?.ecardCostLabel.text = self?.cacheInfo.ecardText
+                self?.ecardCostLabel.text = ecard
                 self?.ecardActivity.stopAnimating()
             }
         }
-        cacheInfo.personNameHandle = { [weak self] in
+        cacheInfo.personNameHandle = { [weak self] name in
             DispatchQueue.main.async {
-                self?.nameButton.setTitle(self?.cacheInfo.personName, for: .normal)
+                self?.nameButton.setTitle(name, for: .normal)
                 self?.studentButton.setTitle(self?.dutInfo.studentNumber, for: .normal)
             }
         }
