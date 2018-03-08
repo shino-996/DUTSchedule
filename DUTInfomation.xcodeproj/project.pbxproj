@@ -32,6 +32,18 @@
 		B4B70E841F0A211800174471 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E821F0A211800174471 /* Main.storyboard */; };
 		B4B70E861F0A211800174471 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E851F0A211800174471 /* Assets.xcassets */; };
 		B4B70E891F0A211800174471 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E871F0A211800174471 /* LaunchScreen.storyboard */; };
+		B4BD1CD420511BDA00C18ACB /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1CD220511BDA00C18ACB /* Interface.storyboard */; };
+		B4BD1CD620511BDA00C18ACB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1CD520511BDA00C18ACB /* Assets.xcassets */; };
+		B4BD1CDD20511BDA00C18ACB /* DUTInformationWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B4BD1CDC20511BDA00C18ACB /* DUTInformationWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B4BD1CE220511BDA00C18ACB /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CE120511BDA00C18ACB /* InterfaceController.swift */; };
+		B4BD1CE420511BDA00C18ACB /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CE320511BDA00C18ACB /* ExtensionDelegate.swift */; };
+		B4BD1CE620511BDA00C18ACB /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CE520511BDA00C18ACB /* ComplicationController.swift */; };
+		B4BD1CE820511BDA00C18ACB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1CE720511BDA00C18ACB /* Assets.xcassets */; };
+		B4BD1CEC20511BDB00C18ACB /* DUTInformationWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B4BD1CD020511BDA00C18ACB /* DUTInformationWatch.app */; };
+		B4BD1CF420511C6B00C18ACB /* CourseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B499362F1F7B8561005AB88F /* CourseInfo.swift */; };
+		B4BD1CF620511E1E00C18ACB /* CourseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CF520511E1E00C18ACB /* CourseRow.swift */; };
+		B4BD1CF820511E2700C18ACB /* NetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CF720511E2700C18ACB /* NetRow.swift */; };
+		B4BD1CFA20511E2D00C18ACB /* EcardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CF920511E2D00C18ACB /* EcardRow.swift */; };
 		B4CB3FDB1F1209FE0059591C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4CB3FDA1F1209FE0059591C /* NotificationCenter.framework */; };
 		B4CB3FE11F1209FE0059591C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4CB3FDF1F1209FE0059591C /* MainInterface.storyboard */; };
 		B4CB3FE51F1209FE0059591C /* DUTInformationToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B4CB3FD91F1209FE0059591C /* DUTInformationToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -45,6 +57,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B4BD1CDE20511BDA00C18ACB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4B70E731F0A211800174471 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B4BD1CDB20511BDA00C18ACB;
+			remoteInfo = "DUTInformationWatch Extension";
+		};
+		B4BD1CEA20511BDB00C18ACB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4B70E731F0A211800174471 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B4BD1CCF20511BDA00C18ACB;
+			remoteInfo = DUTInformationWatch;
+		};
 		B4CB3FE31F1209FE0059591C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B4B70E731F0A211800174471 /* Project object */;
@@ -55,6 +81,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		B45E81FD204FB82A00D03EAA /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				B4BD1CEC20511BDB00C18ACB /* DUTInformationWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4BD1CF020511BDB00C18ACB /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B4BD1CDD20511BDA00C18ACB /* DUTInformationWatch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B4CB3FE91F1209FE0059591C /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -79,13 +127,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		29C5673BC0153D31A850CBE2 /* Pods_DUTInfoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DUTInfoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A48F5445B25D03E41EEE238 /* Pods-DUTInformationToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInformationToday.release.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInformationToday/Pods-DUTInformationToday.release.xcconfig"; sourceTree = "<group>"; };
 		6718B60E6224544F999F3ADC /* Pods-DutInfoKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DutInfoKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DutInfoKit/Pods-DutInfoKit.debug.xcconfig"; sourceTree = "<group>"; };
 		89DEC4F407A4E6B10D2EDF87 /* Pods-DUTInfomation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfomation.release.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation.release.xcconfig"; sourceTree = "<group>"; };
 		9CDF36D39840F6461FF0D3E1 /* Pods-DUTInfoKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfoKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfoKit/Pods-DUTInfoKit.debug.xcconfig"; sourceTree = "<group>"; };
 		A2C577CF4047CFE0F0EA4929 /* Pods-DUTInfomation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfomation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation.debug.xcconfig"; sourceTree = "<group>"; };
-		AFEEDEA074D99C2A95B6AF6E /* Pods_DutInfoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DutInfoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B40159071FEA9FC900462295 /* CacheInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CacheInfo.swift; path = DUTInfomation/CacheInfo.swift; sourceTree = "<group>"; };
 		B4173D711FE2642000B6E527 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B422673E1F692DF500D161CD /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +156,20 @@
 		B4B70E851F0A211800174471 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4B70E881F0A211800174471 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B4B70E8A1F0A211800174471 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4BD1CD020511BDA00C18ACB /* DUTInformationWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DUTInformationWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4BD1CD320511BDA00C18ACB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		B4BD1CD520511BDA00C18ACB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B4BD1CD720511BDA00C18ACB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4BD1CDC20511BDA00C18ACB /* DUTInformationWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DUTInformationWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4BD1CE120511BDA00C18ACB /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		B4BD1CE320511BDA00C18ACB /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		B4BD1CE520511BDA00C18ACB /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		B4BD1CE720511BDA00C18ACB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B4BD1CE920511BDB00C18ACB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4BD1CF520511E1E00C18ACB /* CourseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRow.swift; sourceTree = "<group>"; };
+		B4BD1CF720511E2700C18ACB /* NetRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetRow.swift; sourceTree = "<group>"; };
+		B4BD1CF920511E2D00C18ACB /* EcardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcardRow.swift; sourceTree = "<group>"; };
+		B4BD1CFB20511F8700C18ACB /* DUTInformationWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DUTInformationWatch Extension.entitlements"; sourceTree = "<group>"; };
 		B4CB3FD91F1209FE0059591C /* DUTInformationToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DUTInformationToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4CB3FDA1F1209FE0059591C /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		B4CB3FE01F1209FE0059591C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -137,6 +197,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B4BD1CD920511BDA00C18ACB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B4CB3FD61F1209FE0059591C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -154,8 +221,6 @@
 			children = (
 				FA733EC1FDC5F35321DDDEEB /* Pods_DUTInfomation.framework */,
 				B4CB3FDA1F1209FE0059591C /* NotificationCenter.framework */,
-				AFEEDEA074D99C2A95B6AF6E /* Pods_DutInfoKit.framework */,
-				29C5673BC0153D31A850CBE2 /* Pods_DUTInfoKit.framework */,
 				E56B0E628D8B1E3594C810D2 /* Pods_DUTInformationToday.framework */,
 			);
 			name = Frameworks;
@@ -257,6 +322,8 @@
 				B4A211541FDFC1BD0055B611 /* InfoData */,
 				B4B70E7D1F0A211800174471 /* DUTInfomation */,
 				B4CB3FDC1F1209FE0059591C /* DUTInformationToday */,
+				B4BD1CD120511BDA00C18ACB /* DUTInformationWatch */,
+				B4BD1CE020511BDA00C18ACB /* DUTInformationWatch Extension */,
 				B4B70E7C1F0A211800174471 /* Products */,
 				87FE56C3B63F9CCFCFF5089C /* Pods */,
 				672C0771219B04B4B7C8E8E1 /* Frameworks */,
@@ -268,6 +335,8 @@
 			children = (
 				B4B70E7B1F0A211800174471 /* DUTInfomation.app */,
 				B4CB3FD91F1209FE0059591C /* DUTInformationToday.appex */,
+				B4BD1CD020511BDA00C18ACB /* DUTInformationWatch.app */,
+				B4BD1CDC20511BDA00C18ACB /* DUTInformationWatch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -283,6 +352,32 @@
 				B46A6C091FE9069D0041DBBF /* Other Files */,
 			);
 			path = DUTInfomation;
+			sourceTree = "<group>";
+		};
+		B4BD1CD120511BDA00C18ACB /* DUTInformationWatch */ = {
+			isa = PBXGroup;
+			children = (
+				B4BD1CD220511BDA00C18ACB /* Interface.storyboard */,
+				B4BD1CD520511BDA00C18ACB /* Assets.xcassets */,
+				B4BD1CD720511BDA00C18ACB /* Info.plist */,
+			);
+			path = DUTInformationWatch;
+			sourceTree = "<group>";
+		};
+		B4BD1CE020511BDA00C18ACB /* DUTInformationWatch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B4BD1CFB20511F8700C18ACB /* DUTInformationWatch Extension.entitlements */,
+				B4BD1CE120511BDA00C18ACB /* InterfaceController.swift */,
+				B4BD1CE320511BDA00C18ACB /* ExtensionDelegate.swift */,
+				B4BD1CF520511E1E00C18ACB /* CourseRow.swift */,
+				B4BD1CF720511E2700C18ACB /* NetRow.swift */,
+				B4BD1CF920511E2D00C18ACB /* EcardRow.swift */,
+				B4BD1CE520511BDA00C18ACB /* ComplicationController.swift */,
+				B4BD1CE720511BDA00C18ACB /* Assets.xcassets */,
+				B4BD1CE920511BDB00C18ACB /* Info.plist */,
+			);
+			path = "DUTInformationWatch Extension";
 			sourceTree = "<group>";
 		};
 		B4CB3FDC1F1209FE0059591C /* DUTInformationToday */ = {
@@ -313,16 +408,52 @@
 				263F24AE1BF0BC5C836F6AE2 /* [CP] Copy Pods Resources */,
 				B4CB3FE91F1209FE0059591C /* Embed App Extensions */,
 				B4CB3FFD1F120E860059591C /* Embed Frameworks */,
+				B45E81FD204FB82A00D03EAA /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				B4CB3FE41F1209FE0059591C /* PBXTargetDependency */,
+				B4BD1CEB20511BDB00C18ACB /* PBXTargetDependency */,
 			);
 			name = DUTInfomation;
 			productName = DUTInfomation;
 			productReference = B4B70E7B1F0A211800174471 /* DUTInfomation.app */;
 			productType = "com.apple.product-type.application";
+		};
+		B4BD1CCF20511BDA00C18ACB /* DUTInformationWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4BD1CF120511BDB00C18ACB /* Build configuration list for PBXNativeTarget "DUTInformationWatch" */;
+			buildPhases = (
+				B4BD1CCE20511BDA00C18ACB /* Resources */,
+				B4BD1CF020511BDB00C18ACB /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B4BD1CDF20511BDA00C18ACB /* PBXTargetDependency */,
+			);
+			name = DUTInformationWatch;
+			productName = DUTInformationWatch;
+			productReference = B4BD1CD020511BDA00C18ACB /* DUTInformationWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		B4BD1CDB20511BDA00C18ACB /* DUTInformationWatch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4BD1CED20511BDB00C18ACB /* Build configuration list for PBXNativeTarget "DUTInformationWatch Extension" */;
+			buildPhases = (
+				B4BD1CD820511BDA00C18ACB /* Sources */,
+				B4BD1CD920511BDA00C18ACB /* Frameworks */,
+				B4BD1CDA20511BDA00C18ACB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DUTInformationWatch Extension";
+			productName = "DUTInformationWatch Extension";
+			productReference = B4BD1CDC20511BDA00C18ACB /* DUTInformationWatch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 		B4CB3FD81F1209FE0059591C /* DUTInformationToday */ = {
 			isa = PBXNativeTarget;
@@ -349,7 +480,7 @@
 		B4B70E731F0A211800174471 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = shino;
 				TargetAttributes = {
@@ -363,6 +494,21 @@
 								enabled = 1;
 							};
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
+					B4BD1CCF20511BDA00C18ACB = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = R374EG3MSW;
+						ProvisioningStyle = Automatic;
+					};
+					B4BD1CDB20511BDA00C18ACB = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = R374EG3MSW;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
 						};
@@ -398,6 +544,8 @@
 			targets = (
 				B4B70E7A1F0A211800174471 /* DUTInfomation */,
 				B4CB3FD81F1209FE0059591C /* DUTInformationToday */,
+				B4BD1CCF20511BDA00C18ACB /* DUTInformationWatch */,
+				B4BD1CDB20511BDA00C18ACB /* DUTInformationWatch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -410,6 +558,23 @@
 				B4B70E891F0A211800174471 /* LaunchScreen.storyboard in Resources */,
 				B4B70E861F0A211800174471 /* Assets.xcassets in Resources */,
 				B4B70E841F0A211800174471 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4BD1CCE20511BDA00C18ACB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4BD1CD620511BDA00C18ACB /* Assets.xcassets in Resources */,
+				B4BD1CD420511BDA00C18ACB /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4BD1CDA20511BDA00C18ACB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4BD1CE820511BDA00C18ACB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,6 +708,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B4BD1CD820511BDA00C18ACB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4BD1CF420511C6B00C18ACB /* CourseInfo.swift in Sources */,
+				B4BD1CFA20511E2D00C18ACB /* EcardRow.swift in Sources */,
+				B4BD1CE420511BDA00C18ACB /* ExtensionDelegate.swift in Sources */,
+				B4BD1CF820511E2700C18ACB /* NetRow.swift in Sources */,
+				B4BD1CE220511BDA00C18ACB /* InterfaceController.swift in Sources */,
+				B4BD1CE620511BDA00C18ACB /* ComplicationController.swift in Sources */,
+				B4BD1CF620511E1E00C18ACB /* CourseRow.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B4CB3FD51F1209FE0059591C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -559,6 +738,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B4BD1CDF20511BDA00C18ACB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B4BD1CDB20511BDA00C18ACB /* DUTInformationWatch Extension */;
+			targetProxy = B4BD1CDE20511BDA00C18ACB /* PBXContainerItemProxy */;
+		};
+		B4BD1CEB20511BDB00C18ACB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B4BD1CCF20511BDA00C18ACB /* DUTInformationWatch */;
+			targetProxy = B4BD1CEA20511BDB00C18ACB /* PBXContainerItemProxy */;
+		};
 		B4CB3FE41F1209FE0059591C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B4CB3FD81F1209FE0059591C /* DUTInformationToday */;
@@ -581,6 +770,14 @@
 				B4B70E881F0A211800174471 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		B4BD1CD220511BDA00C18ACB /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B4BD1CD320511BDA00C18ACB /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		B4CB3FDF1F1209FE0059591C /* MainInterface.storyboard */ = {
@@ -737,6 +934,94 @@
 			};
 			name = Release;
 		};
+		B4BD1CEE20511BDB00C18ACB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "DUTInformationWatch Extension/DUTInformationWatch Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R374EG3MSW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "DUTInformationWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Debug;
+		};
+		B4BD1CEF20511BDB00C18ACB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "DUTInformationWatch Extension/DUTInformationWatch Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R374EG3MSW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "DUTInformationWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Release;
+		};
+		B4BD1CF220511BDB00C18ACB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R374EG3MSW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = DUTInformationWatch_Extension;
+				INFOPLIST_FILE = DUTInformationWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Debug;
+		};
+		B4BD1CF320511BDB00C18ACB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R374EG3MSW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = DUTInformationWatch_Extension;
+				INFOPLIST_FILE = DUTInformationWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Release;
+		};
 		B4CB3FE61F1209FE0059591C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B4FE35203A1536D7B2548853 /* Pods-DUTInformationToday.debug.xcconfig */;
@@ -788,6 +1073,24 @@
 			buildConfigurations = (
 				B4B70E8E1F0A211800174471 /* Debug */,
 				B4B70E8F1F0A211800174471 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B4BD1CED20511BDB00C18ACB /* Build configuration list for PBXNativeTarget "DUTInformationWatch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4BD1CEE20511BDB00C18ACB /* Debug */,
+				B4BD1CEF20511BDB00C18ACB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B4BD1CF120511BDB00C18ACB /* Build configuration list for PBXNativeTarget "DUTInformationWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4BD1CF220511BDB00C18ACB /* Debug */,
+				B4BD1CF320511BDB00C18ACB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

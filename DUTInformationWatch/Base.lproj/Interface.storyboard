@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13771" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch42" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="DUTInformationWatch" customModuleProvider="target">
+                    <items>
+                        <table alignment="left" id="p71-g7-qhZ">
+                            <items>
+                                <tableRow identifier="NetRow" id="TQO-Bc-pRR" customClass="NetRow" customModule="DUTInformationWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="3jB-6S-doH">
+                                        <items>
+                                            <label alignment="left" text="校园网:" id="Lfp-9s-ENw">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                            <label alignment="left" text="30GB" id="fAi-sM-ZQs">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                            <label alignment="left" text="/" id="pe6-C3-BTf">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                            <label alignment="left" text="30元" id="PYO-9Y-9jg">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="costLabel" destination="PYO-9Y-9jg" id="TmS-hq-D2B"/>
+                                        <outlet property="flowLable" destination="fAi-sM-ZQs" id="wtE-hK-PY1"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="EcardRow" id="DmP-AI-7MC" customClass="EcardRow" customModule="DUTInformationWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="PZQ-iq-DMc">
+                                        <items>
+                                            <label alignment="left" text="玉兰卡:" id="gJQ-VX-gTi">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                            <label alignment="left" text="60元" id="ieI-K9-5JR">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="ecardLabel" destination="ieI-K9-5JR" id="tpq-8F-pzb"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="CourseRow" id="AfJ-WU-EIa" customClass="CourseRow" customModule="DUTInformationWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="yJW-Ta-OaK">
+                                        <items>
+                                            <label alignment="left" text="第1节   嵌入式系统设计" id="7al-CX-v8B">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                            <label alignment="left" text="综合教学2号楼 B503" id="ric-is-zgl">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="courseLabel" destination="7al-CX-v8B" id="c39-TM-nmG"/>
+                                        <outlet property="placeLabel" destination="ric-is-zgl" id="peN-Ar-ElI"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="SyncRow" id="ohE-Hh-oO3">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="8gV-Kk-Aha">
+                                        <items>
+                                            <label alignment="center" verticalAlignment="center" text="打开手机上的APP 进行数据同步" textAlignment="center" numberOfLines="2" id="K0l-Dx-APc">
+                                                <fontDescription key="font" type="system" pointSize="15"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="informationTable" destination="p71-g7-qhZ" id="QJs-Bf-Hhi"/>
+                    </connections>
+                </controller>
+            </objects>
+        </scene>
+    </scenes>
+</document>

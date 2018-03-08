@@ -42,6 +42,11 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
             alertController.addAction(loadAction)
             present(alertController, animated: true, completion: nil)
         }
+        if session.isReachable {
+            session.sendMessage(["course": courseInfo.allCourseData!], replyHandler: nil, errorHandler: { error in
+                print(error)
+            })
+        }
     }
     
     @IBAction func loadSchedule() {
