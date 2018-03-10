@@ -29,8 +29,8 @@ class TabViewController: UIViewController, WCSessionDelegate {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         if WCSession.isSupported() {
             session.delegate = self
             session.activate()
@@ -39,16 +39,31 @@ class TabViewController: UIViewController, WCSessionDelegate {
     
     func syncData() {
         var message: [[String: String]]
+        var backgroundMessage = [String: String]()
         if let controller = self as? ScheduleViewController {
             message = controller.courseInfo.allCourseData ?? [[String: String]]()
+            let cacheInfo = CacheInfo()
+            backgroundMessage["flow"] = cacheInfo.netFlowText
+            backgroundMessage["cost"] = cacheInfo.netCostText
+            backgroundMessage["ecard"] = cacheInfo.ecardText
         } else {
             let courseInfo = CourseInfo()
             message = courseInfo.allCourseData ?? [[String: String]]()
+            let controller = self as! CostViewController
+            backgroundMessage["flow"] = controller.cacheInfo.netFlowText
+            backgroundMessage["cost"] = controller.cacheInfo.netCostText
+            backgroundMessage["ecard"] = controller.cacheInfo.ecardText
         }
         session.sendMessage(["course": message], replyHandler: nil, errorHandler: { error in
             print("Phone sync error!")
             print(error)
         })
+        do {
+            try session.updateApplicationContext(backgroundMessage)
+        } catch (let error) {
+            print("background message error!")
+            print(error)
+        }
     }
     
     @available(iOS 9.3, *)

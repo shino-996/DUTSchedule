@@ -36,7 +36,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let date = Date()
         if complication.family == .modularLarge {
             let template = CLKComplicationTemplateModularLargeStandardBody()
-            template.headerTextProvider = CLKSimpleTextProvider(text: "shino")
+            template.headerTextProvider = CLKSimpleTextProvider(text: otherString())
             let (course, place) = courseString(date: date)
             template.body1TextProvider = CLKSimpleTextProvider(text: course)
             template.body2TextProvider = CLKSimpleTextProvider(text: place)
@@ -47,6 +47,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             entry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
         }
         handler(entry)
+    }
+    
+    private func otherString() -> String {
+        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")
+        let flow = userDefaults?.string(forKey: "flow") ?? ""
+        let ecard = userDefaults?.string(forKey: "ecard") ?? ""
+        return flow + "/" + ecard
     }
     
     private func courseString(date: Date) -> (course: String, place: String) {
@@ -83,13 +90,17 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         var placeString: String
         if let courseDictionary = courseDictionary {
             courseString = "第" + courseDictionary["coursenumber"]! + "节"
-                               + "   "
+                               + " "
                                + courseDictionary["name"]!
             placeString = courseDictionary["place"]!
         } else {
             courseString = "没有课了~"
             let num = courseInfo.coursesNextDay(date).courses!.count
-            placeString = "明天有\(num)节课orz"
+            if num != 0 {
+                placeString = "明天有\(num)节课orz"
+            } else {
+                placeString = "明天也没有课~~"
+            }
         }
         return (course: courseString, place: placeString)
     }

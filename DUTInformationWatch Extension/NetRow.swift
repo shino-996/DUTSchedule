@@ -11,4 +11,9 @@ import WatchKit
 class NetRow: NSObject {
     @IBOutlet var flowLable: WKInterfaceLabel!
     @IBOutlet var costLabel: WKInterfaceLabel!
+    
+    func prepare(flow: String, cost: String) {
+        flowLable.setText(flow)
+        costLabel.setText(cost)
+    }
 }
