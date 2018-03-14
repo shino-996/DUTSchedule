@@ -9,7 +9,6 @@
 import Foundation
 import Fuzi
 import PromiseKit
-import JavaScriptCore
 
 //新版校园门户信息，可以通过外网访问
 //http://one.dlut.edu.cn/
@@ -111,29 +110,6 @@ extension DUTInfo {
         return newPortalSession.dataTask(with: request)
     }
     
-    //额……新版的门户登录验证信息用了DES加密，我就直接运行js版的算法，不改成swift了
-    func desEncode(_ text: String,
-                   _ para_1: String = "1",
-                   _ para_2: String = "2",
-                   _ para_3: String = "3") -> String {
-        guard let jscontext = JSContext() else {
-            fatalError()
-        }
-        if let jsPath = Bundle(for: type(of: self)).path(forResource: "des", ofType: "js") {
-            let jsStr = try! String(contentsOfFile: jsPath)
-            _ = jscontext.evaluateScript(jsStr)
-        } else {
-            fatalError()
-        }
-        guard let jsFunc = jscontext.objectForKeyedSubscript("strEnc") else {
-            fatalError()
-        }
-        guard let encode = jsFunc.call(withArguments: [text, para_1, para_2, para_3]) else {
-            fatalError()
-        }
-        return encode.toString()
-    }
-    
     func portalLogin(_ data: Data) throws -> URLDataPromise {
         let parseStr = try! HTMLDocument(data: data)
         let lt_ticket = parseStr.body?.children[0].children[6].attr("value")
@@ -154,7 +130,7 @@ extension DUTInfo {
         let url = URL(string: "https://sso.dlut.edu.cn/cas/login;" + cookieString + "?service=https%3A%2F%2Fportal.dlut.edu.cn%2Ftp%2F")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = ("rsa=" + self.desEncode(studentNumber + portalPassword + lt_ticket!) + "&ul=9&pl=14&" + lt_ticket! + "&execution=e1s1&_eventId=submit").data(using: .utf8)!
+        request.httpBody = ("rsa=" + DES.desStr(text: studentNumber + portalPassword + lt_ticket!, key_1: "1", key_2: "2", key_3: "3") + "&ul=9&pl=14&" + lt_ticket! + "&execution=e1s1&_eventId=submit").data(using: .utf8)!
         return newPortalSession.dataTask(with: request)
     }
     
@@ -211,7 +187,7 @@ extension DUTInfo {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        let studentNumber = desEncode(self.studentNumber, "tp", "des", "param")
+        let studentNumber = DES.desStr(text: self.studentNumber, key_1: "tp", key_2: "des", key_3: "param")
         request.httpBody = """
         {
             "ID_NUMBER": "\(studentNumber)"

@@ -7,29 +7,18 @@
 //
 
 import ClockKit
-
+import DUTInfo
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
+    var dutInfo: DUTInfo?
+    var cacheInfo = CacheInfo()
+    let courseInfo = CourseInfo()
     
-    // MARK: - Timeline Configuration
-    
-    func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
-        handler([.forward, .backward])
-    }
-    
-    func getTimelineStartDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
-        handler(nil)
-    }
-    
-    func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
-        handler(nil)
-    }
+    func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {}
     
     func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
         handler(.showOnLockScreen)
     }
-    
-    // MARK: - Timeline Population
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         var entry: CLKComplicationTimelineEntry
@@ -50,17 +39,17 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     private func otherString() -> String {
-        let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")
-        let flow = userDefaults?.string(forKey: "flow") ?? ""
-        let ecard = userDefaults?.string(forKey: "ecard") ?? ""
-        return flow + "/" + ecard
+        var netFlow = ""
+        var ecardCost = ""
+        netFlow = cacheInfo.netFlowText
+        ecardCost = cacheInfo.ecardText
+        return netFlow + "/" + ecardCost
     }
     
     private func courseString(date: Date) -> (course: String, place: String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HHmm"
         let time = Int(dateFormatter.string(from: date))!
-        let courseInfo = CourseInfo()
         let courseData = courseInfo.coursesToday(date).courses!
         var courseDictionary: [String: String]?
         for course in courseData {
@@ -104,22 +93,4 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
         return (course: courseString, place: placeString)
     }
-    
-    func getTimelineEntries(for complication: CLKComplication, before date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
-        // Call the handler with the timeline entries prior to the given date
-        handler(nil)
-    }
-    
-    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
-        // Call the handler with the timeline entries after to the given date
-        handler(nil)
-    }
-    
-    // MARK: - Placeholder Templates
-    
-    func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
-        // This method will be called once per supported complication, and the results will be cached
-        handler(nil)
-    }
-    
 }

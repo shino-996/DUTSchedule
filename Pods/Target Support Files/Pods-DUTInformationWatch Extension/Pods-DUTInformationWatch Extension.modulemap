@@ -1,0 +1,6 @@
+framework module Pods_DUTInformationWatch_Extension {
+  umbrella header "Pods-DUTInformationWatch Extension-umbrella.h"
+
+  export *
+  module * { export * }
+}

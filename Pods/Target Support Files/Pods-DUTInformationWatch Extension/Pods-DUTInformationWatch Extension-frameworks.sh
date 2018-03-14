@@ -134,14 +134,14 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/DUTInfo-iOS/DUTInfo.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Fuzi-iOS/Fuzi.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit.default-CorePromise/PromiseKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DUTInfo-watchOS/DUTInfo.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Fuzi-watchOS/Fuzi.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit.root-CorePromise-Foundation/PromiseKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/DUTInfo-iOS/DUTInfo.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Fuzi-iOS/Fuzi.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit.default-CorePromise/PromiseKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DUTInfo-watchOS/DUTInfo.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Fuzi-watchOS/Fuzi.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit.root-CorePromise-Foundation/PromiseKit.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
