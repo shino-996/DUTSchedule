@@ -13,12 +13,9 @@ struct CourseInfo {
     
     var allCourseData: [[String: String]]? {
         didSet {
-            guard let courses = allCourseData else {
-                return
+            if let courses = allCourseData {
+                (courses as NSArray).write(to: fileURL, atomically: true)
             }
-            let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-            let fileURL = groupURL!.appendingPathComponent("course.plist")
-            (courses as NSArray).write(to: fileURL, atomically: true)
         }
     }
     
@@ -51,18 +48,18 @@ struct CourseInfo {
         return (courses, weeknumber)
     }
     
-    func coursesThisWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, date: Date) {
+    func coursesThisWeek(_ date: Date = Date()) -> (courses: [[String: String]]?, weeknumber: Int, date: Date) {
         let tuple = coursesAWeek(date)
         return (tuple.courses, tuple.weeknumber, date)
     }
     
-    func coursesNextWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, date: Date) {
+    func coursesNextWeek(_ date: Date = Date()) -> (courses: [[String: String]]?, weeknumber: Int, date: Date) {
         let nextDate = date.addingTimeInterval(7 * 60 * 60 * 24)
         let tuple = coursesAWeek(nextDate)
         return (tuple.courses, tuple.weeknumber, nextDate)
     }
     
-    func coursesLastWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, date: Date) {
+    func coursesLastWeek(_ date: Date = Date()) -> (courses: [[String: String]]?, weeknumber: Int, date: Date) {
         let lastDate = date.addingTimeInterval(-7 * 60 * 60 * 24)
         let tuple = coursesAWeek(lastDate)
         return (tuple.courses, tuple.weeknumber, lastDate)
@@ -84,21 +81,50 @@ struct CourseInfo {
         return (coursesaday, weeknumber, week)
     }
     
-    func coursesToday(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date) {
+    func coursesToday(_ date: Date = Date()) -> (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date) {
         let tuple = coursesADay(date)
         return (tuple.courses, tuple.weeknumber, tuple.week, date)
     }
     
-    func coursesNextDay(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date) {
+    func coursesNextDay(_ date: Date = Date()) -> (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date) {
         let nextDate = date.addingTimeInterval(60 * 60 * 24)
         let tuple = coursesADay(nextDate)
         return (tuple.courses, tuple.weeknumber, tuple.week, nextDate)
     }
     
-    func coursesLastDay(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date) {
+    func coursesLastDay(_ date: Date = Date()) -> (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date) {
         let lastDate = date.addingTimeInterval(-60 * 60 * 24)
         let tuple = coursesADay(lastDate)
         return (tuple.courses, tuple.weeknumber, tuple.week, lastDate)
+    }
+    
+    func courseNow(_ date: Date = Date()) -> (course: [String: String]?, weeknumber: Int, week: Int, date: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HHmm"
+        let time = Int(dateFormatter.string(from: date))!
+        var coursenumber = 0
+        if time < 0935 {
+            coursenumber = 1
+        } else if time < 1140 {
+            coursenumber = 3
+        } else if time < 1505 {
+            coursenumber = 5
+        } else if time < 1710 {
+            coursenumber = 7
+        }
+        let tuple = coursesADay(date)
+        guard let courses = tuple.courses else {
+            return (nil, tuple.weeknumber, tuple.week, date)
+        }
+        var nowCourse: [String: String]?
+        for course in courses {
+            let number = Int(course["coursenumber"]!)!
+            if number >= coursenumber {
+                nowCourse = course
+                break
+            }
+        }
+        return (nowCourse, tuple.weeknumber, tuple.week, date)
     }
     
     static func deleteCourse() {

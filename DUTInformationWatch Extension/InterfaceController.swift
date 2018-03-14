@@ -59,7 +59,7 @@ class InterfaceController: WKInterfaceController {
         if courseInfo.allCourseData == nil {
             courseInfo.allCourseData = courses
         }
-        courseData = courseInfo.coursesNextDay(Date()).courses
+        courseData = courseInfo.coursesToday().courses
         informationTable.insertRows(at: [0], withRowType: "NetRow")
         informationTable.insertRows(at: [1], withRowType: "EcardRow")
         loadInformation()        
@@ -138,7 +138,7 @@ extension InterfaceController: WKExtensionDelegate {
                     }
                 }
             }
-            if cacheInfo.netCostText == ""{
+            if cacheInfo.netCost == 0 {
                 fetchInfoBackground(interval: Date(timeIntervalSinceNow: 30))
             } else {
                 fetchInfoBackground(interval: Date(timeIntervalSinceNow: 60 * 30))

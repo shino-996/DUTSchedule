@@ -46,39 +46,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     private func courseString(date: Date) -> (course: String, place: String) {
         let courseInfo = CourseInfo()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HHmm"
-        let time = Int(dateFormatter.string(from: date))!
-        guard let courseData = courseInfo.coursesToday(date).courses else {
-            return ("", "")
-        }
-        var courseDictionary: [String: String]?
-        for course in courseData {
-            let coursenumberStr = course["coursenumber"]!
-            switch coursenumberStr {
-            case "1":
-                if time <= 0935 {
-                    courseDictionary = course
-                }
-            case "3":
-                if time >= 0935 && time <= 1140 {
-                    courseDictionary = course
-                }
-            case "5":
-                if time >= 1140 && time <= 1505 {
-                    courseDictionary = course
-                }
-            case "7":
-                if time >= 1505 && time <= 1710 {
-                    courseDictionary = course
-                }
-            default:
-                courseDictionary = nil
-            }
-        }
         var courseString: String
         var placeString: String
-        if let courseDictionary = courseDictionary {
+        if let courseDictionary = courseInfo.courseNow().course {
             courseString = "第" + courseDictionary["coursenumber"]! + "节"
                                + " "
                                + courseDictionary["name"]!

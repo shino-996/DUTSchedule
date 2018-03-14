@@ -10,7 +10,7 @@ import Foundation
 
 struct CacheInfo {
     private var fileURL: URL
-    private var fileDictionary: NSMutableDictionary?
+    private var cache: NSMutableDictionary?
     
     var netCostHandle: ((String) -> Void)?
     var netFlowHandle: ((String) -> Void)?
@@ -19,8 +19,8 @@ struct CacheInfo {
     
     var netCost: Double {
         didSet {
-            fileDictionary?["netcost"] = netCost
-            fileDictionary?.write(to: fileURL, atomically: true)
+            cache?["netcost"] = netCost
+            cache?.write(to: fileURL, atomically: true)
             netCostHandle?(netCostText)
         }
     }
@@ -32,8 +32,8 @@ struct CacheInfo {
     
     var netFlow: Double {
         didSet {
-            fileDictionary?["netflow"] = netFlow
-            fileDictionary?.write(to: fileURL, atomically: true)
+            cache?["netflow"] = netFlow
+            cache?.write(to: fileURL, atomically: true)
             self.netFlowHandle?(netFlowText)
         }
     }
@@ -49,8 +49,8 @@ struct CacheInfo {
     
     var ecardCost: Double {
         didSet {
-            fileDictionary?["ecardcost"] = ecardCost
-            fileDictionary?.write(to: fileURL, atomically: true)
+            cache?["ecardcost"] = ecardCost
+            cache?.write(to: fileURL, atomically: true)
             ecardCostHandle?(ecardText)
         }
     }
@@ -62,8 +62,8 @@ struct CacheInfo {
     
     var personName: String {
         didSet {
-            fileDictionary?["personname"] = personName
-            fileDictionary?.write(to: fileURL, atomically: true)
+            cache?["personname"] = personName
+            cache?.write(to: fileURL, atomically: true)
             personNameHandle?(personName)
         }
     }
@@ -75,11 +75,11 @@ struct CacheInfo {
         personNameHandle = nil
         let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")!
         fileURL = groupURL.appendingPathComponent("cache.plist")
-        fileDictionary = NSMutableDictionary(contentsOf: fileURL)
-        if fileDictionary == nil {
-            fileDictionary = NSMutableDictionary()
+        cache = NSMutableDictionary(contentsOf: fileURL)
+        if cache == nil {
+            cache = NSMutableDictionary()
         }
-        let dictionary = fileDictionary as? [String: Any]
+        let dictionary = cache as? [String: Any]
         netCost = (dictionary?["netcost"] as? Double) ?? 0
         netFlow = (dictionary?["netflow"] as? Double) ?? 0
         ecardCost = (dictionary?["ecardcost"] as? Double) ?? 0
@@ -93,11 +93,11 @@ struct CacheInfo {
         personNameHandle?(personName)
         let date = Date()
         let nowDate = date.timeIntervalSince1970
-        let dictionary = fileDictionary as? [String: String]
+        let dictionary = cache as? [String: String]
         let lastDate = Double(dictionary?["refreshdate"] ?? "") ?? 0
         if nowDate - lastDate > 60 {
-            fileDictionary?["refreshdate"] = String(nowDate)
-            fileDictionary?.write(to: fileURL, atomically: true)
+            cache?["refreshdate"] = String(nowDate)
+            cache?.write(to: fileURL, atomically: true)
             return true
         } else {
             return false
