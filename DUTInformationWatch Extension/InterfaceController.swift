@@ -62,11 +62,9 @@ class InterfaceController: WKInterfaceController {
         courseData = courseInfo.coursesNextDay(Date()).courses
         informationTable.insertRows(at: [0], withRowType: "NetRow")
         informationTable.insertRows(at: [1], withRowType: "EcardRow")
-        loadInformation()
-    }
-    
-    override func willActivate() {
-        super.willActivate()
+        loadInformation()        
+        WKExtension.shared().delegate = self
+        fetchInfoBackground(interval: Date())
     }
     
     func loadInformation() {
@@ -124,16 +122,38 @@ extension InterfaceController: WKExtensionDelegate {
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         for task in backgroundTasks {
             if let message = task.userInfo as? [String: String] {
-                if message["message"] == "refresh" {
-                    let complicationServer = CLKComplicationServer.sharedInstance()
-                    if let complications = complicationServer.activeComplications {
-                        for complication in complications {
-                            complicationServer.reloadTimeline(for: complication)
+                if message["tag"] == "fetchbackground" {
+                    DispatchQueue.global().async {
+                        let (cost, flow) = self.dutInfo.netInfo()
+                        let ecard = self.dutInfo.moneyInfo()
+                        self.cacheInfo.netCost = cost
+                        self.cacheInfo.netFlow = flow
+                        self.cacheInfo.ecardCost = ecard
+                        let complicationServer = CLKComplicationServer.sharedInstance()
+                        if let complications = complicationServer.activeComplications {
+                            for complication in complications {
+                                complicationServer.reloadTimeline(for: complication)
+                            }
                         }
                     }
                 }
             }
+            if cacheInfo.netCostText == ""{
+                fetchInfoBackground(interval: Date(timeIntervalSinceNow: 30))
+            } else {
+                fetchInfoBackground(interval: Date(timeIntervalSinceNow: 60 * 30))
+            }
             task.setTaskCompletedWithSnapshot(true)
+        }
+    }
+    
+    func fetchInfoBackground(interval: Date = Date()) {
+        let userInfo = ["tag": "fetchbackground"] as NSDictionary
+        WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: interval, userInfo: userInfo) { error in
+            if let error = error {
+                print("watch fetch background error")
+                print(error)
+            }
         }
     }
 }

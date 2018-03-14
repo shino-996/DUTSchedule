@@ -10,47 +10,48 @@ import ClockKit
 import DUTInfo
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
-    var dutInfo: DUTInfo?
-    var cacheInfo = CacheInfo()
-    let courseInfo = CourseInfo()
+    func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
+        handler([.backward, .forward])
+    }
     
-    func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {}
+    func getTimelineStartDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
+        handler(nil)
+    }
+    
+    func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
+        handler(nil)
+    }
     
     func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
         handler(.showOnLockScreen)
     }
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
-        var entry: CLKComplicationTimelineEntry
         let date = Date()
-        if complication.family == .modularLarge {
-            let template = CLKComplicationTemplateModularLargeStandardBody()
-            template.headerTextProvider = CLKSimpleTextProvider(text: otherString())
-            let (course, place) = courseString(date: date)
-            template.body1TextProvider = CLKSimpleTextProvider(text: course)
-            template.body2TextProvider = CLKSimpleTextProvider(text: place)
-            entry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
-        } else {
-            let template = CLKComplicationTemplateModularSmallSimpleText()
-            template.textProvider = CLKSimpleTextProvider(text: "DUT")
-            entry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
-        }
+        let template = CLKComplicationTemplateModularLargeStandardBody()
+        template.headerTextProvider = CLKSimpleTextProvider(text: otherString())
+        let (course, place) = courseString(date: date)
+        template.body1TextProvider = CLKSimpleTextProvider(text: course)
+        template.body2TextProvider = CLKSimpleTextProvider(text: place)
+        let entry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
         handler(entry)
     }
     
     private func otherString() -> String {
-        var netFlow = ""
-        var ecardCost = ""
-        netFlow = cacheInfo.netFlowText
-        ecardCost = cacheInfo.ecardText
+        let cacheInfo = CacheInfo()
+        let netFlow = cacheInfo.netFlowText
+        let ecardCost = cacheInfo.ecardText
         return netFlow + "/" + ecardCost
     }
     
     private func courseString(date: Date) -> (course: String, place: String) {
+        let courseInfo = CourseInfo()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HHmm"
         let time = Int(dateFormatter.string(from: date))!
-        let courseData = courseInfo.coursesToday(date).courses!
+        guard let courseData = courseInfo.coursesToday(date).courses else {
+            return ("", "")
+        }
         var courseDictionary: [String: String]?
         for course in courseData {
             let coursenumberStr = course["coursenumber"]!
