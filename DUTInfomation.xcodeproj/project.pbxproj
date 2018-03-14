@@ -38,7 +38,7 @@
 		B4BD1CD420511BDA00C18ACB /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1CD220511BDA00C18ACB /* Interface.storyboard */; };
 		B4BD1CD620511BDA00C18ACB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1CD520511BDA00C18ACB /* Assets.xcassets */; };
 		B4BD1CDD20511BDA00C18ACB /* DUTInformationWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B4BD1CDC20511BDA00C18ACB /* DUTInformationWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B4BD1CE220511BDA00C18ACB /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CE120511BDA00C18ACB /* InterfaceController.swift */; };
+		B4BD1CE220511BDA00C18ACB /* MainInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CE120511BDA00C18ACB /* MainInterfaceController.swift */; };
 		B4BD1CE420511BDA00C18ACB /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CE320511BDA00C18ACB /* ExtensionDelegate.swift */; };
 		B4BD1CE620511BDA00C18ACB /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CE520511BDA00C18ACB /* ComplicationController.swift */; };
 		B4BD1CE820511BDA00C18ACB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1CE720511BDA00C18ACB /* Assets.xcassets */; };
@@ -51,6 +51,8 @@
 		B4CB3FE11F1209FE0059591C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4CB3FDF1F1209FE0059591C /* MainInterface.storyboard */; };
 		B4CB3FE51F1209FE0059591C /* DUTInformationToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B4CB3FD91F1209FE0059591C /* DUTInformationToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B4CCCA651FE2A98300EE6470 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CCCA641FE2A98300EE6470 /* TabViewController.swift */; };
+		B4DD3DA82059296500B209C9 /* ScheduleInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DD3DA72059296500B209C9 /* ScheduleInterfaceController.swift */; };
+		B4DD3DAA20592F3500B209C9 /* WeekRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DD3DA920592F3500B209C9 /* WeekRow.swift */; };
 		B4E38DEC1FE65CA00013715C /* ScheduleLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E38DEB1FE65CA00013715C /* ScheduleLayout.swift */; };
 		B4E535CF1F5FDEAC007DE392 /* CourseCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E535CE1F5FDEAC007DE392 /* CourseCellView.swift */; };
 		B4E535D21F61544B007DE392 /* LoginTeachSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */; };
@@ -166,7 +168,7 @@
 		B4BD1CD520511BDA00C18ACB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4BD1CD720511BDA00C18ACB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4BD1CDC20511BDA00C18ACB /* DUTInformationWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DUTInformationWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B4BD1CE120511BDA00C18ACB /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		B4BD1CE120511BDA00C18ACB /* MainInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInterfaceController.swift; sourceTree = "<group>"; };
 		B4BD1CE320511BDA00C18ACB /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		B4BD1CE520511BDA00C18ACB /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		B4BD1CE720511BDA00C18ACB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -182,6 +184,8 @@
 		B4CB3FEA1F120AD70059591C /* DUTInfomation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DUTInfomation.entitlements; sourceTree = "<group>"; };
 		B4CB3FEB1F120B0F0059591C /* DUTInformationToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DUTInformationToday.entitlements; sourceTree = "<group>"; };
 		B4CCCA641FE2A98300EE6470 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		B4DD3DA72059296500B209C9 /* ScheduleInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInterfaceController.swift; sourceTree = "<group>"; };
+		B4DD3DA920592F3500B209C9 /* WeekRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekRow.swift; sourceTree = "<group>"; };
 		B4E38DEB1FE65CA00013715C /* ScheduleLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleLayout.swift; sourceTree = "<group>"; };
 		B4E535CE1F5FDEAC007DE392 /* CourseCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCellView.swift; sourceTree = "<group>"; };
 		B4E535D11F61544B007DE392 /* LoginTeachSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTeachSiteViewController.swift; sourceTree = "<group>"; };
@@ -385,10 +389,12 @@
 			isa = PBXGroup;
 			children = (
 				B4BD1CFB20511F8700C18ACB /* DUTInformationWatch Extension.entitlements */,
-				B4BD1CE120511BDA00C18ACB /* InterfaceController.swift */,
+				B4BD1CE120511BDA00C18ACB /* MainInterfaceController.swift */,
+				B4DD3DA72059296500B209C9 /* ScheduleInterfaceController.swift */,
 				B4BD1CE320511BDA00C18ACB /* ExtensionDelegate.swift */,
 				B4BD1CF520511E1E00C18ACB /* CourseRow.swift */,
 				B4BD1CF720511E2700C18ACB /* NetRow.swift */,
+				B4DD3DA920592F3500B209C9 /* WeekRow.swift */,
 				B4BD1CF920511E2D00C18ACB /* EcardRow.swift */,
 				B4BD1CE520511BDA00C18ACB /* ComplicationController.swift */,
 				B4BD1CE720511BDA00C18ACB /* Assets.xcassets */,
@@ -789,12 +795,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4BD1CF420511C6B00C18ACB /* CourseInfo.swift in Sources */,
+				B4DD3DAA20592F3500B209C9 /* WeekRow.swift in Sources */,
 				B4BD1CFA20511E2D00C18ACB /* EcardRow.swift in Sources */,
+				B4DD3DA82059296500B209C9 /* ScheduleInterfaceController.swift in Sources */,
 				B48AD39A2053BBBD00EC0D5E /* CacheInfo.swift in Sources */,
 				B4BD1CE420511BDA00C18ACB /* ExtensionDelegate.swift in Sources */,
 				B48AD39B2053BBC100EC0D5E /* KeyInfo.swift in Sources */,
 				B4BD1CF820511E2700C18ACB /* NetRow.swift in Sources */,
-				B4BD1CE220511BDA00C18ACB /* InterfaceController.swift in Sources */,
+				B4BD1CE220511BDA00C18ACB /* MainInterfaceController.swift in Sources */,
 				B4BD1CE620511BDA00C18ACB /* ComplicationController.swift in Sources */,
 				B4BD1CF620511E1E00C18ACB /* CourseRow.swift in Sources */,
 			);

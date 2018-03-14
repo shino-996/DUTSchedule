@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13771" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13771" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc" pageOrientation="vertical">
     <device id="watch42" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,14 +9,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--Main Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="DUTInformationWatch" customModuleProvider="target">
+                <controller id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="DUTInformationWatch" customModuleProvider="target">
                     <items>
                         <table alignment="left" id="p71-g7-qhZ">
                             <items>
-                                <tableRow identifier="NetRow" id="TQO-Bc-pRR" customClass="NetRow" customModule="DUTInformationWatch_Extension">
+                                <tableRow identifier="NetRow" selectable="NO" id="TQO-Bc-pRR" customClass="NetRow" customModule="DUTInformationWatch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="3jB-6S-doH">
                                         <items>
                                             <label alignment="left" text="校园网:" id="Lfp-9s-ENw">
@@ -32,13 +32,14 @@
                                                 <fontDescription key="font" type="system" pointSize="14"/>
                                             </label>
                                         </items>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </group>
                                     <connections>
                                         <outlet property="costLabel" destination="PYO-9Y-9jg" id="TmS-hq-D2B"/>
                                         <outlet property="flowLable" destination="fAi-sM-ZQs" id="wtE-hK-PY1"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="EcardRow" id="DmP-AI-7MC" customClass="EcardRow" customModule="DUTInformationWatch_Extension">
+                                <tableRow identifier="EcardRow" selectable="NO" id="DmP-AI-7MC" customClass="EcardRow" customModule="DUTInformationWatch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="PZQ-iq-DMc">
                                         <items>
                                             <label alignment="left" text="玉兰卡:" id="gJQ-VX-gTi">
@@ -48,6 +49,7 @@
                                                 <fontDescription key="font" type="system" pointSize="14"/>
                                             </label>
                                         </items>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </group>
                                     <connections>
                                         <outlet property="ecardLabel" destination="ieI-K9-5JR" id="tpq-8F-pzb"/>
@@ -63,6 +65,9 @@
                                                 <fontDescription key="font" type="system" pointSize="14"/>
                                             </label>
                                         </items>
+                                        <connections>
+                                            <segue destination="9KV-VZ-T0h" kind="push" id="uMl-mg-2Cm"/>
+                                        </connections>
                                     </group>
                                     <connections>
                                         <outlet property="courseLabel" destination="7al-CX-v8B" id="c39-TM-nmG"/>
@@ -78,6 +83,16 @@
                                         </items>
                                     </group>
                                 </tableRow>
+                                <tableRow identifier="MoreCourseRow" id="gOK-pk-9QE">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="pgC-mI-cOE">
+                                        <items>
+                                            <label alignment="center" verticalAlignment="center" text="查看更多" textAlignment="center" id="kMI-wx-avH"/>
+                                        </items>
+                                        <connections>
+                                            <segue destination="zrC-v8-oyu" kind="push" id="Gcr-Bw-V1M"/>
+                                        </connections>
+                                    </group>
+                                </tableRow>
                             </items>
                         </table>
                     </items>
@@ -86,6 +101,85 @@
                     </connections>
                 </controller>
             </objects>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="RAH-p7-Qjh">
+            <objects>
+                <controller id="9KV-VZ-T0h">
+                    <items>
+                        <label alignment="left" text="嵌入式系统设计" id="ZBo-zF-E1E">
+                            <fontDescription key="font" type="system" pointSize="14"/>
+                        </label>
+                        <label alignment="left" text="丁男" id="zS1-WI-B4c">
+                            <fontDescription key="font" type="system" pointSize="14"/>
+                        </label>
+                        <table alignment="left" id="SMW-aJ-dl7">
+                            <items>
+                                <tableRow identifier="CourseInfoRow" selectable="NO" id="SZU-RW-RcV">
+                                    <group key="rootItem" width="1" alignment="left" layout="vertical" id="yyM-k4-yQU">
+                                        <items>
+                                            <label alignment="left" text="1-8周 周一 第3节" id="eWI-jG-a3z">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                            <label alignment="left" text="综合教学2号楼 B503" id="nk6-kG-o1f">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </group>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="357" y="-155"/>
+        </scene>
+        <!--Schedule Interface Controller-->
+        <scene sceneID="29A-oL-3LK">
+            <objects>
+                <controller id="zrC-v8-oyu" customClass="ScheduleInterfaceController" customModule="DUTInformationWatch_Extension">
+                    <items>
+                        <table alignment="left" id="SBZ-pq-CLU">
+                            <items>
+                                <tableRow identifier="WeekRow" selectable="NO" id="RiX-TR-42z" customClass="WeekRow" customModule="DUTInformationWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="97R-Vl-dn2">
+                                        <items>
+                                            <label alignment="left" text="第2周 周三" textAlignment="center" id="Ml6-cE-NZF">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="weekLabel" destination="Ml6-cE-NZF" id="EG2-Te-1Eh"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="CourseRow" selectable="NO" id="eWp-QS-DoQ" customClass="CourseRow" customModule="DUTInformationWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="Etp-cc-psx">
+                                        <items>
+                                            <label alignment="left" text="第1节   嵌入式系统设计" id="fta-0J-Wtb">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                            <label alignment="left" text="综合教学2号楼 B503" id="vQs-e8-Vbv">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="courseLabel" destination="fta-0J-Wtb" id="oZf-Fp-7Mt"/>
+                                        <outlet property="placeLabel" destination="vQs-e8-Vbv" id="G1Z-oq-ZU7"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="scheduleTable" destination="SBZ-pq-CLU" id="h7o-Ym-0UO"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="357" y="194"/>
         </scene>
     </scenes>
 </document>

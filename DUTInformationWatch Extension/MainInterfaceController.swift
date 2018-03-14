@@ -1,5 +1,5 @@
 //
-//  InterfaceController.swift
+//  MainInterfaceController.swift
 //  DUTInformationWatch Extension
 //
 //  Created by shino on 08/03/2018.
@@ -11,7 +11,7 @@ import Foundation
 import WatchConnectivity
 import DUTInfo
 
-class InterfaceController: WKInterfaceController {
+class MainInterfaceController: WKInterfaceController {
     @IBOutlet var informationTable: WKInterfaceTable!
     
     var courseData: [[String: String]]?
@@ -62,23 +62,28 @@ class InterfaceController: WKInterfaceController {
         courseData = courseInfo.coursesToday().courses
         informationTable.insertRows(at: [0], withRowType: "NetRow")
         informationTable.insertRows(at: [1], withRowType: "EcardRow")
-        loadInformation()        
+        cacheInfo.netCostHandle?(cacheInfo.netCostText)
+        cacheInfo.ecardCostHandle?(cacheInfo.ecardText)
+        loadSchedule()        
         WKExtension.shared().delegate = self
         fetchInfoBackground(interval: Date())
     }
     
-    func loadInformation() {
-        cacheInfo.netCostHandle?(cacheInfo.netCostText)
-        cacheInfo.ecardCostHandle?(cacheInfo.ecardText)
-        for i in 2 ..< 2 + (courseData?.count ?? 0) {
+    func loadSchedule() {
+        let courseNum = courseData?.count ?? 0
+        for i in 2 ..< informationTable.numberOfRows {
+            informationTable.removeRows(at: [i])
+        }
+        for i in 2 ..< 2 + courseNum {
             informationTable.insertRows(at: [i], withRowType: "CourseRow")
             let row = informationTable.rowController(at: i) as! CourseRow
             row.prepare(course: courseData![i - 2])
         }
+        informationTable.insertRows(at: [informationTable.numberOfRows], withRowType: "MoreCourseRow")
     }
 }
 
-extension InterfaceController: WCSessionDelegate {
+extension MainInterfaceController: WCSessionDelegate {
     func requestSync() {
         if dutInfo == nil {
         let message = ["message": "sync request"]
@@ -118,7 +123,7 @@ extension InterfaceController: WCSessionDelegate {
     }
 }
 
-extension InterfaceController: WKExtensionDelegate {
+extension MainInterfaceController: WKExtensionDelegate {
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         for task in backgroundTasks {
             if let message = task.userInfo as? [String: String] {
