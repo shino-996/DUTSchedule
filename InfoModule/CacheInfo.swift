@@ -7,72 +7,59 @@
 //
 
 import Foundation
+import DUTInfo
 
-struct CacheInfo {
+class CacheInfo: NSObject {
     private var fileURL: URL
     private var cache: NSMutableDictionary?
     
-    var netCostHandle: ((String) -> Void)?
-    var netFlowHandle: ((String) -> Void)?
-    var ecardCostHandle: ((String) -> Void)?
-    var personNameHandle: ((String) -> Void)?
-    
-    var netCost: Double {
+    private var netCost: Double {
         didSet {
             cache?["netcost"] = netCost
             cache?.write(to: fileURL, atomically: true)
-            netCostHandle?(netCostText)
-        }
-    }
-    var netCostText: String {
-        get {
-            return "\(netCost)元"
         }
     }
     
-    var netFlow: Double {
+    var netInfo: (cost: String, flow: String) {
+        get {
+            let cost = "\(netCost)元"
+            var flow: String
+            if netFlow > 1024 {
+                flow = String(format: "%.1lfGB", netFlow / 1024)
+            } else {
+                flow = "\(netFlow)MB"
+            }
+            return (cost, flow)
+        }
+    }
+    
+    private var netFlow: Double {
         didSet {
             cache?["netflow"] = netFlow
-            cache?.write(to: fileURL, atomically: true)
-            self.netFlowHandle?(netFlowText)
-        }
-    }
-    var netFlowText: String {
-        get {
-            if netFlow > 1024 {
-                return String(format: "%.1lfGB", netFlow / 1024)
-            } else {
-                return "\(netFlow)MB"
-            }
         }
     }
     
-    var ecardCost: Double {
+    var ecard: String {
+        return "\(ecardCost)元"
+    }
+    
+    private var ecardCost: Double {
         didSet {
             cache?["ecardcost"] = ecardCost
-            cache?.write(to: fileURL, atomically: true)
-            ecardCostHandle?(ecardText)
-        }
-    }
-    var ecardText: String {
-        get {
-            return "\(ecardCost)元"
         }
     }
     
-    var personName: String {
+    var name: String {
+        return personName
+    }
+    
+    private var personName: String {
         didSet {
             cache?["personname"] = personName
-            cache?.write(to: fileURL, atomically: true)
-            personNameHandle?(personName)
         }
     }
     
-    init() {
-        netCostHandle = nil
-        netFlowHandle = nil
-        ecardCostHandle = nil
-        personNameHandle = nil
+    override init() {
         let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")!
         fileURL = groupURL.appendingPathComponent("cache.plist")
         cache = NSMutableDictionary(contentsOf: fileURL)
@@ -86,15 +73,30 @@ struct CacheInfo {
         personName = (dictionary?["personname"] as? String) ?? ""
     }
     
+    func loadCacheAsync(_ handler: (() -> Void)?) {
+        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.currentPassword()!
+        DispatchQueue.global().async {
+            let dutInfo = DUTInfo(studentNumber: studentNumber,
+                                  teachPassword: teachPassword,
+                                  portalPassword: portalPassword)
+            if let net = dutInfo.netInfo() {
+                (self.netCost, self.netFlow) = net
+            }
+            if let ecard = dutInfo.moneyInfo() {
+                self.ecardCost = ecard
+            }
+            if let name = dutInfo.personInfo() {
+                self.personName = name
+            }
+            self.cache?.write(to: self.fileURL, atomically: true)
+            handler?()
+        }
+    }
+    
     func shouldRefresh() -> Bool {
-        netCostHandle?(netCostText)
-        netFlowHandle?(netFlowText)
-        ecardCostHandle?(ecardText)
-        personNameHandle?(personName)
         let date = Date()
         let nowDate = date.timeIntervalSince1970
-        let dictionary = cache as? [String: String]
-        let lastDate = Double(dictionary?["refreshdate"] ?? "") ?? 0
+        let lastDate = Double(cache?["refreshdate"] as? String ?? "") ?? 0
         if nowDate - lastDate > 60 {
             cache?["refreshdate"] = String(nowDate)
             cache?.write(to: fileURL, atomically: true)

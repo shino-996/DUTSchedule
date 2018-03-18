@@ -19,67 +19,35 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var courseTableView: UITableView!
     @IBOutlet weak var weekButton: UIButton!
     
-    var dutInfo: DUTInfo!
     var courseInfo: CourseInfo!
     var cacheInfo: CacheInfo!
     var dataSource: TodayViewDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if #available(iOSApplicationExtension 10.0, *) {
-            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        }
-        dutInfo = DUTInfo(studentNumber: "", teachPassword: "", portalPassword: "")
-        if let studentNumber = KeyInfo.getCurrentAccount()?["number"] {
-            let (teachPassword, portalPassword) = KeyInfo.loadPassword(studentNumber: studentNumber)
-            dutInfo.studentNumber = studentNumber
-            dutInfo.teachPassword = teachPassword
-            dutInfo.portalPassword = portalPassword
-        }
+        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         courseInfo = CourseInfo()
         cacheInfo = CacheInfo()
-        cacheInfo.netCostHandle = { [weak self] cost in
-            DispatchQueue.main.async {
-                self?.netLabel.text = (self?.cacheInfo.netFlowText ?? "") + "/" + cost
-                self?.netActivity.stopAnimating()
-            }
-        }
-        cacheInfo.netFlowHandle = { [weak self] flow in
-            DispatchQueue.main.async {
-                self?.netLabel.text = flow + "/" + (self?.cacheInfo.netCostText ?? "")
-                self?.netActivity.stopAnimating()
-            }
-        }
-        cacheInfo.ecardCostHandle = { [weak self] ecard in
-            DispatchQueue.main.async {
-                self?.ecardLabel.text = ecard
-                self?.ecardActivity.stopAnimating()
-            }
-        }
-        dataSource = TodayViewDataSource()
-        courseTableView.dataSource = dataSource
+        dataSource = TodayViewDataSource(data: courseInfo.coursesToday())
         dataSource.controller = self
-        dataSource.freshUIHandler = freshUI
-        dataSource.data = courseInfo.coursesToday(Date())
+        courseTableView.dataSource = dataSource
+    }
+    
+    func loadInfo() {
+        ecardActivity.stopAnimating()
+        netActivity.stopAnimating()
+        let (cost, flow) = cacheInfo.netInfo
+        netLabel.text = flow + "/" + cost
+        ecardLabel.text = cacheInfo.ecard
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         if cacheInfo.shouldRefresh() {
             ecardActivity.startAnimating()
             netActivity.startAnimating()
-            DispatchQueue.global().async { [weak self] in
-                if self?.dutInfo.loginPortal() ?? false {
-                    let (cost, flow) = self!.dutInfo.netInfo()
-                    self?.cacheInfo.netCost = cost
-                    self?.cacheInfo.netFlow = flow
-                    let ecard = self!.dutInfo.moneyInfo()
-                    self?.cacheInfo.ecardCost = ecard
-                } else {
-                    DispatchQueue.main.async { [weak self] in
-                        self?.ecardActivity.stopAnimating()
-                        self?.netActivity.stopAnimating()
-                        self?.noCourseButton.setTitle("未登录账号", for: .normal)
-                    }
+            cacheInfo.loadCacheAsync() {
+                DispatchQueue.main.async {
+                    self.loadInfo()
                 }
             }
             completionHandler(.newData)
@@ -121,12 +89,10 @@ extension TodayViewController {
             } else {
                 noCourseButton.isHidden = true
             }
-            if #available(iOSApplicationExtension 10.0, *) {
-                if dataSource.data.courses!.count > 1 {
-                    extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-                } else {
-                    extensionContext?.widgetLargestAvailableDisplayMode = .compact
-                }
+            if dataSource.data.courses!.count > 1 {
+                extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+            } else {
+                extensionContext?.widgetLargestAvailableDisplayMode = .compact
             }
         } else {
             noCourseButton.isHidden = false
@@ -134,7 +100,6 @@ extension TodayViewController {
         }
     }
     
-    @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
             preferredContentSize = maxSize

@@ -17,7 +17,7 @@ class LoginPortalSiteViewController: UIViewController {
     var dutInfo: DUTInfo!
     var number: String!
     var teachPassword: String!
-    var loginHandler: (() -> Void)?
+    var didLogHandler: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +29,14 @@ class LoginPortalSiteViewController: UIViewController {
         dutInfo.portalPassword = password.text ?? ""
         if dutInfo.loginPortal() {
             let studentNumber = number!
-            KeyInfo.savePassword(studentNumber: studentNumber,
-                                 teachPassword: teachPassword,
-                                 portalPassword: password.text!)
-            var accounts = KeyInfo.getAccounts() ?? [[String: String]]()
+            KeyInfo.shared.savePassword(studentNumber: studentNumber,
+                                        teachPassword: teachPassword,
+                                        portalPassword: password.text!)
+            var accounts = KeyInfo.shared.getAccounts() ?? [[String: String]]()
             accounts.append(["name": "XXX", "number": studentNumber])
-            KeyInfo.updateAccounts(accounts: accounts)
-            self.navigationController?.dismiss(animated: true, completion: loginHandler)
+            KeyInfo.shared.updateAccounts(accounts: accounts)
+            self.didLogHandler?()
+            self.navigationController?.dismiss(animated: true)
         } else {
             DispatchQueue.main.async {
                 self.loginFailedLabel.isHidden = false

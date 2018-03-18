@@ -11,7 +11,7 @@ import WatchKit
 class EcardRow: NSObject {
     @IBOutlet var ecardLabel: WKInterfaceLabel!
     
-    func prepare(ecard: String) {
+    func prepare(_ ecard: String) {
         ecardLabel.setText(ecard)
     }
 }

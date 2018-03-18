@@ -65,9 +65,6 @@
                                                 <fontDescription key="font" type="system" pointSize="14"/>
                                             </label>
                                         </items>
-                                        <connections>
-                                            <segue destination="9KV-VZ-T0h" kind="push" id="uMl-mg-2Cm"/>
-                                        </connections>
                                     </group>
                                     <connections>
                                         <outlet property="courseLabel" destination="7al-CX-v8B" id="c39-TM-nmG"/>
@@ -95,45 +92,14 @@
                                 </tableRow>
                             </items>
                         </table>
+                        <label alignment="center" text="更新时间" textAlignment="center" id="Lyh-A6-kDo"/>
                     </items>
                     <connections>
                         <outlet property="informationTable" destination="p71-g7-qhZ" id="QJs-Bf-Hhi"/>
+                        <outlet property="updateLabel" destination="Lyh-A6-kDo" id="InV-fQ-PNU"/>
                     </connections>
                 </controller>
             </objects>
-        </scene>
-        <!--Interface Controller-->
-        <scene sceneID="RAH-p7-Qjh">
-            <objects>
-                <controller id="9KV-VZ-T0h">
-                    <items>
-                        <label alignment="left" text="嵌入式系统设计" id="ZBo-zF-E1E">
-                            <fontDescription key="font" type="system" pointSize="14"/>
-                        </label>
-                        <label alignment="left" text="丁男" id="zS1-WI-B4c">
-                            <fontDescription key="font" type="system" pointSize="14"/>
-                        </label>
-                        <table alignment="left" id="SMW-aJ-dl7">
-                            <items>
-                                <tableRow identifier="CourseInfoRow" selectable="NO" id="SZU-RW-RcV">
-                                    <group key="rootItem" width="1" alignment="left" layout="vertical" id="yyM-k4-yQU">
-                                        <items>
-                                            <label alignment="left" text="1-8周 周一 第3节" id="eWI-jG-a3z">
-                                                <fontDescription key="font" type="system" pointSize="14"/>
-                                            </label>
-                                            <label alignment="left" text="综合教学2号楼 B503" id="nk6-kG-o1f">
-                                                <fontDescription key="font" type="system" pointSize="14"/>
-                                            </label>
-                                        </items>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </group>
-                                </tableRow>
-                            </items>
-                        </table>
-                    </items>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="357" y="-155"/>
         </scene>
         <!--Schedule Interface Controller-->
         <scene sceneID="29A-oL-3LK">
@@ -179,7 +145,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="357" y="194"/>
+            <point key="canvasLocation" x="418" y="272"/>
         </scene>
     </scenes>
 </document>

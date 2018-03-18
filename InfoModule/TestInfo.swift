@@ -7,19 +7,20 @@
 //
 
 import Foundation
+import DUTInfo
 
-struct TestInfo {
-    var fileURL: URL
+class TestInfo {
+    private var fileURL: URL
     
-    var allTests: [[String: String]]? {
+    var tests: [[String: String]]? {
+        return allTests
+    }
+    
+    private var allTests: [[String: String]]? {
         didSet {
-            guard let tests = allTests else {
-                return
+            if let tests = allTests {
+                (tests as NSArray).write(to: self.fileURL, atomically: true)
             }
-            let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-            let fileURL = groupURL!.appendingPathComponent("test.plist")
-            allTests = sortTests(tests)
-            (allTests! as NSArray).write(to: fileURL, atomically: true)
         }
     }
     
@@ -31,6 +32,15 @@ struct TestInfo {
             return
         }
         allTests = array
+    }
+    
+    func loadTestAsync(_ handle: (() -> Void)?) {
+        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.currentPassword()!
+        DispatchQueue.global().async {
+            self.allTests = DUTInfo(studentNumber: studentNumber,
+                                    teachPassword: teachPassword,
+                                    portalPassword: portalPassword).testInfo()
+        }
     }
     
     private func sortTests(_ tests: [[String: String]]) -> [[String: String]] {

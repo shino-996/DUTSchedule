@@ -7,19 +7,26 @@
 //
 
 import Foundation
+import DUTInfo
 
-struct CourseInfo {
-    var fileURL: URL
+class CourseInfo: NSObject {
+    private var fileURL: URL
     
-    var allCourseData: [[String: String]]? {
-        didSet {
-            if let courses = allCourseData {
-                (courses as NSArray).write(to: fileURL, atomically: true)
+    var allCourses: [[String: String]]? {
+        get {
+            return allCourseData
+        }
+        set {
+            guard let courses = newValue else {
+                return
             }
+            allCourseData = courses
+            (courses as NSArray).write(to: self.fileURL, atomically: true)
         }
     }
+    private var allCourseData: [[String: String]]?
     
-    init() {
+    override init() {
         let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
         fileURL = groupURL!.appendingPathComponent("course.plist")
         guard let array = NSArray(contentsOf: fileURL) as? [[String: String]] else {
@@ -27,6 +34,26 @@ struct CourseInfo {
             return
         }
         allCourseData = array
+    }
+    
+    static func deleteCourse() {
+        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
+        let fileURL = groupURL!.appendingPathComponent("course.plist")
+        try? FileManager.default.removeItem(at: fileURL)
+    }
+    
+    func loadCoursesAsync(_ handler: (() -> Void)?) {
+        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.currentPassword()!
+        DispatchQueue.global().async {
+            guard let courses = DUTInfo(studentNumber: studentNumber,
+                                        teachPassword: teachPassword,
+                                        portalPassword: portalPassword).courseInfo() else {
+                return
+            }
+            (courses as NSArray).write(to: self.fileURL, atomically: true)
+            self.allCourseData = courses
+            handler?()
+        }
     }
     
     private func coursesAWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int) {
@@ -111,6 +138,8 @@ struct CourseInfo {
             coursenumber = 5
         } else if time < 1710 {
             coursenumber = 7
+        } else {
+            coursenumber = Int.max
         }
         let tuple = coursesADay(date)
         guard let courses = tuple.courses else {
@@ -125,11 +154,5 @@ struct CourseInfo {
             }
         }
         return (nowCourse, tuple.weeknumber, tuple.week, date)
-    }
-    
-    static func deleteCourse() {
-        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-        let fileURL = groupURL!.appendingPathComponent("course.plist")
-        try? FileManager.default.removeItem(at: fileURL)
     }
 }

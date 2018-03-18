@@ -9,18 +9,11 @@
 import UIKit
 
 class ScheduleViewDataSource: NSObject, UICollectionViewDataSource {
-    var data: (courses: [[String: String]]?, weeknumber: Int, date: Date) {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.freshUIHandler?()
-            }
-        }
-    }
-    weak var controller: TeachWeekDelegate?
-    var freshUIHandler: (() -> Void)?
+    var data: (courses: [[String: String]]?, weeknumber: Int, date: Date)
+    var controller: TeachWeekDelegate?
     
-    override init() {
-        data = (nil, 0, Date())
+    init(data: (courses: [[String: String]]?, weeknumber: Int, date: Date)) {
+        self.data = data
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

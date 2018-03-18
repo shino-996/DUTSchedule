@@ -10,17 +10,13 @@ import UIKit
 import NotificationCenter
 
 class TodayViewDataSource: NSObject, UITableViewDataSource {
-    var data: (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date) {
-        didSet {
-            freshUIHandler()
-        }
-    }
-    weak var controller: UIViewController!
-    var freshUIHandler: (() -> Void)!
+    var data: (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date)
     
-    override init() {
-        data = (nil, 0, 0, Date())
+    init(data: (courses: [[String: String]]?, weeknumber: Int, week: Int, date: Date)) {
+        self.data = data
     }
+    
+    weak var controller: UIViewController!
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -35,8 +31,8 @@ class TodayViewDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCellView
-        if #available(iOSApplicationExtension 10.0, *),
-            indexPath.row == 0 && controller.extensionContext?.widgetActiveDisplayMode == .compact{
+        if indexPath.row == 0 &&
+            controller.extensionContext?.widgetActiveDisplayMode == .compact{
             cell.prepareForNow(fromCourse: data.courses!, ofIndex: indexPath)
         } else {
             cell.prepare(fromCourse: data.courses!, ofIndex: indexPath)

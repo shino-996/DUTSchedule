@@ -9,14 +9,11 @@
 import UIKit
 
 class TestViewDataSource: NSObject, UITableViewDataSource {
-    var tests: [[String: String]]? {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.freshUIHandler?()
-            }
-        }
+    var tests: [[String: String]]?
+    
+    init(tests: [[String: String]]?) {
+        self.tests = tests
     }
-    var freshUIHandler: (() -> Void)?
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return tests?.count ?? 0

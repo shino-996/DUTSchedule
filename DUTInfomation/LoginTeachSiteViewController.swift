@@ -15,23 +15,24 @@ class LoginTeachSiteViewController: UIViewController {
     @IBOutlet weak var loginFailedLabel: UILabel!
     
     var dutInfo: DUTInfo!
-    var loginHandler: (() -> Void)?
+    var didLogHandler: (() -> Void)?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "LoginPortal" {
             let destination = segue.destination as! LoginPortalSiteViewController
-            destination.dutInfo = dutInfo
             destination.number = studentNumber.text
             destination.teachPassword = password.text
-            destination.loginHandler = loginHandler
+            destination.dutInfo = dutInfo
+            destination.didLogHandler = didLogHandler
         } else {
             fatalError()
         }
     }
     
     @IBAction func LoginTeachSite() {
-        dutInfo.studentNumber = studentNumber.text ?? ""
-        dutInfo.teachPassword = password.text ?? ""
+        dutInfo = DUTInfo(studentNumber: studentNumber.text ?? "",
+                          teachPassword: password.text ?? "",
+                          portalPassword: "")
         if dutInfo.loginTeachSite() {
             performSegue(withIdentifier: "LoginPortal", sender: self)
         } else {

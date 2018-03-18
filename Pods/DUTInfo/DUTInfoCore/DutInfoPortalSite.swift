@@ -35,8 +35,8 @@ extension DUTInfo {
     }
     
     //校园网信息
-    public func netInfo() -> (netCost: Double, netFlow: Double) {
-        var value = (netFlow: 0.0, netCost: 0.0)
+    public func netInfo() -> (netCost: Double, netFlow: Double)? {
+        var value: (netCost: Double, netFlow: Double)?
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue(label: "portal.net.promise")
         firstly(execute: gotoPortalPage)
@@ -57,8 +57,8 @@ extension DUTInfo {
     }
     
     //玉兰卡余额
-    public func moneyInfo() -> Double {
-        var value = 0.0
+    public func moneyInfo() -> Double? {
+        var value: Double?
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue(label: "portal.money.promise")
         firstly(execute: gotoPortalPage)
@@ -79,8 +79,8 @@ extension DUTInfo {
     }
     
     //学生姓名
-    public func personInfo() -> String {
-        var value = ""
+    public func personInfo() -> String? {
+        var value: String?
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue(label: "portal.person.promise")
         firstly(execute: gotoPortalPage)

@@ -12,31 +12,16 @@ import WatchConnectivity
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     let session = WCSession.default
+    var isLogin = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = self
-        let dutInfo = DUTInfo(studentNumber: "", teachPassword: "", portalPassword: "")
-        if let studentNumber = KeyInfo.getCurrentAccount()?["number"] {
-            let (teachPassword, portalPassword) = KeyInfo.loadPassword(studentNumber: studentNumber)
-            dutInfo.studentNumber = studentNumber
-            dutInfo.teachPassword = teachPassword
-            dutInfo.portalPassword = portalPassword
-        }
-        let controller = viewControllers?.first as! TabViewController
-        controller.dutInfo = dutInfo
+        delegate = self
+        isLogin = KeyInfo.shared.currentPassword() != nil
         if WCSession.isSupported() {
             session.delegate = self
             session.activate()
         }
-    }
-    
-    func tabBarController(_ tabBarController: UITabBarController,
-                          shouldSelect viewController: UIViewController) -> Bool {
-        let nextViewController = viewController as! TabViewController
-        let currentViewController = selectedViewController as! TabViewController
-        nextViewController.dutInfo = currentViewController.dutInfo
-        return true
     }
 }
 
@@ -44,7 +29,6 @@ extension TabBarController: WCSessionDelegate {
     func sessionDidBecomeInactive(_ session: WCSession) {}
     func sessionDidDeactivate(_ session: WCSession) {}
     
-    @available(iOS 9.3, *)
     func session(_ session: WCSession,
                  activationDidCompleteWith activationState: WCSessionActivationState,
                  error: Error?) {
@@ -59,26 +43,21 @@ extension TabBarController: WCSessionDelegate {
         guard (message["message"] as? String) == "sync request" else {
             return
         }
-        if let controller = selectedViewController as? ScheduleViewController {
-            let keys = ["studentnumber": controller.dutInfo.studentNumber,
-                        "teachpassword": controller.dutInfo.teachPassword,
-                        "portalpassword": controller.dutInfo.portalPassword]
-            let courses = controller.courseInfo.allCourseData
-            let message = ["syncdata": ["keys": keys, "courses": courses as Any]]
-            session.sendMessage(message, replyHandler: nil) { error in
-                print(error)
-            }
+        guard let password = KeyInfo.shared.currentPassword() else {
+            return
         }
-        if let controller = selectedViewController as? CostViewController {
-            let keys = ["studentnumber": controller.dutInfo.studentNumber,
-                        "teachpassword": controller.dutInfo.teachPassword,
-                        "portalpassword": controller.dutInfo.portalPassword]
-
-            let courses = CourseInfo().allCourseData
-            let message = ["syncdata": ["keys": keys, "courses": courses as Any]]
-            session.sendMessage(message, replyHandler: nil) { error in
-                print(error)
-            }
+        let keys = ["studentnumber": password.studentNumber,
+                    "teachpassword": password.teachPassword,
+                    "portalpassword": password.portalPassword]
+        var courses: [[String: String]]?
+        if let controller = selectedViewController as? ScheduleViewController {
+            courses = controller.dataSource.data.courses
+        } else {
+            courses = CourseInfo().allCourses
+        }
+        let message = ["syncdata": ["keys": keys, "courses": courses as Any]]
+        session.sendMessage(message, replyHandler: nil) { error in
+            print(error)
         }
     }
 }

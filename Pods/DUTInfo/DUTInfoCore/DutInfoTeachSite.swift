@@ -35,8 +35,8 @@ extension DUTInfo {
     }
     
     //课程信息
-    public func courseInfo() -> [[String: String]] {
-        var value = [[String: String]]()
+    public func courseInfo() -> [[String: String]]? {
+        var value: [[String: String]]?
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue(label: "teach.course.promise")
         firstly(execute: self.gotoTeachPage)
@@ -77,8 +77,8 @@ extension DUTInfo {
 //    }
     
     //考试信息
-    public func testInfo() -> [[String: String]] {
-        var value = [[String: String]]()
+    public func testInfo() -> [[String: String]]? {
+        var value: [[String: String]]?
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue(label: "test.promise")
         firstly(execute: gotoTeachPage)

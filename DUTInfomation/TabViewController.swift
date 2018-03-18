@@ -9,21 +9,24 @@
 import UIKit
 import DUTInfo
 
-//所有tab页面的基类, 便于进行账号信息的依赖注入
+//所有tab页面的基类
 class TabViewController: UIViewController {
-    var dutInfo: DUTInfo!
-    var loginHandler: (() -> Void)?
+    var isLogin: Bool = false
     
-    func performLogin() {
-        performSegue(withIdentifier: "LoginTeach", sender: self)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if (tabBarController as! TabBarController).isLogin == false {
+            performSegue(withIdentifier: "LoginTeach", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "LoginTeach" {
             let navigation = segue.destination as! UINavigationController
             let destination = navigation.topViewController as! LoginTeachSiteViewController
-            destination.dutInfo = dutInfo
-            destination.loginHandler = loginHandler
+            destination.didLogHandler = {
+                (self.tabBarController as! TabBarController).isLogin = true
+            }
         }
     }
 }

@@ -38,10 +38,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     private func otherString() -> String {
-        let cacheInfo = CacheInfo()
-        let netFlow = cacheInfo.netFlowText
-        let ecardCost = cacheInfo.ecardText
-        return netFlow + "/" + ecardCost
+        let (cost, flow) = CacheInfo().netInfo
+        return flow + "/" + cost
     }
     
     private func courseString(date: Date) -> (course: String, place: String) {

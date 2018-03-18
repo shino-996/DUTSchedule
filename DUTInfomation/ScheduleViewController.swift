@@ -19,12 +19,9 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         courseInfo = CourseInfo()
-        dataSource = ScheduleViewDataSource()
+        dataSource = ScheduleViewDataSource(data: courseInfo.coursesThisWeek())
         collectionView.dataSource = dataSource
         dataSource.controller = self
-        dataSource.freshUIHandler = {
-            self.collectionView.reloadData()
-        }
         dataSource.data = courseInfo.coursesThisWeek(dataSource.data.date)
     }
     
@@ -46,16 +43,11 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     
     @IBAction func loadSchedule() {
         activityIndicator.startAnimating()
-        DispatchQueue.global().async { [weak self] in
-            if self?.dutInfo.loginTeachSite() ?? false {
-                self?.courseInfo.allCourseData = self?.dutInfo.courseInfo()
-                self?.getScheduleThisWeek()
-                DispatchQueue.main.async { [weak self] in
-                    self?.loadScheduleButton.isHidden = true
-                    self?.activityIndicator.stopAnimating()
-                }
-            } else {
-                self?.performLogin()
+        courseInfo.loadCoursesAsync() {
+            DispatchQueue.main.async {
+                self.loadScheduleButton.isHidden = true
+                self.activityIndicator.stopAnimating()
+                self.getScheduleThisWeek()
             }
         }
     }
@@ -70,14 +62,17 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     
     func getScheduleThisWeek() {
         dataSource.data  = courseInfo.coursesThisWeek(Date())
+        collectionView.reloadData()
     }
     
     func getScheduleNextWeek() {
         dataSource.data = courseInfo.coursesNextWeek(dataSource.data.date)
+        collectionView.reloadData()
     }
     
     func getScheduleLastWeek() {
         dataSource.data = courseInfo.coursesLastWeek(dataSource.data.date)
+        collectionView.reloadData()
     }
 }
 
