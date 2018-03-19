@@ -12,40 +12,50 @@ import Security
 struct KeyInfo {
     static let shared = KeyInfo()
     
-    let service = "DUTInfomation"
-    let suitName = "group.dutinfo.shino.space"
+    private let service = "DUTInfomation"
+    private let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
     
     //姓名和学号保存在userefaults中, 以[[name: "XXX", number: "xxxxxxxxx"]]字典数组形式保存
-    //以学号作为主键将教务处密码和校园门户保存在keychain中, 以逗号为间隔只保存为一个字段
-    func getAccounts() -> [[String: String]]? {
-        let userDefaults = UserDefaults(suiteName: suitName)!
-        guard let accounts = userDefaults.array(forKey: "accounts") as? [[String: String]] else {
-            return nil
+    func setAccount(_ account: (studentNumber: String, teachPassword: String, portalPassowrd: String)) {
+        if let previousStudentNumber = userDefaults.string(forKey: "studentnumber") {
+            if previousStudentNumber == account.studentNumber {
+                updatePassword(studentNumber: account.studentNumber,
+                               teachPassword: account.teachPassword,
+                               portalPassword: account.portalPassowrd)
+                return
+            } else {
+                removePasword(ofStudentnumber: previousStudentNumber)
+                userDefaults.set(account.studentNumber, forKey: "studentnumber")
+                savePassword(studentNumber: account.studentNumber,
+                             teachPassword: account.teachPassword,
+                             portalPassword: account.portalPassowrd)
+            }
+        } else {
+            userDefaults.set(account.studentNumber, forKey: "studentnumber")
+            savePassword(studentNumber: account.studentNumber,
+                         teachPassword: account.teachPassword,
+                         portalPassword: account.portalPassowrd)
         }
-        return accounts
     }
     
-    func getCurrentAccount() -> [String: String]? {
-        guard let accounts = getAccounts() else {
-            return nil
-        }
-        return accounts.last
-    }
-    
-    func updateAccounts(accounts: [[String: String]]) {
-        let userDefaults = UserDefaults(suiteName: suitName)!
-        userDefaults.set(accounts, forKey: "accounts")
-    }
-    
-    func currentPassword() -> (studentNumber: String, teachPassword: String, portalPassword: String)? {
-        guard let studentNumber = getCurrentAccount()?["number"] else {
+    func getAccount() -> (studentNumber: String, teachPassword: String, portalPassword: String)? {
+        guard let studentNumber = userDefaults.string(forKey: "studentnumber") else {
             return nil
         }
         let (teachPassword, portalPassword) = loadPassword(studentNumber: studentNumber)
         return (studentNumber, teachPassword, portalPassword)
     }
     
-    func savePassword(studentNumber: String, teachPassword: String, portalPassword: String) {
+    func removeAccount() {
+        guard let studentNumber = userDefaults.string(forKey: "studentnumber") else {
+            return
+        }
+        removePasword(ofStudentnumber: studentNumber)
+        userDefaults.removeObject(forKey: "studentNumber")
+    }
+    
+    //以学号作为主键将教务处密码和校园门户保存在keychain中, 以逗号为间隔只保存为一个字段
+    private func savePassword(studentNumber: String, teachPassword: String, portalPassword: String) {
         let password = teachPassword + ", " + portalPassword
         let searchKeychainQuery = [kSecClass: kSecClassGenericPassword,
                                    kSecAttrService: service,
@@ -71,7 +81,7 @@ struct KeyInfo {
         }
     }
     
-    func loadPassword(studentNumber: String) -> (teachPassword: String, portalPassword: String) {
+    private func loadPassword(studentNumber: String) -> (teachPassword: String, portalPassword: String) {
         let keychainQuery = [kSecClass: kSecClassGenericPassword,
                              kSecAttrService: service,
                              kSecAttrAccount: studentNumber,
@@ -88,7 +98,7 @@ struct KeyInfo {
         return (passwordString[0], passwordString[1])
     }
     
-    func removePasword(ofStudentnumber studentNumber: String) {
+    private func removePasword(ofStudentnumber studentNumber: String) {
         let keychainQuery = [kSecClass: kSecClassGenericPassword,
                              kSecAttrService: service,
                              kSecAttrAccount: studentNumber] as CFDictionary
@@ -99,7 +109,7 @@ struct KeyInfo {
         }
     }
     
-    func updatePassword(studentNumber: String, teachPassword: String, portalPassword: String) {
+    private func updatePassword(studentNumber: String, teachPassword: String, portalPassword: String) {
         let password = teachPassword + ", " + portalPassword
         let data = password.data(using: .utf8)!
         let keychainQuery = [kSecClass: kSecClassGenericPassword,

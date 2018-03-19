@@ -35,7 +35,7 @@ class TestInfo {
     }
     
     func loadTestAsync(_ handle: (() -> Void)?) {
-        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.currentPassword()!
+        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.getAccount()!
         DispatchQueue.global().async {
             self.allTests = DUTInfo(studentNumber: studentNumber,
                                     teachPassword: teachPassword,

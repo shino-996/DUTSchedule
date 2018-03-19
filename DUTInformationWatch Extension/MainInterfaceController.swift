@@ -23,7 +23,7 @@ class MainInterfaceController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        if KeyInfo.shared.currentPassword() != nil {
+        if KeyInfo.shared.getAccount() != nil {
             infoInit()
         } else {
             let rowTypes = ["SyncRow"]
@@ -100,12 +100,8 @@ extension MainInterfaceController: WCSessionDelegate {
             let studentNumber = keys["studentnumber"]!
             let teachPassword = keys["teachpassword"]!
             let portalPassword = keys["portalpassword"]!
-            KeyInfo.shared.savePassword(studentNumber: studentNumber,
-                                 teachPassword: teachPassword,
-                                 portalPassword: portalPassword)
-            let account = ["name": "XXX", "number": studentNumber]
+            KeyInfo.shared.setAccount((studentNumber, teachPassword, portalPassword))
             let courses = syncData["courses"] as! [[String: String]]
-            KeyInfo.shared.updateAccounts(accounts: [account])
             isSync = true
             infoInit(courses)
         }

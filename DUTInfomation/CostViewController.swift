@@ -71,11 +71,7 @@ class CostViewController: TabViewController {
         let alertController = UIAlertController(title: "登录账号", message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let logoutAction = UIAlertAction(title: "注销", style: .default) { _ in
-            let account = KeyInfo.shared.getCurrentAccount()!["number"]!
-            KeyInfo.shared.removePasword(ofStudentnumber: account)
-            var accounts = KeyInfo.shared.getAccounts()!
-            accounts.removeLast()
-            KeyInfo.shared.updateAccounts(accounts: accounts)
+            KeyInfo.shared.removeAccount()
             CourseInfo.deleteCourse()
             TestInfo.deleteTest()
             CacheInfo.deleteCache()

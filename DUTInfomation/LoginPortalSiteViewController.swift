@@ -29,12 +29,7 @@ class LoginPortalSiteViewController: UIViewController {
         dutInfo.portalPassword = password.text ?? ""
         if dutInfo.loginPortal() {
             let studentNumber = number!
-            KeyInfo.shared.savePassword(studentNumber: studentNumber,
-                                        teachPassword: teachPassword,
-                                        portalPassword: password.text!)
-            var accounts = KeyInfo.shared.getAccounts() ?? [[String: String]]()
-            accounts.append(["name": "XXX", "number": studentNumber])
-            KeyInfo.shared.updateAccounts(accounts: accounts)
+            KeyInfo.shared.setAccount((studentNumber, teachPassword, password.text!))
             self.didLogHandler?()
             self.navigationController?.dismiss(animated: true)
         } else {

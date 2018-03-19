@@ -43,7 +43,7 @@ class CourseInfo: NSObject {
     }
     
     func loadCoursesAsync(_ handler: (() -> Void)?) {
-        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.currentPassword()!
+        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.getAccount()!
         DispatchQueue.global().async {
             guard let courses = DUTInfo(studentNumber: studentNumber,
                                         teachPassword: teachPassword,

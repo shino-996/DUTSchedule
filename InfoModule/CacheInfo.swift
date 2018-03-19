@@ -74,7 +74,7 @@ class CacheInfo: NSObject {
     }
     
     func loadCacheAsync(_ handler: (() -> Void)?) {
-        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.currentPassword()!
+        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.getAccount()!
         DispatchQueue.global().async {
             let dutInfo = DUTInfo(studentNumber: studentNumber,
                                   teachPassword: teachPassword,

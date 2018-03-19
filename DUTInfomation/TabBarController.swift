@@ -17,7 +17,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
-        isLogin = KeyInfo.shared.currentPassword() != nil
+        isLogin = KeyInfo.shared.getAccount() != nil
         if WCSession.isSupported() {
             session.delegate = self
             session.activate()
@@ -43,7 +43,7 @@ extension TabBarController: WCSessionDelegate {
         guard (message["message"] as? String) == "sync request" else {
             return
         }
-        guard let password = KeyInfo.shared.currentPassword() else {
+        guard let password = KeyInfo.shared.getAccount() else {
             return
         }
         let keys = ["studentnumber": password.studentNumber,
