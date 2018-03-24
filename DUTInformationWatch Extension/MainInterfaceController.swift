@@ -37,9 +37,8 @@ class MainInterfaceController: WKInterfaceController {
         cacheInfo = CacheInfo()
         courseInfo = CourseInfo()
         if let courses = courses {
-            courseInfo.allCourses = courses
+            courseInfo.addCourse(courses)
         }
-        courseData = courseInfo.coursesToday().courses
         WKExtension.shared().delegate = self
         fetchInfoBackground(interval: Date())
         infoRefresh()
@@ -47,6 +46,7 @@ class MainInterfaceController: WKInterfaceController {
     
     func infoRefresh() {
         var rowTypes = ["NetRow", "EcardRow"]
+        courseData = courseInfo.coursesToday().courses
         let courseNum = courseData?.count ?? 0
         for _ in 0 ..< courseNum {
             rowTypes += ["CourseRow"]

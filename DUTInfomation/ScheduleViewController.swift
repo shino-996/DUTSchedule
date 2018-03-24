@@ -76,12 +76,29 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     }
 }
 
+extension ScheduleViewController: AddCourseDelegate {
+    func addCourse(_ course: [String : String]) {
+        courseInfo.addCourse([course])
+        getScheduleThisWeek()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier != "AddCourse" {
+            return
+        }
+        let viewContrller = segue.destination as! AddCourseController
+        viewContrller.delegate = self
+    }
+}
+
 extension ScheduleViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CourseCell  else {
             return
         }
         guard let courseInfo = cell.courseInfo(courses: dataSource.data.courses, indexPath: indexPath) else {
+            performSegue(withIdentifier: "AddCourse", sender: self)
             return
         }
         let alertController = UIAlertController(title: "课程详情", message: courseInfo, preferredStyle: .alert)

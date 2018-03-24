@@ -608,6 +608,7 @@
                         <outlet property="collectionView" destination="xUv-uf-GDF" id="mkn-IE-yYE"/>
                         <outlet property="loadScheduleButton" destination="K45-ur-Yyf" id="lRF-a3-sba"/>
                         <segue destination="gpD-Tv-J8n" kind="presentation" identifier="LoginTeach" id="Snx-XQ-mSf"/>
+                        <segue destination="8gC-ES-hi0" kind="presentation" identifier="AddCourse" id="Wuo-lW-IOH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYA-Rq-AEo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -623,6 +624,124 @@
                 </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1685.625" y="123.59154929577466"/>
+        </scene>
+        <!--Add Course Controller-->
+        <scene sceneID="hPK-Sa-FAp">
+            <objects>
+                <tableViewController id="8gC-ES-hi0" customClass="AddCourseController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="aKX-q7-WDZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddCourseCell" id="4To-OM-xbM" customClass="AddCourseCell" customModule="DUTInfomation" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4To-OM-xbM" id="quY-FE-JBm">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="课程名称" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yt9-P9-MgU">
+                                            <rect key="frame" x="20" y="7" width="280" height="30"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Yt9-P9-MgU" secondAttribute="trailing" constant="20" symbolic="YES" id="DKc-7D-WaW"/>
+                                        <constraint firstItem="Yt9-P9-MgU" firstAttribute="centerY" secondItem="quY-FE-JBm" secondAttribute="centerY" id="Ucd-c9-Iyj"/>
+                                        <constraint firstItem="Yt9-P9-MgU" firstAttribute="leading" secondItem="quY-FE-JBm" secondAttribute="leading" constant="20" symbolic="YES" id="y2f-UF-yu8"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="courseInfoText" destination="Yt9-P9-MgU" id="BHz-mp-ms4"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddCourseTimeCell" rowHeight="130" id="qwC-yD-bzd" customClass="AddCourseTimeCell" customModule="DUTInfomation" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="320" height="130"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qwC-yD-bzd" id="vCn-u7-r9u">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="0ge-K2-YH7">
+                                            <rect key="frame" x="20" y="20" width="280" height="29"/>
+                                            <segments>
+                                                <segment title="周日"/>
+                                                <segment title="周一"/>
+                                                <segment title="周二"/>
+                                                <segment title="周三"/>
+                                                <segment title="周四"/>
+                                                <segment title="周五"/>
+                                                <segment title="周六"/>
+                                            </segments>
+                                        </segmentedControl>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="上课课节" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9ey-kE-uH3">
+                                            <rect key="frame" x="20" y="56" width="280" height="18"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="上课周" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="456-Tz-glf">
+                                            <rect key="frame" x="20" y="82" width="280" height="28"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="9ey-kE-uH3" secondAttribute="trailing" constant="20" symbolic="YES" id="2dk-6d-33w"/>
+                                        <constraint firstItem="0ge-K2-YH7" firstAttribute="top" secondItem="vCn-u7-r9u" secondAttribute="top" constant="20" symbolic="YES" id="79M-Em-aXD"/>
+                                        <constraint firstItem="0ge-K2-YH7" firstAttribute="leading" secondItem="vCn-u7-r9u" secondAttribute="leading" constant="20" symbolic="YES" id="8ii-2p-dR8"/>
+                                        <constraint firstItem="9ey-kE-uH3" firstAttribute="centerY" secondItem="vCn-u7-r9u" secondAttribute="centerY" id="Ora-06-r2U"/>
+                                        <constraint firstAttribute="trailing" secondItem="0ge-K2-YH7" secondAttribute="trailing" constant="20" symbolic="YES" id="PZX-so-8Ss"/>
+                                        <constraint firstItem="9ey-kE-uH3" firstAttribute="leading" secondItem="vCn-u7-r9u" secondAttribute="leading" constant="20" symbolic="YES" id="Yzc-z9-yEO"/>
+                                        <constraint firstItem="456-Tz-glf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9ey-kE-uH3" secondAttribute="bottom" constant="8" symbolic="YES" id="ffn-AN-rrv"/>
+                                        <constraint firstItem="456-Tz-glf" firstAttribute="leading" secondItem="vCn-u7-r9u" secondAttribute="leading" constant="20" symbolic="YES" id="hl5-OS-7bK"/>
+                                        <constraint firstAttribute="trailing" secondItem="456-Tz-glf" secondAttribute="trailing" constant="20" symbolic="YES" id="oCp-Aa-HKO"/>
+                                        <constraint firstItem="9ey-kE-uH3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="0ge-K2-YH7" secondAttribute="bottom" constant="8" symbolic="YES" id="ud2-6b-JTr"/>
+                                        <constraint firstAttribute="bottom" secondItem="456-Tz-glf" secondAttribute="bottom" constant="20" symbolic="YES" id="zfj-ca-u74"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="coursenumberText" destination="9ey-kE-uH3" id="hcY-c4-Nl2"/>
+                                    <outlet property="weekSegment" destination="0ge-K2-YH7" id="Bdz-9g-Noc"/>
+                                    <outlet property="weeknumberText" destination="456-Tz-glf" id="alP-mY-3hs"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConfirmCell" id="PdM-GR-tXQ">
+                                <rect key="frame" x="0.0" y="202" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PdM-GR-tXQ" id="guQ-Bh-JJR">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="确定" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJZ-UZ-m00">
+                                            <rect key="frame" x="20" y="11" width="280" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="qJZ-UZ-m00" secondAttribute="trailing" constant="20" symbolic="YES" id="Mu6-Od-4ce"/>
+                                        <constraint firstItem="qJZ-UZ-m00" firstAttribute="centerY" secondItem="guQ-Bh-JJR" secondAttribute="centerY" id="jrA-MP-yNF"/>
+                                        <constraint firstItem="qJZ-UZ-m00" firstAttribute="leading" secondItem="guQ-Bh-JJR" secondAttribute="leading" constant="20" symbolic="YES" id="ro3-cB-ZlL"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="8gC-ES-hi0" id="54j-xm-pSR"/>
+                            <outlet property="delegate" destination="8gC-ES-hi0" id="Pcb-Wa-X6N"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OTw-cE-zYH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2441.25" y="123.59154929577466"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="I7b-Xv-kgr">
@@ -669,6 +788,6 @@
         <image name="Schedule" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oNu-W3-QP0"/>
+        <segue reference="Snx-XQ-mSf"/>
     </inferredMetricsTieBreakers>
 </document>

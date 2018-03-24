@@ -13,17 +13,9 @@ class CourseInfo: NSObject {
     private var fileURL: URL
     
     var allCourses: [[String: String]]? {
-        get {
-            return allCourseData
-        }
-        set {
-            guard let courses = newValue else {
-                return
-            }
-            allCourseData = courses
-            (courses as NSArray).write(to: self.fileURL, atomically: true)
-        }
+        return allCourseData
     }
+    
     private var allCourseData: [[String: String]]?
     
     override init() {
@@ -54,6 +46,14 @@ class CourseInfo: NSObject {
             self.allCourseData = courses
             handler?()
         }
+    }
+    
+    func addCourse(_ courses: [[String: String]]) {
+        if allCourseData == nil {
+            allCourseData = [[String: String]]()
+        }
+        allCourseData!.append(contentsOf: courses)
+        (allCourseData! as NSArray).write(to: fileURL, atomically: true)
     }
     
     private func coursesAWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int) {
