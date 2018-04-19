@@ -24,6 +24,7 @@
 		B454BC4B205E55A40073721F /* KeyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* KeyInfo.swift */; };
 		B454BC4C205E55A80073721F /* CacheInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC41205E558A0073721F /* CacheInfo.swift */; };
 		B454BC4D205E55A90073721F /* CacheInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC41205E558A0073721F /* CacheInfo.swift */; };
+		B48B031A207384D700215BB0 /* Course.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B48B0318207384D700215BB0 /* Course.xcdatamodeld */; };
 		B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */; };
 		B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A137E61F62BD9200207CFF /* TodayViewController.swift */; };
 		B4A2114D1FDFAD2C0055B611 /* WeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */; };
@@ -149,6 +150,7 @@
 		B454BC40205E558A0073721F /* TestInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestInfo.swift; sourceTree = "<group>"; };
 		B454BC41205E558A0073721F /* CacheInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheInfo.swift; sourceTree = "<group>"; };
 		B454BC42205E558A0073721F /* KeyInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyInfo.swift; sourceTree = "<group>"; };
+		B48B0319207384D700215BB0 /* Course.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Course.xcdatamodel; sourceTree = "<group>"; };
 		B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachWeekView.swift; sourceTree = "<group>"; };
 		B4A137E61F62BD9200207CFF /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 		B454BC3E205E558A0073721F /* InfoModule */ = {
 			isa = PBXGroup;
 			children = (
+				B48B0318207384D700215BB0 /* Course.xcdatamodeld */,
 				B454BC3F205E558A0073721F /* CourseInfo.swift */,
 				B454BC40205E558A0073721F /* TestInfo.swift */,
 				B454BC41205E558A0073721F /* CacheInfo.swift */,
@@ -769,6 +772,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B48B031A207384D700215BB0 /* Course.xcdatamodeld in Sources */,
 				B454BC46205E558A0073721F /* KeyInfo.swift in Sources */,
 				B4A2114F1FDFAD580055B611 /* CourseCell.swift in Sources */,
 				B42FB68F2066006600B79B40 /* AddCourseController.swift in Sources */,
@@ -928,7 +932,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -978,7 +982,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -995,7 +999,7 @@
 				CODE_SIGN_ENTITLEMENTS = DUTInfomation/DUTInfomation.entitlements;
 				DEVELOPMENT_TEAM = R374EG3MSW;
 				INFOPLIST_FILE = DUTInfomation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1014,7 +1018,7 @@
 				CODE_SIGN_ENTITLEMENTS = DUTInfomation/DUTInfomation.entitlements;
 				DEVELOPMENT_TEAM = R374EG3MSW;
 				INFOPLIST_FILE = DUTInfomation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1199,6 +1203,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B48B0318207384D700215BB0 /* Course.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B48B0319207384D700215BB0 /* Course.xcdatamodel */,
+			);
+			currentVersion = B48B0319207384D700215BB0 /* Course.xcdatamodel */;
+			path = Course.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B4B70E731F0A211800174471 /* Project object */;
 }

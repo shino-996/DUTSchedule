@@ -9,6 +9,7 @@
 import UIKit
 import NotificationCenter
 import DUTInfo
+import CoreData
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var netLabel: UILabel!
@@ -26,7 +27,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        courseInfo = CourseInfo()
+        let container = NSPersistentContainer(name: "Course")
+        container.loadPersistentStores() { _, _ in }
+        let context = container.viewContext
+        courseInfo = CourseInfo(context: context)
         cacheInfo = CacheInfo()
         dataSource = TodayViewDataSource(data: courseInfo.coursesToday())
         dataSource.controller = self

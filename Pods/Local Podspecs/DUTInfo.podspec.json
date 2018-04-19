@@ -1,6 +1,6 @@
 {
   "name": "DUTInfo",
-  "version": "0.1.1",
+  "version": "0.1.6",
   "summary": "大连理工大学学生相关信息的查询",
   "description": "大连理工大学学生相关信息的查询，当然是用自己的账号查自己的信息→_→",
   "homepage": "http://github.com/shino-996/DUTInfo",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/shino-996/DUTInfo.git",
-    "tag": "0.1.1"
+    "tag": "0.1.6"
   },
   "source_files": "DUTInfoCore",
   "requires_arc": true,

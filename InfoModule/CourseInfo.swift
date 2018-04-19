@@ -8,71 +8,122 @@
 
 import Foundation
 import DUTInfo
+import CoreData
+
+struct CourseData: CourseType {
+    var name: String
+    var teacher: String
+    
+    typealias TimeType = TimeData
+    var time: [TimeData]
+}
+
+struct TimeData: CourseTimeType {
+    var place: String
+    var startSection: Int
+    var endSection: Int
+    var week: Int
+    var teachWeek: [Int]
+}
+
+class Course: NSManagedObject {
+    @NSManaged var name: String
+    @NSManaged var teacher: String
+    @NSManaged var time: Set<Time>
+    
+    static func fetchRequest() -> NSFetchRequest<Course> {
+        return NSFetchRequest<Course>(entityName: "Course")
+    }
+    
+    func config(from data: CourseData, context: NSManagedObjectContext) {
+        name = data.name
+        teacher = data.teacher
+        for timeData in data.time {
+            let newTime = NSEntityDescription.insertNewObject(forEntityName: "Time", into: context) as! Time
+            newTime.place = timeData.place
+            newTime.startsection = timeData.startSection
+            newTime.endsection = timeData.endSection
+            newTime.week = timeData.week
+            newTime.teachweek = timeData.teachWeek
+            newTime.course = self
+        }
+    }
+}
+
+class Time: NSManagedObject {
+    @NSManaged var place: String
+    @NSManaged var startsection: Int
+    @NSManaged var endsection: Int
+    @NSManaged var week: Int
+    @NSManaged var teachweek: [Int]
+    @NSManaged var course: Course
+    
+    static func fetchRequest() -> NSFetchRequest<Time> {
+        return NSFetchRequest<Time>(entityName: "Time")
+    }
+}
 
 class CourseInfo: NSObject {
-    private var fileURL: URL
+    var context: NSManagedObjectContext!
     
-    var allCourses: [[String: String]]? {
-        return allCourseData
+    init(context: NSManagedObjectContext) {
+        self.context = context
     }
     
-    private var allCourseData: [[String: String]]?
-    
-    override init() {
-        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-        fileURL = groupURL!.appendingPathComponent("course.plist")
-        guard let array = NSArray(contentsOf: fileURL) as? [[String: String]] else {
-            allCourseData = nil
-            return
-        }
-        allCourseData = array
-    }
-    
-    static func deleteCourse() {
-        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")
-        let fileURL = groupURL!.appendingPathComponent("course.plist")
-        try? FileManager.default.removeItem(at: fileURL)
-    }
+    static func deleteCourse() {}
     
     func loadCoursesAsync(_ handler: (() -> Void)?) {
         let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.getAccount()!
         DispatchQueue.global().async {
-            guard let courses = DUTInfo(studentNumber: studentNumber,
+            guard let coursesData: [CourseData] = DUTInfo(studentNumber: studentNumber,
                                         teachPassword: teachPassword,
                                         portalPassword: portalPassword).courseInfo() else {
                 return
             }
-            (courses as NSArray).write(to: self.fileURL, atomically: true)
-            self.allCourseData = courses
+            let fetchRequest: NSFetchRequest<Course> = Course.fetchRequest()
+            let courses = try! self.context.fetch(fetchRequest)
+            for courseData in coursesData {
+                if courses.filter({ return $0.name == courseData.name }).count != 0 {
+                    break
+                } else {
+                    let newCourse = NSEntityDescription.insertNewObject(forEntityName: "Course", into: self.context) as! Course
+                    newCourse.config(from: courseData, context: self.context)
+                }
+            }
+            try! self.context.save()
             handler?()
         }
     }
     
-    func addCourse(_ courses: [[String: String]]) {
-        if allCourseData == nil {
-            allCourseData = [[String: String]]()
-        }
-        allCourseData!.append(contentsOf: courses)
-        (allCourseData! as NSArray).write(to: fileURL, atomically: true)
-    }
+    func addCourse(_ courses: [[String: String]]) {}
     
     private func coursesAWeek(_ date: Date) -> (courses: [[String: String]]?, weeknumber: Int) {
         let weeknumberDataFormatter = DateFormatter()
         weeknumberDataFormatter.dateFormat = "w"
         let weeknumber = Int(weeknumberDataFormatter.string(from: date))! - 9
-        guard allCourseData != nil else {
-            return (nil, weeknumber)
-        }
-        let courses = allCourseData!.filter { course in
-            guard course["coursenumber"] != "" else {
+        let fetchRequest: NSFetchRequest<Time> = Time.fetchRequest()
+        let times = try! context.fetch(fetchRequest)
+        let courses = times.filter { time in
+            guard time.startsection != 0 else {
                 return false
             }
-            let courseWeeknumber = course["weeknumber"]!.components(separatedBy: "-")
-            let courseStartWeeknumber = Int(courseWeeknumber[0])!
-            let courseEndWeeknumber = Int(courseWeeknumber[1])!
-            return  weeknumber >= courseStartWeeknumber && weeknumber <= courseEndWeeknumber
+            return time.teachweek.contains(weeknumber)
         }
-        return (courses, weeknumber)
+        var values: [[String: String]]?
+        for course in courses {
+            var value = [String: String]()
+            value["name"] = course.course.name
+            value["teacher"] = course.course.teacher
+            value["place"] = course.place
+            value["coursenumber"] = "\(course.startsection)"
+            value["week"] = "\(course.week)"
+            value["weeknumber"] = "\(course.teachweek.first!)-\(course.teachweek.last!)"
+            if values == nil {
+                values = [[String: String]]()
+            }
+            values!.append(value)
+        }
+        return (values, weeknumber)
     }
     
     func coursesThisWeek(_ date: Date = Date()) -> (courses: [[String: String]]?, weeknumber: Int, date: Date) {

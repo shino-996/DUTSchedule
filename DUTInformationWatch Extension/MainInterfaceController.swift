@@ -10,6 +10,7 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 import DUTInfo
+import CoreData
 
 class MainInterfaceController: WKInterfaceController {
     @IBOutlet var informationTable: WKInterfaceTable!
@@ -35,7 +36,10 @@ class MainInterfaceController: WKInterfaceController {
     
     func infoInit(_ courses: [[String: String]]? = nil) {
         cacheInfo = CacheInfo()
-        courseInfo = CourseInfo()
+        let container = NSPersistentContainer(name: "Course")
+        container.loadPersistentStores() { _, _ in }
+        let context = container.viewContext
+        courseInfo = CourseInfo(context: context)
         if let courses = courses {
             courseInfo.addCourse(courses)
         }

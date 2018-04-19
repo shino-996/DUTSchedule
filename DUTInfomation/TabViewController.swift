@@ -8,6 +8,7 @@
 
 import UIKit
 import DUTInfo
+import CoreData
 
 //所有tab页面的基类
 class TabViewController: UIViewController {

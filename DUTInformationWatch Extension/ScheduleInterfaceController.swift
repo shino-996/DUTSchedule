@@ -8,11 +8,16 @@
 
 import WatchKit
 import Foundation
-
+import CoreData
 
 class ScheduleInterfaceController: WKInterfaceController {
     @IBOutlet var scheduleTable: WKInterfaceTable!
-    let courseInfo = CourseInfo()
+    static var context: NSManagedObjectContext {
+        let container = NSPersistentContainer(name: "Course")
+        container.loadPersistentStores() { _, _ in}
+        return container.viewContext
+    }
+    let courseInfo = CourseInfo(context: context)
     var date = Date()
     
     override func awake(withContext context: Any?) {

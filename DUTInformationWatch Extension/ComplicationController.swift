@@ -8,6 +8,7 @@
 
 import ClockKit
 import DUTInfo
+import CoreData
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
     func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
@@ -43,7 +44,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     private func courseString(date: Date) -> (course: String, place: String) {
-        let courseInfo = CourseInfo()
+        let container = NSPersistentContainer(name: "Course")
+        container.loadPersistentStores() { _, _ in }
+        let context = container.viewContext
+        let courseInfo = CourseInfo(context: context)
         var courseString: String
         var placeString: String
         if let courseDictionary = courseInfo.courseNow().course {

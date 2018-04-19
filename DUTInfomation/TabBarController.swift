@@ -9,6 +9,7 @@
 import UIKit
 import DUTInfo
 import WatchConnectivity
+import CoreData
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     let session = WCSession.default
@@ -22,6 +23,19 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             session.delegate = self
             session.activate()
         }
+        guard let rootVC = viewControllers?.first as? TabViewController else {
+            fatalError()
+        }
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        guard let currentVC = selectedViewController as? TabViewController else {
+            fatalError()
+        }
+        guard let nextVC = viewController as? TabViewController else {
+            fatalError()
+        }
+        return true 
     }
 }
 
@@ -53,7 +67,9 @@ extension TabBarController: WCSessionDelegate {
         if let controller = selectedViewController as? ScheduleViewController {
             courses = controller.dataSource.data.courses
         } else {
-            courses = CourseInfo().allCourses
+            let delegate = UIApplication.shared.delegate as! AppDelegate
+            let context = delegate.persistentContainer.viewContext
+            courses = CourseInfo(context: context).coursesThisWeek().courses
         }
         let message = ["syncdata": ["keys": keys, "courses": courses as Any]]
         session.sendMessage(message, replyHandler: nil) { error in

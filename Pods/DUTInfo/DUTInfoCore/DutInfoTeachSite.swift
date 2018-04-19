@@ -35,8 +35,8 @@ extension DUTInfo {
     }
     
     //课程信息
-    public func courseInfo() -> [[String: String]]? {
-        var value: [[String: String]]?
+    public func courseInfo<C: CourseType>() -> [C]? {
+        var value: [C]?
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue(label: "teach.course.promise")
         firstly(execute: self.gotoTeachPage)
@@ -44,7 +44,7 @@ extension DUTInfo {
             .then(on: queue, execute: getCourse)
             .then(on: queue, execute: self.evaluateVerify)
             .then(on: queue, execute: self.parseCourse)
-            .then(on: queue) { (courses: [[String: String]]) -> Void in
+            .then(on: queue) { (courses: [C]) -> Void in
                 value = courses
             }.always(on: queue) {
                 semaphore.signal()
@@ -160,42 +160,65 @@ extension DUTInfo {
     }
     
     //解析出各门课程
-    private func parseCourse(_ string: String) -> [[String: String]] {
+    private func parseCourse<C: CourseType>(_ string: String) -> [C] {
         let parseString = try! HTMLDocument(string: string)
-        let courses = parseString.xpath("//table[@class=\"displayTag\"]/tr[@class=\"odd\"]")
-        var courseData = [[String: String]]()
-        for course in courses {
-            let items = course.xpath("./td")
-            var courseDic = [String: String]()
+        let courseSource = parseString.xpath("//table[@class=\"displayTag\"]/tr[@class=\"odd\"]")
+        var courses = [C]()
+        for courseData in courseSource {
+            let items = courseData.xpath("./td")
             if items.count > 7 {
-                courseDic["name"] = items[2].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                courseDic["teacher"] = items[7].stringValue
+                var course = C(name: "", teacher: "", time: [])
+                course.name = items[2].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                course.teacher = items[7].stringValue
                     .trimmingCharacters(in: .whitespacesAndNewlines)
                     .filter {$0 != "*"}
-                courseDic["weeknumber"] = items[11].stringValue
+                var courseTime = C.TimeType(place: "", startSection: 0, endSection: 0, week: 0, teachWeek: [])
+                let teachWeeks = items[11].stringValue
                     .trimmingCharacters(in: .whitespacesAndNewlines)
                     .filter {$0.unicodeScalars.first?.value ?? 128 < 128}
-                courseDic["week"] = items[12].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                courseDic["coursenumber"] = items[13].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                courseDic["place"] = items[16].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                    .split(separator: "-")
+                if teachWeeks.count == 0 {
+                    continue
+                }
+                let startTeachWeek = Int(teachWeeks.first!)!
+                let endTeachWeek = Int(teachWeeks.last!)!
+                for i in startTeachWeek ... endTeachWeek {
+                    courseTime.teachWeek.append(i)
+                }
+                courseTime.week = Int(items[12].stringValue.trimmingCharacters(in: .whitespacesAndNewlines))!
+                courseTime.startSection = Int(items[13].stringValue.trimmingCharacters(in: .whitespacesAndNewlines))!
+                courseTime.endSection = courseTime.startSection - 1 +  Int(items[14].stringValue.trimmingCharacters(in: .whitespacesAndNewlines))!
+                courseTime.place = items[16].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
                     + " "
                     + items[17].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                course.time.append(courseTime)
+                courses.append(course)
             } else {
-                let lastCourse = courseData.last!
-                courseDic["name"] = lastCourse["name"]!
-                courseDic["teacher"] = lastCourse["teacher"]!
-                courseDic["weeknumber"] = items[0].stringValue
+                var courseTime = C.TimeType(place: "", startSection: 0, endSection: 0, week: 0, teachWeek: [])
+                let teachWeeks = items[0].stringValue
                     .trimmingCharacters(in: .whitespacesAndNewlines)
                     .filter {$0.unicodeScalars.first?.value ?? 128 < 128}
-                courseDic["week"] = items[1].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                courseDic["coursenumber"] = items[2].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                courseDic["place"] = items[5].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                    .split(separator: "-")
+                if teachWeeks.count == 0 {
+                    continue
+                }
+                let startTeachWeek = Int(teachWeeks.first!)!
+                let endTeachWeek = Int(teachWeeks.last!)!
+                for i in startTeachWeek ... endTeachWeek {
+                    courseTime.teachWeek.append(i)
+                }
+                courseTime.week = Int(items[1].stringValue.trimmingCharacters(in: .whitespacesAndNewlines))!
+                courseTime.startSection = Int(items[2].stringValue.trimmingCharacters(in: .whitespacesAndNewlines))!
+                courseTime.endSection = courseTime.startSection - 1 + Int(items[3].stringValue.trimmingCharacters(in: .whitespacesAndNewlines))!
+                courseTime.place = items[5].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
                     + " "
                     + items[6].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                var course = courses.popLast()!
+                course.time.append(courseTime)
+                courses.append(course)
             }
-            courseData.append(courseDic)
         }
-        return courseData
+        return courses
     }
     
     //查询本学期成绩

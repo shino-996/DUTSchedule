@@ -18,7 +18,9 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        courseInfo = CourseInfo()
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let context = delegate.persistentContainer.viewContext
+        courseInfo = CourseInfo(context: context)
         dataSource = ScheduleViewDataSource(data: courseInfo.coursesThisWeek())
         collectionView.dataSource = dataSource
         dataSource.controller = self
