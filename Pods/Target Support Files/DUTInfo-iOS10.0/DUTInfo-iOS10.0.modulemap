@@ -1,0 +1,6 @@
+framework module DUTInfo {
+  umbrella header "DUTInfo-iOS10.0-umbrella.h"
+
+  export *
+  module * { export * }
+}

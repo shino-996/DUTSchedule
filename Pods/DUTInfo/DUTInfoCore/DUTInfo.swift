@@ -18,6 +18,8 @@ public enum DUTError: Error {
     case otherError
 }
 
+typealias Rsp = (data: Data, response: URLResponse)
+
 public class DUTInfo: NSObject {
     //学号
     public var studentNumber: String
@@ -28,7 +30,7 @@ public class DUTInfo: NSObject {
     
     //用于网络请求的session
     //新版校园门户
-    var newPortalSession: URLSession!
+    var portalSession: URLSession!
     //教务处
     var teachSession: URLSession!
     

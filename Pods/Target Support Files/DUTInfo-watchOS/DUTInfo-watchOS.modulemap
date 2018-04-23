@@ -1,6 +1,0 @@
-framework module DUTInfo {
-  umbrella header "DUTInfo-watchOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -12,12 +12,7 @@ import CoreData
 
 class ScheduleInterfaceController: WKInterfaceController {
     @IBOutlet var scheduleTable: WKInterfaceTable!
-    static var context: NSManagedObjectContext {
-        let container = NSPersistentContainer(name: "Course")
-        container.loadPersistentStores() { _, _ in}
-        return container.viewContext
-    }
-    let courseInfo = CourseInfo(context: context)
+    let courseInfo = CourseManager()
     var date = Date()
     
     override func awake(withContext context: Any?) {
@@ -34,10 +29,10 @@ class ScheduleInterfaceController: WKInterfaceController {
         let weekToday = Int(dateFormatter.string(from: date))! - 1
         for week in 1 ... 7 {
             let tuple = courseInfo.coursesThisWeek(date)
-            let weeknumber = tuple.weeknumber
+            let weeknumber = tuple.teachweek
             let dateInterval = week - weekToday
             let requestDate = Date(timeIntervalSinceNow: TimeInterval(dateInterval * 24 * 60 * 60))
-            let courses = courseInfo.coursesToday(requestDate).courses!
+            let courses = courseInfo.coursesToday(requestDate).courses
             if courses.count != 0 {
                 scheduleTable.insertRows(at: [scheduleTable.numberOfRows], withRowType: "WeekRow")
                 (scheduleTable.rowController(at: scheduleTable.numberOfRows - 1) as! WeekRow).weekLabel.setText("第\(weeknumber)周 周\(week)")

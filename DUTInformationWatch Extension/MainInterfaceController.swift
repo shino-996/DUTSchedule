@@ -16,9 +16,9 @@ class MainInterfaceController: WKInterfaceController {
     @IBOutlet var informationTable: WKInterfaceTable!
     @IBOutlet var updateLabel: WKInterfaceLabel!
     
-    var courseData: [[String: String]]?
+    var courseData: [TimeData]?
     let session = WCSession.default
-    var courseInfo: CourseInfo!
+    var courseManager: CourseManager!
     var cacheInfo: CacheInfo!
     var isSync = false
     
@@ -34,14 +34,11 @@ class MainInterfaceController: WKInterfaceController {
         }
     }
     
-    func infoInit(_ courses: [[String: String]]? = nil) {
+    func infoInit(_ courses: [[String: Any]]? = nil) {
         cacheInfo = CacheInfo()
-        let container = NSPersistentContainer(name: "Course")
-        container.loadPersistentStores() { _, _ in }
-        let context = container.viewContext
-        courseInfo = CourseInfo(context: context)
+        courseManager = CourseManager()
         if let courses = courses {
-            courseInfo.addCourse(courses)
+            courseManager.importData(dics: courses)
         }
         WKExtension.shared().delegate = self
         fetchInfoBackground(interval: Date())
@@ -50,7 +47,7 @@ class MainInterfaceController: WKInterfaceController {
     
     func infoRefresh() {
         var rowTypes = ["NetRow", "EcardRow"]
-        courseData = courseInfo.coursesToday().courses
+        courseData = courseManager.coursesToday().courses
         let courseNum = courseData?.count ?? 0
         for _ in 0 ..< courseNum {
             rowTypes += ["CourseRow"]
@@ -105,7 +102,7 @@ extension MainInterfaceController: WCSessionDelegate {
             let teachPassword = keys["teachpassword"]!
             let portalPassword = keys["portalpassword"]!
             KeyInfo.shared.setAccount((studentNumber, teachPassword, portalPassword))
-            let courses = syncData["courses"] as! [[String: String]]
+            let courses = syncData["courses"] as! [[String: Any]]
             isSync = true
             infoInit(courses)
         }

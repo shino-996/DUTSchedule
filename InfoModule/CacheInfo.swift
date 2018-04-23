@@ -24,7 +24,7 @@ class CacheInfo: NSObject {
         get {
             let cost = "\(netCost)元"
             var flow: String
-            if netFlow > 1024 {
+            if abs(netFlow) > 1024 {
                 flow = String(format: "%.1lfGB", netFlow / 1024)
             } else {
                 flow = "\(netFlow)MB"

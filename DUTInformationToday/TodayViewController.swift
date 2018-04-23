@@ -20,19 +20,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var courseTableView: UITableView!
     @IBOutlet weak var weekButton: UIButton!
     
-    var courseInfo: CourseInfo!
+    var courseManager: CourseManager!
     var cacheInfo: CacheInfo!
     var dataSource: TodayViewDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        let container = NSPersistentContainer(name: "Course")
-        container.loadPersistentStores() { _, _ in }
-        let context = container.viewContext
-        courseInfo = CourseInfo(context: context)
+        courseManager = CourseManager()
         cacheInfo = CacheInfo()
-        dataSource = TodayViewDataSource(data: courseInfo.coursesToday())
+        dataSource = TodayViewDataSource(data: courseManager.coursesToday())
         dataSource.controller = self
         courseTableView.dataSource = dataSource
     }
@@ -46,6 +43,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
+        freshUI()
         if cacheInfo.shouldRefresh() {
             ecardActivity.startAnimating()
             netActivity.startAnimating()
@@ -63,12 +61,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBAction func changeSchedule(_ sender: UIButton) {
         let title = sender.title(for: .normal)
         if title == "⇨" {
-            dataSource.data = courseInfo.coursesNextDay(dataSource.data.date)
+            dataSource.data = courseManager.coursesNextDay(dataSource.data.date)
         } else if title == "⇦" {
-            dataSource.data = courseInfo.coursesLastDay(dataSource.data.date)
+            dataSource.data = courseManager.coursesLastDay(dataSource.data.date)
         } else {
-            dataSource.data = courseInfo.coursesToday(Date())
+            dataSource.data = courseManager.coursesToday(Date())
         }
+        freshUI()
     }
     
     @IBAction func awakeHost(_ sender: UIButton) {
@@ -85,15 +84,15 @@ extension TodayViewController {
     func freshUI() {
         courseTableView.reloadData()
         let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
-        weekButton.setTitle("第\(self.dataSource.data.weeknumber)周 周\(chineseWeek[self.dataSource.data.week])", for: .normal)
-        if dataSource.data.courses != nil {
-            if dataSource.data.courses!.count == 0 {
+        weekButton.setTitle("第\(self.dataSource.data.teachweek)周 周\(chineseWeek[self.dataSource.data.week])", for: .normal)
+        if courseManager.isLoaded() {
+            if dataSource.data.courses.count == 0 {
                 noCourseButton.isHidden = false
                 noCourseButton.setTitle("今天没有课～", for: .normal)
             } else {
                 noCourseButton.isHidden = true
             }
-            if dataSource.data.courses!.count > 1 {
+            if dataSource.data.courses.count > 1 {
                 extensionContext?.widgetLargestAvailableDisplayMode = .expanded
             } else {
                 extensionContext?.widgetLargestAvailableDisplayMode = .compact
@@ -108,15 +107,15 @@ extension TodayViewController {
         if activeDisplayMode == .compact {
             preferredContentSize = maxSize
         }
-        guard dataSource.data.courses != nil else {
+        if !courseManager.isLoaded() {
             preferredContentSize = CGSize(width: 0, height: 110)
             return
         }
         if activeDisplayMode == .expanded {
             preferredContentSize = CGSize(width: 0,
-                                          height: 110 + 61.5 * Double(dataSource.data.courses!.count - 1))
+                                          height: 110 + 61.5 * Double(dataSource.data.courses.count - 1))
         }
-        if dataSource.data.courses!.count > 0 {
+        if dataSource.data.courses.count > 0 {
             let index = IndexPath(item: 0, section: 0)
             courseTableView.reloadRows(at: [index], with: .automatic)
         }

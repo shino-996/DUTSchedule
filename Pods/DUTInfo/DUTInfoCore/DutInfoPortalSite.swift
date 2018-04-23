@@ -21,11 +21,11 @@ extension DUTInfo {
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue(label: "portal.login.promise")
         firstly(execute: gotoPortalPage)
-            .then(on: queue, execute: portalLogin)
-            .then(on: queue, execute: portalLoginVerify)
-            .then(on: queue) { (isLogin: Bool) -> Void in
-                value = isLogin
-            }.always(on: queue) {
+            .then(on: queue, portalLogin)
+            .map(on: queue, portalLoginVerify)
+            .done(on: queue) {
+                value = $0
+            }.ensure(on: queue) {
                 semaphore.signal()
             }.catch(on: queue) { _ in
                 value = false
@@ -40,13 +40,13 @@ extension DUTInfo {
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue(label: "portal.net.promise")
         firstly(execute: gotoPortalPage)
-            .then(on: queue, execute: portalLogin)
-            .then(on: queue, execute: portalLoginVerify)
-            .then(on: queue, execute: getPortalNetInfo)
-            .then(on: queue, execute: parsePortalNetInfo)
-            .then(on: queue) { (netInfo: (netCost: Double, netFlow: Double)) -> Void in
-                value = netInfo
-            }.always(on: queue) {
+            .then(on: queue, portalLogin)
+            .map(on: queue, portalLoginVerify)
+            .then(on: queue, getPortalNetInfo)
+            .map(on: queue, parsePortalNetInfo)
+            .done(on: queue) {
+                value = $0
+            }.ensure(on: queue) {
                 semaphore.signal()
             }.catch(on: queue) { error in
                 print("portal net error")
@@ -62,13 +62,13 @@ extension DUTInfo {
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue(label: "portal.money.promise")
         firstly(execute: gotoPortalPage)
-            .then(on: queue, execute: portalLogin)
-            .then(on: queue, execute: portalLoginVerify)
-            .then(on: queue, execute: getPortalMoneyInfo)
-            .then(on: queue, execute: parsePortalMoneyInfo)
-            .then(on: queue) { (cost: Double) -> Void in
-                value = cost
-            }.always(on: queue) {
+            .then(on: queue, portalLogin)
+            .map(on: queue, portalLoginVerify)
+            .then(on: queue, getPortalMoneyInfo)
+            .map(on: queue, parsePortalMoneyInfo)
+            .done(on: queue) {
+                value = $0
+            }.ensure(on: queue) {
                 semaphore.signal()
             }.catch(on: queue) { error in
                 print("portal money error")
@@ -84,13 +84,13 @@ extension DUTInfo {
         let semaphore = DispatchSemaphore(value: 0)
         let queue = DispatchQueue(label: "portal.person.promise")
         firstly(execute: gotoPortalPage)
-            .then(on: queue, execute: portalLogin)
-            .then(on: queue, execute: portalLoginVerify)
-            .then(on: queue, execute: getPortalPersonInfo)
-            .then(on: queue, execute: parsePortalPersonInto)
-            .then(on: queue) { (name: String) -> Void in
-                value = name
-            }.always(on: queue) {
+            .then(on: queue, portalLogin)
+            .map(on: queue, portalLoginVerify)
+            .then(on: queue, getPortalPersonInfo)
+            .map(on: queue, parsePortalPersonInto)
+            .done(on: queue) {
+                value = $0
+            }.ensure(on: queue) {
                 semaphore.signal()
             }.catch(on: queue) { error in
                 print("portal person error")
@@ -103,17 +103,18 @@ extension DUTInfo {
 
 //接口实现
 extension DUTInfo {
-    func gotoPortalPage() -> URLDataPromise {
+    //进入门户主页, 主要是获取 cookie
+    func gotoPortalPage() -> Promise<(data: Data, response: URLResponse)> {
         let url = URL(string: "https://sso.dlut.edu.cn/cas/login?service=https%3A%2F%2Fportal.dlut.edu.cn%2Ftp%2F")!
         let request = URLRequest(url: url)
-        newPortalSession = URLSession(configuration: .ephemeral)
-        return newPortalSession.dataTask(with: request)
+        portalSession = URLSession(configuration: .ephemeral)
+        return portalSession.dataTask(.promise, with: request)
     }
     
-    func portalLogin(_ data: Data) throws -> URLDataPromise {
-        let parseStr = try! HTMLDocument(data: data)
+    func portalLogin(_ rsp: Rsp) throws -> Promise<Rsp> {
+        let parseStr = try! HTMLDocument(data: rsp.data)
         let lt_ticket = parseStr.body?.children[0].children[6].attr("value")
-        guard let cookieStorage = newPortalSession.configuration.httpCookieStorage else {
+        guard let cookieStorage = portalSession.configuration.httpCookieStorage else {
             print("session中没有cookie")
             throw DUTError.netError
         }
@@ -131,34 +132,33 @@ extension DUTInfo {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = ("rsa=" + DES.desStr(text: studentNumber + portalPassword + lt_ticket!, key_1: "1", key_2: "2", key_3: "3") + "&ul=9&pl=14&" + lt_ticket! + "&execution=e1s1&_eventId=submit").data(using: .utf8)!
-        return newPortalSession.dataTask(with: request)
+        return portalSession.dataTask(.promise, with: request)
     }
     
-    private func portalLoginVerify(_ data: Data) -> Bool {
-        let verifyStr = String(data: data, encoding: .utf8)!
+    private func portalLoginVerify(_ rsp: Rsp) -> Bool {
+        let verifyStr = String(rsp: rsp)
         return verifyStr.hasPrefix("<META http-equiv=\"Refresh\" content=\"0; url=")
     }
     
-    private func portalLoginVerify(_ data: Data) throws {
-        let verifyStr = String(data: data, encoding: .utf8)!
-        if verifyStr.hasPrefix("<META http-equiv=\"Refresh\" content=\"0; url=") {
+    private func portalLoginVerify(_ rsp: Rsp) throws {
+        if portalLoginVerify(rsp) {
             return
         } else {
             throw DUTError.authError
         }
     }
     
-    private func getPortalNetInfo() -> URLDataPromise {
+    private func getPortalNetInfo() -> Promise<Rsp> {
         let url = URL(string: "https://portal.dlut.edu.cn/tp/up/subgroup/getTrafficList")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = "{}".data(using: .utf8)
-        return newPortalSession.dataTask(with: request)
+        return portalSession.dataTask(.promise, with: request)
     }
     
-    private func parsePortalNetInfo(_ netInfoData: Data) -> (netCost: Double, netFlow: Double) {
-        let jsonArray = try! JSONSerialization.jsonObject(with: netInfoData)
+    private func parsePortalNetInfo(_ rsp: Rsp) -> (netCost: Double, netFlow: Double) {
+        let jsonArray = try! JSONSerialization.jsonObject(with: rsp.data)
                    as! [[String: String]]
         let json = jsonArray[0]
         let cost = Double(json["fee"]!)!
@@ -166,23 +166,23 @@ extension DUTInfo {
         return (cost, flow)
     }
     
-    private func getPortalMoneyInfo() -> URLDataPromise {
+    private func getPortalMoneyInfo() -> Promise<Rsp> {
         let url = URL(string: "https://portal.dlut.edu.cn/tp/up/subgroup/getCardMoney")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = "{}".data(using: .utf8)
-        return newPortalSession.dataTask(with: request)
+        return portalSession.dataTask(.promise, with: request)
     }
     
-    private func parsePortalMoneyInfo(_ moneyInfoData: Data) -> Double {
-        let json = try! JSONSerialization.jsonObject(with: moneyInfoData)
+    private func parsePortalMoneyInfo(_ rsp: Rsp) -> Double {
+        let json = try! JSONSerialization.jsonObject(with: rsp.data)
                    as! [String: String]
         let cost = Double(json["cardbal"]!)!
         return cost
     }
     
-    private func getPortalPersonInfo() -> URLDataPromise {
+    private func getPortalPersonInfo() -> Promise<Rsp> {
         let url = URL(string: "https://portal.dlut.edu.cn/tp/sys/uacm/profile/getUserById")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -190,14 +190,14 @@ extension DUTInfo {
         let studentNumber = DES.desStr(text: self.studentNumber, key_1: "tp", key_2: "des", key_3: "param")
         request.httpBody = """
         {
-            "ID_NUMBER": "\(studentNumber)"
+            "BE_OPT_ID": "\(studentNumber)"
         }
         """.data(using: .utf8)
-        return newPortalSession.dataTask(with: request)
+        return portalSession.dataTask(.promise, with: request)
     }
     
-    private func parsePortalPersonInto(_ personInfoData: Data) -> String {
-        let json = try! JSONSerialization.jsonObject(with: personInfoData)
+    private func parsePortalPersonInto(_ rsp: Rsp) -> String {
+        let json = try! JSONSerialization.jsonObject(with: rsp.data)
                    as! [String: Any]
         let name = json["USER_NAME"] as! String
         return name

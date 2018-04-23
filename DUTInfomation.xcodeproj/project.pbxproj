@@ -14,12 +14,12 @@
 		B42FB68B20653B0200B79B40 /* AddCourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42FB68A20653B0200B79B40 /* AddCourseCell.swift */; };
 		B42FB68D2065FDDB00B79B40 /* AddCourseTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42FB68C2065FDDB00B79B40 /* AddCourseTimeCell.swift */; };
 		B42FB68F2066006600B79B40 /* AddCourseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42FB68E2066006600B79B40 /* AddCourseController.swift */; };
-		B454BC43205E558A0073721F /* CourseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* CourseInfo.swift */; };
+		B454BC43205E558A0073721F /* CourseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* CourseManager.swift */; };
 		B454BC44205E558A0073721F /* TestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC40205E558A0073721F /* TestInfo.swift */; };
 		B454BC45205E558A0073721F /* CacheInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC41205E558A0073721F /* CacheInfo.swift */; };
 		B454BC46205E558A0073721F /* KeyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* KeyInfo.swift */; };
-		B454BC48205E559C0073721F /* CourseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* CourseInfo.swift */; };
-		B454BC49205E559D0073721F /* CourseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* CourseInfo.swift */; };
+		B454BC48205E559C0073721F /* CourseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* CourseManager.swift */; };
+		B454BC49205E559D0073721F /* CourseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* CourseManager.swift */; };
 		B454BC4A205E55A30073721F /* KeyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* KeyInfo.swift */; };
 		B454BC4B205E55A40073721F /* KeyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* KeyInfo.swift */; };
 		B454BC4C205E55A80073721F /* CacheInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC41205E558A0073721F /* CacheInfo.swift */; };
@@ -50,6 +50,11 @@
 		B4BD1CF620511E1E00C18ACB /* CourseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CF520511E1E00C18ACB /* CourseRow.swift */; };
 		B4BD1CF820511E2700C18ACB /* NetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CF720511E2700C18ACB /* NetRow.swift */; };
 		B4BD1CFA20511E2D00C18ACB /* EcardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD1CF920511E2D00C18ACB /* EcardRow.swift */; };
+		B4C5D852208E159300BF1589 /* ManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C5D851208E159300BF1589 /* ManagedObject.swift */; };
+		B4C5D853208E159300BF1589 /* ManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C5D851208E159300BF1589 /* ManagedObject.swift */; };
+		B4C5D854208E159300BF1589 /* ManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C5D851208E159300BF1589 /* ManagedObject.swift */; };
+		B4C8C29C208A13F800EA3211 /* Course.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B48B0318207384D700215BB0 /* Course.xcdatamodeld */; };
+		B4C8C29D208A13F900EA3211 /* Course.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B48B0318207384D700215BB0 /* Course.xcdatamodeld */; };
 		B4CB3FDB1F1209FE0059591C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4CB3FDA1F1209FE0059591C /* NotificationCenter.framework */; };
 		B4CB3FE11F1209FE0059591C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4CB3FDF1F1209FE0059591C /* MainInterface.storyboard */; };
 		B4CB3FE51F1209FE0059591C /* DUTInformationToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B4CB3FD91F1209FE0059591C /* DUTInformationToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -146,7 +151,7 @@
 		B42FB68A20653B0200B79B40 /* AddCourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseCell.swift; sourceTree = "<group>"; };
 		B42FB68C2065FDDB00B79B40 /* AddCourseTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseTimeCell.swift; sourceTree = "<group>"; };
 		B42FB68E2066006600B79B40 /* AddCourseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseController.swift; sourceTree = "<group>"; };
-		B454BC3F205E558A0073721F /* CourseInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseInfo.swift; sourceTree = "<group>"; };
+		B454BC3F205E558A0073721F /* CourseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseManager.swift; sourceTree = "<group>"; };
 		B454BC40205E558A0073721F /* TestInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestInfo.swift; sourceTree = "<group>"; };
 		B454BC41205E558A0073721F /* CacheInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheInfo.swift; sourceTree = "<group>"; };
 		B454BC42205E558A0073721F /* KeyInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyInfo.swift; sourceTree = "<group>"; };
@@ -181,6 +186,7 @@
 		B4BD1CF720511E2700C18ACB /* NetRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetRow.swift; sourceTree = "<group>"; };
 		B4BD1CF920511E2D00C18ACB /* EcardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcardRow.swift; sourceTree = "<group>"; };
 		B4BD1CFB20511F8700C18ACB /* DUTInformationWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DUTInformationWatch Extension.entitlements"; sourceTree = "<group>"; };
+		B4C5D851208E159300BF1589 /* ManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObject.swift; sourceTree = "<group>"; };
 		B4CB3FD91F1209FE0059591C /* DUTInformationToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DUTInformationToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4CB3FDA1F1209FE0059591C /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		B4CB3FE01F1209FE0059591C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -270,7 +276,8 @@
 			isa = PBXGroup;
 			children = (
 				B48B0318207384D700215BB0 /* Course.xcdatamodeld */,
-				B454BC3F205E558A0073721F /* CourseInfo.swift */,
+				B4C5D851208E159300BF1589 /* ManagedObject.swift */,
+				B454BC3F205E558A0073721F /* CourseManager.swift */,
 				B454BC40205E558A0073721F /* TestInfo.swift */,
 				B454BC41205E558A0073721F /* CacheInfo.swift */,
 				B454BC42205E558A0073721F /* KeyInfo.swift */,
@@ -434,7 +441,6 @@
 				B4B70E781F0A211800174471 /* Frameworks */,
 				B4B70E791F0A211800174471 /* Resources */,
 				CFF1EFBE4AFF4B9A4EDD733A /* [CP] Embed Pods Frameworks */,
-				263F24AE1BF0BC5C836F6AE2 /* [CP] Copy Pods Resources */,
 				B4CB3FE91F1209FE0059591C /* Embed App Extensions */,
 				B4CB3FFD1F120E860059591C /* Embed Frameworks */,
 				B45E81FD204FB82A00D03EAA /* Embed Watch Content */,
@@ -477,7 +483,6 @@
 				B4BD1CD920511BDA00C18ACB /* Frameworks */,
 				B4BD1CDA20511BDA00C18ACB /* Resources */,
 				1934F3264E9378019A9B474B /* [CP] Embed Pods Frameworks */,
-				05E70CDB9BCA3098080F55B8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -496,7 +501,6 @@
 				B4CB3FD51F1209FE0059591C /* Sources */,
 				B4CB3FD61F1209FE0059591C /* Frameworks */,
 				B4CB3FD71F1209FE0059591C /* Resources */,
-				9F2D7F4A38634D2F38CB1D60 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -622,21 +626,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		05E70CDB9BCA3098080F55B8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DUTInformationWatch Extension/Pods-DUTInformationWatch Extension-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		0E54DCA97F510E6FE7196B76 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -662,8 +651,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DUTInformationWatch Extension/Pods-DUTInformationWatch Extension-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/DUTInfo-watchOS/DUTInfo.framework",
-				"${BUILT_PRODUCTS_DIR}/Fuzi-watchOS/Fuzi.framework",
+				"${BUILT_PRODUCTS_DIR}/DUTInfo-watchOS4.0/DUTInfo.framework",
+				"${BUILT_PRODUCTS_DIR}/Fuzi-watchOS4.0/Fuzi.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit.root-CorePromise-Foundation/PromiseKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -675,21 +664,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DUTInformationWatch Extension/Pods-DUTInformationWatch Extension-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		263F24AE1BF0BC5C836F6AE2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9B780CD2C1C17AF5B57DC4A3 /* [CP] Check Pods Manifest.lock */ = {
@@ -710,21 +684,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9F2D7F4A38634D2F38CB1D60 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DUTInformationToday/Pods-DUTInformationToday-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		CFF1EFBE4AFF4B9A4EDD733A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -732,9 +691,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/DUTInfo-iOS/DUTInfo.framework",
-				"${BUILT_PRODUCTS_DIR}/Fuzi-iOS/Fuzi.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit.default-CorePromise/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/DUTInfo-iOS10.0/DUTInfo.framework",
+				"${BUILT_PRODUCTS_DIR}/Fuzi-iOS10.0/Fuzi.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit-iOS10.0/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/DUTInfo-iOS9.3/DUTInfo.framework",
+				"${BUILT_PRODUCTS_DIR}/Fuzi-iOS9.3/Fuzi.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit-iOS9.3/PromiseKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -774,6 +736,7 @@
 			files = (
 				B48B031A207384D700215BB0 /* Course.xcdatamodeld in Sources */,
 				B454BC46205E558A0073721F /* KeyInfo.swift in Sources */,
+				B4C5D852208E159300BF1589 /* ManagedObject.swift in Sources */,
 				B4A2114F1FDFAD580055B611 /* CourseCell.swift in Sources */,
 				B42FB68F2066006600B79B40 /* AddCourseController.swift in Sources */,
 				B454BC44205E558A0073721F /* TestInfo.swift in Sources */,
@@ -786,7 +749,7 @@
 				B422673F1F692DF500D161CD /* ScheduleViewController.swift in Sources */,
 				B4E38DEC1FE65CA00013715C /* ScheduleLayout.swift in Sources */,
 				B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */,
-				B454BC43205E558A0073721F /* CourseInfo.swift in Sources */,
+				B454BC43205E558A0073721F /* CourseManager.swift in Sources */,
 				B4A2114D1FDFAD2C0055B611 /* WeekCell.swift in Sources */,
 				B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */,
 				B42FB68D2065FDDB00B79B40 /* AddCourseTimeCell.swift in Sources */,
@@ -802,15 +765,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4C5D854208E159300BF1589 /* ManagedObject.swift in Sources */,
 				B4DD3DAA20592F3500B209C9 /* WeekRow.swift in Sources */,
 				B4BD1CFA20511E2D00C18ACB /* EcardRow.swift in Sources */,
 				B4DD3DA82059296500B209C9 /* ScheduleInterfaceController.swift in Sources */,
 				B4BD1CE420511BDA00C18ACB /* ExtensionDelegate.swift in Sources */,
+				B4C8C29D208A13F900EA3211 /* Course.xcdatamodeld in Sources */,
 				B454BC4C205E55A80073721F /* CacheInfo.swift in Sources */,
 				B4BD1CF820511E2700C18ACB /* NetRow.swift in Sources */,
 				B4BD1CE220511BDA00C18ACB /* MainInterfaceController.swift in Sources */,
 				B4BD1CE620511BDA00C18ACB /* ComplicationController.swift in Sources */,
-				B454BC49205E559D0073721F /* CourseInfo.swift in Sources */,
+				B454BC49205E559D0073721F /* CourseManager.swift in Sources */,
 				B4BD1CF620511E1E00C18ACB /* CourseRow.swift in Sources */,
 				B454BC4A205E55A30073721F /* KeyInfo.swift in Sources */,
 			);
@@ -820,9 +785,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B454BC48205E559C0073721F /* CourseInfo.swift in Sources */,
+				B454BC48205E559C0073721F /* CourseManager.swift in Sources */,
 				B4E535CF1F5FDEAC007DE392 /* CourseCellView.swift in Sources */,
+				B4C5D853208E159300BF1589 /* ManagedObject.swift in Sources */,
 				B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */,
+				B4C8C29C208A13F800EA3211 /* Course.xcdatamodeld in Sources */,
 				B4B2F7AC1FE7878000B86075 /* TodayViewDataSource.swift in Sources */,
 				B454BC4D205E55A90073721F /* CacheInfo.swift in Sources */,
 				B454BC4B205E55A40073721F /* KeyInfo.swift in Sources */,

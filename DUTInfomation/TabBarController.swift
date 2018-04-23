@@ -23,19 +23,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             session.delegate = self
             session.activate()
         }
-        guard let rootVC = viewControllers?.first as? TabViewController else {
-            fatalError()
-        }
-    }
-    
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        guard let currentVC = selectedViewController as? TabViewController else {
-            fatalError()
-        }
-        guard let nextVC = viewController as? TabViewController else {
-            fatalError()
-        }
-        return true 
     }
 }
 
@@ -63,15 +50,14 @@ extension TabBarController: WCSessionDelegate {
         let keys = ["studentnumber": password.studentNumber,
                     "teachpassword": password.teachPassword,
                     "portalpassword": password.portalPassword]
-        var courses: [[String: String]]?
+        var courses: [[String: Any]]
         if let controller = selectedViewController as? ScheduleViewController {
-            courses = controller.dataSource.data.courses
+            courses = controller.courseManager.exportDic()
         } else {
-            let delegate = UIApplication.shared.delegate as! AppDelegate
-            let context = delegate.persistentContainer.viewContext
-            courses = CourseInfo(context: context).coursesThisWeek().courses
+            courses = CourseManager().exportDic()
         }
-        let message = ["syncdata": ["keys": keys, "courses": courses as Any]]
+        
+        let message = ["syncdata": ["keys": keys, "courses": courses]]
         session.sendMessage(message, replyHandler: nil) { error in
             print(error)
         }

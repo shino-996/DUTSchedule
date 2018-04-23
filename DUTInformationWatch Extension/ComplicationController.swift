@@ -44,20 +44,17 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     private func courseString(date: Date) -> (course: String, place: String) {
-        let container = NSPersistentContainer(name: "Course")
-        container.loadPersistentStores() { _, _ in }
-        let context = container.viewContext
-        let courseInfo = CourseInfo(context: context)
+        let courseInfo = CourseManager()
         var courseString: String
         var placeString: String
         if let courseDictionary = courseInfo.courseNow().course {
-            courseString = "第" + courseDictionary["coursenumber"]! + "节"
+            courseString = "第\(courseDictionary.startsection)节"
                                + " "
-                               + courseDictionary["name"]!
-            placeString = courseDictionary["place"]!
+                               + courseDictionary.course.name
+            placeString = courseDictionary.place
         } else {
             courseString = "没有课了~"
-            let num = courseInfo.coursesNextDay(date).courses!.count
+            let num = courseInfo.coursesNextDay(date).courses.count
             if num != 0 {
                 placeString = "明天有\(num)节课orz"
             } else {

@@ -9,10 +9,10 @@
 import UIKit
 
 class ScheduleViewDataSource: NSObject, UICollectionViewDataSource {
-    var data: (courses: [[String: String]]?, weeknumber: Int, date: Date)
+    var data: (courses: [TimeData], teachweek: Int, date: Date)
     var controller: TeachWeekDelegate?
     
-    init(data: (courses: [[String: String]]?, weeknumber: Int, date: Date)) {
+    init(data: (courses: [TimeData], teachweek: Int, date: Date)) {
         self.data = data
     }
     
@@ -52,7 +52,7 @@ class ScheduleViewDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TeachWeekView", for: indexPath) as! TeachWeekView
-        view.teachWeekButton.setTitle("第\(data.weeknumber)周", for: .normal)
+        view.teachWeekButton.setTitle("第\(data.teachweek)周", for: .normal)
         view.delegate = controller
         return view
     }

@@ -8,31 +8,16 @@
 
 import Foundation
 
-public protocol CourseType {
-    associatedtype TimeType: CourseTimeType
-    var name: String { get set }
-    var teacher: String { get set }
-    var time: [TimeType] { get set }
-    init(name: String, teacher: String, time: [TimeType])
+public struct Course {
+    public var name: String
+    public var teacher: String
+    public var time: [Time]?
 }
 
-extension CourseType {
-    init(name: String, teacher: String, time: [TimeType]) {
-        self.init(name: name, teacher: teacher, time: time)
-    }
-}
-
-public protocol CourseTimeType {
-    var place: String { get set }
-    var startSection: Int { get set }
-    var endSection: Int { get set }
-    var week: Int { get set }
-    var teachWeek: [Int] { get set }
-    init(place: String, startSection: Int, endSection: Int, week: Int, teachWeek: [Int])
-}
-
-extension CourseTimeType {
-    init(place: String, startSection: Int, endSection: Int, week: Int, teachWeek: [Int]) {
-        self.init(place: place, startSection: startSection, endSection: endSection, week: week, teachWeek: teachWeek)
-    }
+public struct Time {
+    public var place: String
+    public var startsection: Int
+    public var endsection: Int
+    public var week: Int
+    public var teachweek: [Int]
 }

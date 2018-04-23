@@ -13,6 +13,7 @@ import CoreData
 //所有tab页面的基类
 class TabViewController: UIViewController {
     var isLogin: Bool = false
+    var context: NSManagedObjectContext!
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

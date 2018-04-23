@@ -14,40 +14,38 @@ class CourseCellView: UITableViewCell {
     @IBOutlet weak var place: UILabel!
     @IBOutlet weak var week: UILabel!
     
-    func prepare(fromCourse courseInfo: [[String: String]], ofIndex indexPath: IndexPath) {
+    func prepare(fromCourse courseInfo: [TimeData], ofIndex indexPath: IndexPath) {
         let index = indexPath.row
         let cellCourse = courseInfo[index]
-        name.text = cellCourse["name"]!
-        teacher.text = cellCourse["teacher"]!
-        let placeStr = cellCourse["place"]!
+        name.text = cellCourse.course.name
+        teacher.text = cellCourse.course.teacher
+        let placeStr = cellCourse.place
         place.text = placeStr
-        let coursenumberStr = cellCourse["coursenumber"]!
-        week.text = "第" + coursenumberStr + "节"
+        week.text = "第\(cellCourse.startsection)节"
     }
     
-    func prepareForNow(fromCourse courseInfo: [[String: String]], ofIndex indexPath: IndexPath) {
+    func prepareForNow(fromCourse courseInfo: [TimeData], ofIndex indexPath: IndexPath) {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HHmm"
         let time = Int(dateFormatter.string(from: date))!
         let index = indexPath.row
-        var cellCourse: [String: String] = courseInfo[index]
+        var cellCourse = courseInfo[index]
         for course in courseInfo {
-            let coursenumberStr = course["coursenumber"]!
-            switch coursenumberStr {
-            case "1":
+            switch course.startsection {
+            case 1:
                 if time <= 0935 {
                     cellCourse = course
                 }
-            case "3":
+            case 3:
                 if time >= 0935 && time <= 1140 {
                     cellCourse = course
                 }
-            case "5":
+            case 5:
                 if time >= 1140 && time <= 1505 {
                     cellCourse = course
                 }
-            case "7":
+            case 7:
                 if time >= 1505 && time <= 1710 {
                     cellCourse = course
                 }
@@ -55,11 +53,10 @@ class CourseCellView: UITableViewCell {
                 break
             }
         }
-        name.text = cellCourse["name"]!
-        teacher.text = cellCourse["teacher"]!
-        let placeStr = cellCourse["place"]!
+        name.text = cellCourse.course.name
+        teacher.text = cellCourse.course.teacher
+        let placeStr = cellCourse.place
         place.text = placeStr
-        let coursenumberStr = cellCourse["coursenumber"]!
-        week.text = "第" + coursenumberStr + "节"
+        week.text = "第\(cellCourse.startsection)节"
     }
 }

@@ -13,23 +13,21 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var loadScheduleButton: UIButton!
-    var courseInfo: CourseInfo!
+    var courseManager: CourseManager!
     var dataSource: ScheduleViewDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        let context = delegate.persistentContainer.viewContext
-        courseInfo = CourseInfo(context: context)
-        dataSource = ScheduleViewDataSource(data: courseInfo.coursesThisWeek())
+        courseManager = CourseManager()
+        dataSource = ScheduleViewDataSource(data: courseManager.coursesThisWeek())
         collectionView.dataSource = dataSource
         dataSource.controller = self
-        dataSource.data = courseInfo.coursesThisWeek(dataSource.data.date)
+        dataSource.data = courseManager.coursesThisWeek(dataSource.data.date)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if dataSource.data.courses == nil && activityIndicator.isAnimating == false {
+        if !courseManager.isLoaded() && activityIndicator.isAnimating == false {
             let alertController = UIAlertController(title: "未导入课表", message: nil, preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
                 self.loadScheduleButton.isHidden = false
@@ -45,7 +43,7 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     
     @IBAction func loadSchedule() {
         activityIndicator.startAnimating()
-        courseInfo.loadCoursesAsync() {
+        courseManager.loadCoursesAsync() {
             DispatchQueue.main.async {
                 self.loadScheduleButton.isHidden = true
                 self.activityIndicator.stopAnimating()
@@ -63,24 +61,24 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     }
     
     func getScheduleThisWeek() {
-        dataSource.data  = courseInfo.coursesThisWeek(Date())
+        dataSource.data  = courseManager.coursesThisWeek(Date())
         collectionView.reloadData()
     }
     
     func getScheduleNextWeek() {
-        dataSource.data = courseInfo.coursesNextWeek(dataSource.data.date)
+        dataSource.data = courseManager.coursesNextWeek(dataSource.data.date)
         collectionView.reloadData()
     }
     
     func getScheduleLastWeek() {
-        dataSource.data = courseInfo.coursesLastWeek(dataSource.data.date)
+        dataSource.data = courseManager.coursesLastWeek(dataSource.data.date)
         collectionView.reloadData()
     }
 }
 
 extension ScheduleViewController: AddCourseDelegate {
     func addCourse(_ course: [String : String]) {
-        courseInfo.addCourse([course])
+        courseManager.addCourse([course])
         getScheduleThisWeek()
     }
     
