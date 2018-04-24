@@ -8,13 +8,13 @@
 
 import Foundation
 
-public struct Course {
+public struct Course: Encodable {
     public var name: String
     public var teacher: String
     public var time: [Time]?
 }
 
-public struct Time {
+public struct Time: Encodable {
     public var place: String
     public var startsection: Int
     public var endsection: Int

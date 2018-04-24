@@ -34,11 +34,11 @@ class MainInterfaceController: WKInterfaceController {
         }
     }
     
-    func infoInit(_ courses: [[String: Any]]? = nil) {
+    func infoInit(_ courses: [JSON]? = nil) {
         cacheInfo = CacheInfo()
         courseManager = CourseManager()
         if let courses = courses {
-            courseManager.importData(dics: courses)
+            courseManager.importData(from: courses)
         }
         WKExtension.shared().delegate = self
         fetchInfoBackground(interval: Date())
@@ -102,7 +102,7 @@ extension MainInterfaceController: WCSessionDelegate {
             let teachPassword = keys["teachpassword"]!
             let portalPassword = keys["portalpassword"]!
             KeyInfo.shared.setAccount((studentNumber, teachPassword, portalPassword))
-            let courses = syncData["courses"] as! [[String: Any]]
+            let courses = syncData["courses"] as! [JSON]
             isSync = true
             infoInit(courses)
         }

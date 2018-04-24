@@ -50,11 +50,11 @@ extension TabBarController: WCSessionDelegate {
         let keys = ["studentnumber": password.studentNumber,
                     "teachpassword": password.teachPassword,
                     "portalpassword": password.portalPassword]
-        var courses: [[String: Any]]
+        var courses: [JSON]
         if let controller = selectedViewController as? ScheduleViewController {
-            courses = controller.courseManager.exportDic()
+            courses = controller.courseManager.exportJsonArray()
         } else {
-            courses = CourseManager().exportDic()
+            courses = CourseManager().exportJsonArray()
         }
         
         let message = ["syncdata": ["keys": keys, "courses": courses]]

@@ -6,106 +6,16 @@
 //  Copyright © 2017年 shino. All rights reserved.
 //
 
-import Foundation
 import DUTInfo
 import CoreData
 
-final class CourseData: NSManagedObject {
-    @NSManaged fileprivate (set) var name: String
-    @NSManaged fileprivate (set) var teacher: String
-    @NSManaged fileprivate (set) var time: Set<TimeData>?
-}
-
-extension CourseData: ManagedObject {
-    typealias Object = Course
-    
-    static func insertNewObject(from course: Course, into context: NSManagedObjectContext) -> CourseData {
-        let courseData = NSEntityDescription.insertNewObject(forEntityName: "CourseData", into: context) as! CourseData
-        courseData.name = course.name
-        courseData.teacher = course.teacher
-        if let timeData = (course.time?.map() { TimeData.insertNewObject(from: $0, into: context) }) {
-            courseData.time = Set(timeData)
-        }
-        return courseData
-    }
-    
-    func export() -> [String: Any] {
-        var dic: [String: Any] =  ["name": name, "teacher": teacher]
-        if let allTimeData = time {
-            dic["time"] = allTimeData.map() { $0.export() }
-        }
-        return dic
-    }
-    
-    static func importData(from dic: [String: Any], into context: NSManagedObjectContext) -> CourseData {
-        let courseData = NSEntityDescription.insertNewObject(forEntityName: "CourseData", into: context) as! CourseData
-        courseData.name = dic["name"] as! String
-        courseData.teacher = dic["teacher"] as! String
-        if let timeData = ((dic["time"] as? [[String: Any]])?.map() { TimeData.importData(from: $0, into: context)}) {
-            courseData.time = Set(timeData)
-        } else {
-            courseData.time = nil
-        }
-        return courseData
-    }
-}
-
-final class TimeData: NSManagedObject {
-    @NSManaged fileprivate (set) var place: String
-    @NSManaged fileprivate (set) var startsection: Int64
-    @NSManaged fileprivate (set) var endsection: Int64
-    @NSManaged fileprivate (set) var week: Int64
-    @NSManaged fileprivate (set) var teachweek: [Int64]
-    @NSManaged fileprivate (set) var course: CourseData
-}
-
-extension TimeData: ManagedObject {
-    typealias Object = Time
-    
-    static func insertNewObject(from time: Time, into context: NSManagedObjectContext) -> TimeData {
-        let timeData = NSEntityDescription.insertNewObject(forEntityName: "TimeData", into: context) as! TimeData
-        timeData.place = time.place
-        timeData.startsection = Int64(time.startsection)
-        timeData.endsection = Int64(time.endsection)
-        timeData.week = Int64(time.week)
-        timeData.teachweek = time.teachweek.map() { Int64($0) }
-        return timeData
-    }
-    
-    func export() -> [String: Any] {
-        return ["place": place,
-                "startsection": Int64(startsection),
-                "endsection": Int64(endsection),
-                "week": Int64(week),
-                "teachweek": teachweek.map() { Int64($0) }]
-    }
-    
-    static func importData(from dic: [String: Any], into context: NSManagedObjectContext) -> TimeData {
-        let timeData = NSEntityDescription.insertNewObject(forEntityName: "TimeData", into: context) as! TimeData
-        timeData.place = dic["place"] as! String
-        timeData.startsection = dic["startsection"] as! Int64
-        timeData.endsection = dic["endsection"] as! Int64
-        timeData.week = dic["week"] as! Int64
-        timeData.teachweek = dic["teachweek"] as! [Int64]
-        return timeData
-    }
-}
-
-extension Time {
-    init(timeData: TimeData) {
-        place = timeData.place
-        startsection = Int(timeData.startsection)
-        endsection = Int(timeData.endsection)
-        week = Int(timeData.week)
-        teachweek = timeData.teachweek.map() { Int($0) }
-    }
-}
-
+// 将网络获取的数据转换为 json
 extension Course {
-    init(courseData: CourseData) {
-        name = courseData.name
-        teacher = courseData.teacher
-        time = courseData.time?.map() { Time(timeData: $0) }
+    func exportJson() -> JSON {
+        let encoder = JSONEncoder()
+        let jsonData = try! encoder.encode(self)
+        let json = String(data: jsonData, encoding: .utf8)!
+        return json
     }
 }
 
@@ -144,9 +54,11 @@ class CourseManager: NSObject {
             }
             let request = CourseData.fetchAllRequest()
             let coursesData = try! self.context.fetch(request)
-            _ = courses.filter() { !(coursesData.map() { $0.name }).contains($0.name) }
-                .map() { CourseData.insertNewObject(from: $0, into: self.context) }
+            _ = courses.filter { !(coursesData.map { $0.name }).contains($0.name) }
+                .map { CourseData.insertNewObject(from: $0.exportJson(), into: self.context) }
             try! self.context.save()
+            let timeRequest = TimeData.fetchAllRequest()
+            self.allCourseData = try! self.context.fetch(timeRequest)
             handler?()
         }
     }
@@ -157,8 +69,8 @@ class CourseManager: NSObject {
     
     func addCourse(_ courses: [[String: String]]) {}
     
-    func importData(courses: [Course]) {
-        _ = courses.map() { CourseData.insertNewObject(from: $0, into: context) }
+    func importData(from jsonArray: [JSON]) {
+        _ = jsonArray.map() { CourseData.insertNewObject(from: $0, into: context)}
         try! context.save()
         let request = TimeData.fetchAllRequest()
         let courses = try! context.fetch(request)
@@ -169,30 +81,11 @@ class CourseManager: NSObject {
         }
     }
     
-    func importData(dics: [[String: Any]]) {
-        _ = dics.map() { CourseData.importData(from: $0, into: context)}
-        try! context.save()
-        let request = TimeData.fetchAllRequest()
-        let courses = try! context.fetch(request)
-        if courses.count != 0 {
-            allCourseData = courses
-        } else {
-            allCourseData = nil
-        }
-    }
-    
-    func exportCourse() -> [Course] {
+    func exportJsonArray() -> [JSON] {
         let request = CourseData.fetchAllRequest()
         let allCourseData = try! context.fetch(request)
-        let courses = allCourseData.map() { Course(courseData: $0) }
-        return courses
-    }
-    
-    func exportDic() -> [[String: Any]] {
-        let request = CourseData.fetchAllRequest()
-        let allCourseData = try! context.fetch(request)
-        let dics = allCourseData.map() { $0.export() }
-        return dics
+        let array = allCourseData.map() { $0.exportJson() }
+        return array
     }
     
     private func coursesAWeek(_ date: Date) -> (courses: [TimeData], teachweek: Int) {

@@ -1,5 +1,5 @@
 PODS:
-  - DUTInfo (0.2.0):
+  - DUTInfo (0.2.1):
     - Fuzi (= 2.0.1)
     - PromiseKit
   - Fuzi (2.0.1)
@@ -27,11 +27,11 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   DUTInfo:
-    :commit: ad2ba6f4e648f90c4804259b9aadadbb80ad3b99
+    :commit: 0a47ce62c69abf10d62911242b29387a43eeb89d
     :git: https://github.com/shino-996/DUTInfo.git
 
 SPEC CHECKSUMS:
-  DUTInfo: 9f68756a8567772e13186c23686d7a3336aa3966
+  DUTInfo: d78cbffaab5a999a879646e91264bfced3ca91a4
   Fuzi: f64983dea705491d3aedd32351247a09523e7efd
   PromiseKit: a26828b0a8d5874960dfdb575b57a70790ec36f1
 

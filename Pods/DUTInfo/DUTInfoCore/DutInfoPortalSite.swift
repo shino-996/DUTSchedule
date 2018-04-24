@@ -104,7 +104,7 @@ extension DUTInfo {
 //接口实现
 extension DUTInfo {
     //进入门户主页, 主要是获取 cookie
-    func gotoPortalPage() -> Promise<(data: Data, response: URLResponse)> {
+    func gotoPortalPage() -> Promise<Rsp> {
         let url = URL(string: "https://sso.dlut.edu.cn/cas/login?service=https%3A%2F%2Fportal.dlut.edu.cn%2Ftp%2F")!
         let request = URLRequest(url: url)
         portalSession = URLSession(configuration: .ephemeral)

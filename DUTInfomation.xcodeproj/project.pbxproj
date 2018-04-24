@@ -39,6 +39,9 @@
 		B4B70E841F0A211800174471 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E821F0A211800174471 /* Main.storyboard */; };
 		B4B70E861F0A211800174471 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E851F0A211800174471 /* Assets.xcassets */; };
 		B4B70E891F0A211800174471 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4B70E871F0A211800174471 /* LaunchScreen.storyboard */; };
+		B4BA90D2208F127300A4CA8E /* CourseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BA90D1208F127300A4CA8E /* CourseData.swift */; };
+		B4BA90D3208F127300A4CA8E /* CourseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BA90D1208F127300A4CA8E /* CourseData.swift */; };
+		B4BA90D4208F127300A4CA8E /* CourseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BA90D1208F127300A4CA8E /* CourseData.swift */; };
 		B4BD1CD420511BDA00C18ACB /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1CD220511BDA00C18ACB /* Interface.storyboard */; };
 		B4BD1CD620511BDA00C18ACB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1CD520511BDA00C18ACB /* Assets.xcassets */; };
 		B4BD1CDD20511BDA00C18ACB /* DUTInformationWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B4BD1CDC20511BDA00C18ACB /* DUTInformationWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -172,6 +175,7 @@
 		B4B70E851F0A211800174471 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4B70E881F0A211800174471 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B4B70E8A1F0A211800174471 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4BA90D1208F127300A4CA8E /* CourseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseData.swift; sourceTree = "<group>"; };
 		B4BD1CD020511BDA00C18ACB /* DUTInformationWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DUTInformationWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4BD1CD320511BDA00C18ACB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		B4BD1CD520511BDA00C18ACB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -277,6 +281,7 @@
 			children = (
 				B48B0318207384D700215BB0 /* Course.xcdatamodeld */,
 				B4C5D851208E159300BF1589 /* ManagedObject.swift */,
+				B4BA90D1208F127300A4CA8E /* CourseData.swift */,
 				B454BC3F205E558A0073721F /* CourseManager.swift */,
 				B454BC40205E558A0073721F /* TestInfo.swift */,
 				B454BC41205E558A0073721F /* CacheInfo.swift */,
@@ -754,6 +759,7 @@
 				B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */,
 				B42FB68D2065FDDB00B79B40 /* AddCourseTimeCell.swift in Sources */,
 				B4A772271FE7B1F900B3F545 /* TestViewDataSource.swift in Sources */,
+				B4BA90D2208F127300A4CA8E /* CourseData.swift in Sources */,
 				B4E535D41F615468007DE392 /* LoginPortalSiteViewController.swift in Sources */,
 				B4A772231FE7B05600B3F545 /* TestCell.swift in Sources */,
 				B4173D721FE2642000B6E527 /* TabBarController.swift in Sources */,
@@ -765,6 +771,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4BA90D4208F127300A4CA8E /* CourseData.swift in Sources */,
 				B4C5D854208E159300BF1589 /* ManagedObject.swift in Sources */,
 				B4DD3DAA20592F3500B209C9 /* WeekRow.swift in Sources */,
 				B4BD1CFA20511E2D00C18ACB /* EcardRow.swift in Sources */,
@@ -793,6 +800,7 @@
 				B4B2F7AC1FE7878000B86075 /* TodayViewDataSource.swift in Sources */,
 				B454BC4D205E55A90073721F /* CacheInfo.swift in Sources */,
 				B454BC4B205E55A40073721F /* KeyInfo.swift in Sources */,
+				B4BA90D3208F127300A4CA8E /* CourseData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
