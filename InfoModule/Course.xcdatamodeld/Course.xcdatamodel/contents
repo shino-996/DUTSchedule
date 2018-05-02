@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CourseData" representedClassName=".CourseData" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="teacher" attributeType="String" syncable="YES"/>
@@ -11,7 +11,7 @@
         <attribute name="startsection" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="teachweek" attributeType="Transformable" syncable="YES"/>
         <attribute name="week" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="CourseData" inverseName="time" inverseEntity="CourseData" syncable="YES"/>
+        <relationship name="course" maxCount="1" deletionRule="Cascade" destinationEntity="CourseData" inverseName="time" inverseEntity="CourseData" syncable="YES"/>
     </entity>
     <elements>
         <element name="CourseData" positionX="0" positionY="0" width="128" height="90"/>

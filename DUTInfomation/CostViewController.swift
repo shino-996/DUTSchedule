@@ -72,10 +72,11 @@ class CostViewController: TabViewController {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let logoutAction = UIAlertAction(title: "注销", style: .default) { _ in
             KeyInfo.shared.removeAccount()
-            CourseManager.deleteCourse()
+            CourseManager().deleteAllCourse()
             TestInfo.deleteTest()
             CacheInfo.deleteCache()
             (self.tabBarController as! TabBarController).isLogin = false
+            self.isLogin = false
         }
         alertController.addAction(logoutAction)
         alertController.addAction(cancelAction)

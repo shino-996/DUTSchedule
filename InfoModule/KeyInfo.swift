@@ -51,7 +51,7 @@ struct KeyInfo {
             return
         }
         removePasword(ofStudentnumber: studentNumber)
-        userDefaults.removeObject(forKey: "studentNumber")
+        userDefaults.removeObject(forKey: "studentnumber")
     }
     
     //以学号作为主键将教务处密码和校园门户保存在keychain中, 以逗号为间隔只保存为一个字段

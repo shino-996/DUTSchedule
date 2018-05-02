@@ -12,7 +12,13 @@ import CoreData
 
 //所有tab页面的基类
 class TabViewController: UIViewController {
-    var isLogin: Bool = false
+    var isLogin: Bool = false {
+        didSet {
+            if isLogin == false {
+                performSegue(withIdentifier: "LoginTeach", sender: self)
+            }
+        }
+    }
     var context: NSManagedObjectContext!
     
     override func viewDidAppear(_ animated: Bool) {

@@ -31,7 +31,8 @@ final class CourseData: NSManagedObject, Codable {
         try! container.encode(name, forKey: .name)
         try! container.encode(teacher, forKey: .teacher)
         if let time = time {
-            try! container.encode(time, forKey: .time)
+            let timeArray = Array(time)
+            try! container.encode(timeArray, forKey: .time)
         }
     }
     
@@ -48,23 +49,13 @@ final class CourseData: NSManagedObject, Codable {
 }
 
 extension CourseData: ManagedObject {
+    static var viewContext: NSManagedObjectContext {
+        get { return context }
+        set { context = newValue }
+    }
+    
     static var entityName: String {
         return "CourseData"
-    }
-    
-    static func insertNewObject(from json: JSON, into context: NSManagedObjectContext) -> CourseData {
-        let decoder = JSONDecoder()
-        let jsonData = json.data(using: .utf8)!
-        CourseData.context = context
-        let courseData = try! decoder.decode(CourseData.self, from: jsonData)
-        return courseData
-    }
-    
-    func exportJson() -> JSON {
-        let encoder = JSONEncoder()
-        let jsonData = try! encoder.encode(self)
-        let json = String(data: jsonData, encoding: .utf8)!
-        return json
     }
 }
 
@@ -107,22 +98,12 @@ final class TimeData: NSManagedObject, Codable {
 }
 
 extension TimeData: ManagedObject {
+    static var viewContext: NSManagedObjectContext {
+        get { return context }
+        set { context = newValue }
+    }
+    
     static var entityName: String {
         return "TimeData"
-    }
-    
-    static func insertNewObject(from json: JSON, into context: NSManagedObjectContext) -> TimeData {
-        let decoder = JSONDecoder()
-        let jsonData = json.data(using: .utf8)!
-        TimeData.context = context
-        let timeData = try! decoder.decode(TimeData.self, from: jsonData)
-        return timeData
-    }
-    
-    func exportJson() -> JSON {
-        let encoder = JSONEncoder()
-        let jsonData = try! encoder.encode(self)
-        let json = String(data: jsonData, encoding: .utf8)!
-        return json
     }
 }

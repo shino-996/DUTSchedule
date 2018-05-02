@@ -23,6 +23,10 @@ class CourseManager: NSObject {
     private var context: NSManagedObjectContext!
     private var allCourseData: [TimeData]!
     
+    var isLoaded: Bool {
+        return allCourseData != nil
+    }
+    
     override init() {
         let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")!
         let url = groupURL.appendingPathComponent("course.data")
@@ -42,7 +46,13 @@ class CourseManager: NSObject {
         }
     }
     
-    static func deleteCourse() {}
+    func deleteAllCourse() {
+        let deleteRequest = NSBatchDeleteRequest(objectIDs: allCourseData.map { $0.objectID })
+        if let persistentCoordinator = context.persistentStoreCoordinator {
+            try! persistentCoordinator.execute(deleteRequest, with: context)
+        }
+        allCourseData = nil
+    }
     
     func loadCoursesAsync(handler: (() -> Void)?) {
         let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.getAccount()!
@@ -62,12 +72,6 @@ class CourseManager: NSObject {
             handler?()
         }
     }
-    
-    func isLoaded() -> Bool {
-        return allCourseData != nil
-    }
-    
-    func addCourse(_ courses: [[String: String]]) {}
     
     func importData(from jsonArray: [JSON]) {
         _ = jsonArray.map() { CourseData.insertNewObject(from: $0, into: context)}

@@ -27,7 +27,7 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !courseManager.isLoaded() && activityIndicator.isAnimating == false {
+        if !courseManager.isLoaded && activityIndicator.isAnimating == false {
             let alertController = UIAlertController(title: "未导入课表", message: nil, preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
                 self.loadScheduleButton.isHidden = false
@@ -76,29 +76,12 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
     }
 }
 
-extension ScheduleViewController: AddCourseDelegate {
-    func addCourse(_ course: [String : String]) {
-        courseManager.addCourse([course])
-        getScheduleThisWeek()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        if segue.identifier != "AddCourse" {
-            return
-        }
-        let viewContrller = segue.destination as! AddCourseController
-        viewContrller.delegate = self
-    }
-}
-
 extension ScheduleViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CourseCell  else {
             return
         }
         guard let courseInfo = cell.courseInfo(courses: dataSource.data.courses, indexPath: indexPath) else {
-            performSegue(withIdentifier: "AddCourse", sender: self)
             return
         }
         let alertController = UIAlertController(title: "课程详情", message: courseInfo, preferredStyle: .alert)

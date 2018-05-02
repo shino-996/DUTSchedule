@@ -85,7 +85,7 @@ extension TodayViewController {
         courseTableView.reloadData()
         let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
         weekButton.setTitle("第\(self.dataSource.data.teachweek)周 周\(chineseWeek[self.dataSource.data.week])", for: .normal)
-        if courseManager.isLoaded() {
+        if courseManager.isLoaded {
             if dataSource.data.courses.count == 0 {
                 noCourseButton.isHidden = false
                 noCourseButton.setTitle("今天没有课～", for: .normal)
@@ -107,7 +107,7 @@ extension TodayViewController {
         if activeDisplayMode == .compact {
             preferredContentSize = maxSize
         }
-        if !courseManager.isLoaded() {
+        if !courseManager.isLoaded {
             preferredContentSize = CGSize(width: 0, height: 110)
             return
         }
