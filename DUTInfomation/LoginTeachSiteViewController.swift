@@ -31,9 +31,9 @@ class LoginTeachSiteViewController: UIViewController {
     
     @IBAction func LoginTeachSite() {
         dutInfo = DUTInfo(studentNumber: studentNumber.text ?? "",
-                          teachPassword: password.text ?? "",
-                          portalPassword: "")
-        if dutInfo.loginTeachSite() {
+                          password: password.text ?? "",
+                          fetches: [])
+        if dutInfo.login() {
             performSegue(withIdentifier: "LoginPortal", sender: self)
         } else {
             DispatchQueue.main.async {

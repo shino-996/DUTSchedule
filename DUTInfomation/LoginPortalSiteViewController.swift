@@ -25,9 +25,10 @@ class LoginPortalSiteViewController: UIViewController {
     }
     
     @IBAction func LoginPortalSite() {
-        dutInfo.studentNumber = studentNumber.text ?? ""
-        dutInfo.portalPassword = password.text ?? ""
-        if dutInfo.loginPortal() {
+        dutInfo = DUTInfo(studentNumber: studentNumber.text ?? "",
+                          password: password.text ?? "",
+                          fetches: [])
+        if dutInfo.login() {
             let studentNumber = number!
             KeyInfo.shared.setAccount((studentNumber, teachPassword, password.text!))
             self.didLogHandler?()

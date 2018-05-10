@@ -9,16 +9,6 @@
 import DUTInfo
 import CoreData
 
-// 将网络获取的数据转换为 json
-extension Course {
-    func exportJson() -> JSON {
-        let encoder = JSONEncoder()
-        let jsonData = try! encoder.encode(self)
-        let json = String(data: jsonData, encoding: .utf8)!
-        return json
-    }
-}
-
 class CourseManager: NSObject {
     private var context: NSManagedObjectContext!
     private var allCourseData: [TimeData]!
@@ -55,17 +45,37 @@ class CourseManager: NSObject {
     }
     
     func loadCoursesAsync(handler: (() -> Void)?) {
-        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.getAccount()!
+        let (studentNumber, _, portalPassword) = KeyInfo.shared.getAccount()!
         DispatchQueue.global().async {
-            guard let courses = DUTInfo(studentNumber: studentNumber,
-                                        teachPassword: teachPassword,
-                                        portalPassword: portalPassword).courseInfo() else {
-                return
+            let json = DUTInfo(studentNumber: studentNumber,
+                                        password: portalPassword,
+                                        fetches: [.course]).fetchInfo()
+            struct Info: Decodable {
+                let course: [Course]
+                struct Course: Codable {
+                    let name: String
+                    let teacher: String
+                    let time: [Time]
+                    
+                    struct Time: Codable {
+                        let place: String
+                        let startsection: Int
+                        let endsection: Int
+                        let week: Int
+                        let teachweek: [Int]
+                    }
+                }
             }
+            let decoder = JSONDecoder()
+            let info = try! decoder.decode(Info.self, from: json.data(using: .utf8)!)
+            let courses = info.course
+            let encoder = JSONEncoder()
             let request = CourseData.fetchAllRequest()
             let coursesData = try! self.context.fetch(request)
             _ = courses.filter { !(coursesData.map { $0.name }).contains($0.name) }
-                .map { CourseData.insertNewObject(from: $0.exportJson(), into: self.context) }
+                .map { CourseData.insertNewObject(from: String(data: (try! encoder.encode($0)),
+                                                               encoding: .utf8)!,
+                                                  into: self.context) }
             try! self.context.save()
             let timeRequest = TimeData.fetchAllRequest()
             self.allCourseData = try! self.context.fetch(timeRequest)

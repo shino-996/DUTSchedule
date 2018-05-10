@@ -35,11 +35,24 @@ class TestInfo {
     }
     
     func loadTestAsync(_ handle: (() -> Void)?) {
-        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.getAccount()!
+        let (studentNumber, teachPassword, _) = KeyInfo.shared.getAccount()!
         DispatchQueue.global().async {
-            self.allTests = DUTInfo(studentNumber: studentNumber,
-                                    teachPassword: teachPassword,
-                                    portalPassword: portalPassword).testInfo()
+            let json = DUTInfo(studentNumber: studentNumber,
+                                    password: teachPassword,
+                                    fetches: [.test]).fetchInfo()
+            struct Info: Decodable {
+                let test: [Test]
+                struct Test: Decodable {
+                    let name: String
+                    let teachweek: String
+                    let date: String
+                    let time: String
+                    let place: String
+                }
+            }
+            let decoder = JSONDecoder()
+            _ = try! decoder.decode(Info.self, from: json.data(using: .utf8)!)
+            self.allTests = nil
         }
     }
     

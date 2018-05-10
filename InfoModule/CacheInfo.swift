@@ -74,20 +74,27 @@ class CacheInfo: NSObject {
     }
     
     func loadCacheAsync(_ handler: (() -> Void)?) {
-        let (studentNumber, teachPassword, portalPassword) = KeyInfo.shared.getAccount()!
+        let (studentNumber, _, portalPassword) = KeyInfo.shared.getAccount()!
         DispatchQueue.global().async {
-            let dutInfo = DUTInfo(studentNumber: studentNumber,
-                                  teachPassword: teachPassword,
-                                  portalPassword: portalPassword)
-            if let net = dutInfo.netInfo() {
-                (self.netCost, self.netFlow) = net
+            let json = DUTInfo(studentNumber: studentNumber,
+                                  password: portalPassword,
+                                  fetches: [.net, .ecard, .person]).fetchInfo()
+            struct Info: Decodable {
+                let ecard: Double
+                let person: String
+                let net: Net
+                
+                struct Net: Decodable {
+                    let cost: Double
+                    let flow: Double
+                }
             }
-            if let ecard = dutInfo.moneyInfo() {
-                self.ecardCost = ecard
-            }
-            if let name = dutInfo.personInfo() {
-                self.personName = name
-            }
+            let decoder = JSONDecoder()
+            let info = try! decoder.decode(Info.self, from: json.data(using: .utf8)!)
+            self.netCost = info.net.cost
+            self.netFlow = info.net.flow
+            self.ecardCost = info.ecard
+            self.personName = info.person
             self.cache?.write(to: self.fileURL, atomically: true)
             handler?()
         }
