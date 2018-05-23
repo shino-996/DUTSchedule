@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DUTInfo
 import WatchConnectivity
 import CoreData
 
@@ -48,8 +47,7 @@ extension TabBarController: WCSessionDelegate {
             return
         }
         let keys = ["studentnumber": password.studentNumber,
-                    "teachpassword": password.teachPassword,
-                    "portalpassword": password.portalPassword]
+                    "password": password.password]
         var courses: [JSON]
         if let controller = selectedViewController as? ScheduleViewController {
             courses = controller.courseManager.exportJsonArray()

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DUTInfo
 import CoreData
 
 //所有tab页面的基类
@@ -15,7 +14,7 @@ class TabViewController: UIViewController {
     var isLogin: Bool = false {
         didSet {
             if isLogin == false {
-                performSegue(withIdentifier: "LoginTeach", sender: self)
+                performSegue(withIdentifier: "login", sender: self)
             }
         }
     }
@@ -24,14 +23,15 @@ class TabViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if (tabBarController as! TabBarController).isLogin == false {
-            performSegue(withIdentifier: "LoginTeach", sender: self)
+            performSegue(withIdentifier: "login", sender: self)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "LoginTeach" {
-            let navigation = segue.destination as! UINavigationController
-            let destination = navigation.topViewController as! LoginTeachSiteViewController
+        if segue.identifier == "login" {
+            guard let destination = segue.destination as? LoginViewController else {
+                fatalError()
+            }
             destination.didLogHandler = {
                 (self.tabBarController as! TabBarController).isLogin = true
             }

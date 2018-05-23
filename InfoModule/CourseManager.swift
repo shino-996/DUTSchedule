@@ -6,7 +6,6 @@
 //  Copyright © 2017年 shino. All rights reserved.
 //
 
-import DUTInfo
 import CoreData
 
 class CourseManager: NSObject {
@@ -45,17 +44,35 @@ class CourseManager: NSObject {
     }
     
     func loadCoursesAsync(handler: (() -> Void)?) {
-        let (studentNumber, _, portalPassword) = KeyInfo.shared.getAccount()!
-        DispatchQueue.global().async {
-            let json = DUTInfo(studentNumber: studentNumber,
-                                        password: portalPassword,
-                                        fetches: [.course]).fetchInfo()
+        let (studentNumber, password) = KeyInfo.shared.getAccount()!
+        DispatchQueue.global().async {let url = URL(string: "https://t.warshiprpg.xyz:88/dut")!
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = "POST"
+            urlRequest.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            urlRequest.httpBody = """
+                {
+                "studentnumber": "\(studentNumber)",
+                "password": "\(password)",
+                "fetch": ["course"]
+                }
+                """.data(using: .utf8)
+            let semaphore = DispatchSemaphore(value: 0)
+            var json: JSON!
+            URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                json = String(data: data!, encoding: .utf8)
+                semaphore.signal()
+            }.resume()
+            _ = semaphore.wait(timeout: .distantFuture)
             struct Info: Decodable {
                 let course: [Course]
                 struct Course: Codable {
                     let name: String
                     let teacher: String
-                    let time: [Time]
+                    let time: [Time]?
                     
                     struct Time: Codable {
                         let place: String

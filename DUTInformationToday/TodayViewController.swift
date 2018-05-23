@@ -8,7 +8,6 @@
 
 import UIKit
 import NotificationCenter
-import DUTInfo
 import CoreData
 
 class TodayViewController: UIViewController, NCWidgetProviding {

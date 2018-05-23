@@ -235,17 +235,17 @@
                         <outlet property="netFlowLabel" destination="Dvt-hH-ETZ" id="DJ3-nR-bvt"/>
                         <outlet property="studentButton" destination="vQd-2e-A1E" id="zWK-ti-bu3"/>
                         <outlet property="tableview" destination="MpG-i4-RzI" id="IX1-my-Uqv"/>
-                        <segue destination="gpD-Tv-J8n" kind="presentation" identifier="LoginTeach" id="oNu-W3-QP0"/>
+                        <segue destination="rXU-p7-iyl" kind="show" identifier="login" id="WOY-9g-YZk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="922.5" y="123.59154929577466"/>
         </scene>
-        <!--登录教务处-->
+        <!--登录-->
         <scene sceneID="jMo-5w-khF">
             <objects>
-                <viewController id="rXU-p7-iyl" customClass="LoginTeachSiteViewController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="rXU-p7-iyl" customClass="LoginViewController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VpL-ut-ZUk"/>
                         <viewControllerLayoutGuide type="bottom" id="UH3-Ez-Qza"/>
@@ -263,7 +263,7 @@
                                     <outlet property="delegate" destination="rXU-p7-iyl" id="oKC-EP-RJ8"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="教务处密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4eM-Sh-cfn">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="校园门户密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4eM-Sh-cfn">
                                 <rect key="frame" x="80" y="297.5" width="160" height="30"/>
                                 <color key="textColor" red="0.25882352939999997" green="0.24313725489999999" blue="0.24313725489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
@@ -307,12 +307,11 @@
                             <outletCollection property="gestureRecognizers" destination="Q6H-yP-zSm" appends="YES" id="BpM-9r-DAp"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="登录教务处" id="GL7-OW-Rwo"/>
+                    <navigationItem key="navigationItem" title="登录" id="GL7-OW-Rwo"/>
                     <connections>
                         <outlet property="loginFailedLabel" destination="qlC-7I-JSu" id="b7e-7W-Ywn"/>
                         <outlet property="password" destination="4eM-Sh-cfn" id="8VG-Gq-zTk"/>
                         <outlet property="studentNumber" destination="2sD-Mc-5K1" id="MZp-rD-V1V"/>
-                        <segue destination="g1t-OW-U01" kind="show" identifier="LoginPortal" id="ue0-6W-dkP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b0f-kt-VLa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -322,88 +321,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="923" y="882"/>
-        </scene>
-        <!--登录校园门户-->
-        <scene sceneID="Ml6-CZ-dIa">
-            <objects>
-                <viewController id="g1t-OW-U01" customClass="LoginPortalSiteViewController" customModule="DUTInfomation" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hyG-1U-QiB"/>
-                        <viewControllerLayoutGuide type="bottom" id="LXW-wC-hgk"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rhV-bK-Ksw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="学号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mMQ-Zk-ZcC">
-                                <rect key="frame" x="79.5" y="240.5" width="160" height="30"/>
-                                <color key="textColor" red="0.25882352939999997" green="0.24313725489999999" blue="0.24313725489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="username"/>
-                                <connections>
-                                    <outlet property="delegate" destination="g1t-OW-U01" id="Vgx-HU-emA"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="校园门户密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VxF-fy-yhJ">
-                                <rect key="frame" x="79.5" y="297.5" width="160" height="30"/>
-                                <color key="textColor" red="0.25882352939999997" green="0.24313725489999999" blue="0.24313725489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
-                                <connections>
-                                    <outlet property="delegate" destination="g1t-OW-U01" id="vWV-oR-cPd"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uim-7A-2bj">
-                                <rect key="frame" x="143.5" y="351" width="34" height="36"/>
-                                <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
-                                <state key="normal" title="确认">
-                                    <color key="titleColor" red="0.25882352939999997" green="0.24313725489999999" blue="0.24313725489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="LoginPortalSite" destination="g1t-OW-U01" eventType="touchUpInside" id="sBx-Fp-2dR"/>
-                                </connections>
-                            </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学号或密码不正确" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJj-3G-OG6">
-                                <rect key="frame" x="92" y="208.5" width="136" height="24"/>
-                                <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
-                                <color key="textColor" red="0.99607843139999996" green="0.37647058820000001" blue="0.33725490200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <gestureRecognizers/>
-                        <constraints>
-                            <constraint firstItem="mMQ-Zk-ZcC" firstAttribute="top" secondItem="iJj-3G-OG6" secondAttribute="bottom" constant="8" symbolic="YES" id="3UK-kJ-oyP"/>
-                            <constraint firstItem="Uim-7A-2bj" firstAttribute="centerX" secondItem="rhV-bK-Ksw" secondAttribute="centerX" id="5vc-Lc-lfT"/>
-                            <constraint firstItem="VxF-fy-yhJ" firstAttribute="centerY" secondItem="rhV-bK-Ksw" secondAttribute="centerY" multiplier="1.1" id="6xz-to-nLc"/>
-                            <constraint firstItem="mMQ-Zk-ZcC" firstAttribute="centerX" secondItem="rhV-bK-Ksw" secondAttribute="centerX" id="Cnt-WD-47H"/>
-                            <constraint firstItem="iJj-3G-OG6" firstAttribute="centerX" secondItem="rhV-bK-Ksw" secondAttribute="centerX" id="Nyh-Lc-H2M"/>
-                            <constraint firstItem="mMQ-Zk-ZcC" firstAttribute="width" secondItem="rhV-bK-Ksw" secondAttribute="width" multiplier="0.5" id="SuR-ot-TTr"/>
-                            <constraint firstItem="Uim-7A-2bj" firstAttribute="centerY" secondItem="rhV-bK-Ksw" secondAttribute="centerY" multiplier="1.3" id="Tvi-p3-Y1T"/>
-                            <constraint firstItem="VxF-fy-yhJ" firstAttribute="centerX" secondItem="rhV-bK-Ksw" secondAttribute="centerX" id="cuf-9i-6qu"/>
-                            <constraint firstItem="mMQ-Zk-ZcC" firstAttribute="centerY" secondItem="rhV-bK-Ksw" secondAttribute="centerY" multiplier="0.9" id="lAe-N4-FCo"/>
-                            <constraint firstItem="VxF-fy-yhJ" firstAttribute="width" secondItem="mMQ-Zk-ZcC" secondAttribute="width" id="yN2-tX-oAX"/>
-                        </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="Bot-b7-U43" appends="YES" id="s20-RA-b67"/>
-                        </connections>
-                    </view>
-                    <navigationItem key="navigationItem" title="登录校园门户" id="4kt-qC-v09"/>
-                    <connections>
-                        <outlet property="loginFailedLabel" destination="iJj-3G-OG6" id="XiS-IU-mpe"/>
-                        <outlet property="password" destination="VxF-fy-yhJ" id="CDR-Zc-qDE"/>
-                        <outlet property="studentNumber" destination="mMQ-Zk-ZcC" id="dEf-1G-oOK"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wEv-ka-JzW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="Bot-b7-U43">
-                    <connections>
-                        <action selector="tapSpace:" destination="g1t-OW-U01" id="bbr-I8-9Up"/>
-                    </connections>
-                </tapGestureRecognizer>
-            </objects>
-            <point key="canvasLocation" x="1665" y="882"/>
+            <point key="canvasLocation" x="62" y="124"/>
         </scene>
         <!--课程表-->
         <scene sceneID="2Hx-3o-5BQ">
@@ -607,7 +525,7 @@
                         <outlet property="activityIndicator" destination="MjB-aP-3KP" id="Nhe-A6-Mtw"/>
                         <outlet property="collectionView" destination="xUv-uf-GDF" id="mkn-IE-yYE"/>
                         <outlet property="loadScheduleButton" destination="K45-ur-Yyf" id="lRF-a3-sba"/>
-                        <segue destination="gpD-Tv-J8n" kind="presentation" identifier="LoginTeach" id="Snx-XQ-mSf"/>
+                        <segue destination="rXU-p7-iyl" kind="show" identifier="login" id="MUU-pz-QWV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYA-Rq-AEo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -645,30 +563,12 @@
             </objects>
             <point key="canvasLocation" x="1318" y="-721"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="JKH-iH-n6y">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gpD-Tv-J8n" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8ci-XG-m7U">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="rXU-p7-iyl" kind="relationship" relationship="rootViewController" id="gt1-XE-wrq"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zAk-Sv-OI6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="180" y="882.04225352112678"/>
-        </scene>
     </scenes>
     <resources>
         <image name="OtherInfo" width="29" height="29"/>
         <image name="Schedule" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Snx-XQ-mSf"/>
+        <segue reference="MUU-pz-QWV"/>
     </inferredMetricsTieBreakers>
 </document>

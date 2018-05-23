@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import DUTInfo
 
 class TestInfo {
     private var fileURL: URL
@@ -35,11 +34,30 @@ class TestInfo {
     }
     
     func loadTestAsync(_ handle: (() -> Void)?) {
-        let (studentNumber, teachPassword, _) = KeyInfo.shared.getAccount()!
+        let (studentNumber, password) = KeyInfo.shared.getAccount()!
         DispatchQueue.global().async {
-            let json = DUTInfo(studentNumber: studentNumber,
-                                    password: teachPassword,
-                                    fetches: [.test]).fetchInfo()
+            let url = URL(string: "https://t.warshiprpg.xyz:88/dut")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            request.httpBody = """
+                {
+                "studentnumber": "\(studentNumber)",
+                "password": "\(password)",
+                "fetch": ["test"]
+                }
+                """.data(using: .utf8)
+            let semaphore = DispatchSemaphore(value: 0)
+            var json: JSON!
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                json = String(data: data!, encoding: .utf8)
+                semaphore.signal()
+            }.resume()
+            _ = semaphore.wait(timeout: .distantFuture)
             struct Info: Decodable {
                 let test: [Test]
                 struct Test: Decodable {
@@ -51,8 +69,14 @@ class TestInfo {
                 }
             }
             let decoder = JSONDecoder()
-            _ = try! decoder.decode(Info.self, from: json.data(using: .utf8)!)
-            self.allTests = nil
+            let info = try! decoder.decode(Info.self, from: json.data(using: .utf8)!)
+            self.allTests = info.test.map {
+                return ["name": $0.name,
+                         "teachweek": $0.teachweek,
+                         "date": $0.date,
+                         "time": $0.time,
+                         "place": $0.place]
+            }
         }
     }
     

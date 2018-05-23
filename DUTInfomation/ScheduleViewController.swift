@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DUTInfo
 
 class ScheduleViewController: TabViewController, TeachWeekDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DUTInfo
 
 class CostViewController: TabViewController {
     @IBOutlet weak var netCostLabel: UILabel!

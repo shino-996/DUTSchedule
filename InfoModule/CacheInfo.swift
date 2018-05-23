@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import DUTInfo
 
 class CacheInfo: NSObject {
     private var fileURL: URL
@@ -74,26 +73,48 @@ class CacheInfo: NSObject {
     }
     
     func loadCacheAsync(_ handler: (() -> Void)?) {
-        let (studentNumber, _, portalPassword) = KeyInfo.shared.getAccount()!
+        let (studentNumber, password) = KeyInfo.shared.getAccount()!
         DispatchQueue.global().async {
-            let json = DUTInfo(studentNumber: studentNumber,
-                                  password: portalPassword,
-                                  fetches: [.net, .ecard, .person]).fetchInfo()
+            let url = URL(string: "https://t.warshiprpg.xyz:88/dut")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            request.httpBody = """
+            {
+                "studentnumber": "\(studentNumber)",
+                "password": "\(password)",
+                "fetch": ["net", "ecard", "person"]
+            }
+            """.data(using: .utf8)
+            let semaphore = DispatchSemaphore(value: 0)
+            var json: JSON!
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                json = String(data: data!, encoding: .utf8)
+                semaphore.signal()
+            }.resume()
+            _ = semaphore.wait(timeout: .distantFuture)
             struct Info: Decodable {
-                let ecard: Double
+                let ecard: Ecard
                 let person: String
                 let net: Net
                 
                 struct Net: Decodable {
-                    let cost: Double
-                    let flow: Double
+                    let fee: String
+                    let usedTraffic: String
+                }
+                struct Ecard: Decodable {
+                    let cardbal: String
                 }
             }
             let decoder = JSONDecoder()
             let info = try! decoder.decode(Info.self, from: json.data(using: .utf8)!)
-            self.netCost = info.net.cost
-            self.netFlow = info.net.flow
-            self.ecardCost = info.ecard
+            self.netCost = Double(info.net.fee)!
+            self.netFlow = 30720 - Double(info.net.usedTraffic)!
+            self.ecardCost = Double(info.ecard.cardbal)!
             self.personName = info.person
             self.cache?.write(to: self.fileURL, atomically: true)
             handler?()

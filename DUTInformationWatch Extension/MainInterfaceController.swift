@@ -9,7 +9,6 @@
 import WatchKit
 import Foundation
 import WatchConnectivity
-import DUTInfo
 import CoreData
 
 class MainInterfaceController: WKInterfaceController {
@@ -40,9 +39,23 @@ class MainInterfaceController: WKInterfaceController {
         if let courses = courses {
             courseManager.importData(from: courses)
         }
-        WKExtension.shared().delegate = self
+        (WKExtension.shared().delegate as! ExtensionDelegate).handler = { [weak self] in
+            self?.cacheInfo.loadCacheAsync() {
+                self?.infoRefresh()
+            }
+        }
         fetchInfoBackground(interval: Date())
         infoRefresh()
+    }
+    
+    func fetchInfoBackground(interval: Date = Date()) {
+        let userInfo = ["tag": "fetchbackground"] as NSDictionary
+        WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: interval, userInfo: userInfo) { error in
+            if let error = error {
+                print("watch fetch background error")
+                print(error)
+            }
+        }
     }
     
     func infoRefresh() {
@@ -99,38 +112,11 @@ extension MainInterfaceController: WCSessionDelegate {
         if let syncData = message["syncdata"] as? [String: Any] {
             let keys = syncData["keys"] as! [String: String]
             let studentNumber = keys["studentnumber"]!
-            let teachPassword = keys["teachpassword"]!
-            let portalPassword = keys["portalpassword"]!
-            KeyInfo.shared.setAccount((studentNumber, teachPassword, portalPassword))
+            let password = keys["password"]!
+            KeyInfo.shared.setAccount(studentNumber: studentNumber, password: password)
             let courses = syncData["courses"] as! [JSON]
             isSync = true
             infoInit(courses)
-        }
-    }
-}
-
-extension MainInterfaceController: WKExtensionDelegate {
-    func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
-        for task in backgroundTasks {
-            if let message = task.userInfo as? [String: String] {
-                if message["tag"] == "fetchbackground" {
-                    cacheInfo.loadCacheAsync() {
-                        self.infoRefresh()
-                    }
-                }
-            }
-            fetchInfoBackground(interval: Date(timeIntervalSinceNow: 60 * 30))
-            task.setTaskCompletedWithSnapshot(true)
-        }
-    }
-    
-    func fetchInfoBackground(interval: Date = Date()) {
-        let userInfo = ["tag": "fetchbackground"] as NSDictionary
-        WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: interval, userInfo: userInfo) { error in
-            if let error = error {
-                print("watch fetch background error")
-                print(error)
-            }
         }
     }
 }

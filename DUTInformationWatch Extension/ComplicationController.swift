@@ -7,7 +7,6 @@
 //
 
 import ClockKit
-import DUTInfo
 import CoreData
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
