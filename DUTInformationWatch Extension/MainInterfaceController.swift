@@ -15,7 +15,7 @@ class MainInterfaceController: WKInterfaceController {
     @IBOutlet var informationTable: WKInterfaceTable!
     @IBOutlet var updateLabel: WKInterfaceLabel!
     
-    var courseData: [TimeData]?
+    var timeData: [TimeData]?
     let session = WCSession.default
     var courseManager: CourseManager!
     var cacheInfo: CacheInfo!
@@ -60,8 +60,8 @@ class MainInterfaceController: WKInterfaceController {
     
     func infoRefresh() {
         var rowTypes = ["NetRow", "EcardRow"]
-        courseData = courseManager.coursesToday().courses
-        let courseNum = courseData?.count ?? 0
+        timeData = courseManager.coursesToday().courses
+        let courseNum = timeData?.count ?? 0
         for _ in 0 ..< courseNum {
             rowTypes += ["CourseRow"]
         }
@@ -70,7 +70,7 @@ class MainInterfaceController: WKInterfaceController {
         (informationTable.rowController(at: 0) as! NetRow).prepare(cacheInfo.netInfo)
         (informationTable.rowController(at: 1) as! EcardRow).prepare(cacheInfo.ecard)
         for i in 2 ..< 2 + courseNum {
-            (informationTable.rowController(at: i) as! CourseRow).prepare(course: courseData![i - 2])
+            (informationTable.rowController(at: i) as! CourseRow).prepare(time: timeData![i - 2])
         }
         let complicationServer = CLKComplicationServer.sharedInstance()
         if let complications = complicationServer.activeComplications {
@@ -81,6 +81,15 @@ class MainInterfaceController: WKInterfaceController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd HH:mm"
         updateLabel.setText("更新时间:" + dateFormatter.string(from: Date()))
+    }
+    
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        if rowIndex != table.numberOfRows - 1 {
+            let courseData = timeData![rowIndex - 1].course
+            presentController(withName: "CourseInterface", context: courseData)
+        } else {
+            pushController(withName: "ScheduleInterface", context: nil)
+        }
     }
 }
 

@@ -12,35 +12,41 @@ import CoreData
 
 class ScheduleInterfaceController: WKInterfaceController {
     @IBOutlet var scheduleTable: WKInterfaceTable!
-    let courseInfo = CourseManager()
-    var date = Date()
+    let courseManager = CourseManager()
+    var timeData: [TimeData]!
+    var courseIndex = [Int]()
     
-    override func awake(withContext context: Any?) {
-        super.awake(withContext: context)
-        loadSchedule()
-    }
-    
-    func loadSchedule() {
+    override func willActivate() {
+        if scheduleTable.numberOfRows != 0 {
+            return
+        }
         for index in 0 ..< scheduleTable.numberOfRows {
             scheduleTable.removeRows(at: [index])
         }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "e"
-        let weekToday = Int(dateFormatter.string(from: date))! - 1
+        let tuple = courseManager.coursesThisWeek()
+        timeData = tuple.courses
+        if timeData.isEmpty {
+            return
+        }
+        var rowIndex = -1
         for week in 1 ... 7 {
-            let tuple = courseInfo.coursesThisWeek(date)
-            let weeknumber = tuple.teachweek
-            let dateInterval = week - weekToday
-            let requestDate = Date(timeIntervalSinceNow: TimeInterval(dateInterval * 24 * 60 * 60))
-            let courses = courseInfo.coursesToday(requestDate).courses
+            let courses = timeData.filter { $0.week == Int64(week) }
             if courses.count != 0 {
                 scheduleTable.insertRows(at: [scheduleTable.numberOfRows], withRowType: "WeekRow")
-                (scheduleTable.rowController(at: scheduleTable.numberOfRows - 1) as! WeekRow).weekLabel.setText("第\(weeknumber)周 周\(week)")
+                (scheduleTable.rowController(at: scheduleTable.numberOfRows - 1) as! WeekRow).weekLabel.setText("第\(tuple.teachweek)周 周\(week)")
+                rowIndex += 1
             }
             for course in courses {
                 scheduleTable.insertRows(at: [scheduleTable.numberOfRows], withRowType: "CourseRow")
-                (scheduleTable.rowController(at: scheduleTable.numberOfRows - 1) as! CourseRow).prepare(course: course)
+                (scheduleTable.rowController(at: scheduleTable.numberOfRows - 1) as! CourseRow).prepare(time: course)
+                rowIndex += 1
+                courseIndex.append(rowIndex)
             }
         }
+    }
+    
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        let courseData = timeData[courseIndex.index(of: rowIndex)!].course
+        presentController(withName: "CourseInterface", context: courseData)
     }
 }

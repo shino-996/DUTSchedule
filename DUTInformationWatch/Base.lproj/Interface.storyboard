@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13771" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc" pageOrientation="vertical">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14109" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc" pageOrientation="vertical">
     <device id="watch42" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14031"/>
     </dependencies>
     <scenes>
         <!--Main Interface Controller-->
@@ -71,11 +71,11 @@
                                         <outlet property="placeLabel" destination="ric-is-zgl" id="peN-Ar-ElI"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="SyncRow" id="ohE-Hh-oO3">
+                                <tableRow identifier="SyncRow" selectable="NO" id="ohE-Hh-oO3">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="8gV-Kk-Aha">
                                         <items>
                                             <label alignment="center" verticalAlignment="center" text="打开手机上的APP 进行数据同步" textAlignment="center" numberOfLines="2" id="K0l-Dx-APc">
-                                                <fontDescription key="font" type="system" pointSize="15"/>
+                                                <fontDescription key="font" type="system" pointSize="14"/>
                                             </label>
                                         </items>
                                     </group>
@@ -83,16 +83,17 @@
                                 <tableRow identifier="MoreCourseRow" id="gOK-pk-9QE">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="pgC-mI-cOE">
                                         <items>
-                                            <label alignment="center" verticalAlignment="center" text="查看更多" textAlignment="center" id="kMI-wx-avH"/>
+                                            <label alignment="center" verticalAlignment="center" text="查看更多" textAlignment="center" id="kMI-wx-avH">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
                                         </items>
-                                        <connections>
-                                            <segue destination="zrC-v8-oyu" kind="push" id="Gcr-Bw-V1M"/>
-                                        </connections>
                                     </group>
                                 </tableRow>
                             </items>
                         </table>
-                        <label alignment="center" text="更新时间" textAlignment="center" id="Lyh-A6-kDo"/>
+                        <label alignment="center" text="更新时间" textAlignment="center" id="Lyh-A6-kDo">
+                            <fontDescription key="font" type="system" pointSize="14"/>
+                        </label>
                     </items>
                     <connections>
                         <outlet property="informationTable" destination="p71-g7-qhZ" id="QJs-Bf-Hhi"/>
@@ -101,10 +102,51 @@
                 </controller>
             </objects>
         </scene>
-        <!--Schedule Interface Controller-->
+        <!--CourseInterface-->
+        <scene sceneID="Mii-nd-geB">
+            <objects>
+                <controller identifier="CourseInterface" id="2C2-zM-EGI" customClass="CourseInterfaceController" customModule="DUTInformationWatch_Extension">
+                    <items>
+                        <label alignment="left" text="嵌入式系统设计" textAlignment="center" id="BwU-S1-3yU">
+                            <fontDescription key="font" type="system" pointSize="14"/>
+                        </label>
+                        <label alignment="left" text="丁男 董校" textAlignment="center" id="kKv-66-MrF">
+                            <fontDescription key="font" type="system" pointSize="14"/>
+                        </label>
+                        <table alignment="left" id="hiL-v2-xjb">
+                            <items>
+                                <tableRow identifier="TimeRow" id="nYw-vP-amo" customClass="TimeRow" customModule="DUTInformationWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="SwT-er-0nA">
+                                        <items>
+                                            <label alignment="left" text="1-8周 周一 第5节" textAlignment="left" id="87B-rv-pE3">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                            <label alignment="left" text="综合教学2号楼 B503" textAlignment="left" id="U1r-Oc-yKk">
+                                                <fontDescription key="font" type="system" pointSize="14"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="placeLabel" destination="U1r-Oc-yKk" id="umM-y1-Bhg"/>
+                                        <outlet property="timeLabel" destination="87B-rv-pE3" id="MID-ZZ-3ib"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="nameLabel" destination="BwU-S1-3yU" id="dZU-6w-WPW"/>
+                        <outlet property="teacherLabel" destination="kKv-66-MrF" id="D3H-Hx-1Zg"/>
+                        <outlet property="timeTable" destination="hiL-v2-xjb" id="n9j-US-V9L"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="485" y="34"/>
+        </scene>
+        <!--ScheduleInterface-->
         <scene sceneID="29A-oL-3LK">
             <objects>
-                <controller id="zrC-v8-oyu" customClass="ScheduleInterfaceController" customModule="DUTInformationWatch_Extension">
+                <controller identifier="ScheduleInterface" id="zrC-v8-oyu" customClass="ScheduleInterfaceController" customModule="DUTInformationWatch_Extension">
                     <items>
                         <table alignment="left" id="SBZ-pq-CLU">
                             <items>
@@ -121,7 +163,7 @@
                                         <outlet property="weekLabel" destination="Ml6-cE-NZF" id="EG2-Te-1Eh"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="CourseRow" selectable="NO" id="eWp-QS-DoQ" customClass="CourseRow" customModule="DUTInformationWatch_Extension">
+                                <tableRow identifier="CourseRow" id="eWp-QS-DoQ" customClass="CourseRow" customModule="DUTInformationWatch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="Etp-cc-psx">
                                         <items>
                                             <label alignment="left" text="第1节   嵌入式系统设计" id="fta-0J-Wtb">
@@ -145,7 +187,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="418" y="272"/>
+            <point key="canvasLocation" x="261" y="34"/>
         </scene>
     </scenes>
 </document>
