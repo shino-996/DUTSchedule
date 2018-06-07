@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xzg-cL-KBU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xzg-cL-KBU">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="PingFang.ttc">
-            <string>PingFangSC-Medium</string>
-            <string>PingFangSC-Semibold</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--其他-->
         <scene sceneID="tne-QT-ifu">
@@ -235,7 +229,7 @@
                         <outlet property="netFlowLabel" destination="Dvt-hH-ETZ" id="DJ3-nR-bvt"/>
                         <outlet property="studentButton" destination="vQd-2e-A1E" id="zWK-ti-bu3"/>
                         <outlet property="tableview" destination="MpG-i4-RzI" id="IX1-my-Uqv"/>
-                        <segue destination="rXU-p7-iyl" kind="show" identifier="login" id="WOY-9g-YZk"/>
+                        <segue destination="rXU-p7-iyl" kind="show" identifier="Login" id="XAB-Y7-v8Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -485,16 +479,6 @@
                                     <outlet property="delegate" destination="mnc-R3-98U" id="gJt-sG-15I"/>
                                 </connections>
                             </collectionView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K45-ur-Yyf">
-                                <rect key="frame" x="120.5" y="266.5" width="80" height="35"/>
-                                <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="16"/>
-                                <state key="normal" title="导入课程表">
-                                    <color key="titleColor" red="0.25882352939999997" green="0.24313725489999999" blue="0.24313725489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="loadSchedule" destination="mnc-R3-98U" eventType="touchUpInside" id="vBI-Ve-QKQ"/>
-                                </connections>
-                            </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="MjB-aP-3KP">
                                 <rect key="frame" x="142" y="265.5" width="37" height="37"/>
                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -508,8 +492,6 @@
                             <constraint firstItem="xUv-uf-GDF" firstAttribute="leading" secondItem="s52-TT-kAR" secondAttribute="leading" constant="20" symbolic="YES" id="Tvv-hr-cYO"/>
                             <constraint firstItem="xUv-uf-GDF" firstAttribute="top" secondItem="XaV-MD-woD" secondAttribute="bottom" constant="8" symbolic="YES" id="Vk9-C9-mBE"/>
                             <constraint firstItem="MjB-aP-3KP" firstAttribute="centerX" secondItem="s52-TT-kAR" secondAttribute="centerX" id="Zqk-Zv-xWz"/>
-                            <constraint firstItem="K45-ur-Yyf" firstAttribute="centerX" secondItem="s52-TT-kAR" secondAttribute="centerX" id="cRl-IG-wb9"/>
-                            <constraint firstItem="K45-ur-Yyf" firstAttribute="centerY" secondItem="s52-TT-kAR" secondAttribute="centerY" id="jPL-cI-dbO"/>
                             <constraint firstItem="MjB-aP-3KP" firstAttribute="centerY" secondItem="s52-TT-kAR" secondAttribute="centerY" id="xW2-8s-St6"/>
                         </constraints>
                         <connections>
@@ -524,8 +506,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="MjB-aP-3KP" id="Nhe-A6-Mtw"/>
                         <outlet property="collectionView" destination="xUv-uf-GDF" id="mkn-IE-yYE"/>
-                        <outlet property="loadScheduleButton" destination="K45-ur-Yyf" id="lRF-a3-sba"/>
-                        <segue destination="rXU-p7-iyl" kind="show" identifier="login" id="MUU-pz-QWV"/>
+                        <segue destination="rXU-p7-iyl" kind="show" identifier="Login" id="ZjI-LR-r9d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYA-Rq-AEo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -569,6 +550,6 @@
         <image name="Schedule" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MUU-pz-QWV"/>
+        <segue reference="ZjI-LR-r9d"/>
     </inferredMetricsTieBreakers>
 </document>

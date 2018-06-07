@@ -13,7 +13,7 @@ class TimeRow: NSObject {
     @IBOutlet var placeLabel: WKInterfaceLabel!
     
     func prepare(time: TimeData) {
-        let timeText = "\(time.teachweek.first!)-\(time.teachweek.last!)周 周\(time.week) 第\(time.startsection)节"
+        let timeText = "\(time.startweek)-\(time.endweek)周 周\(time.weekday) 第\(time.startsection)节"
         timeLabel.setText(timeText)
         placeLabel.setText(time.place)
     }

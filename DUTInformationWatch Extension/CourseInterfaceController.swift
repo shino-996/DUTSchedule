@@ -17,7 +17,7 @@ class CourseInterfaceController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         guard let course = context as? CourseData else {
-            fatalError()
+            fatalError("context type error")
         }
         nameLabel.setText(course.name)
         teacherLabel.setText(course.teacher)

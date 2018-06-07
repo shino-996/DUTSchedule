@@ -12,9 +12,12 @@ class CourseRow: NSObject {
     @IBOutlet var courseLabel: WKInterfaceLabel!
     @IBOutlet var placeLabel: WKInterfaceLabel!
     
-    func prepare(time: TimeData) {
-        let courseText = "第\(time.startsection)节" + "   " + time.course.name
-        let placeText = time.place
+    private(set) var course: TimeData!
+    
+    func prepare(course: TimeData) {
+        self.course = course
+        let courseText = "第\(course.startsection)节" + "   " + course.course.name
+        let placeText = course.place
         courseLabel.setText(courseText)
         placeLabel.setText(placeText)
     }

@@ -25,8 +25,8 @@ class CourseCell: UICollectionViewCell {
         return """
         \(course.course.name)
         \(course.course.teacher)
-        \(course.teachweek.first!)周
-        周\(chineseWeek[Int(course.week)])
+        \(course.startweek)周
+        周\(chineseWeek[Int(course.weekday)])
         第\(course.startsection)节
         \(course.place)
         """
@@ -38,7 +38,7 @@ class CourseCell: UICollectionViewCell {
         let coursenumber = ((row + 1) / 2) * 2 - 1
         let week = line - 1
         let course = courses.filter {
-            $0.week == week && $0.startsection == coursenumber
+            $0.weekday == week && $0.startsection == coursenumber
         }.first
         return course
     }

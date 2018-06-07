@@ -12,8 +12,8 @@ class NetRow: NSObject {
     @IBOutlet var flowLable: WKInterfaceLabel!
     @IBOutlet var costLabel: WKInterfaceLabel!
     
-    func prepare(_ net: (cost: String, flow: String)) {
-        costLabel.setText(net.cost)
-        flowLable.setText(net.flow)
+    func prepare(cost: String, flow: String) {
+        costLabel.setText(cost)
+        flowLable.setText(flow)
     }
 }

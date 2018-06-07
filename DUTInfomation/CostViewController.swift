@@ -19,49 +19,56 @@ class CostViewController: TabViewController {
     @IBOutlet weak var nameButton: UIButton!
     @IBOutlet weak var studentButton: UIButton!
     
-    var testInfo: TestInfo!
-    var cacheInfo: CacheInfo!
     var dataSource: TestViewDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        testInfo = TestInfo()
-        cacheInfo = CacheInfo()
-        dataSource = TestViewDataSource(tests: testInfo.tests)
+        dataSource = TestViewDataSource(tests: dataManager.tests())
         tableview.dataSource = dataSource
-        loadCache()
+        
+        loadData()
+        addObserver()
     }
     
-    func loadCache() {
-        let (cost, flow) = cacheInfo.netInfo
-        netCostLabel.text = cost
-        netFlowLabel.text = flow
-        ecardCostLabel.text = cacheInfo.ecard
-        nameButton.setTitle(cacheInfo.name, for: .normal)
+    func loadData() {
+        netCostActivity.startAnimating()
+        netFlowActivity.startAnimating()
+        ecardActivity.startAnimating()
+        DispatchQueue.global().async {
+            self.dataManager.load([.net, .ecard, .test])
+        }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if cacheInfo.shouldRefresh() {
-            netCostActivity.startAnimating()
-            netFlowActivity.startAnimating()
-            ecardActivity.startAnimating()
-            cacheInfo.loadCacheAsync() {
-                DispatchQueue.main.async {
-                    self.netCostActivity.stopAnimating()
-                    self.netFlowActivity.stopAnimating()
-                    self.ecardActivity.stopAnimating()
-                    self.loadCache()
-                }
+    func addObserver() {
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "space.shino.post.net"),
+                                               object: nil,
+                                               queue: nil) { _ in
+            let netData = self.dataManager.net()
+            DispatchQueue.main.async {
+                self.netCostLabel.text = "\(netData.cost)"
+                self.netFlowLabel.text = "\(netData.flow)"
+                self.netCostActivity.stopAnimating()
+                self.netFlowActivity.stopAnimating()
             }
         }
-        if testInfo.tests == nil {
-            testInfo.loadTestAsync() {
-                self.dataSource.tests = self.testInfo.tests
-                DispatchQueue.main.async {
-                    self.dataSource.tests = self.testInfo.tests
-                    self.tableview.reloadData()
-                }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "space.shino.post.ecard"),
+                                               object: nil,
+                                               queue: nil) { _ in
+            let ecardData = self.dataManager.ecard()
+            DispatchQueue.main.async {
+                self.ecardCostLabel.text = "\(ecardData.ecard)"
+                self.ecardActivity.stopAnimating()
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "space.shino.post.test"),
+                                               object: nil,
+                                               queue: nil) { _ in
+            let testData = self.dataManager.tests()
+            self.dataSource.tests = testData
+            DispatchQueue.main.async {
+                self.tableview.reloadData()
             }
         }
     }
@@ -70,12 +77,9 @@ class CostViewController: TabViewController {
         let alertController = UIAlertController(title: "登录账号", message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let logoutAction = UIAlertAction(title: "注销", style: .default) { _ in
-            KeyInfo.shared.removeAccount()
-            CourseManager().deleteAllCourse()
-            TestInfo.deleteTest()
-            CacheInfo.deleteCache()
-            (self.tabBarController as! TabBarController).isLogin = false
-            self.isLogin = false
+            UserInfo.shared.removeAccount()
+//            DataManager().deleteAllCourse()
+            NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "space.shino.post.login")))
         }
         alertController.addAction(logoutAction)
         alertController.addAction(cancelAction)

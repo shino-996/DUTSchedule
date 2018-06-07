@@ -18,7 +18,7 @@ class ScheduleLayout: UICollectionViewFlowLayout {
         var attributes = [UICollectionViewLayoutAttributes]()
         for originAttribute in originAttributes {
             let frame = originAttribute.frame
-            if originAttribute.representedElementKind == UICollectionElementKindSectionHeader {
+            if originAttribute.representedElementKind == UICollectionView.elementKindSectionHeader {
                 let attribute = originAttribute.copy() as! UICollectionViewLayoutAttributes
                 attribute.frame = CGRect(x: frame.minX, y: offset, width: frame.width, height: frame.height)
                 attributes.append(attribute)

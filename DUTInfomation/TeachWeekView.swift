@@ -8,25 +8,19 @@
 
 import UIKit
 
-protocol TeachWeekDelegate: AnyObject {
-    var collectionView: UICollectionView! { get }
-    func getScheduleThisWeek()
-    func getScheduleNextWeek()
-    func getScheduleLastWeek()
-}
-
 class TeachWeekView: UICollectionReusableView {
-    weak var delegate: TeachWeekDelegate?
     
     @IBOutlet weak var teachWeekButton: UIButton!
     @IBAction func changeSchedule(_ sender: UIButton) {
         let title = sender.title(for: .normal) ?? ""
+        var notificationName: String
         if title == "⇨" {
-            delegate?.getScheduleNextWeek()
+            notificationName = "space.shino.post.nextweek"
         } else if title == "⇦" {
-            delegate?.getScheduleLastWeek()
+            notificationName = "space.shino.post.lastweek"
         } else {
-            delegate?.getScheduleThisWeek()
+            notificationName = "space.shino.post.thisweek"
         }
+        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: notificationName)))
     }
 }

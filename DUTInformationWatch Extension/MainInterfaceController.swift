@@ -11,91 +11,150 @@ import Foundation
 import WatchConnectivity
 import CoreData
 
+enum RowType: String {
+    case SyncRow
+    case NetRow
+    case EcardRow
+    case CourseRow
+    case MoreCourseRow
+}
+
 class MainInterfaceController: WKInterfaceController {
     @IBOutlet var informationTable: WKInterfaceTable!
     @IBOutlet var updateLabel: WKInterfaceLabel!
     
-    var timeData: [TimeData]?
     let session = WCSession.default
-    var courseManager: CourseManager!
-    var cacheInfo: CacheInfo!
-    var isSync = false
+    var dataManager: DataManager!
+    var rowTypes: [RowType] = []
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        if KeyInfo.shared.getAccount() != nil {
-            infoInit()
+        if UserInfo.shared.isLogin {
+            prepareData()
         } else {
-            let rowTypes = ["SyncRow"]
-            informationTable.setRowTypes(rowTypes)
-            session.delegate = self
-            session.activate()
+            syncFromPhone()
         }
     }
     
-    func infoInit(_ courses: [JSON]? = nil) {
-        cacheInfo = CacheInfo()
-        courseManager = CourseManager()
-        if let courses = courses {
-            courseManager.importData(from: courses)
+    func prepareData() {
+        dataManager = DataManager()
+        guard let delegate = WKExtension.shared().delegate as? ExtensionDelegate else {
+            fatalError("WKExtension delegate type error")
         }
-        (WKExtension.shared().delegate as! ExtensionDelegate).handler = { [weak self] in
-            self?.cacheInfo.loadCacheAsync() {
-                self?.infoRefresh()
-            }
-        }
-        fetchInfoBackground(interval: Date())
-        infoRefresh()
+        delegate.dataManager = dataManager
+        startFetchBackground()
+        addObserver()
+        freshUI()
     }
     
-    func fetchInfoBackground(interval: Date = Date()) {
+    func addObserver() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(self,
+                                       selector: #selector(freshNetUI),
+                                       name: Notification.Name(rawValue: "space.shino.post.net"),
+                                       object: nil)
+        
+        notificationCenter.addObserver(self,
+                                       selector: #selector(freshEcardUI),
+                                       name: Notification.Name(rawValue: "space.shino.post.ecard"),
+                                       object: nil)
+        
+        notificationCenter.addObserver(self,
+                                       selector: #selector(freshComplication),
+                                       name: Notification.Name(rawValue: "space.shino.post.net"),
+                                       object: nil)
+    }
+    
+    func startFetchBackground() {
         let userInfo = ["tag": "fetchbackground"] as NSDictionary
-        WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: interval, userInfo: userInfo) { error in
+        WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(), userInfo: userInfo) { error in
             if let error = error {
                 print("watch fetch background error")
                 print(error)
             }
         }
     }
+}
+
+// 视图切换
+extension MainInterfaceController {
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        if rowTypes[rowIndex] == .CourseRow {
+            let course = (table.rowController(at: rowIndex) as! CourseRow).course!
+            presentController(withName: "CourseInterface", context: course.course)
+        } else if rowTypes[rowIndex] == .MoreCourseRow {
+            pushController(withName: "ScheduleInterface", context: dataManager)
+        }
+    }
+}
+
+// UI更新
+extension MainInterfaceController {
+    @objc func freshNetUI() {
+        let netRow = informationTable.rowController(at: rowTypes.firstIndex(of: .NetRow)!) as! NetRow
+        let net = dataManager.net()
+        netRow.prepare(cost: "\(net.cost)", flow: "\(net.flow)")
+    }
     
-    func infoRefresh() {
-        var rowTypes = ["NetRow", "EcardRow"]
-        timeData = courseManager.coursesToday().courses
-        let courseNum = timeData?.count ?? 0
-        for _ in 0 ..< courseNum {
-            rowTypes += ["CourseRow"]
-        }
-        rowTypes += ["MoreCourseRow"]
-        informationTable.setRowTypes(rowTypes)
-        (informationTable.rowController(at: 0) as! NetRow).prepare(cacheInfo.netInfo)
-        (informationTable.rowController(at: 1) as! EcardRow).prepare(cacheInfo.ecard)
-        for i in 2 ..< 2 + courseNum {
-            (informationTable.rowController(at: i) as! CourseRow).prepare(time: timeData![i - 2])
-        }
+    @objc func freshEcardUI() {
+        let ecardRow = informationTable.rowController(at: rowTypes.firstIndex(of: .EcardRow)!) as! EcardRow
+        let ecard = dataManager.ecard()
+        ecardRow.prepare("\(ecard.ecard)")
+    }
+    
+    @objc func freshComplication() {
         let complicationServer = CLKComplicationServer.sharedInstance()
         if let complications = complicationServer.activeComplications {
             for complication in complications {
                 complicationServer.reloadTimeline(for: complication)
             }
         }
+    }
+    
+    func freshUI() {
+        rowTypes = [.NetRow, .EcardRow]
+        let courses = dataManager.courses(of: .nextDay(Date()))
+        let courseRows = courses.map { _ in return RowType.CourseRow }
+        rowTypes.append(contentsOf: courseRows)
+        rowTypes.append(.MoreCourseRow)
+        informationTable.setRowTypes(rowTypes.map { $0.rawValue })
+        
+        freshNetUI()
+        freshEcardUI()
+        freshComplication()
+        DispatchQueue.global().async {
+            self.dataManager.load([.net, .ecard])
+        }
+        
+        if let startIndex = rowTypes.firstIndex(of: .CourseRow),
+            let endIndex = rowTypes.lastIndex(of: .CourseRow) {
+            var courseIndex = 0
+            for i in startIndex ... endIndex {
+                let courseRow = informationTable.rowController(at: i) as! CourseRow
+                courseRow.prepare(course: courses[courseIndex])
+                courseIndex += 1
+            }
+        }
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd HH:mm"
         updateLabel.setText("更新时间:" + dateFormatter.string(from: Date()))
     }
-    
-    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
-        if rowIndex != table.numberOfRows - 1 {
-            let courseData = timeData![rowIndex - 1].course
-            presentController(withName: "CourseInterface", context: courseData)
-        } else {
-            pushController(withName: "ScheduleInterface", context: nil)
-        }
-    }
 }
 
+// 与手机同步数据, 直接同步 CoreData 中的 sqlite3 文件
 extension MainInterfaceController: WCSessionDelegate {
+    func syncFromPhone() {
+        rowTypes = [.SyncRow]
+        informationTable.setRowTypes(rowTypes.map { $0.rawValue })
+        session.delegate = self
+        session.activate()
+    }
+    
+    // 主动请求与手机连接
     func requestSync() {
-        if isSync {
+        if UserInfo.shared.isLogin {
             return
         }
         let message = ["message": "sync request"]
@@ -105,27 +164,38 @@ extension MainInterfaceController: WCSessionDelegate {
             }
     }
     
+    // 收到手机的连接请求, 进宪回复
     func session(_ session: WCSession,
                  activationDidCompleteWith activationState: WCSessionActivationState,
                  error: Error?) {
         requestSync()
     }
     
+    // 收到手机发来的数据
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        if isSync {
+        if UserInfo.shared.isLogin {
             return
         }
         if (message["message"] as? String) == "sync request" {
             requestSync()
+            return
         }
         if let syncData = message["syncdata"] as? [String: Any] {
             let keys = syncData["keys"] as! [String: String]
             let studentNumber = keys["studentnumber"]!
             let password = keys["password"]!
-            KeyInfo.shared.setAccount(studentNumber: studentNumber, password: password)
-            let courses = syncData["courses"] as! [JSON]
-            isSync = true
-            infoInit(courses)
+            UserInfo.shared.setAccount(studentNumber: studentNumber, password: password)
+            
+            let data = syncData["data"] as! Data
+            let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")!
+            let url = groupURL.appendingPathComponent("dutinfo.data")
+            do {
+                try data.write(to: url)
+            } catch(let error) {
+                print(error)
+                fatalError()
+            }
+            prepareData()
         }
     }
 }

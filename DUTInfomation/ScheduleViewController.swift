@@ -8,45 +8,56 @@
 
 import UIKit
 
-class ScheduleViewController: TabViewController, TeachWeekDelegate {
+class ScheduleViewController: TabViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var loadScheduleButton: UIButton!
-    var courseManager: CourseManager!
     var dataSource: ScheduleViewDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        courseManager = CourseManager()
-        dataSource = ScheduleViewDataSource(data: courseManager.coursesThisWeek())
-        collectionView.dataSource = dataSource
-        dataSource.controller = self
-        dataSource.data = courseManager.coursesThisWeek(dataSource.data.date)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if !courseManager.isLoaded && activityIndicator.isAnimating == false {
-            let alertController = UIAlertController(title: "未导入课表", message: nil, preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
-                self.loadScheduleButton.isHidden = false
-            }
-            let loadAction = UIAlertAction(title: "导入", style: .default) { _ in
-                self.loadSchedule()
-            }
-            alertController.addAction(cancelAction)
-            alertController.addAction(loadAction)
-            present(alertController, animated: true, completion: nil)
+        let date = Date()
+        let courses = dataManager.courses(of: .thisWeek(date))
+        if courses.count == 0 {
+            loadSchedule()
         }
+        dataSource = ScheduleViewDataSource(courses: courses, date: date)
+        collectionView.dataSource = dataSource
+        addObserver()
     }
     
-    @IBAction func loadSchedule() {
-        activityIndicator.startAnimating()
-        courseManager.loadCoursesAsync() {
+    func addObserver() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(forName: Notification.Name(rawValue: "space.shino.post.course"),
+                                               object: nil,
+                                               queue: nil) { _ in
+            let date = Date()
+            self.dataSource.courses = self.dataManager.courses(of: .thisWeek(date))
+            self.dataSource.date = date
             DispatchQueue.main.async {
-                self.loadScheduleButton.isHidden = true
+                self.collectionView.reloadData()
+            }
+        }
+        
+        notificationCenter.addObserver(self, selector: #selector(getScheduleThisWeek),
+                                               name: Notification.Name(rawValue: "space.shino.post.thisweek"),
+                                               object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(getScheduleNextWeek),
+                                               name: Notification.Name(rawValue: "space.shino.post.nextweek"),
+                                               object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(getScheduleLastWeek),
+                                               name: Notification.Name(rawValue: "space.shino.post.lastweek"),
+                                               object: nil)
+    }
+    
+    func loadSchedule() {
+        activityIndicator.startAnimating()
+        DispatchQueue.global().async {
+            self.dataManager.load([.course])
+            DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
-                self.getScheduleThisWeek()
             }
         }
     }
@@ -59,18 +70,23 @@ class ScheduleViewController: TabViewController, TeachWeekDelegate {
         }
     }
     
-    func getScheduleThisWeek() {
-        dataSource.data  = courseManager.coursesThisWeek(Date())
+    @objc func getScheduleThisWeek() {
+        let date = dataSource.date
+        dataSource.courses = dataManager.courses(of: .thisWeek(date))
         collectionView.reloadData()
     }
     
-    func getScheduleNextWeek() {
-        dataSource.data = courseManager.coursesNextWeek(dataSource.data.date)
+    @objc func getScheduleNextWeek() {
+        let date = dataSource.date
+        dataSource.courses = dataManager.courses(of: .nextWeek(date))
+        dataSource.date = date.nextWeek()
         collectionView.reloadData()
     }
     
-    func getScheduleLastWeek() {
-        dataSource.data = courseManager.coursesLastWeek(dataSource.data.date)
+    @objc func getScheduleLastWeek() {
+        let date = dataSource.date
+        dataSource.courses = dataManager.courses(of: .lastWeek(date))
+        dataSource.date = date.lastWeek()
         collectionView.reloadData()
     }
 }
@@ -80,7 +96,7 @@ extension ScheduleViewController {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CourseCell  else {
             return
         }
-        guard let courseInfo = cell.courseInfo(courses: dataSource.data.courses, indexPath: indexPath) else {
+        guard let courseInfo = cell.courseInfo(courses: dataSource.courses, indexPath: indexPath) else {
             return
         }
         let alertController = UIAlertController(title: "课程详情", message: courseInfo, preferredStyle: .alert)

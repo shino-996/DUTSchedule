@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CourseData" representedClassName=".CourseData" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="teacher" attributeType="String" syncable="YES"/>
         <relationship name="time" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TimeData" inverseName="course" inverseEntity="TimeData" syncable="YES"/>
     </entity>
-    <entity name="TimeData" representedClassName=".TimeData" syncable="YES">
-        <attribute name="endsection" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    <entity name="EcardData" representedClassName=".EcardData" syncable="YES">
+        <attribute name="ecard" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="NetData" representedClassName=".NetData" syncable="YES">
+        <attribute name="cost" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="flow" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="TestData" representedClassName=".TestData" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="endtime" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="place" attributeType="String" syncable="YES"/>
-        <attribute name="startsection" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="teachweek" attributeType="Transformable" syncable="YES"/>
-        <attribute name="week" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="starttime" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="TimeData" representedClassName=".TimeData" syncable="YES">
+        <attribute name="endsection" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="endweek" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="place" attributeType="String" syncable="YES"/>
+        <attribute name="startsection" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="startweek" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="weekday" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="course" maxCount="1" deletionRule="Cascade" destinationEntity="CourseData" inverseName="time" inverseEntity="CourseData" syncable="YES"/>
     </entity>
     <elements>
         <element name="CourseData" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="TimeData" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="TestData" positionX="9" positionY="63" width="128" height="120"/>
+        <element name="TimeData" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="NetData" positionX="9" positionY="72" width="128" height="75"/>
+        <element name="EcardData" positionX="18" positionY="81" width="128" height="60"/>
     </elements>
 </model>

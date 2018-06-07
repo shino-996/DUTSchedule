@@ -11,24 +11,38 @@ import WatchConnectivity
 import CoreData
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
-    let session = WCSession.default
-    var isLogin = false
+    private let session = WCSession.default
+    let dataManager = DataManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
-        isLogin = KeyInfo.shared.getAccount() != nil
         if WCSession.isSupported() {
             session.delegate = self
             session.activate()
         }
+        guard let currentVC = viewControllers?.first as? TabViewController else {
+            fatalError("TabBarViewController type error")
+        }
+        currentVC.dataManager = dataManager
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        guard let nextVC = viewController as? TabViewController else {
+            fatalError("TabBarViewController type error")
+        }
+        guard let currentVC = selectedViewController as? TabViewController else {
+            fatalError("TabBatViewController type error")
+        }
+        nextVC.dataManager = currentVC.dataManager
+        return true
     }
 }
 
 extension TabBarController: WCSessionDelegate {
     func sessionDidBecomeInactive(_ session: WCSession) {}
     func sessionDidDeactivate(_ session: WCSession) {}
-    
+
     func session(_ session: WCSession,
                  activationDidCompleteWith activationState: WCSessionActivationState,
                  error: Error?) {
@@ -38,26 +52,27 @@ extension TabBarController: WCSessionDelegate {
             print(error)
         }
     }
-    
+
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         guard (message["message"] as? String) == "sync request" else {
             return
         }
-        guard let password = KeyInfo.shared.getAccount() else {
+        guard let password = UserInfo.shared.getAccount() else {
             return
         }
         let keys = ["studentnumber": password.studentNumber,
                     "password": password.password]
-        var courses: [JSON]
-        if let controller = selectedViewController as? ScheduleViewController {
-            courses = controller.courseManager.exportJsonArray()
-        } else {
-            courses = CourseManager().exportJsonArray()
-        }
-        
-        let message = ["syncdata": ["keys": keys, "courses": courses]]
-        session.sendMessage(message, replyHandler: nil) { error in
+        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")!
+        let url = groupURL.appendingPathComponent("dutinfo.data")
+        do {
+            let data = try Data(contentsOf: url)
+            let message = ["syncdata": ["keys": keys, "data": data]]
+            session.sendMessage(message, replyHandler: nil) { error in
+                print(error)
+            }
+        } catch(let error) {
             print(error)
+            fatalError()
         }
     }
 }

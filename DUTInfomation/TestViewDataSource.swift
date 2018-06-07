@@ -9,14 +9,14 @@
 import UIKit
 
 class TestViewDataSource: NSObject, UITableViewDataSource {
-    var tests: [[String: String]]?
+    var tests: [TestData]
     
-    init(tests: [[String: String]]?) {
+    init(tests: [TestData]) {
         self.tests = tests
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return tests?.count ?? 0
+        return tests.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -25,7 +25,7 @@ class TestViewDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TestCell", for: indexPath) as! TestCell
-        cell.prepare(tests: tests!, indexPath: indexPath)
+        cell.prepare(tests: tests, indexPath: indexPath)
         return cell
     }
 }

@@ -37,29 +37,61 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         handler(entry)
     }
     
+    private func infoString(date: Date) -> (net: String, course: String, place: String) {
+        let dataManager = DataManager()
+        let net = dataManager.net()
+        let course = dataManager.courses(of: .today(date))
+        let netStr = """
+        \(net.flow)/\(net.cost)
+        """
+        var courseStr: String
+        var placeStr: String
+        if course.isEmpty {
+            courseStr = "今天没课了~"
+            let nextDayCourse = dataManager.courses(of: .nextDay(date))
+            if nextDayCourse.isEmpty {
+                placeStr = "明天也没有课~~"
+            } else {
+                placeStr = "明天还有\(nextDayCourse.count)节课orz"
+            }
+        } else {
+            if let nowCourse = (course.filter { $0.startsection == date.section() }).first {
+                courseStr = """
+                """
+                placeStr = nowCourse.place
+            } else {
+                courseStr = "今天没课了~"
+                placeStr = ""
+            }
+        }
+        return (netStr, courseStr, placeStr)
+    }
+    
     private func otherString() -> String {
-        let (cost, flow) = CacheInfo().netInfo
-        return flow + "/" + cost
+//        let (cost, flow) = CacheInfo().netInfo
+//        return flow + "/" + cost
+        return ""
     }
     
     private func courseString(date: Date) -> (course: String, place: String) {
-        let courseInfo = CourseManager()
-        var courseString: String
-        var placeString: String
-        if let courseDictionary = courseInfo.courseNow().course {
-            courseString = "第\(courseDictionary.startsection)节"
-                               + " "
-                               + courseDictionary.course.name
-            placeString = courseDictionary.place
-        } else {
-            courseString = "没有课了~"
-            let num = courseInfo.coursesNextDay(date).courses.count
-            if num != 0 {
-                placeString = "明天有\(num)节课orz"
-            } else {
-                placeString = "明天也没有课~~"
-            }
-        }
-        return (course: courseString, place: placeString)
+//        let courseInfo = CourseManager()
+//        var courseString: String
+//        var placeString: String
+//        if let courseDictionary = courseInfo.courses(of: .today(Date())) {
+//            courseString = "第\(courseDictionary.startsection)节"
+//                               + " "
+//                               + courseDictionary.course.name
+//            placeString = courseDictionary.place
+//        } else {
+//            courseString = "没有课了~"
+//            let num = courseInfo.courses(of: .nextDay(Date())).count
+//            if num != 0 {
+//                placeString = "明天有\(num)节课orz"
+//            } else {
+//                placeString = "明天也没有课~~"
+//            }
+//        }
+//        return (course: courseString, place: placeString)
+        return ("", "")
     }
 }

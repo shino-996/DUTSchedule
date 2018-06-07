@@ -10,18 +10,35 @@
 		1BF50BBD1362FA85383CE68F /* Pods_DUTInformationToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E56B0E628D8B1E3594C810D2 /* Pods_DUTInformationToday.framework */; };
 		26247C115375106E7529D9FE /* Pods_DUTInformationWatch_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A43D9B92752240C3323267 /* Pods_DUTInformationWatch_Extension.framework */; };
 		B4173D721FE2642000B6E527 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4173D711FE2642000B6E527 /* TabBarController.swift */; };
+		B422360E20C010A300A6B615 /* TimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422360D20C010A300A6B615 /* TimeData.swift */; };
+		B422360F20C010A300A6B615 /* TimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422360D20C010A300A6B615 /* TimeData.swift */; };
+		B422361020C010A300A6B615 /* TimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422360D20C010A300A6B615 /* TimeData.swift */; };
+		B422361220C0125700A6B615 /* JsonDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422361120C0125700A6B615 /* JsonDataType.swift */; };
+		B422361320C0125700A6B615 /* JsonDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422361120C0125700A6B615 /* JsonDataType.swift */; };
+		B422361420C0125700A6B615 /* JsonDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422361120C0125700A6B615 /* JsonDataType.swift */; };
 		B422673F1F692DF500D161CD /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422673E1F692DF500D161CD /* ScheduleViewController.swift */; };
-		B454BC43205E558A0073721F /* CourseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* CourseManager.swift */; };
-		B454BC44205E558A0073721F /* TestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC40205E558A0073721F /* TestInfo.swift */; };
-		B454BC45205E558A0073721F /* CacheInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC41205E558A0073721F /* CacheInfo.swift */; };
-		B454BC46205E558A0073721F /* KeyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* KeyInfo.swift */; };
-		B454BC48205E559C0073721F /* CourseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* CourseManager.swift */; };
-		B454BC49205E559D0073721F /* CourseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* CourseManager.swift */; };
-		B454BC4A205E55A30073721F /* KeyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* KeyInfo.swift */; };
-		B454BC4B205E55A40073721F /* KeyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* KeyInfo.swift */; };
-		B454BC4C205E55A80073721F /* CacheInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC41205E558A0073721F /* CacheInfo.swift */; };
-		B454BC4D205E55A90073721F /* CacheInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC41205E558A0073721F /* CacheInfo.swift */; };
+		B42EEA9720C2C57C00C2208B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42EEA9620C2C57C00C2208B /* Date+Extension.swift */; };
+		B42EEA9820C2C57C00C2208B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42EEA9620C2C57C00C2208B /* Date+Extension.swift */; };
+		B42EEA9920C2C57C00C2208B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42EEA9620C2C57C00C2208B /* Date+Extension.swift */; };
+		B4477E6E20C16639002ECC5E /* NetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E6D20C16639002ECC5E /* NetData.swift */; };
+		B4477E6F20C16639002ECC5E /* NetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E6D20C16639002ECC5E /* NetData.swift */; };
+		B4477E7020C16639002ECC5E /* NetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E6D20C16639002ECC5E /* NetData.swift */; };
+		B4477E7220C16939002ECC5E /* EcardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E7120C16939002ECC5E /* EcardData.swift */; };
+		B4477E7320C16939002ECC5E /* EcardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E7120C16939002ECC5E /* EcardData.swift */; };
+		B4477E7420C16939002ECC5E /* EcardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E7120C16939002ECC5E /* EcardData.swift */; };
+		B4477E7620C16B45002ECC5E /* NetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E7520C16B45002ECC5E /* NetRequest.swift */; };
+		B4477E7720C16B45002ECC5E /* NetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E7520C16B45002ECC5E /* NetRequest.swift */; };
+		B4477E7820C16B45002ECC5E /* NetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E7520C16B45002ECC5E /* NetRequest.swift */; };
+		B454BC43205E558A0073721F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* DataManager.swift */; };
+		B454BC46205E558A0073721F /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* UserInfo.swift */; };
+		B454BC48205E559C0073721F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* DataManager.swift */; };
+		B454BC49205E559D0073721F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* DataManager.swift */; };
+		B454BC4A205E55A30073721F /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* UserInfo.swift */; };
+		B454BC4B205E55A40073721F /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* UserInfo.swift */; };
 		B48B031A207384D700215BB0 /* Course.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B48B0318207384D700215BB0 /* Course.xcdatamodeld */; };
+		B493042B20C0FF900008ECEB /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B493042A20C0FF900008ECEB /* TestData.swift */; };
+		B493042C20C0FF900008ECEB /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B493042A20C0FF900008ECEB /* TestData.swift */; };
+		B493042D20C0FF900008ECEB /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B493042A20C0FF900008ECEB /* TestData.swift */; };
 		B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */; };
 		B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A137E61F62BD9200207CFF /* TodayViewController.swift */; };
 		B4A2114D1FDFAD2C0055B611 /* WeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */; };
@@ -148,12 +165,17 @@
 		A2C577CF4047CFE0F0EA4929 /* Pods-DUTInfomation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInfomation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation.debug.xcconfig"; sourceTree = "<group>"; };
 		B0EB9A587DBD00F51952CA11 /* Pods-DUTInformationWatch Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DUTInformationWatch Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-DUTInformationWatch Extension/Pods-DUTInformationWatch Extension.release.xcconfig"; sourceTree = "<group>"; };
 		B4173D711FE2642000B6E527 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		B422360D20C010A300A6B615 /* TimeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeData.swift; sourceTree = "<group>"; };
+		B422361120C0125700A6B615 /* JsonDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonDataType.swift; sourceTree = "<group>"; };
 		B422673E1F692DF500D161CD /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
-		B454BC3F205E558A0073721F /* CourseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseManager.swift; sourceTree = "<group>"; };
-		B454BC40205E558A0073721F /* TestInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestInfo.swift; sourceTree = "<group>"; };
-		B454BC41205E558A0073721F /* CacheInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheInfo.swift; sourceTree = "<group>"; };
-		B454BC42205E558A0073721F /* KeyInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyInfo.swift; sourceTree = "<group>"; };
+		B42EEA9620C2C57C00C2208B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		B4477E6D20C16639002ECC5E /* NetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetData.swift; sourceTree = "<group>"; };
+		B4477E7120C16939002ECC5E /* EcardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcardData.swift; sourceTree = "<group>"; };
+		B4477E7520C16B45002ECC5E /* NetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetRequest.swift; sourceTree = "<group>"; };
+		B454BC3F205E558A0073721F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		B454BC42205E558A0073721F /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		B48B0319207384D700215BB0 /* Course.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Course.xcdatamodel; sourceTree = "<group>"; };
+		B493042A20C0FF900008ECEB /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachWeekView.swift; sourceTree = "<group>"; };
 		B4A137E61F62BD9200207CFF /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		B4A2114C1FDFAD2C0055B611 /* WeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
@@ -278,10 +300,15 @@
 				B48B0318207384D700215BB0 /* Course.xcdatamodeld */,
 				B4C5D851208E159300BF1589 /* ManagedObject.swift */,
 				B4BA90D1208F127300A4CA8E /* CourseData.swift */,
-				B454BC3F205E558A0073721F /* CourseManager.swift */,
-				B454BC40205E558A0073721F /* TestInfo.swift */,
-				B454BC41205E558A0073721F /* CacheInfo.swift */,
-				B454BC42205E558A0073721F /* KeyInfo.swift */,
+				B422360D20C010A300A6B615 /* TimeData.swift */,
+				B493042A20C0FF900008ECEB /* TestData.swift */,
+				B4477E6D20C16639002ECC5E /* NetData.swift */,
+				B4477E7120C16939002ECC5E /* EcardData.swift */,
+				B422361120C0125700A6B615 /* JsonDataType.swift */,
+				B42EEA9620C2C57C00C2208B /* Date+Extension.swift */,
+				B454BC3F205E558A0073721F /* DataManager.swift */,
+				B4477E7520C16B45002ECC5E /* NetRequest.swift */,
+				B454BC42205E558A0073721F /* UserInfo.swift */,
 			);
 			path = InfoModule;
 			sourceTree = SOURCE_ROOT;
@@ -553,7 +580,7 @@
 					B4B70E7A1F0A211800174471 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = R374EG3MSW;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -572,6 +599,7 @@
 					B4BD1CDB20511BDA00C18ACB = {
 						CreatedOnToolsVersion = 9.2;
 						DevelopmentTeam = R374EG3MSW;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -582,7 +610,7 @@
 					B4CB3FD81F1209FE0059591C = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = R374EG3MSW;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -717,19 +745,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				B48B031A207384D700215BB0 /* Course.xcdatamodeld in Sources */,
-				B454BC46205E558A0073721F /* KeyInfo.swift in Sources */,
+				B454BC46205E558A0073721F /* UserInfo.swift in Sources */,
+				B4477E6E20C16639002ECC5E /* NetData.swift in Sources */,
 				B4C5D852208E159300BF1589 /* ManagedObject.swift in Sources */,
+				B493042B20C0FF900008ECEB /* TestData.swift in Sources */,
+				B4477E7220C16939002ECC5E /* EcardData.swift in Sources */,
 				B4A2114F1FDFAD580055B611 /* CourseCell.swift in Sources */,
-				B454BC44205E558A0073721F /* TestInfo.swift in Sources */,
+				B422360E20C010A300A6B615 /* TimeData.swift in Sources */,
+				B4477E7620C16B45002ECC5E /* NetRequest.swift in Sources */,
 				B4B70E811F0A211800174471 /* CostViewController.swift in Sources */,
+				B422361220C0125700A6B615 /* JsonDataType.swift in Sources */,
 				B4CCCA651FE2A98300EE6470 /* TabViewController.swift in Sources */,
-				B454BC45205E558A0073721F /* CacheInfo.swift in Sources */,
 				B4B2F7AA1FE774ED00B86075 /* ScheduleViewDataSource.swift in Sources */,
 				B4A211511FDFAD640055B611 /* CourseNumberCell.swift in Sources */,
 				B422673F1F692DF500D161CD /* ScheduleViewController.swift in Sources */,
+				B42EEA9720C2C57C00C2208B /* Date+Extension.swift in Sources */,
 				B4E38DEC1FE65CA00013715C /* ScheduleLayout.swift in Sources */,
 				B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */,
-				B454BC43205E558A0073721F /* CourseManager.swift in Sources */,
+				B454BC43205E558A0073721F /* DataManager.swift in Sources */,
 				B4A2114D1FDFAD2C0055B611 /* WeekCell.swift in Sources */,
 				B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */,
 				B4A772271FE7B1F900B3F545 /* TestViewDataSource.swift in Sources */,
@@ -745,20 +778,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4BA90D4208F127300A4CA8E /* CourseData.swift in Sources */,
+				B42EEA9920C2C57C00C2208B /* Date+Extension.swift in Sources */,
 				B4C5D854208E159300BF1589 /* ManagedObject.swift in Sources */,
 				B4DD3DAA20592F3500B209C9 /* WeekRow.swift in Sources */,
 				B4BD1CFA20511E2D00C18ACB /* EcardRow.swift in Sources */,
 				B4DD3DA82059296500B209C9 /* ScheduleInterfaceController.swift in Sources */,
 				B4BD1CE420511BDA00C18ACB /* ExtensionDelegate.swift in Sources */,
 				B4C8C29D208A13F900EA3211 /* Course.xcdatamodeld in Sources */,
-				B454BC4C205E55A80073721F /* CacheInfo.swift in Sources */,
 				B4BD1CF820511E2700C18ACB /* NetRow.swift in Sources */,
+				B4477E7420C16939002ECC5E /* EcardData.swift in Sources */,
 				B4BD1CE220511BDA00C18ACB /* MainInterfaceController.swift in Sources */,
 				B4BD1CE620511BDA00C18ACB /* ComplicationController.swift in Sources */,
-				B454BC49205E559D0073721F /* CourseManager.swift in Sources */,
+				B454BC49205E559D0073721F /* DataManager.swift in Sources */,
 				B4BD1CF620511E1E00C18ACB /* CourseRow.swift in Sources */,
+				B493042D20C0FF900008ECEB /* TestData.swift in Sources */,
+				B422361020C010A300A6B615 /* TimeData.swift in Sources */,
 				B4B440D420B555030002CC69 /* CourseInterfaceController.swift in Sources */,
-				B454BC4A205E55A30073721F /* KeyInfo.swift in Sources */,
+				B4477E7820C16B45002ECC5E /* NetRequest.swift in Sources */,
+				B422361420C0125700A6B615 /* JsonDataType.swift in Sources */,
+				B4477E7020C16639002ECC5E /* NetData.swift in Sources */,
+				B454BC4A205E55A30073721F /* UserInfo.swift in Sources */,
 				B4B440D620B559510002CC69 /* TimeRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -767,15 +806,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B454BC48205E559C0073721F /* CourseManager.swift in Sources */,
+				B454BC48205E559C0073721F /* DataManager.swift in Sources */,
 				B4E535CF1F5FDEAC007DE392 /* CourseCellView.swift in Sources */,
+				B422361320C0125700A6B615 /* JsonDataType.swift in Sources */,
+				B493042C20C0FF900008ECEB /* TestData.swift in Sources */,
 				B4C5D853208E159300BF1589 /* ManagedObject.swift in Sources */,
+				B42EEA9820C2C57C00C2208B /* Date+Extension.swift in Sources */,
 				B4A137E71F62BD9200207CFF /* TodayViewController.swift in Sources */,
 				B4C8C29C208A13F800EA3211 /* Course.xcdatamodeld in Sources */,
+				B4477E6F20C16639002ECC5E /* NetData.swift in Sources */,
 				B4B2F7AC1FE7878000B86075 /* TodayViewDataSource.swift in Sources */,
-				B454BC4D205E55A90073721F /* CacheInfo.swift in Sources */,
-				B454BC4B205E55A40073721F /* KeyInfo.swift in Sources */,
+				B4477E7320C16939002ECC5E /* EcardData.swift in Sources */,
+				B454BC4B205E55A40073721F /* UserInfo.swift in Sources */,
+				B422360F20C010A300A6B615 /* TimeData.swift in Sources */,
 				B4BA90D3208F127300A4CA8E /* CourseData.swift in Sources */,
+				B4477E7720C16B45002ECC5E /* NetRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -957,8 +1002,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -976,8 +1020,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -999,7 +1042,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
@@ -1022,7 +1065,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
@@ -1084,8 +1127,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation.DUTInformationToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1102,8 +1144,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation.DUTInformationToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

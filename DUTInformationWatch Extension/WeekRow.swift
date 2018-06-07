@@ -11,4 +11,7 @@ import WatchKit
 class WeekRow: NSObject {
     @IBOutlet var weekLabel: WKInterfaceLabel!
     
+    func prepare(teachweek: Int, weekday: Int) {
+        weekLabel.setText("第\(teachweek)周 周\(weekday)")
+    }
 }

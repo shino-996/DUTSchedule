@@ -16,7 +16,15 @@ protocol ManagedObject where Self: NSManagedObject {
 
 extension ManagedObject where Self: Codable {
     static func fetchAllRequest() -> NSFetchRequest<Self> {
-        return NSFetchRequest(entityName: entityName)
+        let request =  NSFetchRequest<Self>(entityName: entityName)
+        request.returnsObjectsAsFaults = false
+        return request
+    }
+    
+    static func fetchAllIDRequest() -> NSFetchRequest<NSFetchRequestResult> {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        request.resultType = .managedObjectIDResultType
+        return request
     }
     
     static func insertNewObject(from json: String, into context: NSManagedObjectContext) -> Self {

@@ -9,11 +9,12 @@
 import UIKit
 
 class ScheduleViewDataSource: NSObject, UICollectionViewDataSource {
-    var data: (courses: [TimeData], teachweek: Int, date: Date)
-    var controller: TeachWeekDelegate?
+    var courses: [TimeData]
+    var date: Date
     
-    init(data: (courses: [TimeData], teachweek: Int, date: Date)) {
-        self.data = data
+    init(courses: [TimeData], date: Date) {
+        self.courses = courses
+        self.date = date
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -30,11 +31,11 @@ class ScheduleViewDataSource: NSObject, UICollectionViewDataSource {
         if row == 0 {
             if line == 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseNumberCell", for: indexPath) as! CourseNumberCell
-                cell.prepare(date: data.date)
+                cell.prepare(date: date)
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeekCell", for: indexPath) as! WeekCell
-                cell.prepare(date: data.date, indexPath: indexPath)
+                cell.prepare(date: date, indexPath: indexPath)
                 return cell
             }
         } else {
@@ -44,7 +45,7 @@ class ScheduleViewDataSource: NSObject, UICollectionViewDataSource {
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseCell", for: indexPath) as! CourseCell
-                cell.prepare(courses: data.courses, indexPath: indexPath)
+                cell.prepare(courses: courses, indexPath: indexPath)
                 return cell
             }
         }
@@ -52,8 +53,7 @@ class ScheduleViewDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TeachWeekView", for: indexPath) as! TeachWeekView
-        view.teachWeekButton.setTitle("第\(data.teachweek)周", for: .normal)
-        view.delegate = controller
+        view.teachWeekButton.setTitle("第\(date.teachweek())周", for: UIControl.State.normal)
         return view
     }
 }

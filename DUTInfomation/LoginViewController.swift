@@ -13,43 +13,16 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var loginFailedLabel: UILabel!
     
-    var didLogHandler: (() -> Void)?
-    
     @IBAction func LoginTeachSite() {
         let usr = studentNumber.text ?? ""
         let pwd = password.text ?? ""
-        let url = URL(string: "https://t.warshiprpg.xyz:88/dut")!
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        urlRequest.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = """
-            {
-            "studentnumber": "\(usr)",
-            "password": "\(pwd)",
-            "fetch": ["net"]
-            }
-            """.data(using: .utf8)
-        let semaphore = DispatchSemaphore(value: 0)
-        var login = false
-        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            if let error = error {
-                login = false
-                print(error)
-                return
-            }
-            login = String(data: data!, encoding: .utf8) != "auth error"
-            semaphore.signal()
-        }.resume()
-        _ = semaphore.wait(timeout: .distantFuture)
-        if login {
-            KeyInfo.shared.setAccount(studentNumber: studentNumber.text ?? "",
-                                      password: password.text ?? "")
-            self.didLogHandler?()
+        if NetRequest.shared.auth(studentNumber: usr, password: pwd) {
+            UserInfo.shared.setAccount(studentNumber: usr,
+                                      password: pwd)
             self.dismiss(animated: true)
+            NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "space.shino.post.loged")))
         } else {
-            DispatchQueue.main.async {
-                self.loginFailedLabel.isHidden = false
-            }
+            self.loginFailedLabel.isHidden = false
         }
     }
     

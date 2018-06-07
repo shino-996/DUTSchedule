@@ -14,49 +14,25 @@ class CourseCellView: UITableViewCell {
     @IBOutlet weak var place: UILabel!
     @IBOutlet weak var week: UILabel!
     
-    func prepare(fromCourse courseInfo: [TimeData], ofIndex indexPath: IndexPath) {
+    func prepare(fromCourse courses: [TimeData], ofIndex indexPath: IndexPath) {
         let index = indexPath.row
-        let cellCourse = courseInfo[index]
-        name.text = cellCourse.course.name
-        teacher.text = cellCourse.course.teacher
-        let placeStr = cellCourse.place
-        place.text = placeStr
-        week.text = "第\(cellCourse.startsection)节"
+        let course = courses[index]
+        prepare(fromCourse: course)
     }
     
-    func prepareForNow(fromCourse courseInfo: [TimeData], ofIndex indexPath: IndexPath) {
+    func prepareForNow(fromCourse courses: [TimeData], ofIndex indexPath: IndexPath) {
         let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HHmm"
-        let time = Int(dateFormatter.string(from: date))!
-        let index = indexPath.row
-        var cellCourse = courseInfo[index]
-        for course in courseInfo {
-            switch course.startsection {
-            case 1:
-                if time <= 0935 {
-                    cellCourse = course
-                }
-            case 3:
-                if time >= 0935 && time <= 1140 {
-                    cellCourse = course
-                }
-            case 5:
-                if time >= 1140 && time <= 1505 {
-                    cellCourse = course
-                }
-            case 7:
-                if time >= 1505 && time <= 1710 {
-                    cellCourse = course
-                }
-            default:
-                break
-            }
+        if let course = (courses.filter { $0.startsection == date.section() }).first {
+            prepare(fromCourse: course)
+        } else {
+            prepare(fromCourse: courses, ofIndex: indexPath)
         }
-        name.text = cellCourse.course.name
-        teacher.text = cellCourse.course.teacher
-        let placeStr = cellCourse.place
-        place.text = placeStr
-        week.text = "第\(cellCourse.startsection)节"
+    }
+    
+    func prepare(fromCourse course: TimeData) {
+        name.text = course.course.name
+        teacher.text = course.course.teacher
+        place.text = course.place
+        week.text = "第\(course.startsection)节"
     }
 }

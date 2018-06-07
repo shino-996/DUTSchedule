@@ -14,11 +14,11 @@ import CoreData
 typealias JSON = String
 
 final class CourseData: NSManagedObject, Codable {
-    fileprivate static var context: NSManagedObjectContext!
+    private static var context: NSManagedObjectContext!
     
-    @NSManaged var name: String
-    @NSManaged var teacher: String
-    @NSManaged var time: Set<TimeData>?
+    @NSManaged private(set) var name: String
+    @NSManaged private(set) var teacher: String
+    @NSManaged private(set) var time: Set<TimeData>?
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -41,9 +41,9 @@ final class CourseData: NSManagedObject, Codable {
         let container = try! decoder.container(keyedBy: CodingKeys.self)
         name = try! container.decode(String.self, forKey: .name)
         teacher = try! container.decode(String.self, forKey: .teacher)
-        TimeData.context = CourseData.context
+        TimeData.viewContext = CourseData.context
         if let timeArray = try? container.decode([TimeData].self, forKey: .time) {
-            _ = timeArray.map { $0.course = self }
+            self.time = Set(timeArray)
         }
     }
 }
@@ -56,54 +56,5 @@ extension CourseData: ManagedObject {
     
     static var entityName: String {
         return "CourseData"
-    }
-}
-
-final class TimeData: NSManagedObject, Codable {
-    fileprivate static var context: NSManagedObjectContext!
-    
-    @NSManaged var place: String
-    @NSManaged var startsection: Int64
-    @NSManaged var endsection: Int64
-    @NSManaged var week: Int64
-    @NSManaged var teachweek: [Int64]
-    @NSManaged var course: CourseData
-    
-    enum CodingKeys: String, CodingKey {
-        case place
-        case startsection
-        case endsection
-        case week
-        case teachweek
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try! container.encode(place, forKey: .place)
-        try! container.encode(startsection, forKey: .startsection)
-        try! container.encode(endsection, forKey: .endsection)
-        try! container.encode(week, forKey: .week)
-        try! container.encode(teachweek, forKey: .teachweek)
-    }
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init(entity: TimeData.entity(), insertInto: TimeData.context)
-        let container = try! decoder.container(keyedBy: CodingKeys.self)
-        place = try! container.decode(String.self, forKey: .place)
-        startsection = try! container.decode(Int64.self, forKey: .startsection)
-        endsection = try! container.decode(Int64.self, forKey: .endsection)
-        week = try! container.decode(Int64.self, forKey: .week)
-        teachweek = try! container.decode([Int64].self, forKey: .teachweek)
-    }
-}
-
-extension TimeData: ManagedObject {
-    static var viewContext: NSManagedObjectContext {
-        get { return context }
-        set { context = newValue }
-    }
-    
-    static var entityName: String {
-        return "TimeData"
     }
 }

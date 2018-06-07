@@ -9,14 +9,14 @@
 import WatchKit
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
-    var handler: (() -> Void)?
+    var dataManager: DataManager!
     
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         for task in backgroundTasks {
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
                 if (backgroundTask.userInfo as? [String: String] ?? [:])["tag"] == "fetchbackground" {
-                    handler?()
+                    dataManager.load([.net, .ecard])
                     fetchInfoBackground(interval: Date(timeIntervalSinceNow: 60 * 30))
                 }
                 backgroundTask.setTaskCompletedWithSnapshot(false)

@@ -10,10 +10,12 @@ import UIKit
 import NotificationCenter
 
 class TodayViewDataSource: NSObject, UITableViewDataSource {
-    var data: (courses: [TimeData], teachweek: Int, week: Int, date: Date)
+    var courses: [TimeData]
+    var date: Date
     
-    init(data: (courses: [TimeData], teachweek: Int, week: Int, date: Date)) {
-        self.data = data
+    init(courses: [TimeData], date: Date) {
+        self.courses = courses
+        self.date = date
     }
     
     weak var controller: UIViewController!
@@ -23,16 +25,16 @@ class TodayViewDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.courses.count
+        return courses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCellView
-        if indexPath.row == 0 &&
-            controller.extensionContext?.widgetActiveDisplayMode == .compact{
-            cell.prepareForNow(fromCourse: data.courses, ofIndex: indexPath)
+        if indexPath.row == 0
+            && controller.extensionContext?.widgetActiveDisplayMode == .compact{
+            cell.prepareForNow(fromCourse: courses, ofIndex: indexPath)
         } else {
-            cell.prepare(fromCourse: data.courses, ofIndex: indexPath)
+            cell.prepare(fromCourse: courses, ofIndex: indexPath)
         }
         return cell
     }

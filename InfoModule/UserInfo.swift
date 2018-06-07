@@ -9,29 +9,32 @@
 import Foundation
 import Security
 
-struct KeyInfo {
-    static let shared = KeyInfo()
+struct UserInfo {
+    static let shared = UserInfo()
+    
+    var isLogin: Bool {
+        return getAccount() != nil
+    }
     
     private let service = "DUTInfomation"
     private let userDefaults = UserDefaults(suiteName: "group.dutinfo.shino.space")!
+    
+    private init() {}
     
     //姓名和学号保存在userefaults中, 以[[name: "XXX", number: "xxxxxxxxx"]]字典数组形式保存
     func setAccount(studentNumber: String, password: String) {
         if let previousStudentNumber = userDefaults.string(forKey: "studentnumber") {
             if previousStudentNumber == studentNumber {
-                updatePassword(studentNumber: studentNumber,
-                               password: password)
+                updatePassword(studentNumber: studentNumber, password: password)
                 return
             } else {
                 removePasword(ofStudentnumber: previousStudentNumber)
                 userDefaults.set(studentNumber, forKey: "studentnumber")
-                savePassword(studentNumber: studentNumber,
-                             password: password)
+                savePassword(studentNumber: studentNumber, password: password)
             }
         } else {
             userDefaults.set(studentNumber, forKey: "studentnumber")
-            savePassword(studentNumber: studentNumber,
-                         password: password)
+            savePassword(studentNumber: studentNumber, password: password)
         }
     }
     
