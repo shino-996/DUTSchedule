@@ -8,7 +8,7 @@
 
 import CoreData
 
-final class TimeData: NSManagedObject, Codable {
+final class TimeData: NSManagedObject, Decodable {
     private static var context: NSManagedObjectContext!
     
     @NSManaged private(set) var place: String
@@ -26,16 +26,6 @@ final class TimeData: NSManagedObject, Codable {
         case startweek
         case endweek
         case weekday
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try! container.encode(place, forKey: .place)
-        try! container.encode(startsection, forKey: .startsection)
-        try! container.encode(endsection, forKey: .endsection)
-        try! container.encode(startweek, forKey: .startweek)
-        try! container.encode(endweek, forKey: .endweek)
-        try! container.encode(weekday, forKey: .weekday)
     }
     
     required convenience init(from decoder: Decoder) throws {
@@ -62,24 +52,27 @@ extension TimeData: ManagedObject {
 }
 
 extension TimeData {
-    enum RequestType {
+    enum FetchType {
         case week(Date)
         case day(Date)
         case now(Date)
     }
     
-    static func fetchRequest(for type: RequestType) -> NSFetchRequest<TimeData> {
+    static func fetchRequest(for type: FetchType) -> NSFetchRequest<TimeData> {
         let request = NSFetchRequest<TimeData>(entityName: entityName)
         var predicate: NSPredicate
         switch type {
         case .week(let date):
-            predicate = NSPredicate(format: "%d between { startweek, endweek }", date.teachweek())
+            predicate = NSPredicate(format: "%d between { startweek, endweek }",
+                                    date.teachweek())
         case .day(let date):
             predicate = NSPredicate(format: "%d between { startweek, endweek } and weekday == %d",
-                                    date.teachweek(), date.weekday())
+                                    date.teachweek(),
+                                    date.weekday())
         case .now(let date):
             predicate = NSPredicate(format: "%d between { startweek, endweek } and weekday == %d",
-                                    date.teachweek(), date.weekday())
+                                    date.teachweek(),
+                                    date.weekday())
         }
         request.predicate = predicate
         return request

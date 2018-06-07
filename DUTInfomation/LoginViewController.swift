@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
             UserInfo.shared.setAccount(studentNumber: usr,
                                       password: pwd)
             self.dismiss(animated: true)
-            NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "space.shino.post.loged")))
+            NotificationCenter.default.post(name: "space.shino.post.logined")
         } else {
             self.loginFailedLabel.isHidden = false
         }

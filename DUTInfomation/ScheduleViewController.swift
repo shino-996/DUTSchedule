@@ -17,9 +17,6 @@ class ScheduleViewController: TabViewController {
         super.viewDidLoad()
         let date = Date()
         let courses = dataManager.courses(of: .thisWeek(date))
-        if courses.count == 0 {
-            loadSchedule()
-        }
         dataSource = ScheduleViewDataSource(courses: courses, date: date)
         collectionView.dataSource = dataSource
         addObserver()
@@ -27,17 +24,6 @@ class ScheduleViewController: TabViewController {
     
     func addObserver() {
         let notificationCenter = NotificationCenter.default
-        
-        notificationCenter.addObserver(forName: Notification.Name(rawValue: "space.shino.post.course"),
-                                               object: nil,
-                                               queue: nil) { _ in
-            let date = Date()
-            self.dataSource.courses = self.dataManager.courses(of: .thisWeek(date))
-            self.dataSource.date = date
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
         
         notificationCenter.addObserver(self, selector: #selector(getScheduleThisWeek),
                                                name: Notification.Name(rawValue: "space.shino.post.thisweek"),
@@ -50,6 +36,23 @@ class ScheduleViewController: TabViewController {
         notificationCenter.addObserver(self, selector: #selector(getScheduleLastWeek),
                                                name: Notification.Name(rawValue: "space.shino.post.lastweek"),
                                                object: nil)
+        
+        notificationCenter.addObserver(forName: Notification.Name(rawValue: "space.shino.post.logined"),
+                                       object: nil,
+                                       queue: nil) { _ in
+            self.dataManager.load([.course])
+        }
+        
+        notificationCenter.addObserver(forName: Notification.Name(rawValue: "space.shino.post.course"),
+                                       object: nil,
+                                       queue: nil) { _ in
+            let date = Date()
+            self.dataSource.courses = self.dataManager.courses(of: .thisWeek(date))
+            self.dataSource.date = date
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
     func loadSchedule() {

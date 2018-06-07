@@ -1,3 +1,28 @@
-PODFILE CHECKSUM: 1302fe3404a74a17df2c15ab688c2606bbd86381
+PODS:
+  - AwaitKit (5.0.0):
+    - PromiseKit (~> 6)
+  - PromiseKit (6.2.8):
+    - PromiseKit/CorePromise (= 6.2.8)
+    - PromiseKit/Foundation (= 6.2.8)
+    - PromiseKit/UIKit (= 6.2.8)
+  - PromiseKit/CorePromise (6.2.8)
+  - PromiseKit/Foundation (6.2.8):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.2.8):
+    - PromiseKit/CorePromise
 
-COCOAPODS: 1.5.0
+DEPENDENCIES:
+  - AwaitKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AwaitKit
+    - PromiseKit
+
+SPEC CHECKSUMS:
+  AwaitKit: d8a6e30eeb2da916630270b44636b31033388bd8
+  PromiseKit: 6788ce1a0ed5448b83d4aaf56b9fc49fb7647d32
+
+PODFILE CHECKSUM: 8ea6e9e94b67920465599c09be4729da5efa0d11
+
+COCOAPODS: 1.5.3

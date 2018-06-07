@@ -17,64 +17,69 @@ class DataManager: NSObject {
         let bundle = Bundle(for: DataManager.self)
         let model = NSManagedObjectModel.mergedModel(from: [bundle])!
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-        try! coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
+        try! coordinator.addPersistentStore(ofType: NSSQLiteStoreType,
+                                            configurationName: nil,
+                                            at: url,
+                                            options: nil)
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         context.persistentStoreCoordinator = coordinator
         self.context = context
     }
     
-//    func deleteAllCourse() {
-//        let deleteRequest = NSBatchDeleteRequest(objectIDs: allCourseData.map { $0.objectID })
-//        if let persistentCoordinator = context.persistentStoreCoordinator {
-//            try! persistentCoordinator.execute(deleteRequest, with: context)
-//        }
-//        allCourseData = nil
-//    }
+    func deleteAll() {
+        CourseData.deleteAll(from: context)
+        TestData.deleteAll(from: context)
+        NetData.deleteAll(from: context)
+        EcardData.deleteAll(from: context)
+        UserInfo.shared.removeAccount()
+    }
     
-    func load(_ type: [FetchType]) {
+    func load(_ type: [LoadType]) {
+        let notificationCenter = NotificationCenter.default
         guard let info = NetRequest.shared.fetchInfo(type) else {
+            notificationCenter.post(name: "space.shino.post.finishfetch")
             return
         }
         let encoder = JSONEncoder()
-        _ = type.map {
-            var notificationName: String
-            switch $0 {
+        for eachType in type {
+            switch eachType {
             case .course:
-                let deleteRequest = NSBatchDeleteRequest(fetchRequest: CourseData.fetchAllIDRequest())
-                try! context.persistentStoreCoordinator!.execute(deleteRequest, with: context)
+                CourseData.deleteAll(from: context)
                 let courses = info.course!
-                _ = courses.map {
-                    CourseData.insertNewObject(from: String(data: (try! encoder.encode($0)), encoding: .utf8)!,
-                                               into: context)
+                for course in courses {
+                    let jsonData = try! encoder.encode(course)
+                    CourseData.insertNewObject(from: jsonData, into: context)
                 }
-                notificationName = "space.shino.post.course"
+                notificationCenter.post(name: "space.shino.post.course")
             case .test:
-                let deleteRequest = NSBatchDeleteRequest(fetchRequest: TestData.fetchAllIDRequest())
-                try! context.persistentStoreCoordinator!.execute(deleteRequest, with: context)
+                TestData.deleteAll(from: context)
                 let tests = info.test!
-                _ = tests.map {
-                    TestData.insertNewObject(from: String(data: (try! encoder.encode($0)), encoding: .utf8)!,
-                                             into: context)
+                for test in tests {
+                    let jsonData = try! encoder.encode(test)
+                    TestData.insertNewObject(from: jsonData, into: context)
                 }
-                notificationName = "space.shino.post.test"
+                notificationCenter.post(name: "space.shino.post.test")
             case .net:
-                let deleteRequest = NSBatchDeleteRequest(fetchRequest: NetData.fetchAllIDRequest())
-                try! context.persistentStoreCoordinator!.execute(deleteRequest, with: context)
+                NetData.deleteAll(from: context)
                 let net = info.net!
-                _ = NetData.insertNewObject(from: String(data: (try! encoder.encode(net)), encoding: .utf8)!,
-                                            into: context)
-                notificationName = "space.shino.post.net"
+                let jsonData = try! encoder.encode(net)
+                NetData.insertNewObject(from: jsonData, into: context)
+                notificationCenter.post(name: "space.shino.post.net")
             case .ecard:
-                let deleteRequest = NSBatchDeleteRequest(fetchRequest: EcardData.fetchAllIDRequest())
-                try! context.persistentStoreCoordinator!.execute(deleteRequest, with: context)
+                EcardData.deleteAll(from: context)
                 let ecard = info.ecard!
-                _ = EcardData.insertNewObject(from: String(data: (try! encoder.encode(ecard)), encoding: .utf8)!,
-                                              into: context)
-                notificationName = "space.shino.post.ecard"
+                let jsonData = try! encoder.encode(ecard)
+                EcardData.insertNewObject(from: jsonData, into: context)
+                notificationCenter.post(name: "space.shino.post.ecard")
             }
-            NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: notificationName)))
         }
-        try! context.save()
+        do {
+            try context.save()
+        } catch(let error) {
+            print(error)
+            context.rollback()
+        }
+        notificationCenter.post(name: "space.shino.post.finishfetch")
     }
     
     enum CourseTimeRequestType {

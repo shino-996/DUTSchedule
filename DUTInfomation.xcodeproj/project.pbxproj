@@ -20,6 +20,9 @@
 		B42EEA9720C2C57C00C2208B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42EEA9620C2C57C00C2208B /* Date+Extension.swift */; };
 		B42EEA9820C2C57C00C2208B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42EEA9620C2C57C00C2208B /* Date+Extension.swift */; };
 		B42EEA9920C2C57C00C2208B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42EEA9620C2C57C00C2208B /* Date+Extension.swift */; };
+		B445E96620C9017B00C1DD2E /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B445E96520C9017B00C1DD2E /* NotificationCenter+Extension.swift */; };
+		B445E96720C9017B00C1DD2E /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B445E96520C9017B00C1DD2E /* NotificationCenter+Extension.swift */; };
+		B445E96820C9017B00C1DD2E /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B445E96520C9017B00C1DD2E /* NotificationCenter+Extension.swift */; };
 		B4477E6E20C16639002ECC5E /* NetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E6D20C16639002ECC5E /* NetData.swift */; };
 		B4477E6F20C16639002ECC5E /* NetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E6D20C16639002ECC5E /* NetData.swift */; };
 		B4477E7020C16639002ECC5E /* NetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4477E6D20C16639002ECC5E /* NetData.swift */; };
@@ -169,6 +172,7 @@
 		B422361120C0125700A6B615 /* JsonDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonDataType.swift; sourceTree = "<group>"; };
 		B422673E1F692DF500D161CD /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B42EEA9620C2C57C00C2208B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		B445E96520C9017B00C1DD2E /* NotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		B4477E6D20C16639002ECC5E /* NetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetData.swift; sourceTree = "<group>"; };
 		B4477E7120C16939002ECC5E /* EcardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcardData.swift; sourceTree = "<group>"; };
 		B4477E7520C16B45002ECC5E /* NetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetRequest.swift; sourceTree = "<group>"; };
@@ -294,7 +298,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		B454BC3E205E558A0073721F /* InfoModule */ = {
+		B445E96920C901E100C1DD2E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B42EEA9620C2C57C00C2208B /* Date+Extension.swift */,
+				B445E96520C9017B00C1DD2E /* NotificationCenter+Extension.swift */,
+			);
+			name = Utils;
+			path = InfoModule;
+			sourceTree = "<group>";
+		};
+		B445E96A20C9074000C1DD2E /* DataModule */ = {
 			isa = PBXGroup;
 			children = (
 				B48B0318207384D700215BB0 /* Course.xcdatamodeld */,
@@ -305,7 +319,14 @@
 				B4477E6D20C16639002ECC5E /* NetData.swift */,
 				B4477E7120C16939002ECC5E /* EcardData.swift */,
 				B422361120C0125700A6B615 /* JsonDataType.swift */,
-				B42EEA9620C2C57C00C2208B /* Date+Extension.swift */,
+			);
+			name = DataModule;
+			sourceTree = "<group>";
+		};
+		B454BC3E205E558A0073721F /* InfoModule */ = {
+			isa = PBXGroup;
+			children = (
+				B445E96A20C9074000C1DD2E /* DataModule */,
 				B454BC3F205E558A0073721F /* DataManager.swift */,
 				B4477E7520C16B45002ECC5E /* NetRequest.swift */,
 				B454BC42205E558A0073721F /* UserInfo.swift */,
@@ -419,6 +440,7 @@
 			isa = PBXGroup;
 			children = (
 				B454BC3E205E558A0073721F /* InfoModule */,
+				B445E96920C901E100C1DD2E /* Utils */,
 				B4B70E7D1F0A211800174471 /* DUTInfomation */,
 				B4CB3FDC1F1209FE0059591C /* DUTInformationToday */,
 				B4BD1CD120511BDA00C18ACB /* DUTInformationWatch */,
@@ -501,6 +523,7 @@
 				B4CB3FE91F1209FE0059591C /* Embed App Extensions */,
 				B4CB3FFD1F120E860059591C /* Embed Frameworks */,
 				B45E81FD204FB82A00D03EAA /* Embed Watch Content */,
+				79A10317119C27BDF5C1D424 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -539,6 +562,7 @@
 				B4BD1CD820511BDA00C18ACB /* Sources */,
 				B4BD1CD920511BDA00C18ACB /* Frameworks */,
 				B4BD1CDA20511BDA00C18ACB /* Resources */,
+				FF7B6BCA2A90E0EF690E1429 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -594,6 +618,7 @@
 					B4BD1CCF20511BDA00C18ACB = {
 						CreatedOnToolsVersion = 9.2;
 						DevelopmentTeam = R374EG3MSW;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					B4BD1CDB20511BDA00C18ACB = {
@@ -701,6 +726,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		79A10317119C27BDF5C1D424 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AwaitKit-iOS/AwaitKit.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AwaitKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DUTInfomation/Pods-DUTInfomation-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9B780CD2C1C17AF5B57DC4A3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -737,6 +782,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FF7B6BCA2A90E0EF690E1429 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DUTInformationWatch Extension/Pods-DUTInformationWatch Extension-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AwaitKit-watchOS/AwaitKit.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit.root-CorePromise-Foundation/PromiseKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AwaitKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DUTInformationWatch Extension/Pods-DUTInformationWatch Extension-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -749,6 +814,7 @@
 				B4477E6E20C16639002ECC5E /* NetData.swift in Sources */,
 				B4C5D852208E159300BF1589 /* ManagedObject.swift in Sources */,
 				B493042B20C0FF900008ECEB /* TestData.swift in Sources */,
+				B445E96620C9017B00C1DD2E /* NotificationCenter+Extension.swift in Sources */,
 				B4477E7220C16939002ECC5E /* EcardData.swift in Sources */,
 				B4A2114F1FDFAD580055B611 /* CourseCell.swift in Sources */,
 				B422360E20C010A300A6B615 /* TimeData.swift in Sources */,
@@ -794,6 +860,7 @@
 				B493042D20C0FF900008ECEB /* TestData.swift in Sources */,
 				B422361020C010A300A6B615 /* TimeData.swift in Sources */,
 				B4B440D420B555030002CC69 /* CourseInterfaceController.swift in Sources */,
+				B445E96820C9017B00C1DD2E /* NotificationCenter+Extension.swift in Sources */,
 				B4477E7820C16B45002ECC5E /* NetRequest.swift in Sources */,
 				B422361420C0125700A6B615 /* JsonDataType.swift in Sources */,
 				B4477E7020C16639002ECC5E /* NetData.swift in Sources */,
@@ -807,6 +874,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B454BC48205E559C0073721F /* DataManager.swift in Sources */,
+				B445E96720C9017B00C1DD2E /* NotificationCenter+Extension.swift in Sources */,
 				B4E535CF1F5FDEAC007DE392 /* CourseCellView.swift in Sources */,
 				B422361320C0125700A6B615 /* JsonDataType.swift in Sources */,
 				B493042C20C0FF900008ECEB /* TestData.swift in Sources */,
@@ -1087,7 +1155,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
@@ -1109,7 +1177,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};

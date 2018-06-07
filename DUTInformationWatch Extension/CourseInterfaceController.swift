@@ -26,7 +26,7 @@ class CourseInterfaceController: WKInterfaceController {
         }
         for time in times {
             timeTable.insertRows(at: [timeTable.numberOfRows], withRowType: "TimeRow")
-            (timeTable.rowController(at: timeTable.numberOfRows - 1) as! TimeRow).prepare(time: time)
+            (timeTable.rowController(at: timeTable.numberOfRows - 1) as! TimeRow).prepare(time: time as! TimeData)
         }
     }
 

@@ -13,27 +13,17 @@ import CoreData
 
 typealias JSON = String
 
-final class CourseData: NSManagedObject, Codable {
+final class CourseData: NSManagedObject, Decodable {
     private static var context: NSManagedObjectContext!
     
     @NSManaged private(set) var name: String
     @NSManaged private(set) var teacher: String
-    @NSManaged private(set) var time: Set<TimeData>?
+    @NSManaged private(set) var time: NSOrderedSet?
     
     enum CodingKeys: String, CodingKey {
         case name
         case teacher
         case time
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try! container.encode(name, forKey: .name)
-        try! container.encode(teacher, forKey: .teacher)
-        if let time = time {
-            let timeArray = Array(time)
-            try! container.encode(timeArray, forKey: .time)
-        }
     }
     
     required convenience init(from decoder: Decoder) throws {
@@ -43,7 +33,14 @@ final class CourseData: NSManagedObject, Codable {
         teacher = try! container.decode(String.self, forKey: .teacher)
         TimeData.viewContext = CourseData.context
         if let timeArray = try? container.decode([TimeData].self, forKey: .time) {
-            self.time = Set(timeArray)
+            let sortedArray = timeArray.sorted {
+                if $0.weekday == $1.weekday {
+                    return $0.startsection <= $1.startsection
+                } else {
+                    return $0.weekday < $1.weekday
+                }
+            }
+            time = NSOrderedSet(array: sortedArray)
         }
     }
 }

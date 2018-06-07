@@ -17,6 +17,13 @@ struct JsonDataType: Codable {
     let test: [Test]!
 }
 
+enum LoadType: String {
+    case net
+    case ecard
+    case course
+    case test
+}
+
 extension JsonDataType {
     struct Net: Codable {
         let fee: String

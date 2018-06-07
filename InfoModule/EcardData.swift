@@ -8,18 +8,13 @@
 
 import CoreData
 
-class EcardData: NSManagedObject, Codable {
+class EcardData: NSManagedObject, Decodable {
     private static var context: NSManagedObjectContext!
     
     @NSManaged private(set) var ecard: Double
     
     enum CodingKeys: String, CodingKey {
         case cardbal
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try! container.encode("\(ecard)", forKey: .cardbal)
     }
     
     required convenience init(from decoder: Decoder) throws {

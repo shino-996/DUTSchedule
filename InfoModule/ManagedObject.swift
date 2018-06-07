@@ -14,7 +14,7 @@ protocol ManagedObject where Self: NSManagedObject {
     static var entityName: String { get }
 }
 
-extension ManagedObject where Self: Codable {
+extension ManagedObject where Self: Decodable {
     static func fetchAllRequest() -> NSFetchRequest<Self> {
         let request =  NSFetchRequest<Self>(entityName: entityName)
         request.returnsObjectsAsFaults = false
@@ -27,22 +27,25 @@ extension ManagedObject where Self: Codable {
         return request
     }
     
-    static func insertNewObject(from json: String, into context: NSManagedObjectContext) -> Self {
+    static func deleteAll(from context: NSManagedObjectContext) {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        request.resultType = .managedObjectIDResultType
+        request.includesPropertyValues = false
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try context.persistentStoreCoordinator!.execute(deleteRequest, with: context)
+        } catch(let error) {
+            print(error)
+        }
+    }
+    
+    static func insertNewObject(from jsonData: Data, into context: NSManagedObjectContext) {
         let decoder = JSONDecoder()
-        let jsonData = json.data(using: .utf8)!
         Self.viewContext = context
-        let newObject = try! decoder.decode(Self.self, from: jsonData)
-        return newObject
+        _ = try! decoder.decode(Self.self, from: jsonData)
     }
     
     static func insertNewObject(into context: NSManagedObjectContext) -> Self {
         return NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Self
-    }
-    
-    func exportJson() -> JSON {
-        let encoder = JSONEncoder()
-        let jsonData = try! encoder.encode(self)
-        let json = String(data: jsonData, encoding: .utf8)!
-        return json
     }
 }

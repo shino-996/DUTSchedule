@@ -9,7 +9,7 @@
 import CoreData
 
 
-class NetData: NSManagedObject, Codable {
+class NetData: NSManagedObject, Decodable {
     private static var context: NSManagedObjectContext!
     
     @NSManaged private(set) var cost: Double
@@ -18,12 +18,6 @@ class NetData: NSManagedObject, Codable {
     enum CodingKeys: String, CodingKey {
         case fee
         case usedTraffic
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try! container.encode("\(cost)", forKey: .fee)
-        try! container.encode("\(flow)", forKey: .usedTraffic)
     }
     
     required convenience init(from decoder: Decoder) throws {

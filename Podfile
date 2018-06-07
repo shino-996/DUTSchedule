@@ -1,14 +1,14 @@
 use_frameworks!
-swift_version = "4.0"
+swift_version = "4.2"
 
 target 'DUTInfomation' do
-  platform :ios, "10.0"
+    pod "AwaitKit"
 end
 
 target 'DUTInformationToday' do
-  platform :ios, "9.3"
+    pod "AwaitKit"
 end
 
 target 'DUTInformationWatch Extension' do
-  platform :watchos, "4.0"
+    pod "AwaitKit"
 end

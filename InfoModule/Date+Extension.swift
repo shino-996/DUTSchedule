@@ -39,7 +39,7 @@ extension Date {
         case 1505 ..< 1710:
             section = 7
         default:
-            section = 0
+            section = 1
         }
         return section
     }

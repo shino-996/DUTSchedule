@@ -8,7 +8,7 @@
 
 import CoreData
 
-class TestData: NSManagedObject, Codable{
+class TestData: NSManagedObject, Decodable {
     private static var context: NSManagedObjectContext!
     
     @NSManaged private(set) var name: String
@@ -25,32 +25,26 @@ class TestData: NSManagedObject, Codable{
         case place
     }
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try! container.encode(name, forKey: .name)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-DD"
-        try! container.encode(dateFormatter.string(from: date), forKey: .date)
-        dateFormatter.dateFormat = "hh:mm"
-        try! container.encode(dateFormatter.string(from: starttime), forKey: .starttime)
-        try! container.encode(dateFormatter.string(from: endtime), forKey: .endtime)
-        try! container.encode(place, forKey: .place)
-    }
-    
     required convenience init(from decoder: Decoder) throws {
         self.init(entity: TestData.entity(), insertInto: TestData.context)
         let container = try! decoder.container(keyedBy: CodingKeys.self)
+        
         name = try! container.decode(String.self, forKey: .name)
+        
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 8)
+        
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateStr = try! container.decode(String.self, forKey: .date)
         date = dateFormatter.date(from: dateStr)!
+        
         dateFormatter.dateFormat = "HH:mm"
         let starttimeStr = try! container.decode(String.self, forKey: .starttime)
         starttime = dateFormatter.date(from: starttimeStr)!
+        
         let endtimeStr = try! container.decode(String.self, forKey: .endtime)
         endtime = dateFormatter.date(from: endtimeStr)!
+        
         place = try! container.decode(String.self, forKey: .place)
     }
 }
