@@ -11,7 +11,7 @@ import CoreData
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
     func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
-        handler([.backward, .forward])
+        handler([])
     }
     
     func getTimelineStartDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
@@ -29,69 +29,44 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         let date = Date()
         let template = CLKComplicationTemplateModularLargeStandardBody()
-        template.headerTextProvider = CLKSimpleTextProvider(text: otherString())
-        let (course, place) = courseString(date: date)
-        template.body1TextProvider = CLKSimpleTextProvider(text: course)
-        template.body2TextProvider = CLKSimpleTextProvider(text: place)
+        let tuple = dataString(date: date)
+        template.headerTextProvider = CLKSimpleTextProvider(text: tuple.0)
+        template.body1TextProvider = CLKSimpleTextProvider(text: tuple.1)
+        template.body2TextProvider = CLKSimpleTextProvider(text: tuple.2)
         let entry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
         handler(entry)
     }
     
-    private func infoString(date: Date) -> (net: String, course: String, place: String) {
+    func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
+            let template = CLKComplicationTemplateModularLargeStandardBody()
+            template.headerTextProvider = CLKSimpleTextProvider(text: "30G/20元")
+            template.body1TextProvider = CLKSimpleTextProvider(text: "今天没课了~")
+            template.body2TextProvider = CLKSimpleTextProvider(text: "明天还有2节课orz")
+            handler(template)
+    }
+}
+
+extension ComplicationController {
+    func dataString(date: Date) -> (String, String, String) {
         let dataManager = DataManager()
-        let net = dataManager.net()
-        let course = dataManager.courses(of: .today(date))
-        let netStr = """
-        \(net.flow)/\(net.cost)
-        """
-        var courseStr: String
-        var placeStr: String
-        if course.isEmpty {
-            courseStr = "今天没课了~"
-            let nextDayCourse = dataManager.courses(of: .nextDay(date))
-            if nextDayCourse.isEmpty {
-                placeStr = "明天也没有课~~"
+        var tuple = ("", "", "")
+        if let net = dataManager.net() {
+            tuple.0 = net.flowStr() + "/" + net.costStr()
+        }
+        let courses = dataManager.courses(of: .today(date))
+        if courses.count == 0 {
+            tuple.1 = "今天没有课了~"
+            let tomorrowCourse = dataManager.courses(of: .nextDay(date))
+            if tomorrowCourse.count == 0 {
+                tuple.2 = "明天也没有课了~~"
             } else {
-                placeStr = "明天还有\(nextDayCourse.count)节课orz"
+                tuple.2 = "明天还有\(tomorrowCourse.count)节课orz"
             }
         } else {
-            if let nowCourse = (course.filter { $0.startsection == date.section() }).first {
-                courseStr = """
-                """
-                placeStr = nowCourse.place
-            } else {
-                courseStr = "今天没课了~"
-                placeStr = ""
-            }
+            let nowCourse = (courses.filter { $0.startsection == date.section() }).first!
+            tuple.1 = nowCourse.course.name
+            tuple.2 = nowCourse.place
         }
-        return (netStr, courseStr, placeStr)
-    }
-    
-    private func otherString() -> String {
-//        let (cost, flow) = CacheInfo().netInfo
-//        return flow + "/" + cost
-        return ""
-    }
-    
-    private func courseString(date: Date) -> (course: String, place: String) {
-//        let courseInfo = CourseManager()
-//        var courseString: String
-//        var placeString: String
-//        if let courseDictionary = courseInfo.courses(of: .today(Date())) {
-//            courseString = "第\(courseDictionary.startsection)节"
-//                               + " "
-//                               + courseDictionary.course.name
-//            placeString = courseDictionary.place
-//        } else {
-//            courseString = "没有课了~"
-//            let num = courseInfo.courses(of: .nextDay(Date())).count
-//            if num != 0 {
-//                placeString = "明天有\(num)节课orz"
-//            } else {
-//                placeString = "明天也没有课~~"
-//            }
-//        }
-//        return (course: courseString, place: placeString)
-        return ("", "")
+        return tuple
     }
 }

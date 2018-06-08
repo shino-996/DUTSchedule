@@ -13,8 +13,7 @@ class WeekCell: UICollectionViewCell {
     @IBOutlet weak var weekDayLabel: UILabel!
     
     func prepare(date: Date, indexPath: IndexPath) {
-        let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
-        weekDayLabel.text = "周\(chineseWeek[indexPath.item - 1])"
+        weekDayLabel.text = "周\(Date.weekDay(of: indexPath.item - 1))"
         let weekDateFormatter = DateFormatter()
         weekDateFormatter.dateFormat = "e"
         let nowWeek = Int(weekDateFormatter.string(from: date))!

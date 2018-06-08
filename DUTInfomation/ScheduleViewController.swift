@@ -40,7 +40,10 @@ class ScheduleViewController: TabViewController {
         notificationCenter.addObserver(forName: Notification.Name(rawValue: "space.shino.post.logined"),
                                        object: nil,
                                        queue: nil) { _ in
-            self.dataManager.load([.course])
+            self.activityIndicator.startAnimating()
+            DispatchQueue.global().async {
+                self.dataManager.load([.course])
+            }
         }
         
         notificationCenter.addObserver(forName: Notification.Name(rawValue: "space.shino.post.course"),
@@ -50,17 +53,8 @@ class ScheduleViewController: TabViewController {
             self.dataSource.courses = self.dataManager.courses(of: .thisWeek(date))
             self.dataSource.date = date
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-    }
-    
-    func loadSchedule() {
-        activityIndicator.startAnimating()
-        DispatchQueue.global().async {
-            self.dataManager.load([.course])
-            DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
+                self.collectionView.reloadData()
             }
         }
     }

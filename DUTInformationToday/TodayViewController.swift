@@ -44,26 +44,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func addObserver() {
         let notificationCenter = NotificationCenter.default
-        
-        notificationCenter.addObserver(forName: Notification.Name(rawValue: "space.shino.post.net"),
-                                               object: nil,
-                                               queue: nil) { _ in
-            let netData = self.dataManager.net()
-            DispatchQueue.main.async {
-                self.netLabel.text = "\(netData.flow)/\(netData.cost)"
-                self.netActivity.stopAnimating()
-            }
-        }
-        
-        notificationCenter.addObserver(forName: Notification.Name(rawValue: "space.shino.post.ecard"),
-                                               object: nil,
-                                               queue: nil) { _ in
-            let ecardData = self.dataManager.ecard()
-            DispatchQueue.main.async {
-                self.ecardLabel.text = "\(ecardData.ecard)"
-                self.ecardActivity.stopAnimating()
-            }
-        }
+        notificationCenter.addObserver(self,
+                                       selector: #selector(freshNetCostUI),
+                                       name: Notification.Name(rawValue: "space.shino.post.finifhfetch"),
+                                       object: nil)
     }
     
     func load() {
@@ -108,10 +92,26 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
 // 更新UI相关
 extension TodayViewController {
+    @objc func freshNetCostUI() {
+        DispatchQueue.main.async {
+            self.setNetCost()
+            self.ecardActivity.stopAnimating()
+            self.netActivity.stopAnimating()
+        }
+    }
+    
+    func setNetCost() {
+        if let net = dataManager.net(),
+            let ecard = dataManager.ecard() {
+            netLabel.text = "\(net.flow)/\(net.cost)"
+            ecardLabel.text = "\(ecard.ecard)"
+        }
+    }
+    
     func freshSchedule() {
         courseTableView.reloadData()
-        let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
-        weekButton.setTitle("第\(self.dataSource.date.teachweek())周 周\(chineseWeek[self.dataSource.date.weekday()])", for: UIControl.State.normal)
+        weekButton.setTitle("第\(dataSource.date.teachweek())周 周\(dataSource.date.weekDayStr())",
+                            for: UIControl.State.normal)
         if dataSource.courses.count == 0 {
             noCourseButton.isHidden = false
             noCourseButton.setTitle("今天没有课～", for: .normal)

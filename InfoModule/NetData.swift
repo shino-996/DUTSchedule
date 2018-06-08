@@ -40,3 +40,17 @@ extension NetData: ManagedObject {
         return "NetData"
     }
 }
+
+extension NetData {
+    func flowStr() -> String {
+        if abs(30720 - flow) > 1024 {
+            return String(format: "%.2lfG", (30720 - flow) / 1024)
+        } else {
+            return String(format: "%.2lfM", 30720 - flow)
+        }
+    }
+    
+    func costStr() -> String {
+        return String(format: "%.2lf元", cost)
+    }
+}

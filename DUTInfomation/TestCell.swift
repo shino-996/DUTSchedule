@@ -18,10 +18,18 @@ class TestCell: UITableViewCell {
     func prepare(tests: [TestData], indexPath: IndexPath) {
         let test = tests[indexPath.section]
         nameLabel.text = test.name
-        teachweekLabel.text = "\(test.date.teachweek())"
-        dateLabel.text = "\(test.date)"
+        teachweekLabel.text = "第\(test.date.teachweek())周周\(test.date.weekDayStr())"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 8)
+        dateFormatter.dateFormat = "MM-dd"
+        dateLabel.text = dateFormatter.string(from: test.date)
         placeLabel.text = test.place
-        timeLabel.text = "\(test.starttime)"
+        
+        dateFormatter.dateFormat = "HH:mm"
+        timeLabel.text = dateFormatter.string(from: test.starttime)
+                        + "-"
+                        + dateFormatter.string(from: test.endtime)
         layer.cornerRadius = 10
     }
 }

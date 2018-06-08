@@ -35,3 +35,9 @@ extension EcardData: ManagedObject {
         return "EcardData"
     }
 }
+
+extension EcardData {
+    func ecardStr() -> String {
+        return "\(ecard)元"
+    }
+}

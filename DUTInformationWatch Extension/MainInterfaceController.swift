@@ -93,14 +93,16 @@ extension MainInterfaceController {
 extension MainInterfaceController {
     @objc func freshNetUI() {
         let netRow = informationTable.rowController(at: rowTypes.firstIndex(of: .NetRow)!) as! NetRow
-        let net = dataManager.net()
-        netRow.prepare(cost: "\(net.cost)", flow: "\(net.flow)")
+        if let net = dataManager.net() {
+            netRow.prepare(cost: net.costStr(), flow: net.flowStr())
+        }
     }
     
     @objc func freshEcardUI() {
         let ecardRow = informationTable.rowController(at: rowTypes.firstIndex(of: .EcardRow)!) as! EcardRow
-        let ecard = dataManager.ecard()
-        ecardRow.prepare("\(ecard.ecard)")
+        if let ecard = dataManager.ecard() {
+            ecardRow.prepare(ecard.ecardStr())
+        }
     }
     
     @objc func freshComplication() {
@@ -114,7 +116,7 @@ extension MainInterfaceController {
     
     func freshUI() {
         rowTypes = [.NetRow, .EcardRow]
-        let courses = dataManager.courses(of: .nextDay(Date()))
+        let courses = dataManager.courses(of: .today(Date()))
         let courseRows = courses.map { _ in return RowType.CourseRow }
         rowTypes.append(contentsOf: courseRows)
         rowTypes.append(.MoreCourseRow)

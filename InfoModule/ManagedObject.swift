@@ -21,12 +21,6 @@ extension ManagedObject where Self: Decodable {
         return request
     }
     
-    static func fetchAllIDRequest() -> NSFetchRequest<NSFetchRequestResult> {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-        request.resultType = .managedObjectIDResultType
-        return request
-    }
-    
     static func deleteAll(from context: NSManagedObjectContext) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         request.resultType = .managedObjectIDResultType

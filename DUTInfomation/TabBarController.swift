@@ -62,13 +62,15 @@ extension TabBarController: WCSessionDelegate {
         }
         let keys = ["studentnumber": password.studentNumber,
                     "password": password.password]
-        let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.dutinfo.shino.space")!
-        let url = groupURL.appendingPathComponent("dutinfo.data")
+        let url = dataManager.backupFile()
         do {
             let data = try Data(contentsOf: url)
             let message = ["syncdata": ["keys": keys, "data": data]]
             session.sendMessage(message, replyHandler: nil) { error in
                 print(error)
+            }
+            defer {
+                try! FileManager.default.removeItem(at: url)
             }
         } catch(let error) {
             print(error)

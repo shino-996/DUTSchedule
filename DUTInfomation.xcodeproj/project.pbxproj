@@ -38,6 +38,9 @@
 		B454BC49205E559D0073721F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC3F205E558A0073721F /* DataManager.swift */; };
 		B454BC4A205E55A30073721F /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* UserInfo.swift */; };
 		B454BC4B205E55A40073721F /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454BC42205E558A0073721F /* UserInfo.swift */; };
+		B487D3CD20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487D3CC20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift */; };
+		B487D3CE20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487D3CC20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift */; };
+		B487D3CF20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487D3CC20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift */; };
 		B48B031A207384D700215BB0 /* Course.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B48B0318207384D700215BB0 /* Course.xcdatamodeld */; };
 		B493042B20C0FF900008ECEB /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B493042A20C0FF900008ECEB /* TestData.swift */; };
 		B493042C20C0FF900008ECEB /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B493042A20C0FF900008ECEB /* TestData.swift */; };
@@ -178,6 +181,7 @@
 		B4477E7520C16B45002ECC5E /* NetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetRequest.swift; sourceTree = "<group>"; };
 		B454BC3F205E558A0073721F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		B454BC42205E558A0073721F /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		B487D3CC20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentStoreCoordinator+Extension.swift"; sourceTree = "<group>"; };
 		B48B0319207384D700215BB0 /* Course.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Course.xcdatamodel; sourceTree = "<group>"; };
 		B493042A20C0FF900008ECEB /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachWeekView.swift; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 			children = (
 				B42EEA9620C2C57C00C2208B /* Date+Extension.swift */,
 				B445E96520C9017B00C1DD2E /* NotificationCenter+Extension.swift */,
+				B487D3CC20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift */,
 			);
 			name = Utils;
 			path = InfoModule;
@@ -831,6 +836,7 @@
 				B454BC43205E558A0073721F /* DataManager.swift in Sources */,
 				B4A2114D1FDFAD2C0055B611 /* WeekCell.swift in Sources */,
 				B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */,
+				B487D3CD20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift in Sources */,
 				B4A772271FE7B1F900B3F545 /* TestViewDataSource.swift in Sources */,
 				B4BA90D2208F127300A4CA8E /* CourseData.swift in Sources */,
 				B4A772231FE7B05600B3F545 /* TestCell.swift in Sources */,
@@ -845,6 +851,7 @@
 			files = (
 				B4BA90D4208F127300A4CA8E /* CourseData.swift in Sources */,
 				B42EEA9920C2C57C00C2208B /* Date+Extension.swift in Sources */,
+				B487D3CF20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift in Sources */,
 				B4C5D854208E159300BF1589 /* ManagedObject.swift in Sources */,
 				B4DD3DAA20592F3500B209C9 /* WeekRow.swift in Sources */,
 				B4BD1CFA20511E2D00C18ACB /* EcardRow.swift in Sources */,
@@ -886,6 +893,7 @@
 				B4B2F7AC1FE7878000B86075 /* TodayViewDataSource.swift in Sources */,
 				B4477E7320C16939002ECC5E /* EcardData.swift in Sources */,
 				B454BC4B205E55A40073721F /* UserInfo.swift in Sources */,
+				B487D3CE20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift in Sources */,
 				B422360F20C010A300A6B615 /* TimeData.swift in Sources */,
 				B4BA90D3208F127300A4CA8E /* CourseData.swift in Sources */,
 				B4477E7720C16B45002ECC5E /* NetRequest.swift in Sources */,

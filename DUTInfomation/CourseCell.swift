@@ -21,12 +21,11 @@ class CourseCell: UICollectionViewCell {
         guard let course = getCourse(courses, indexPath) else {
             return nil
         }
-        let chineseWeek = ["日", "一", "二", "三", "四", "五", "六"]
         return """
         \(course.course.name)
         \(course.course.teacher)
         \(course.startweek)周
-        周\(chineseWeek[Int(course.weekday)])
+        周\(Date.weekDay(of: Int(course.weekday)))
         第\(course.startsection)节
         \(course.place)
         """

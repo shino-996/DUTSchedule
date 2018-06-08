@@ -26,6 +26,10 @@ class DataManager: NSObject {
         self.context = context
     }
     
+    func backupFile() -> URL {
+        return context.persistentStoreCoordinator!.backupFile()
+    }
+    
     func deleteAll() {
         CourseData.deleteAll(from: context)
         TestData.deleteAll(from: context)
@@ -89,7 +93,6 @@ class DataManager: NSObject {
         case today(Date)
         case nextDay(Date)
         case lastDay(Date)
-        case now(Date)
     }
     
     func courses(of type: CourseTimeRequestType) -> [TimeData] {
@@ -107,26 +110,26 @@ class DataManager: NSObject {
             request = TimeData.fetchRequest(for: .day(date.nextDate()))
         case .lastDay(let date):
             request = TimeData.fetchRequest(for: .day(date.lastDate()))
-        case .now(let date):
-            request = TimeData.fetchRequest(for: .now(date))
         }
         return try! context.fetch(request)
     }
     
     func tests() -> [TestData] {
         let request = TestData.fetchAllRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true),
+                                   NSSortDescriptor(key: "starttime", ascending: true)]
         return try! context.fetch(request)
     }
     
-    func net() -> NetData {
+    func net() -> NetData? {
         let request = NetData.fetchAllRequest()
         request.fetchLimit = 1
-        return try! context.fetch(request).first!
+        return try! context.fetch(request).first
     }
     
-    func ecard() -> EcardData {
+    func ecard() -> EcardData? {
         let request = EcardData.fetchAllRequest()
         request.fetchLimit = 1
-        return try! context.fetch(request).first!
+        return try! context.fetch(request).first
     }
 }
