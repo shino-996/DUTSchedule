@@ -53,7 +53,9 @@ extension ComplicationController {
         if let net = dataManager.net() {
             tuple.0 = net.flowStr() + "/" + net.costStr()
         }
-        let courses = dataManager.courses(of: .today(date))
+        let courses = dataManager.courses(of: .today(date)).filter {
+            return $0.startsection == date.section()
+        }
         if courses.count == 0 {
             tuple.1 = "今天没有课了~"
             let tomorrowCourse = dataManager.courses(of: .nextDay(date))
@@ -63,8 +65,8 @@ extension ComplicationController {
                 tuple.2 = "明天还有\(tomorrowCourse.count)节课orz"
             }
         } else {
-            let nowCourse = (courses.filter { $0.startsection == date.section() }).first!
-            tuple.1 = nowCourse.course.name
+            let nowCourse = courses.first!
+            tuple.1 = "第\(nowCourse.startsection)节" + nowCourse.course.name
             tuple.2 = nowCourse.place
         }
         return tuple
