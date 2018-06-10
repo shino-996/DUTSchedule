@@ -24,7 +24,7 @@ class MainInterfaceController: WKInterfaceController {
     @IBOutlet var updateLabel: WKInterfaceLabel!
     
     let session = WCSession.default
-    var dataManager: DataManager!
+    var dataManager: DataManager?
     var rowTypes: [RowType] = []
     
     override func awake(withContext context: Any?) {
@@ -36,14 +36,29 @@ class MainInterfaceController: WKInterfaceController {
         }
     }
     
+    override func willActivate() {
+        addObserver()
+    }
+    
+    override func willDisappear() {
+        NotificationCenter.default.removeObserver(self)
+    }
+}
+
+// 同步数据后的初始化
+extension MainInterfaceController {
     func prepareData() {
         dataManager = DataManager()
         guard let delegate = WKExtension.shared().delegate as? ExtensionDelegate else {
             fatalError("WKExtension delegate type error")
         }
         delegate.dataManager = dataManager
+        delegate.handler = { [weak self] in
+            DispatchQueue.main.async {
+                self?.freshUI()
+            }
+        }
         startFetchBackground()
-        addObserver()
         freshUI()
     }
     
@@ -93,14 +108,14 @@ extension MainInterfaceController {
 extension MainInterfaceController {
     @objc func freshNetUI() {
         let netRow = informationTable.rowController(at: rowTypes.firstIndex(of: .NetRow)!) as! NetRow
-        if let net = dataManager.net() {
+        if let net = dataManager?.net() {
             netRow.prepare(cost: net.costStr(), flow: net.flowStr())
         }
     }
     
     @objc func freshEcardUI() {
         let ecardRow = informationTable.rowController(at: rowTypes.firstIndex(of: .EcardRow)!) as! EcardRow
-        if let ecard = dataManager.ecard() {
+        if let ecard = dataManager?.ecard() {
             ecardRow.prepare(ecard.ecardStr())
         }
     }
@@ -116,7 +131,7 @@ extension MainInterfaceController {
     
     func freshUI() {
         rowTypes = [.NetRow, .EcardRow]
-        let courses = dataManager.courses(of: .today(Date()))
+        let courses = dataManager!.courses(of: .today(Date()))
         let courseRows = courses.map { _ in return RowType.CourseRow }
         rowTypes.append(contentsOf: courseRows)
         rowTypes.append(.MoreCourseRow)
@@ -125,9 +140,6 @@ extension MainInterfaceController {
         freshNetUI()
         freshEcardUI()
         freshComplication()
-        DispatchQueue.global().async {
-            self.dataManager.load([.net, .ecard])
-        }
         
         if let startIndex = rowTypes.firstIndex(of: .CourseRow),
             let endIndex = rowTypes.lastIndex(of: .CourseRow) {
