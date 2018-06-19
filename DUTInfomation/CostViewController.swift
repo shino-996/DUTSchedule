@@ -28,7 +28,9 @@ class CostViewController: TabViewController {
         tableview.dataSource = dataSource
         setNetCost()
         addObserver()
-        dataManager.load([.test])
+        DispatchQueue.global().async {
+            self.dataManager.load([.test])
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

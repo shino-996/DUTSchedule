@@ -10,31 +10,64 @@ import ClockKit
 import CoreData
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
+    lazy var dataManager = DataManager()
+    var courseInfo: (uptime: Int, courses: [TimeData])!
+    
     func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
-        handler([])
+        handler([.backward, .forward])
     }
     
     func getTimelineStartDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
-        handler(nil)
+        handler(Date.startDate())
     }
     
     func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
-        handler(nil)
+        handler(Date.endDate())
     }
     
     func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
         handler(.showOnLockScreen)
     }
     
+    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
+        updateCourse()
+        let currentSection = date.section()
+        let lastSection = courseInfo.courses.last?.startsection ?? 0
+        var entryArray: [CLKComplicationTimelineEntry]? = nil
+        if currentSection > lastSection {
+            entryArray = nil
+        } else {
+            entryArray = (currentSection + 2 ... Int(lastSection) + 2).compactMap {
+                if $0 % 2 == 0 {
+                    return nil
+                }
+                return infoEntry(date: Date(section: UInt($0)))
+            }
+        }
+        handler(entryArray)
+    }
+    
+    func getTimelineEntries(for complication: CLKComplication, before date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
+        updateCourse()
+        let currentSection = date.section()
+        var entryArray: [CLKComplicationTimelineEntry]? = nil
+        entryArray = (1 ..< currentSection).compactMap {
+            if $0 % 2 == 0 {
+                return nil
+            }
+            return infoEntry(date: Date(section: UInt($0)))
+        }
+        handler(entryArray)
+    }
+    
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
-        let date = Date()
-        let template = CLKComplicationTemplateModularLargeStandardBody()
-        let tuple = dataString(date: date)
-        template.headerTextProvider = CLKSimpleTextProvider(text: tuple.0)
-        template.body1TextProvider = CLKSimpleTextProvider(text: tuple.1)
-        template.body2TextProvider = CLKSimpleTextProvider(text: tuple.2)
-        let entry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
+        updateCourse()
+        let entry = infoEntry(date: Date())
         handler(entry)
+    }
+    
+    func getTimelineAnimationBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineAnimationBehavior) -> Void) {
+        handler(.always)
     }
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
@@ -47,14 +80,33 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 }
 
 extension ComplicationController {
+    func infoEntry(date: Date) -> CLKComplicationTimelineEntry {
+        let template = CLKComplicationTemplateModularLargeStandardBody()
+        let tuple = dataString(date: date)
+        template.headerTextProvider = CLKSimpleTextProvider(text: tuple.0)
+        template.body1TextProvider = CLKSimpleTextProvider(text: tuple.1)
+        template.body2TextProvider = CLKSimpleTextProvider(text: tuple.2)
+        return CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
+    }
+    
+    func updateCourse() {
+        let today = Date()
+        if courseInfo != nil {
+            if today.day() == courseInfo.uptime {
+                return
+            }
+        }
+        let courses = dataManager.courses(of: .today(today))
+        courseInfo = (today.day(), courses)
+    }
+    
     func dataString(date: Date) -> (String, String, String) {
-        let dataManager = DataManager()
         var tuple = ("", "", "")
         if let net = dataManager.net() {
             tuple.0 = net.flowStr() + "/" + net.costStr()
         }
-        let courses = dataManager.courses(of: .today(date)).filter {
-            return $0.startsection == date.section()
+        let courses = courseInfo.courses.filter {
+            return $0.startsection >= date.section()
         }
         if courses.count == 0 {
             tuple.1 = "今天没有课了~"
