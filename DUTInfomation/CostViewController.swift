@@ -26,7 +26,7 @@ class CostViewController: TabViewController {
         super.viewDidLoad()
         dataSource = TestViewDataSource(tests: dataManager.tests())
         tableview.dataSource = dataSource
-        setNetCost()
+        setUI()
         addObserver()
         DispatchQueue.global().async {
             self.dataManager.load([.test])
@@ -53,7 +53,7 @@ class CostViewController: TabViewController {
     func addObserver() {
         let notificationCenter = NotificationCenter.default
         
-        notificationCenter.addObserver(self, selector: #selector(freshNetCostUI),
+        notificationCenter.addObserver(self, selector: #selector(freshUI),
                                        name: Notification.Name(rawValue: "space.shino.post.finishfetch"),
                                        object: nil)
         
@@ -67,6 +67,7 @@ class CostViewController: TabViewController {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let logoutAction = UIAlertAction(title: "注销", style: .default) { _ in
             self.dataManager.deleteAll()
+            UserInfo.shared.removeAccount()
             self.performSegue(withIdentifier: "Login", sender: self)
         }
         alertController.addAction(logoutAction)
@@ -77,9 +78,9 @@ class CostViewController: TabViewController {
 
 // 更新UI
 extension CostViewController {
-    @objc func freshNetCostUI() {
+    @objc func freshUI() {
         DispatchQueue.main.async {
-            self.setNetCost()
+            self.setUI()
             self.netCostActivity.stopAnimating()
             self.netFlowActivity.stopAnimating()
             self.ecardActivity.stopAnimating()
@@ -87,12 +88,17 @@ extension CostViewController {
         }
     }
     
-    func setNetCost() {
+    func setUI() {
         if let netData = self.dataManager.net(),
             let ecardData = self.dataManager.ecard() {
-            netCostLabel.text = "\(netData.cost)"
-            netFlowLabel.text = "\(netData.flow)"
-            ecardCostLabel.text = "\(ecardData.ecard)"
+            netCostLabel.text = netData.costStr()
+            netFlowLabel.text = netData.flowStr()
+            ecardCostLabel.text = ecardData.ecardStr()
+        }
+        if let name = UserInfo.shared.getName(),
+            let (studentnumber, _) = UserInfo.shared.getAccount() {
+            nameButton.setTitle(name, for: .normal)
+            studentButton.setTitle(studentnumber, for: .normal)
         }
     }
     

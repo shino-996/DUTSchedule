@@ -15,8 +15,8 @@ struct NetRequest {
     
     private init() {}
     
-    func auth(studentNumber: String, password: String) -> Bool {
-        return true
+    func auth(studentNumber: String, password: String) -> String? {
+        return fetchInfo([.person])?.person
     }
     
     private func fetch(_ type: [LoadType]) -> Promise<(data: Data, response: URLResponse)> {
@@ -59,17 +59,9 @@ struct NetRequest {
             {
                 "course": [
                 {
-                    "name": "嵌入式系统设计",
-                    "teacher": "丁男 董校",
+                    "name": "计算机系统结构",
+                    "teacher": "王宇新",
                     "time": [
-                    {
-                        "place": "综合教学2号楼",
-                        "startsection": 1,
-                        "endsection": 2,
-                        "weekday": 4,
-                        "startweek": 1,
-                        "endweek": 8
-                    },
                     {
                         "place": "综合教学2号楼",
                         "startsection": 5,
@@ -77,14 +69,36 @@ struct NetRequest {
                         "weekday": 1,
                         "startweek": 1,
                         "endweek": 8
+                    },
+                    {
+                        "place": "综合教学2号楼",
+                        "startsection": 1,
+                        "endsection": 2,
+                        "weekday": 4,
+                        "startweek": 1,
+                        "endweek": 8
                     }]
                 }],
                 "test": [
                 {
-                    "name": "嵌入式系统设计-01 ",
-                    "date": "2018-04-26",
+                    "name": "假装有补考-01 ",
+                    "date": "2018-08-31",
                     "starttime": "08:00",
                     "endtime": "09:40",
+                    "place": "第一教学馆1-209"
+                },
+                {
+                    "name": "假装有补考-02 ",
+                    "date": "2018-09-1",
+                    "starttime": "08:00",
+                    "endtime": "09:40",
+                    "place": "第一教学馆1-209"
+                },
+                {
+                    "name": "假装有补考-03 ",
+                    "date": "2018-09-1",
+                    "starttime": "13:30",
+                    "endtime": "15:10",
                     "place": "第一教学馆1-209"
                 }],
                 "net":

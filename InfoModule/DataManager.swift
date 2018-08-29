@@ -75,6 +75,8 @@ class DataManager: NSObject {
                 let jsonData = try! encoder.encode(ecard)
                 EcardData.insertNewObject(from: jsonData, into: context)
                 notificationCenter.post(name: "space.shino.post.ecard")
+            case .person:
+                break
             }
         }
         do {

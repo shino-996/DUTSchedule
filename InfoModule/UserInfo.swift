@@ -52,6 +52,15 @@ struct UserInfo {
         }
         removePasword(ofStudentnumber: studentNumber)
         userDefaults.removeObject(forKey: "studentnumber")
+        userDefaults.removeObject(forKey: "studentname")
+    }
+    
+    func getName() -> String? {
+        return userDefaults.string(forKey: "studentname")
+    }
+    
+    func setName(_ name: String) {
+        userDefaults.set(name, forKey: "studentname")
     }
     
     private func savePassword(studentNumber: String, password: String) {

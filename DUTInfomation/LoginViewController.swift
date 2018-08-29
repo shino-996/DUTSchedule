@@ -25,13 +25,13 @@ class LoginViewController: UIViewController {
     @IBAction func LoginTeachSite() {
         let usr = studentNumber.text ?? ""
         let pwd = password.text ?? ""
-        if NetRequest.shared.auth(studentNumber: usr, password: pwd) {
-            UserInfo.shared.setAccount(studentNumber: usr,
-                                      password: pwd)
-            self.dismiss(animated: true)
+        if let name = NetRequest.shared.auth(studentNumber: usr, password: pwd) {
+            UserInfo.shared.setAccount(studentNumber: usr, password: pwd)
+            UserInfo.shared.setName(name)
+            dismiss(animated: true)
             NotificationCenter.default.post(name: "space.shino.post.logined")
         } else {
-            self.loginFailedLabel.isHidden = false
+            loginFailedLabel.isHidden = false
         }
     }
 }

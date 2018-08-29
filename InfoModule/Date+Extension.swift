@@ -109,7 +109,7 @@ extension Date {
     func teachweek() -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "w"
-        return Int(dateFormatter.string(from: self))! - 9
+        return Int(dateFormatter.string(from: self))! - 35
     }
     
     func weekday() -> Int {

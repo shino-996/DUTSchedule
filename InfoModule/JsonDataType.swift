@@ -22,6 +22,8 @@ enum LoadType: String {
     case ecard
     case course
     case test
+    // 通过获得姓名来判断是否登录成功
+    case person
 }
 
 extension JsonDataType {
