@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="3" sectionFooterHeight="3" translatesAutoresizingMaskIntoConstraints="NO" id="MpG-i4-RzI">
-                                <rect key="frame" x="10" y="131.5" width="355" height="486.5"/>
+                                <rect key="frame" x="10" y="166.5" width="355" height="451.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="0xU-X5-YMi">
                                     <rect key="frame" x="0.0" y="0.0" width="355" height="0.0"/>
@@ -230,7 +230,7 @@
                             <constraint firstItem="kyf-vF-wnn" firstAttribute="trailing" secondItem="YON-VZ-biq" secondAttribute="trailing" id="85d-7x-Ayn"/>
                             <constraint firstItem="f80-QA-Mmq" firstAttribute="top" secondItem="kyf-vF-wnn" secondAttribute="top" constant="10" id="OYJ-x1-Nh0"/>
                             <constraint firstItem="f80-QA-Mmq" firstAttribute="leading" secondItem="kyf-vF-wnn" secondAttribute="leading" constant="10" id="RhF-PP-SIh"/>
-                            <constraint firstItem="MpG-i4-RzI" firstAttribute="top" secondItem="f80-QA-Mmq" secondAttribute="bottom" constant="-5" id="TiK-jX-fxv"/>
+                            <constraint firstItem="MpG-i4-RzI" firstAttribute="top" secondItem="f80-QA-Mmq" secondAttribute="bottom" constant="30" id="TiK-jX-fxv"/>
                             <constraint firstItem="kyf-vF-wnn" firstAttribute="trailing" secondItem="MpG-i4-RzI" secondAttribute="trailing" constant="10" id="XeT-gK-CLy"/>
                             <constraint firstItem="kyf-vF-wnn" firstAttribute="leading" secondItem="YON-VZ-biq" secondAttribute="leading" id="eLh-hG-Rsl"/>
                             <constraint firstItem="kyf-vF-wnn" firstAttribute="trailing" secondItem="f80-QA-Mmq" secondAttribute="trailing" constant="10" id="fxo-YX-emG"/>

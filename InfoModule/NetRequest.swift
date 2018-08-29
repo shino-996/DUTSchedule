@@ -38,16 +38,81 @@ struct NetRequest {
         return session.dataTask(.promise, with: request)
     }
     
+//    func fetchInfo(_ type: [LoadType]) -> JsonDataType? {
+//        do {
+//            let (data, response) = try await(fetch(type))
+//            if (response as? HTTPURLResponse)?.statusCode ?? 0 != 200 {
+//                return nil
+//            }
+//            let decoder = JSONDecoder()
+//            let info = try decoder.decode(JsonDataType.self, from: data)
+//            return info
+//        } catch(let error) {
+//            print(error)
+//            return nil
+//        }
+//    }
+    
     func fetchInfo(_ type: [LoadType]) -> JsonDataType? {
         do {
-            let (data, response) = try await(fetch(type))
-            if (response as? HTTPURLResponse)?.statusCode ?? 0 != 200 {
-                return nil
+            let data = """
+            {
+                "course": [
+                {
+                    "name": "嵌入式系统设计",
+                    "teacher": "丁男 董校",
+                    "time": [
+                    {
+                        "place": "综合教学2号楼",
+                        "startsection": 1,
+                        "endsection": 2,
+                        "weekday": 4,
+                        "startweek": 1,
+                        "endweek": 8
+                    },
+                    {
+                        "place": "综合教学2号楼",
+                        "startsection": 5,
+                        "endsection": 6,
+                        "weekday": 1,
+                        "startweek": 1,
+                        "endweek": 8
+                    }]
+                }],
+                "test": [
+                {
+                    "name": "嵌入式系统设计-01 ",
+                    "date": "2018-04-26",
+                    "starttime": "08:00",
+                    "endtime": "09:40",
+                    "place": "第一教学馆1-209"
+                }],
+                "net":
+                {
+                    "fee": "0",
+                    "flag": "success",
+                    "account": "201487033",
+                    "usedTraffic": "39771.63"
+                },
+                "ecard":
+                {
+                    "flag": "success",
+                    "cardbal": "10.42",
+                    "paybal": "0.00"
+                },
+                "person": "王梓浓",
+                "library":
+                {
+                    "hastime": true,
+                    "opentime": "8:00",
+                    "closetime": "18:00"
+                }
             }
+            """.data(using: .utf8)
             let decoder = JSONDecoder()
-            let info = try decoder.decode(JsonDataType.self, from: data)
+            let info = try decoder.decode(JsonDataType.self, from: data!)
             return info
-        } catch(let error) {
+        } catch (let error) {
             print(error)
             return nil
         }
