@@ -21,6 +21,5 @@ class WeekCell: UICollectionViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd日"
         dateLabel.text = dateFormatter.string(from: nowDate)
-        layer.cornerRadius = 5
     }
 }

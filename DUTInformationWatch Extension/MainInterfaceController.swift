@@ -107,14 +107,14 @@ extension MainInterfaceController {
 // UI更新
 extension MainInterfaceController {
     @objc func freshNetUI() {
-        let netRow = informationTable.rowController(at: rowTypes.firstIndex(of: .NetRow)!) as! NetRow
+        let netRow = informationTable.rowController(at: rowTypes.index(of: .NetRow)!) as! NetRow
         if let net = dataManager?.net() {
             netRow.prepare(cost: net.costStr(), flow: net.flowStr())
         }
     }
     
     @objc func freshEcardUI() {
-        let ecardRow = informationTable.rowController(at: rowTypes.firstIndex(of: .EcardRow)!) as! EcardRow
+        let ecardRow = informationTable.rowController(at: rowTypes.index(of: .EcardRow)!) as! EcardRow
         if let ecard = dataManager?.ecard() {
             ecardRow.prepare(ecard.ecardStr())
         }
@@ -141,10 +141,10 @@ extension MainInterfaceController {
         freshEcardUI()
         freshComplication()
         
-        if let startIndex = rowTypes.firstIndex(of: .CourseRow),
-            let endIndex = rowTypes.lastIndex(of: .CourseRow) {
+        if let startIndex = rowTypes.index(of: .CourseRow),
+            let endIndex = rowTypes.index(of: .MoreCourseRow) {
             var courseIndex = 0
-            for i in startIndex ... endIndex {
+            for i in startIndex ... endIndex - 1 {
                 let courseRow = informationTable.rowController(at: i) as! CourseRow
                 courseRow.prepare(course: courses[courseIndex])
                 courseIndex += 1

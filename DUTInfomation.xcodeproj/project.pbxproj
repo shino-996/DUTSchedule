@@ -41,6 +41,7 @@
 		B487D3CD20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487D3CC20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift */; };
 		B487D3CE20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487D3CC20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift */; };
 		B487D3CF20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487D3CC20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift */; };
+		B488AFA021364FD300A02EA4 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B488AF9F21364FD300A02EA4 /* CALayer+Extension.swift */; };
 		B48B031A207384D700215BB0 /* Course.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B48B0318207384D700215BB0 /* Course.xcdatamodeld */; };
 		B493042B20C0FF900008ECEB /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B493042A20C0FF900008ECEB /* TestData.swift */; };
 		B493042C20C0FF900008ECEB /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B493042A20C0FF900008ECEB /* TestData.swift */; };
@@ -182,6 +183,7 @@
 		B454BC3F205E558A0073721F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		B454BC42205E558A0073721F /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		B487D3CC20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentStoreCoordinator+Extension.swift"; sourceTree = "<group>"; };
+		B488AF9F21364FD300A02EA4 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		B48B0319207384D700215BB0 /* Course.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Course.xcdatamodel; sourceTree = "<group>"; };
 		B493042A20C0FF900008ECEB /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		B49BAAFC1FE6454C00B396CD /* TeachWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachWeekView.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				B42EEA9620C2C57C00C2208B /* Date+Extension.swift */,
 				B445E96520C9017B00C1DD2E /* NotificationCenter+Extension.swift */,
 				B487D3CC20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift */,
+				B488AF9F21364FD300A02EA4 /* CALayer+Extension.swift */,
 			);
 			name = Utils;
 			path = InfoModule;
@@ -834,6 +837,7 @@
 				B4E38DEC1FE65CA00013715C /* ScheduleLayout.swift in Sources */,
 				B4B70E7F1F0A211800174471 /* AppDelegate.swift in Sources */,
 				B454BC43205E558A0073721F /* DataManager.swift in Sources */,
+				B488AFA021364FD300A02EA4 /* CALayer+Extension.swift in Sources */,
 				B4A2114D1FDFAD2C0055B611 /* WeekCell.swift in Sources */,
 				B49BAAFD1FE6454C00B396CD /* TeachWeekView.swift in Sources */,
 				B487D3CD20CA54E700F9E4AA /* NSPersistentStoreCoordinator+Extension.swift in Sources */,
@@ -1005,7 +1009,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1057,7 +1061,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1074,7 +1078,7 @@
 				CODE_SIGN_ENTITLEMENTS = DUTInfomation/DUTInfomation.entitlements;
 				DEVELOPMENT_TEAM = R374EG3MSW;
 				INFOPLIST_FILE = DUTInfomation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1092,7 +1096,7 @@
 				CODE_SIGN_ENTITLEMENTS = DUTInfomation/DUTInfomation.entitlements;
 				DEVELOPMENT_TEAM = R374EG3MSW;
 				INFOPLIST_FILE = DUTInfomation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1198,7 +1202,7 @@
 				CODE_SIGN_ENTITLEMENTS = DUTInformationToday/DUTInformationToday.entitlements;
 				DEVELOPMENT_TEAM = R374EG3MSW;
 				INFOPLIST_FILE = DUTInformationToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation.DUTInformationToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1215,7 +1219,7 @@
 				CODE_SIGN_ENTITLEMENTS = DUTInformationToday/DUTInformationToday.entitlements;
 				DEVELOPMENT_TEAM = R374EG3MSW;
 				INFOPLIST_FILE = DUTInformationToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = space.shino.DUTInfomation.DUTInformationToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";

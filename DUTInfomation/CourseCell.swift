@@ -14,7 +14,6 @@ class CourseCell: UICollectionViewCell {
     func prepare(courses: [TimeData], indexPath: IndexPath) {
         let course = getCourse(courses, indexPath)
         courseLabel.text = course?.course.name ?? ""
-        layer.cornerRadius = 5
     }
     
     func courseInfo(courses: [TimeData], indexPath: IndexPath) -> String? {

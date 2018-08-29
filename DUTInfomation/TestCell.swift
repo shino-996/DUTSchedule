@@ -30,6 +30,5 @@ class TestCell: UITableViewCell {
         timeLabel.text = dateFormatter.string(from: test.starttime)
                         + "-"
                         + dateFormatter.string(from: test.endtime)
-        layer.cornerRadius = 10
     }
 }

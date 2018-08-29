@@ -11,7 +11,7 @@ import CoreData
 extension NSPersistentStoreCoordinator {
     // 备份 Core Data sqlite 文件, 用于手表和手机之间同步
     func backupFile() -> URL {
-        // 目前只有一个 alite 文件, 所以暂时硬编码
+        // 目前只有一个 sqlite 文件, 所以暂时硬编码
         let sourceStore = persistentStores.first!
         let backupCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         let options = (sourceStore.options ?? [:]).merging([NSReadOnlyPersistentStoreOption: true]) { $1 }

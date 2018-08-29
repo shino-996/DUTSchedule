@@ -111,7 +111,7 @@ extension TodayViewController {
     func freshSchedule() {
         courseTableView.reloadData()
         weekButton.setTitle("第\(dataSource.date.teachweek())周 周\(dataSource.date.weekDayStr())",
-                            for: UIControl.State.normal)
+                            for: .normal)
         if dataSource.courses.count == 0 {
             noCourseButton.isHidden = false
             noCourseButton.setTitle("今天没有课～", for: .normal)

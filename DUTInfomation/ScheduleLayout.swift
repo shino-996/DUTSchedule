@@ -18,20 +18,17 @@ class ScheduleLayout: UICollectionViewFlowLayout {
         var attributes = [UICollectionViewLayoutAttributes]()
         for originAttribute in originAttributes {
             let frame = originAttribute.frame
-            if originAttribute.representedElementKind == UICollectionView.elementKindSectionHeader {
-                let attribute = originAttribute.copy() as! UICollectionViewLayoutAttributes
+            let attribute = originAttribute.copy() as! UICollectionViewLayoutAttributes
+            if originAttribute.representedElementKind == UICollectionElementKindSectionHeader {
                 attribute.frame = CGRect(x: frame.minX, y: offset, width: frame.width, height: frame.height)
-                attributes.append(attribute)
-                continue
-            }
-            if originAttribute.indexPath.item < 8 {
-                let attribute = originAttribute.copy() as! UICollectionViewLayoutAttributes
+            } else if originAttribute.indexPath.item < 8 {
                 attribute.frame = CGRect(x: frame.minX, y: offset + 30, width: frame.width, height: frame.height)
                 attribute.zIndex = 1024
-                attributes.append(attribute)
-                continue
+            } else {
+                let alpha = (frame.maxY - (frame.height + offset + 30)) / 45
+                attribute.alpha = alpha
             }
-            attributes.append(originAttribute)
+            attributes.append(attribute)
         }
         return attributes
     }

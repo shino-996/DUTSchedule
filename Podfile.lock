@@ -1,14 +1,14 @@
 PODS:
   - AwaitKit (5.0.0):
     - PromiseKit (~> 6)
-  - PromiseKit (6.2.8):
-    - PromiseKit/CorePromise (= 6.2.8)
-    - PromiseKit/Foundation (= 6.2.8)
-    - PromiseKit/UIKit (= 6.2.8)
-  - PromiseKit/CorePromise (6.2.8)
-  - PromiseKit/Foundation (6.2.8):
+  - PromiseKit (6.4.0):
+    - PromiseKit/CorePromise (= 6.4.0)
+    - PromiseKit/Foundation (= 6.4.0)
+    - PromiseKit/UIKit (= 6.4.0)
+  - PromiseKit/CorePromise (6.4.0)
+  - PromiseKit/Foundation (6.4.0):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.2.8):
+  - PromiseKit/UIKit (6.4.0):
     - PromiseKit/CorePromise
 
 DEPENDENCIES:
@@ -21,7 +21,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AwaitKit: d8a6e30eeb2da916630270b44636b31033388bd8
-  PromiseKit: 6788ce1a0ed5448b83d4aaf56b9fc49fb7647d32
+  PromiseKit: ae3616f45d7bb9bf4ff1e91abc9b7a8c48a340e0
 
 PODFILE CHECKSUM: 8ea6e9e94b67920465599c09be4729da5efa0d11
 

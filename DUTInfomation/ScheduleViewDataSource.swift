@@ -53,7 +53,7 @@ class ScheduleViewDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TeachWeekView", for: indexPath) as! TeachWeekView
-        view.teachWeekButton.setTitle("第\(date.teachweek())周", for: UIControl.State.normal)
+        view.teachWeekButton.setTitle("第\(date.teachweek())周", for: .normal)
         return view
     }
 }
