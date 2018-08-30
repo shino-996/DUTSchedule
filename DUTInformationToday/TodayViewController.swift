@@ -46,7 +46,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self,
                                        selector: #selector(freshNetCostUI),
-                                       name: Notification.Name(rawValue: "space.shino.post.finifhfetch"),
+                                       name: Notification.Name(rawValue: "space.shino.post.finishfetch"),
                                        object: nil)
     }
     
@@ -103,8 +103,8 @@ extension TodayViewController {
     func setNetCost() {
         if let net = dataManager.net(),
             let ecard = dataManager.ecard() {
-            netLabel.text = "\(net.flow)/\(net.cost)"
-            ecardLabel.text = "\(ecard.ecard)"
+            netLabel.text = net.flowStr() + "/" + net.costStr()
+            ecardLabel.text = ecard.ecardStr()
         }
     }
     

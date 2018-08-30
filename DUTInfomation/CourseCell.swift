@@ -10,10 +10,29 @@ import UIKit
 
 class CourseCell: UICollectionViewCell {
     @IBOutlet weak var courseLabel: UILabel!
+    @IBOutlet weak var addLabel: UILabel!
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     func prepare(courses: [TimeData], indexPath: IndexPath) {
+        addLabel.isHidden = true
         let course = getCourse(courses, indexPath)
-        courseLabel.text = course?.course.name ?? ""
+        if let courseName = course?.course.name {
+            courseLabel.isHidden = false
+            backgroundColor = UIColor(displayP3Red: 255, green: 255, blue: 255, alpha: 0.7)
+            courseLabel.text = courseName
+        } else {
+            courseLabel.isHidden = true
+            backgroundColor = .clear
+        }
+        NotificationCenter.default.addObserver(forName: "space.shino.post.addcourse") { [unowned self] _ in
+            if self.addLabel.isHidden == false {
+                self.addLabel.isHidden = true
+                self.backgroundColor = .clear
+            }
+        }
     }
     
     func courseInfo(courses: [TimeData], indexPath: IndexPath) -> String? {

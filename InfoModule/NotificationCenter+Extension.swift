@@ -14,4 +14,15 @@ extension NotificationCenter {
         let notification = Notification(name: notificationName)
         self.post(notification)
     }
+    
+    func post(name: String, userInfo: [AnyHashable: Any]) {
+        let notificationName = Notification.Name(rawValue: name)
+        let notification = Notification(name: notificationName, object: nil, userInfo: userInfo)
+        self.post(notification)
+    }
+    
+    func addObserver(forName name: String, using: @escaping (Notification) -> Void) {
+        let notificationName = Notification.Name(rawValue: name)
+        addObserver(forName: notificationName, object: nil, queue: nil, using: using)
+    }
 }

@@ -25,12 +25,13 @@ class LoginViewController: UIViewController {
     @IBAction func LoginTeachSite() {
         let usr = studentNumber.text ?? ""
         let pwd = password.text ?? ""
+        UserInfo.shared.setAccount(studentNumber: usr, password: pwd)
         if let name = NetRequest.shared.auth(studentNumber: usr, password: pwd) {
-            UserInfo.shared.setAccount(studentNumber: usr, password: pwd)
             UserInfo.shared.setName(name)
             dismiss(animated: true)
             NotificationCenter.default.post(name: "space.shino.post.logined")
         } else {
+            UserInfo.shared.removeAccount()
             loginFailedLabel.isHidden = false
         }
     }
@@ -43,25 +44,25 @@ extension LoginViewController {
     }
     
     func addKeyboardLayoutNotification() {
-        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil) { [unowned self] info in
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil) { [weak self] info in
             guard let userInfo = info.userInfo else {
                 return
             }
             let keyboardHeight = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
-            self.additionalSafeAreaInsets.bottom = keyboardHeight
+            self?.additionalSafeAreaInsets.bottom = keyboardHeight
             let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-            UIView.animate(withDuration: duration) { [unowned self] in
-                self.view.layoutIfNeeded()
+            UIView.animate(withDuration: duration) { [weak self] in
+                self?.view.layoutIfNeeded()
             }
         }
-        NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide, object: nil, queue: nil) { [unowned self] info in
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide, object: nil, queue: nil) { [weak self] info in
             guard let userInfo = info.userInfo else {
                 return
             }
-            self.additionalSafeAreaInsets.bottom = 0
+            self?.additionalSafeAreaInsets.bottom = 0
             let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-            UIView.animate(withDuration: duration) { [unowned self] in
-                self.view.layoutIfNeeded()
+            UIView.animate(withDuration: duration) { [weak self] in
+                self?.view.layoutIfNeeded()
             }
         }
     }

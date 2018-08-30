@@ -8,6 +8,8 @@
 
 import CoreData
 
+// 管理 CoreData 中的所有数据
+// 初始化 CoreData
 class DataManager: NSObject {
     private var context: NSManagedObjectContext!
     
@@ -26,10 +28,14 @@ class DataManager: NSObject {
         self.context = context
     }
     
+// 创建供手表使用的 CoreData 备份
     func backupFile() -> URL {
         return context.persistentStoreCoordinator!.backupFile()
     }
-    
+}
+
+// 从网络请求数据并保存
+extension DataManager {
     func deleteAll() {
         CourseData.deleteAll(from: context)
         TestData.deleteAll(from: context)
@@ -87,7 +93,17 @@ class DataManager: NSObject {
         }
         notificationCenter.post(name: "space.shino.post.finishfetch")
     }
-    
+}
+
+// 添加数据
+extension DataManager {
+    func addCourse(fromJson jsonData: Data) {
+        CourseData.insertNewObject(from: jsonData, into: context)
+    }
+}
+
+// 查看数据
+extension DataManager {
     enum CourseTimeRequestType {
         case thisWeek(Date)
         case nextWeek(Date)

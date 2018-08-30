@@ -38,21 +38,21 @@ struct NetRequest {
         return session.dataTask(.promise, with: request)
     }
     
-//    func fetchInfo(_ type: [LoadType]) -> JsonDataType? {
-//        do {
-//            let (data, response) = try await(fetch(type))
-//            if (response as? HTTPURLResponse)?.statusCode ?? 0 != 200 {
-//                return nil
-//            }
-//            let decoder = JSONDecoder()
-//            let info = try decoder.decode(JsonDataType.self, from: data)
-//            return info
-//        } catch(let error) {
-//            print(error)
-//            return nil
-//        }
-//    }
-    
+    func fetchInfo(_ type: [LoadType]) -> JsonDataType? {
+        do {
+            let (data, response) = try await(fetch(type))
+            if (response as? HTTPURLResponse)?.statusCode ?? 0 != 200 {
+                return nil
+            }
+            let decoder = JSONDecoder()
+            let info = try decoder.decode(JsonDataType.self, from: data)
+            return info
+        } catch(let error) {
+            print(error)
+            return nil
+        }
+    }
+/*
     func fetchInfo(_ type: [LoadType]) -> JsonDataType? {
         do {
             let data = """
@@ -131,4 +131,5 @@ struct NetRequest {
             return nil
         }
     }
+ */
 }

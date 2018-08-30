@@ -21,7 +21,10 @@ class ScheduleViewController: TabViewController {
         collectionView.dataSource = dataSource
         addObserver()
     }
-    
+}
+
+// 课程加载与刷新
+extension ScheduleViewController {
     func addObserver() {
         let notificationCenter = NotificationCenter.default
         
@@ -88,17 +91,42 @@ class ScheduleViewController: TabViewController {
     }
 }
 
+// 课程添加与删除
+extension ScheduleViewController {
+    
+}
+
+// 课程表上的点击事件
 extension ScheduleViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 不是课程的 cell 不进行处理
         guard let cell = collectionView.cellForItem(at: indexPath) as? CourseCell  else {
             return
         }
-        guard let courseInfo = cell.courseInfo(courses: dataSource.courses, indexPath: indexPath) else {
-            return
+        if let courseInfo = cell.courseInfo(courses: dataSource.courses, indexPath: indexPath) {
+            // 如果上面有显示课程, 弹出课程详请
+            let alertController = UIAlertController(title: "课程详情", message: courseInfo, preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)
+            alertController.addAction(alertAction)
+            present(alertController, animated: true, completion: nil)
+        } else {
+            // 如果没有显示课程, 添加课程
+            if cell.addLabel.isHidden == true {
+                // 如果添加按钮没显示, 将其显示出来, 防止误触
+                NotificationCenter.default.post(name: "space.shino.post.addcourse")
+                cell.backgroundColor = UIColor(displayP3Red: 255, green: 255, blue: 255, alpha: 0.7)
+                cell.addLabel.isHidden = false
+            } else {
+                // 弹出添加课程界面
+                NotificationCenter.default.addObserver(forName: "space.shino.post.addcourseresult") { [unowned self] info in
+                    guard let courseData = info.userInfo?["course"] as? Data else {
+                        return
+                    }
+                    self.dataManager.addCourse(fromJson: courseData)
+                    self.getScheduleThisWeek()
+                }
+                performSegue(withIdentifier: "addCourse", sender: nil)
+            }
         }
-        let alertController = UIAlertController(title: "课程详情", message: courseInfo, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)
-        alertController.addAction(alertAction)
-        present(alertController, animated: true, completion: nil)
     }
 }
