@@ -51,6 +51,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func load() {
+        if let net = dataManager.net() {
+            netLabel.text = net.flowStr() + "/" + net.costStr()
+        }
+        if let ecard = dataManager.ecard() {
+            ecardLabel.text = ecard.ecardStr()
+        }
         ecardActivity.startAnimating()
         netActivity.startAnimating()
         DispatchQueue.global().async {
