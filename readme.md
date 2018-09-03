@@ -6,9 +6,9 @@
 
 ![](images/todayextension.jpg)
 
-![](images/watch app.png)
+![](images/watch_app.png)
 
-![](images/watch course.png)
+![](images/watch_course.png)
 
 ![](images/complication.png)
 
