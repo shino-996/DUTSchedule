@@ -4,7 +4,7 @@
 
 ![](images/otherinfo.png)
 
-![](images/todayextension.jpg)
+![](images/today_extension.jpg)
 
 ![](images/watch_app.png)
 
