@@ -21,8 +21,12 @@ extension NotificationCenter {
         self.post(notification)
     }
     
-    func addObserver(forName name: String, using: @escaping (Notification) -> Void) {
+    func addObserver(forName name: String, using handler: @escaping (Notification) -> Void) {
         let notificationName = Notification.Name(rawValue: name)
-        addObserver(forName: notificationName, object: nil, queue: nil, using: using)
+        addObserver(forName: notificationName, object: nil, queue: nil, using: handler)
+    }
+    
+    func addObserver(forName name: Notification.Name, using handler: @escaping (Notification) -> Void) {
+        addObserver(forName: name, object: nil, queue: nil, using: handler)
     }
 }

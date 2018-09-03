@@ -40,24 +40,23 @@ extension ScheduleViewController {
                                                name: Notification.Name(rawValue: "space.shino.post.lastweek"),
                                                object: nil)
         
-        notificationCenter.addObserver(forName: Notification.Name(rawValue: "space.shino.post.logined"),
-                                       object: nil,
-                                       queue: nil) { _ in
-            self.activityIndicator.startAnimating()
+        notificationCenter.addObserver(forName: "space.shino.post.logined") { [weak self] _ in
+            self?.activityIndicator.startAnimating()
             DispatchQueue.global().async {
-                self.dataManager.load([.course])
+                self?.dataManager.load([.course])
             }
         }
         
-        notificationCenter.addObserver(forName: Notification.Name(rawValue: "space.shino.post.course"),
-                                       object: nil,
-                                       queue: nil) { _ in
+        notificationCenter.addObserver(forName: "space.shino.post.course") { [weak self] _ in
             let date = Date()
-            self.dataSource.courses = self.dataManager.courses(of: .thisWeek(date))
-            self.dataSource.date = date
+            guard let courses = self?.dataManager.courses(of: .thisWeek(date)) else {
+                return
+            }
+            self?.dataSource.courses = courses
+            self?.dataSource.date = date
             DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.collectionView.reloadData()
+                self?.activityIndicator.stopAnimating()
+                self?.collectionView.reloadData()
             }
         }
     }

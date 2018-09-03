@@ -44,7 +44,7 @@ extension LoginViewController {
     }
     
     func addKeyboardLayoutNotification() {
-        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil) { [weak self] info in
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow) { [weak self] info in
             guard let userInfo = info.userInfo else {
                 return
             }
@@ -55,7 +55,7 @@ extension LoginViewController {
                 self?.view.layoutIfNeeded()
             }
         }
-        NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide, object: nil, queue: nil) { [weak self] info in
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide) { [weak self] info in
             guard let userInfo = info.userInfo else {
                 return
             }

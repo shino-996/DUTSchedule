@@ -89,6 +89,7 @@ extension DataManager {
             try context.save()
         } catch(let error) {
             print(error)
+            notificationCenter.post(name: "space.shino.post.requesterror")
             context.rollback()
         }
         notificationCenter.post(name: "space.shino.post.finishfetch")

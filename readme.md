@@ -1,49 +1,15 @@
-使用了[之前抓的校园网站信息][github]做了个Today Extension，主要是查看一些信息，选课交费什么的不打算做
+自己用得上的信息基本都加上了, 用 NodeJS 写了个[后台][nodejs]. 使用大连理工大学校园门户密码登录.
 
-![](./demo.gif)
+![](images/schedule.png)
 
-# 功能
+![](images/otherinfo.png)
 
-## Today Extension
+![](images/todayextension.jpg)
 
-- 查询当天课程表
+![](images/watch app.png)
 
-点左右边框可以查看前一天或者后一天的课程表，双击中间回到本日
+![](images/watch course.png)
 
-- 查看当天所在的教学周
+![](images/complication.png)
 
-- 查看校园网流量、网费
-
-- 查看玉兰卡余额
-
-## APP
-
-目前除了登录账号和导入课表外，没什么别的功能
-
-## 以后（可能）会添加的功能
-
-- 考试日期
-
-- 考试成绩
-
-- 西山浴池开放情况
-
-- 借书情况
-
-- Today Extension 自定义布局
-
-# 登录
-
-需要教务处密码和校园门户密码，不确定密码是多少的可以先去两个网站上试一下。
-
-就应用来说，目前只用校园门户的密码就够了，但以后要是查成绩什么的就要用到教务处密码了。
-
-# 访问网络条件
-
-感觉这个是最要的了，目前外网即可以访问，因为用的都是校园门户上的数据。
-
-# 安装
-
-没钱，续不起688的账号，开不了 Test Flight，更不能上架。想试试的自己编译吧，或者，看看就好→_→
-
-[github]: https://github.com/shino-996/DUTInfo
+[nodejs]: https://github.com/shino-996/DUTInfo-node

@@ -314,6 +314,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		B42A2DBB213D057D00948AE7 /* CourseInfo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CourseInfo;
+			sourceTree = "<group>";
+		};
 		B445E96920C901E100C1DD2E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -498,6 +505,7 @@
 				B46A6C0A1FE906F30041DBBF /* Main */,
 				B499EDF21FF1224600A84965 /* AccountLogin */,
 				B4A772251FE7B19B00B3F545 /* OtherInfo */,
+				B42A2DBB213D057D00948AE7 /* CourseInfo */,
 				B4A772241FE7B15700B3F545 /* Schedule */,
 				B44BAA632136FBFE0090A3C9 /* AddCourse */,
 				B46A6C081FE906860041DBBF /* UI */,
